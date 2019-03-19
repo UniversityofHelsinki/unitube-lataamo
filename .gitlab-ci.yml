@@ -1,4 +1,4 @@
-FROM node:8-alpine
+image: node:8-alpine
 
 # Define the stages
 stages:
