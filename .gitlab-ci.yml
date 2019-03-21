@@ -1,8 +1,5 @@
 image: node:8-alpine
 
-before_script:
-  - npm install
-
 # Cache node modules - speeds up future builds
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -11,8 +8,14 @@ cache:
 
 # Define the stages
 stages:
+  - setup
   - test
   - build
+
+setup:
+  stage: setup
+  script:
+    - npm install
 
 # Define the process for each stage
 test:
