@@ -19,7 +19,7 @@ class App extends Component {
                 }
                 alt="logo"
             />
-            <button onClick={() => this.props.rotateAction(!this.props.rotate.rotating)} >{this.props.rotate.rotating ? "STOP ROTATE" : "START ROTATE"}</button>
+            <button className="rotate-button" onClick={() => this.props.rotateAction(!this.props.rotate.rotating)} >{this.props.rotate.rotating ? "STOP ROTATE" : "START ROTATE"}</button>
             <p>
               Edit <code>src/App.js</code> and save to reload.
             </p>
