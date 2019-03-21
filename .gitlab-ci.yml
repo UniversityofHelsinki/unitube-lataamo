@@ -1,8 +1,21 @@
 image: node:8-alpine
 
+# Cache node modules - speeds up future builds
+cache:
+  paths:
+    - node_modules
+
 # Define the stages
 stages:
+  - test
   - build
+
+# Define the process for each stage
+test:
+  stage: test
+  script:
+    - npm install
+    - npm test
 
 # Define the process for each stage
 build:
