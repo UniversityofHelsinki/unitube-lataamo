@@ -1,13 +1,15 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import configureStore from 'redux-mock-store';
+import thunk from "redux-thunk";
 
-import App from './App';
+import App from '../App';
 import {Provider} from "react-redux";
+import rotateAction from "../actions/rotateAction";
+import getAction from './utils/getAction';
 
-let store;
+const mockStore = configureStore([thunk]);
 
-const buildStore = configureStore();
 
 describe('<App />', () => {
 
@@ -16,7 +18,7 @@ describe('<App />', () => {
 
     const initialState =  {rotate : {rotating: true}};
     beforeEach(() => {
-        store = buildStore(initialState);
+        store = mockStore(initialState);
         wrapper = mount(<Provider store={store}>
             <App />
         </Provider>);
@@ -34,17 +36,13 @@ describe('<App />', () => {
         expect(wrapper.find('img').first().hasClass('App-logo')).toEqual(true);
     });
 
-    it('Should pass actions updated values ', () => {
-        expect(wrapper.find('button.rotate-button').first().text()).toEqual("STOP ROTATE");
-        expect(wrapper.find('img').first().hasClass('App-logo')).toEqual(true);
+    it('Should pass actions updated values ', async() => {
         expect(store.getActions().length).toBe(0);
-        const button = wrapper.find('button.rotate-button');
-        button.simulate('click');
-        expect(store.getActions().length).toBe(1);
-        expect(store.getActions()[0]).toEqual(
-            {
-                "type": "rotate",
-                "payload": false
-            });
+        store.dispatch(rotateAction(false));
+        expect(await getAction(store, "rotate")).not.toBe(null);
+        expect(await getAction(store, "rotate")).toEqual({
+            "type": "rotate",
+            "payload": false
+        });
     });
 });
