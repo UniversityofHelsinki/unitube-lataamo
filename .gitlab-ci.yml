@@ -30,11 +30,6 @@ build:
   script:
     - npm run build
 
-  artifacts:
-    name: lataamo-build
-    paths:
-      - build
-
 
 # Define the process for deploy stage
 deploy:
@@ -49,7 +44,7 @@ deploy:
     - mkdir ~/.ssh
     - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-    - - echo "====== Test ssh connection ======"
+    - echo "====== Test ssh connection ======"
     - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T lataamo@lataamo-dev.it.helsinki.fi
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
