@@ -11,21 +11,46 @@ stages:
   - setup
   - test
   - build
+  - deploy
 
 setup:
   stage: setup
   script:
     - npm install
 
-# Define the process for each stage
+# Define the process for test stage
 test:
   stage: test
   script:
     - npm test
 
-# Define the process for each stage
+# Define the process for build stage
 build:
   stage: build
   script:
     - npm run build
 
+  artifacts:
+    name: lataamo-build
+    paths:
+      - build
+
+
+# Define the process for deploy stage
+deploy:
+  environment:
+    name: development
+  when: manual
+  script:
+    - echo "====== Deploy to development server ========"
+    - echo "====== Install rsync and openssh ========="
+    - apk add --no-cache rsync openssh
+    - echo "====== Add target servers secret key ======"
+    - mkdir ~/.ssh
+    - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - - echo "====== Test ssh connection ======"
+    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T lataamo@lataamo-dev.it.helsinki.fi
+    - echo "====== Sync local and remote directory ======"
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ lataamo@lataamo-dev.it.helsinki.fi:/var/www/html/
