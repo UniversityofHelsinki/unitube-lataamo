@@ -33,6 +33,7 @@ build:
 
 # Define the process for deploy stage
 deploy:
+  stage: deploy
   environment:
     name: development
   when: manual
