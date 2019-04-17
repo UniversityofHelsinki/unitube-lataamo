@@ -29,6 +29,10 @@ build:
   stage: build
   script:
     - npm run build
+  artifacts:
+    name: lataamo-build
+    paths:
+      - build
 
 
 # Define the process for deploy stage
