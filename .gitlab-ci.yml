@@ -41,6 +41,8 @@ deploy:
     - echo "====== Deploy to development server ========"
     - echo "====== Install rsync and openssh ========="
     - apk add --no-cache rsync openssh
+    - echo "====== Activate the ssh-agent ========"
+    - eval $(ssh-agent -s)
     - echo "====== Add target servers secret key ======"
     - mkdir ~/.ssh
     - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
