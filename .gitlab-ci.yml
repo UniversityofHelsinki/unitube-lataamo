@@ -40,7 +40,8 @@ deploy_dev:
   stage: deploy
   environment:
     name: development
-  when: manual
+  only:
+    - master
   script:
     - echo "====== Deploy to development server ========"
     - echo "====== Install rsync and openssh ========="
@@ -66,7 +67,6 @@ deploy_test:
     name: test
   only:
     - test
-  when: manual
   script:
     - echo "====== Deploy to test server ========"
     - echo "====== Install rsync and openssh ========="
