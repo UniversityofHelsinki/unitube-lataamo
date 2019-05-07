@@ -16,7 +16,7 @@ describe('<App />', () => {
     let store;
     let wrapper;
 
-    const initialState =  {rotate : {rotating: true}};
+    const initialState =  {rotate : {rotating: true}, api: {error: "", helloPayload: {}}};
     beforeEach(() => {
         store = mockStore(initialState);
         wrapper = mount(<Provider store={store}>
