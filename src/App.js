@@ -1,45 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import rotateAction from "./actions/rotateAction";
+import {fetchData} from './actions/apiAction';
 import logo from './logo.svg';
 import './App.css';
 
 
 class App extends Component {
-  render() {
-    console.log(this.props);
-    return (
-        <div className="App">
-          <header className="App-header">
-            <img
-                src={logo}
-                className={
-                  "App-logo" +
-                  (this.props.rotate.rotating ? "":" App-logo-paused")
-                }
-                alt="logo"
-            />
-            <button className="rotate-button" onClick={() => this.props.rotateAction(!this.props.rotate.rotating)} >{this.props.rotate.rotating ? "STOP ROTATE" : "START ROTATE"}</button>
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-        </div>
-    );
-  }
+
+    componentDidMount() {
+        this.props.onFetchData();
+    }
+
+    render() {
+        console.log(this.props);
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img
+                        src={logo}
+                        className={
+                            "App-logo" +
+                            (this.props.rotate.rotating ? "":" App-logo-paused")
+                        }
+                        alt="logo"
+                    />
+                    <button className="rotate-button" onClick={() => this.props.rotateAction(!this.props.rotate.rotating)} >{this.props.rotate.rotating ? "STOP ROTATE" : "START ROTATE"}</button>
+                    <p>
+                        Edit <code>src/App.js</code> and save to reload.
+                    </p>
+                    <a
+                        className="App-link"
+                        href="https://reactjs.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Learn React
+                    </a>
+                    <p>Fetching the data from the backend :</p>
+                        {this.props.api.error && <p>{this.props.api.error}</p>}
+                        {this.props.api.helloPayload && <p>{this.props.api.helloPayload.message}</p>}
+                </header>
+            </div>
+        );
+    }
 }
 const mapStateToProps = state => ({
-  ...state
+    ...state
 });
 const mapDispatchToProps = dispatch => ({
-  rotateAction: (payload) => dispatch(rotateAction(payload))
+    rotateAction: (payload) => dispatch(rotateAction(payload)),
+    onFetchData: () => dispatch(fetchData())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);
