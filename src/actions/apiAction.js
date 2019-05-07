@@ -2,7 +2,7 @@
 export const fetchData = () => {
     return async (dispatch) => {
         try {
-            let response = await fetch('http://localhost:5000/api');
+            let response = await fetch('http://localhost:3000/api');
             let responseJSON = await response.json();
             dispatch(apiSuccessCall(responseJSON));
         } catch(err) {
