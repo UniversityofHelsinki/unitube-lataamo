@@ -10,7 +10,6 @@ const App = (props) => {
     
     // https://reactjs.org/docs/hooks-effect.html
     useEffect(() => {
-        console.log('App useEffect props.onFetchVideos'); 
         props.onFetchVideos();
     }, []);
 
