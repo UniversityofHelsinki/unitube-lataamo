@@ -1,9 +1,14 @@
-const apiReducer = (state = {}, action) => {
+
+const initialState = {
+    videos: []
+};
+
+const apiReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "SUCCESS_API_CALL":
+        case "SUCCESS_API_GET_VIDEOS":            
             return {
                 ...state,
-                helloPayload: action.payload
+                videos: action.payload
             };
         case "FAILURE_API_CALL":
             return {

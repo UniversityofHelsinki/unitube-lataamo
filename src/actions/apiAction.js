@@ -1,27 +1,32 @@
 // asynchronous action creator
-export const fetchData = () => {
+
+export const fetchVideos = () => {
+
+    // json-server, port specified in package.json
+    const LOCAL_DEV_JSON_SERVER_API = 'http://localhost:3002/videos'
+
     return async (dispatch) => {
         try {
-            let response = await fetch('http://localhost:3000/api');
+            let response = await fetch(LOCAL_DEV_JSON_SERVER_API);
             let responseJSON = await response.json();
-            dispatch(apiSuccessCall(responseJSON));
+            
+            dispatch(apiGetVideosSuccessCall(responseJSON));
         } catch(err) {
             dispatch(apiFailureCall("Unable to fetch data"));
         }
     }
 }
 
-export const apiSuccessCall = data => ({
-    type: "SUCCESS_API_CALL",
-    payload: {
-        ...data
-    }
-});
+export const apiGetVideosSuccessCall = data => {
+    
+    return{
+        type: "SUCCESS_API_GET_VIDEOS",
+        payload: data
+    };
+}
 
 
 export const apiFailureCall = msg => ({
     type: "FAILURE_API_CALL",
     msg
 });
-
-
