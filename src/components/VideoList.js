@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Video from './Video';
 import { connect } from "react-redux";
+import {fetchVideos} from "../actions/videosAction";
 
 
 const VideoList = (props) => {
 
-    const renderVideos = () => props.api.videos.map(video =>
+    // https://reactjs.org/docs/hooks-effect.html
+    useEffect(() => {
+        props.onFetchVideos();
+    }, []);
+
+    const renderVideos = () => props.videos.map(video =>
       <Video key={video.id} 
             id={video.id} 
             name={video.name} 
@@ -21,7 +27,12 @@ const VideoList = (props) => {
 };
 
 const mapStateToProps = state => ({
-    ...state
+    videos : state.vr.videos
 });
 
-export default connect(mapStateToProps, null)(VideoList);
+const mapDispatchToProps = dispatch => ({
+    onFetchVideos: () => dispatch(fetchVideos())
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoList);

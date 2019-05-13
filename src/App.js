@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
-import rotateAction from "./actions/rotateAction";
-import {fetchVideos} from './actions/apiAction';
 import './App.css';
 import VideoList from './components/VideoList';
 
 
 const App = (props) => {
-    
-    // https://reactjs.org/docs/hooks-effect.html
-    useEffect(() => {
-        props.onFetchVideos();
-    }, []);
-
-
     return (
         <div className="App">
 
@@ -30,12 +21,7 @@ const App = (props) => {
 }
 
 const mapStateToProps = state => ({
-    ...state
+    error : state.vr.error
 });
 
-const mapDispatchToProps = dispatch => ({
-    rotateAction: (payload) => dispatch(rotateAction(payload)),
-    onFetchVideos: () => dispatch(fetchVideos())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
