@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import rotateReducer from './rotateReducer'
-import apiReducer from './apiReducer';
+import videosReducer from './videosReducer';
 
 const rootReducer = combineReducers({
     rotate: rotateReducer,
-    api: apiReducer
+    vr: videosReducer
 });
 
 export default rootReducer;

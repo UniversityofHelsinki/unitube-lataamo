@@ -3,7 +3,7 @@ const initialState = {
     videos: []
 };
 
-const apiReducer = (state = initialState, action) => {
+const videosReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SUCCESS_API_GET_VIDEOS":            
             return {
@@ -20,4 +20,4 @@ const apiReducer = (state = initialState, action) => {
     }
 };
 
-export default apiReducer;
+export default videosReducer;
