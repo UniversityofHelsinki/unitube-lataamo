@@ -17,11 +17,12 @@ const App = (props) => {
     return (
         <div className="App">
 
-            { <p>Fetching the data from the backend :</p>}
-            {props.api.error && <p>{props.api.error}</p>}
+            {/* { <p>Fetching the data from the backend :</p>}
+            {props.api.error && <p>{props.api.error}</p>} */}
 
             <div>
-                <h2> All videos</h2>
+                <h2> Videos</h2>
+                <p>REACT_APP_LATAAMO_PROXY_SERVER: {process.env.REACT_APP_LATAAMO_PROXY_SERVER}</p>
                 <VideoList />
             </div>
         </div>

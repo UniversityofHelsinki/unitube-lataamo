@@ -2,12 +2,12 @@
 
 export const fetchVideos = () => {
 
-    // json-server, port specified in package.json
-    const LOCAL_DEV_JSON_SERVER_API = 'http://localhost:3002/videos'
-
+    // server from .env variable
+    const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+    
     return async (dispatch) => {
         try {
-            let response = await fetch(LOCAL_DEV_JSON_SERVER_API);
+            let response = await fetch(`${VIDEO_SERVER_API}/videos`);
             let responseJSON = await response.json();
             
             dispatch(apiGetVideosSuccessCall(responseJSON));
