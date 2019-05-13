@@ -14,7 +14,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "PORT=8000 react-scripts start",
+    "start": "cross-env PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -29,6 +29,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "redux-mock-store": "^1.5.3"
   }
 }
