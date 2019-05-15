@@ -14,12 +14,14 @@ stages:
   - deploy
 
 # ------------------------------ compile stage ------------------------------
+
 compile:
   stage: compile
   script:
     - npm install
 
 # ------------------------------ test stage ------------------------------
+
 test:
   stage: test
   script:
@@ -28,19 +30,24 @@ test:
     ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
 
 # ------------------------------ build stage ------------------------------
-.build_dev:
+
+build_dev:
   stage: build
+  #only:
+  #  - master
   script:
-    - npm run build
+    - REACT_APP_LATAAMO_PROXY_SERVER=https://$LATAAMO_DEV npm run build
   artifacts:
     name: lataamo-build
     paths:
       - build
 
-.build_test:
+build_test:
   stage: build
+  only:
+    - test
   script:
-    - npm run build
+    - REACT_APP_LATAAMO_PROXY_SERVER=https://$LATAAMO_TEST npm run build
   artifacts:
     name: lataamo-build
     paths:
@@ -48,6 +55,8 @@ test:
 
 build_prod:
   stage: build
+  only:
+    - prod
   script:
     - npm run build
   artifacts:
@@ -55,8 +64,14 @@ build_prod:
     paths:
       - build
 
+
 # ------------------------------ deploy stage ------------------------------
 
+# common script for all deploy jobs
+# substitute variables
+#   $SSH_PRIVATE_KEY  <-- from Gitlab CI env variables
+#   $LATAAMO_USER     <-- from Gitlab CI env variables
+#   $SERVER           <-- define within each deploy job  <-- from Gitlab CI env variables
 .deploy_script:
   script:
     - echo "====== Install rsync and openssh ========="
@@ -70,41 +85,41 @@ build_prod:
     - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
     - echo "====== Test ssh connection and make react-app folder if not exist ======"
-    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T lataamo@$SERVER "mkdir -p /home/lataamo/react-app"
+    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $LATAAMO_USER@$SERVER "mkdir -p /home/lataamo/react-app"
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ lataamo@$SERVER:/home/lataamo/react-app
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
 
 
-# Define the process for deploy stage to development environment
+# deploy to development environment
 deploy_dev:
   stage: deploy
   environment:
     name: development
     url: https://$LATAAMO_DEV:8000
-  only:
-    - master
+  #only:
+  #  - master
   variables:
     SERVER: $LATAAMO_DEV
   before_script:
     - echo "====== Deploy to development server ========"
   extends: .deploy_script
 
-# Define the process for deploy stage to test environment
+# deploy to test environment
 deploy_test:
   stage: deploy
   environment:
     name: test
     url: https://$LATAAMO_TEST:8000
-  #only:
-  #  - test
+  only:
+    - test
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
     - echo "====== Deploy to test server ========"
   extends: .deploy_script
 
-# Define the process for deploy stage to prod environment
+# deploy to prod environment
 deploy_prod:
   stage: deploy
   environment:
