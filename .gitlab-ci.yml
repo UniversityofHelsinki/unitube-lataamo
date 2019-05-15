@@ -96,7 +96,7 @@ deploy_dev:
   stage: deploy
   environment:
     name: development
-    url: https://$LATAAMO_DEV:8000
+    url: https://$LATAAMO_DEV
   #only:
   #  - master
   variables:
@@ -110,7 +110,7 @@ deploy_test:
   stage: deploy
   environment:
     name: test
-    url: https://$LATAAMO_TEST:8000
+    url: https://$LATAAMO_TEST
   only:
     - test
   variables:
