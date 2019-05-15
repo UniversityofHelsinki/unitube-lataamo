@@ -12,11 +12,11 @@ const VideoList = (props) => {
     }, []);
 
     const renderVideos = () => props.videos.map(video =>
-      <Video key={video.id} 
-            id={video.id} 
-            name={video.name} 
-            length={video.length} 
-            owner={video.owner}/>
+     <Video key={video.identifier} 
+            id={video.identifier} 
+            title={video.title} 
+            duration={video.duration} 
+            owner={video.creator}/>
     )
   
     return (    

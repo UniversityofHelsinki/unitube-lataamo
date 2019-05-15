@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-const Video = ({name, length, owner}) => {
+const Video = ({title, duration, owner}) => {
 
     return (
       <>
         <p>
-          <b>Title: </b>{name} <b>length: </b> {length} s
+          <b>Title: </b>{title} <b>duration: </b> {duration} s
         </p>
       </>
     );

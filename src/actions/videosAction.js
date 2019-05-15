@@ -4,10 +4,11 @@ export const fetchVideos = () => {
 
     // server from .env variable
     const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+    const PATH = '/api/events';
     
     return async (dispatch) => {
         try {
-            let response = await fetch(`${VIDEO_SERVER_API}/videos`);
+            let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
             let responseJSON = await response.json();
             
             dispatch(apiGetVideosSuccessCall(responseJSON));
