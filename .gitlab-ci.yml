@@ -82,8 +82,8 @@ deploy_dev:
   environment:
     name: development
     url: https://$LATAAMO_DEV:8000
-  #only:
-  #  - master
+  only:
+    - master
   variables:
     SERVER: $LATAAMO_DEV
   before_script:
@@ -96,8 +96,8 @@ deploy_test:
   environment:
     name: test
     url: https://$LATAAMO_TEST:8000
-  only:
-    - test
+  #only:
+  #  - test
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
