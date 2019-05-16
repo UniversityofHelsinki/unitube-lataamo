@@ -1,45 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
-import rotateAction from "./actions/rotateAction";
-import logo from './logo.svg';
 import './App.css';
+import VideoList from './components/VideoList';
 
 
-class App extends Component {
-  render() {
-    console.log(this.props);
+const App = (props) => {
     return (
         <div className="App">
-          <header className="App-header">
-            <img
-                src={logo}
-                className={
-                  "App-logo" +
-                  (this.props.rotate.rotating ? "":" App-logo-paused")
-                }
-                alt="logo"
-            />
-            <button className="rotate-button" onClick={() => this.props.rotateAction(!this.props.rotate.rotating)} >{this.props.rotate.rotating ? "STOP ROTATE" : "START ROTATE"}</button>
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
+
+            {/* { <p>Fetching the data from the backend :</p>}
+            {props.api.error && <p>{props.api.error}</p>} */}
+
+            <div>
+                <h2> Videos</h2>
+                <p>REACT_APP_LATAAMO_PROXY_SERVER: {process.env.REACT_APP_LATAAMO_PROXY_SERVER}</p>
+                <VideoList />
+            </div>
         </div>
     );
-  }
 }
+
 const mapStateToProps = state => ({
-  ...state
+    error : state.vr.error
 });
-const mapDispatchToProps = dispatch => ({
-  rotateAction: (payload) => dispatch(rotateAction(payload))
-});
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps, null)(App);
