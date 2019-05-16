@@ -1,5 +1,5 @@
 {
-    "videos": [
+    "events": [
         { "identifier": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.", "duration": 0, "creator": "xyz_kuvaaja" },
         { "identifier": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "duration": 33000, "creator": "xyz_kuvaaja" },
         { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "duration": 0, "creator": "xyz_kuvaaja" },
