@@ -6,27 +6,57 @@ cache:
   paths:
     - node_modules
 
-# Define the stages
+
 stages:
-  - setup
+  - compile
   - test
   - build
   - deploy
 
-setup:
-  stage: setup
+# ------------------------------ compile stage ------------------------------
+
+compile:
+  stage: compile
   script:
     - npm install
 
-# Define the process for test stage
+# ------------------------------ test stage ------------------------------
+
 test:
   stage: test
   script:
     - npm test
+    ### ToDo: selvitä ajaako Gitlab automaattisesti Jestiä CI-moodissa (ts. ei interaktiivisesti)
+    ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
 
-# Define the process for build stage
-build:
+# ------------------------------ build stage ------------------------------
+
+build_dev:
   stage: build
+  only:
+    - master
+  script:
+    - REACT_APP_LATAAMO_PROXY_SERVER=https://$LATAAMO_DEV npm run build
+  artifacts:
+    name: lataamo-build
+    paths:
+      - build
+
+build_test:
+  stage: build
+  only:
+    - test
+  script:
+    - REACT_APP_LATAAMO_PROXY_SERVER=https://$LATAAMO_TEST npm run build
+  artifacts:
+    name: lataamo-build
+    paths:
+      - build
+
+build_prod:
+  stage: build
+  only:
+    - prod
   script:
     - npm run build
   artifacts:
@@ -35,78 +65,71 @@ build:
       - build
 
 
-# Define the process for deploy stage to development environment
+# ------------------------------ deploy stage ------------------------------
+
+# common script for all deploy jobs
+# substitute variables
+#   $SSH_PRIVATE_KEY  <-- from Gitlab CI env variables
+#   $LATAAMO_USER     <-- from Gitlab CI env variables
+#   $SERVER           <-- define within each deploy job  <-- from Gitlab CI env variables
+.deploy_script:
+  script:
+    - echo "====== Install rsync and openssh ========="
+    - apk add --no-cache rsync openssh
+    - echo "====== Activate the ssh-agent ========"
+    - eval $(ssh-agent -s)
+    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store ====="
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - echo "====== Add target servers secret key ======"
+    - mkdir ~/.ssh
+    - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - echo "====== Test ssh connection and make react-app folder if not exist ======"
+    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $LATAAMO_USER@$SERVER "mkdir -p /home/lataamo/react-app"
+    - echo "====== Sync local and remote directory ======"
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
+
+
+# deploy to development environment
 deploy_dev:
   stage: deploy
   environment:
     name: development
+    url: https://$LATAAMO_DEV
   only:
     - master
-  script:
+  variables:
+    SERVER: $LATAAMO_DEV
+  before_script:
     - echo "====== Deploy to development server ========"
-    - echo "====== Install rsync and openssh ========="
-    - apk add --no-cache rsync openssh
-    - echo "====== Activate the ssh-agent ========"
-    - eval $(ssh-agent -s)
-    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store ====="
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - echo "====== Add target servers secret key ======"
-    - mkdir ~/.ssh
-    - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-    - echo "====== Test ssh connection and make react-app folder if not exist ======"
-    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T lataamo@lataamo-dev.it.helsinki.fi "mkdir -p /home/lataamo/react-app"
-    - echo "====== Sync local and remote directory ======"
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ lataamo@lataamo-dev.it.helsinki.fi:/home/lataamo/react-app
+  extends: .deploy_script
 
-# Define the process for deploy stage to test environment
+# deploy to test environment
 deploy_test:
   stage: deploy
   environment:
     name: test
+    url: https://$LATAAMO_TEST
   only:
     - test
-  script:
+  variables:
+    SERVER: $LATAAMO_TEST
+  before_script:
     - echo "====== Deploy to test server ========"
-    - echo "====== Install rsync and openssh ========="
-    - apk add --no-cache rsync openssh
-    - echo "====== Activate the ssh-agent ========"
-    - eval $(ssh-agent -s)
-    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store ====="
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - echo "====== Add target servers secret key ======"
-    - mkdir ~/.ssh
-    - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-    - echo "====== Test ssh connection and make react-app folder if not exist ======"
-    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T lataamo@lataamo-test.it.helsinki.fi "mkdir -p /home/lataamo/react-app"
-    - echo "====== Sync local and remote directory ======"
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ lataamo@lataamo-test.it.helsinki.fi:/home/lataamo/react-app
+  extends: .deploy_script
 
-# Define the process for deploy stage to test environment
+# deploy to prod environment
 deploy_prod:
   stage: deploy
   environment:
-    name: prod
+    name: production
+    url: https://$LATAAMO_PROD
   only:
     - prod
   when: manual
-  script:
+  variables:
+    SERVER: $LATAAMO_PROD
+  before_script:
     - echo "====== Deploy to production server ========"
-    - echo "====== Install rsync and openssh ========="
-    - apk add --no-cache rsync openssh
-    - echo "====== Activate the ssh-agent ========"
-    - eval $(ssh-agent -s)
-    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store ====="
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - echo "====== Add target servers secret key ======"
-    - mkdir ~/.ssh
-    - echo $SSH_PRIVATE_KEY  >> ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-    - echo "====== Test ssh connection and make react-app folder if not exist ======"
-    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T lataamo@lataamo-prod.it.helsinki.fi "mkdir -p /home/lataamo/react-app"
-    - echo "====== Sync local and remote directory ======"
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ lataamo@lataamo-prod.it.helsinki.fi:/home/lataamo/react-app
+  extends: .deploy_script
