@@ -2,19 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import VideoList from './components/VideoList';
-import { BrowserRouter as Router,Route, Redirect } from 'react-router-dom';
+import LoginRedirect from './components/LoginRedirect';
 
 
-const App = (props) => {
+const App = () => {
 
-
-  const LATAAMO_DEV = 'https://lataamo-dev.it.helsinki.fi/Shibboleth.sso/Login';
+  const LATAAMO_DEV_LOGIN = 'REPLACE_WITH_VALUE';
 
   return (
     <div className="App">
-
-      {/* { <p>Fetching the data from the backend :</p>}
-            {props.api.error && <p>{props.api.error}</p>} */}
 
       <div>
         <h2> Videos</h2>
@@ -22,14 +18,12 @@ const App = (props) => {
         <VideoList />
       </div>
 
-      <Router>
-        <h1>Unitube lataamo</h1>
-        <Redirect to="/login" />
-        <Route path="/login" render={() => window.location.href = LATAAMO_DEV} />
-      </Router>
+      <LoginRedirect loginUrl={LATAAMO_DEV_LOGIN} />
+
     </div>
   );
 };
+
 
 const mapStateToProps = state => ({
   error : state.vr.error
