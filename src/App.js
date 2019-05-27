@@ -7,7 +7,7 @@ import LoginRedirect from './components/LoginRedirect';
 
 const App = () => {
 
-  const LATAAMO_DEV_LOGIN = 'REPLACE_WITH_VALUE';
+  const LATAAMO_DEV_LOGIN = 'https://lataamo-dev.it.helsinki.fi/Shibboleth.sso/Login';
 
   return (
     <div className="App">

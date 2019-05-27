@@ -9,18 +9,13 @@ export const fetchVideos = () => {
   return async (dispatch) => {
     try {
       let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
-
-      if(response.status === 200){
+      if(response.status === 200) {
         let responseJSON = await response.json();
-        console.log('resp', response );
-
         dispatch(apiGetVideosSuccessCall(responseJSON));
-      }else{
+      } else {
         dispatch(api401FailureCall('401 response'));
       }
     } catch(err) {
-      console.log('err', err);
-
       dispatch(apiFailureCall('Unable to fetch data'));
     }
   };

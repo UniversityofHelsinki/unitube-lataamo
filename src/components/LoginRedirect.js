@@ -1,23 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router,Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 
 const LoginRedirect = (props) => {
-
-  console.log('LoginRedirect', props);
-
-  // TODO check this
-  //   if(props.redirect401){
-  //     return(
-  //       <Router>
-  //         <Redirect to="/login" />
-  //         <Route path="/login" render={() => window.location.href = props.loginUrl} />
-  //       </Router>
-  //     );
-  //   }
-  console.log('LoginRedirect EKA KERTA', props);
+  console.log(props);
+  if(props.apiError || props.redirect401) {
+    window.location.assign(props.loginUrl);
+  }
   return null;
 };
 
@@ -26,7 +16,8 @@ LoginRedirect.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  redirect401 : state.sr.redirect401
+  redirect401 : state.sr.redirect401,
+  apiError : state.sr.apiError
 });
 
 export default connect(mapStateToProps, null)(LoginRedirect);
