@@ -13,8 +13,9 @@ describe('<App />', () => {
     let wrapper;
 
     const initialState =  {
-        //rotate : {rotating: true}, 
-        vr: {error: "", videos:[]}
+        //rotate : {rotating: true},
+        vr: {videos:[]},
+        sr: {apiError: null}
     }
 
     beforeEach(() => {
