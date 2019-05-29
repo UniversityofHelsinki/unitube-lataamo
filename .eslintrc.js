@@ -1,10 +1,11 @@
 module.exports = {
     "env": {
+        "node": true,
         "browser": true,
         "es6": true,
         "jest/globals": true
     },
-    "extends": [ 
+    "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
     ],
@@ -19,10 +20,7 @@ module.exports = {
         "react", "jest"
     ],
     "rules": {
-        "indent": [
-            "error",
-            2
-        ],
+        "indent": [2, 4],
         "linebreak-style": [
             "error",
             "unix"

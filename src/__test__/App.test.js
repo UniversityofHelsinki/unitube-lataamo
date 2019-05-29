@@ -1,10 +1,10 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
-import thunk from "redux-thunk";
+import thunk from 'redux-thunk';
 
 import App from '../App';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 const mockStore = configureStore([thunk]);
 
 describe('<App />', () => {
@@ -14,9 +14,11 @@ describe('<App />', () => {
 
     const initialState =  {
         //rotate : {rotating: true},
-        vr: {videos:[]},
-        sr: {apiError: null}
-    }
+        vr: { error: '', videos:[] },
+        ur: { user: '' },
+        sr: { apiError: null }
+    };
+
 
     beforeEach(() => {
         store = mockStore(initialState);
