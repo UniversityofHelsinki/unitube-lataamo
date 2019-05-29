@@ -9,7 +9,7 @@ const User = (props) => {
         props.onFetchUser();
     }, []);
 
-    const loggedUser = props.user ? props.user : '';
+    const loggedUser = props.user ? props.user : {};
 
     return (
         <div>
