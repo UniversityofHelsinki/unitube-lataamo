@@ -9,11 +9,11 @@ const User = (props) => {
         props.onFetchUser();
     }, []);
 
-    const content = props.user ? props.user : '';
+    const loggedUser = props.user ? props.user : '';
 
     return (
         <div>
-            <p>Username: {content.eppn} preferredLanguage: {content.preferredLanguage}</p>
+            <p>Username: {loggedUser.eppn} preferredLanguage: {loggedUser.preferredLanguage}</p>
         </div>
     );
 };
