@@ -1,12 +1,12 @@
 const translationsObject = {
     en: {
-        hello: 'Hello!'
+        videos: 'Videos'
     },
     fi: {
-        hello: 'Tervehdys!'
+        videos: 'Videoni'
     },
     sv: {
-        hello: "Hälsningar!"
+        videos: "Videor"
     }
 };
 

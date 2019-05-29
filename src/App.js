@@ -9,13 +9,12 @@ const App = (props) => {
     return (
         <div className="App">
             <Language />
-            <Translate value="hello" />
 
             {/* { <p>Fetching the data from the backend :</p>}
             {props.api.error && <p>{props.api.error}</p>} */}
 
             <div>
-                <h2> Videos</h2>
+                <h2><Translate value="videos" /></h2>
                 <p>REACT_APP_LATAAMO_PROXY_SERVER: {process.env.REACT_APP_LATAAMO_PROXY_SERVER}</p>
                 <VideoList />
             </div>
