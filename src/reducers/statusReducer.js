@@ -13,7 +13,7 @@ const statusReducer = (state = initialState, action) => {
     case "FAILURE_API_CALL":
       return {
         ...state,
-        apiError: new Date()
+        apiError: action.msg
       };
     default:
       return state;

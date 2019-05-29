@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const LoginRedirect = (props) => {
   console.log(props);
-  if(props.apiError || props.redirect401) {
+  if(props.redirect401) {
     window.location.assign(props.loginUrl);
   }
   return null;
