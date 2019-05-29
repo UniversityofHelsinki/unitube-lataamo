@@ -14,7 +14,8 @@ describe('<App />', () => {
 
     const initialState =  {
         //rotate : {rotating: true},
-        vr: { error: '', videos:[] }
+        vr: { error: '', videos:[] },
+        ur: { user: '' }
     };
 
     beforeEach(() => {
