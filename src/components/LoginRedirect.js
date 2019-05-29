@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 
 const LoginRedirect = (props) => {
-  console.log(props);
-  if(props.redirect401) {
-    window.location.assign(props.loginUrl);
-  }
+
+
+  useEffect(() => {
+    if(props.redirect401) {
+      window.location.assign(props.loginUrl);
+    }
+  }, [props.redirect401]);
   return null;
 };
 
