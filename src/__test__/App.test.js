@@ -15,8 +15,10 @@ describe('<App />', () => {
     const initialState =  {
         //rotate : {rotating: true},
         vr: { error: '', videos:[] },
-        ur: { user: '' }
+        ur: { user: '' },
+        sr: { apiError: null }
     };
+
 
     beforeEach(() => {
         store = mockStore(initialState);

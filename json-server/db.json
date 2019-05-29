@@ -5,5 +5,8 @@
         { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "duration": 0, "creator": "xyz_kuvaaja" },
         { "identifier": "eb68f711-04f9-4b58-b6c8-582a77d7b8a5", "title": "Autonomisen yhteiskunnan mahdollisuudet ja uhat maapallolla.", "duration": 0, "creator": "xzz_kuvaaja" },
         { "identifier": "e269af0d-3c68-457d-90b5-08da5b531152", "title": "Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.", "duration   ": 25000, "creator": "xyx_kuvaaja" }
-    ]
+    ],
+    "user": {
+        "eppn": "kayttaja", "preferredLanguage" : "fi"
+    }
 }
