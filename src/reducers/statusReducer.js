@@ -8,12 +8,12 @@ const statusReducer = (state = initialState, action) => {
     case 'STATUS_401_API_CALL':
       return {
         ...state,
-        redirect401: new Date()
+        redirect401: action.payload
       };
     case "FAILURE_API_CALL":
       return {
         ...state,
-        apiError: action.msg
+        apiError: action.payload
       };
     default:
       return state;

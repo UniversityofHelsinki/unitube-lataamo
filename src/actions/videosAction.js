@@ -13,7 +13,7 @@ export const fetchVideos = () => {
         let responseJSON = await response.json();
         dispatch(apiGetVideosSuccessCall(responseJSON));
       } else {
-        dispatch(api401FailureCall('401 response'));
+        dispatch(api401FailureCall(new Date()));
       }
     } catch(err) {
       dispatch(apiFailureCall('Unable to fetch data'));
@@ -21,21 +21,18 @@ export const fetchVideos = () => {
   };
 };
 
-export const apiGetVideosSuccessCall = data => {
+export const apiGetVideosSuccessCall = data => ({
+  type: 'SUCCESS_API_GET_VIDEOS',
+  payload: data
+});
 
-  return{
-    type: 'SUCCESS_API_GET_VIDEOS',
-    payload: data
-  };
-};
-
-export const api401FailureCall = msg => ({
+export const api401FailureCall = failureTime => ({
   type: 'STATUS_401_API_CALL',
-  msg
+  payload : failureTime
 });
 
 
 export const apiFailureCall = msg => ({
   type: 'FAILURE_API_CALL',
-  msg
+  payload: msg
 });

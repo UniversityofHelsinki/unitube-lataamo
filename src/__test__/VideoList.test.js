@@ -51,7 +51,7 @@ describe('<VideoList />', () => {
         expect(await getAction(store, "FAILURE_API_CALL")).not.toBe(null);
         expect(await getAction(store, "FAILURE_API_CALL")).toEqual({
             "type": "FAILURE_API_CALL",
-            "msg": msg
+            "payload": msg
         });
     });
 
