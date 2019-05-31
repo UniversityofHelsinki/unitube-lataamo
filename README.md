@@ -19,7 +19,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 For more info about naming conventions and .env files see [Adding Custom Environment Variables](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables) <br>
 For more info about json-server fake REST API see [JSON server](https://github.com/typicode/json-server)
 
+### Translation library
 
+- https://www.npmjs.com/package/react-redux-i18n
 
 ## Available Scripts
 

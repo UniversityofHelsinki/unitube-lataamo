@@ -36,7 +36,8 @@ build_dev:
   only:
     - master
   script:
-    - REACT_APP_LATAAMO_PROXY_SERVER=https://$LATAAMO_DEV npm run build
+    - yes | cp -f -v .env.development .env.production || true
+    - npm run build
   artifacts:
     name: lataamo-build
     paths:
@@ -47,7 +48,8 @@ build_test:
   only:
     - test
   script:
-    - REACT_APP_LATAAMO_PROXY_SERVER=https://$LATAAMO_TEST npm run build
+    - yes | cp -f -v .env.testing .env.production || true
+    - npm run build
   artifacts:
     name: lataamo-build
     paths:
