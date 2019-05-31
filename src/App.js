@@ -9,7 +9,7 @@ import LoginRedirect from './components/LoginRedirect';
 
 const App = (props) => {
 
-    const LATAAMO_DEV_LOGIN = 'https://lataamo-dev.it.helsinki.fi/Shibboleth.sso/Login';
+    const SHIBBOLETH_LOGIN = process.env.REACT_APP_LATAAMO_LOGIN;
 
     return (
         <div className="App">
@@ -20,7 +20,7 @@ const App = (props) => {
                 <VideoList />
             </div>
 
-            <LoginRedirect loginUrl={LATAAMO_DEV_LOGIN} />
+            <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
 
         </div>
     );
