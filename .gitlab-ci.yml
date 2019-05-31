@@ -36,7 +36,7 @@ build_dev:
   only:
     - master
   script:
-    - yes | cp -f .env.development .env.production
+    - yes | cp -f -v .env.development .env.production
     - npm run build
   artifacts:
     name: lataamo-build
@@ -48,7 +48,7 @@ build_test:
   only:
     - test
   script:
-    - yes | cp -f .env.testing .env.production
+    - yes | cp -f -v .env.testing .env.production
     - npm run build
   artifacts:
     name: lataamo-build
