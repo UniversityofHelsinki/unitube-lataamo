@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {fetchVideos} from '../actions/videosAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Translate } from 'react-redux-i18n';
 
 const { SearchBar } = Search;
 
@@ -35,6 +36,7 @@ const VideoList = (props) => {
 
     return (
         <div>
+            <Translate value="videos" />
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"
