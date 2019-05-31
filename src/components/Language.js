@@ -5,7 +5,7 @@ import { setLocale } from 'react-redux-i18n';
 
 const Language = (props) => {
 
-    props.setInitialLanguage('fi');
+    props.setInitialLanguage(props.user.preferredLanguage);
 
     return (
         <div>
@@ -17,10 +17,14 @@ const Language = (props) => {
     );
 };
 
+const mapStateToProps = state => ({
+    user: state.ur.user
+});
+
 const mapDispatchToProps = dispatch => ({
     setInitialLanguage: (lang) => dispatch(setLocale(lang)),
     onLanguageChange: (event, lang) => dispatch(setLocale(lang))
 });
 
-export default connect(null, mapDispatchToProps)(Language);
+export default connect(mapStateToProps, mapDispatchToProps)(Language);
 
