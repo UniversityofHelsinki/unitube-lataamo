@@ -37,7 +37,6 @@ build_dev:
     - master
   script:
     - yes | cp -f -v .env.development .env.production
-    - npm run build
   artifacts:
     name: lataamo-build
     paths:
