@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import Video from './Video';
 import { connect } from "react-redux";
 import {fetchVideos} from "../actions/videosAction";
+import BootstrapTable from 'react-bootstrap-table-next';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
+const { SearchBar } = Search;
 
 const VideoList = (props) => {
 
@@ -11,18 +13,49 @@ const VideoList = (props) => {
         props.onFetchVideos();
     }, []);
 
-    const renderVideos = () => props.videos.map(video =>
-     <Video key={video.identifier} 
-            id={video.identifier} 
-            title={video.title} 
-            duration={video.duration} 
-            owner={video.creator}/>
-    )
-  
-    return (    
-      <div>
-        {renderVideos()}
-      </div>
+    const columns = [{
+        dataField: 'identifier',
+        text: 'Identifier',
+        sort: true
+    }, {
+        dataField: 'title',
+        text: 'Product Name',
+        sort: true
+    }, {
+        dataField: 'duration',
+        text: 'Video duration',
+        sort: true
+    }];
+
+    const defaultSorted = [{
+        dataField: 'identifier',
+        order: 'desc'
+    }];
+
+
+    return (
+        <div>
+            <ToolkitProvider
+                bootstrap4
+                keyField="identifier"
+                data={ props.videos }
+                columns={ columns }
+                search
+                defaultSorted={ defaultSorted }>
+                {
+                    props => (
+                        <div>
+                            <h3>Input something at below input field:</h3>
+                            <SearchBar { ...props.searchProps } />
+                            <hr />
+                            <BootstrapTable
+                                { ...props.baseProps }
+                            />
+                        </div>
+                    )
+                }
+            </ToolkitProvider>
+        </div>
     );
 };
 

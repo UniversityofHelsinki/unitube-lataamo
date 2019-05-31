@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import './App.css';
+import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -9,7 +9,7 @@ import './stylesheets/main.sass';
 
 const App = (props) => {
     return (
-        <div className="App">
+        <div className="container-fluid">
             <Header />
             <div className="content-wrapper">
                 <h2> Videos</h2>
