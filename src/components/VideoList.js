@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { connect } from "react-redux";
-import {fetchVideos} from "../actions/videosAction";
+import { connect } from 'react-redux';
+import {fetchVideos} from '../actions/videosAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
