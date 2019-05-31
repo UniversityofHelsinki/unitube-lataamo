@@ -2,6 +2,27 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+### Local installation
+
+- clone the repo <br>
+  Client uses REACT_APP_LATAAMO_PROXY_SERVER environment variable. For local <br>
+  development it is set in the env.development.local file. <br>
+- create env.development.local file to the project root and add REACT_APP_LATAAMO_PROXY_SERVER variable <br>
+  `cd unitube-lataamo && echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3002" > .env.development.local`
+- install dependencies, start the local fake REST API and start the react app <br>
+ `npm install && npm run local-dev-db && npm start`
+
+
+
+
+For more info about naming conventions and .env files see [Adding Custom Environment Variables](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables) <br>
+For more info about json-server fake REST API see [JSON server](https://github.com/typicode/json-server)
+
+### Translation library
+
+- https://www.npmjs.com/package/react-redux-i18n
+
 ## Available Scripts
 
 In the project directory, you can run:

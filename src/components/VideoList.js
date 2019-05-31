@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import Video from './Video';
-import { connect } from "react-redux";
-import {fetchVideos} from "../actions/videosAction";
+import { connect } from 'react-redux';
+import { fetchVideos } from '../actions/videosAction';
+import { Translate } from 'react-redux-i18n';
 
 
 const VideoList = (props) => {
@@ -12,17 +13,18 @@ const VideoList = (props) => {
     }, []);
 
     const renderVideos = () => props.videos.map(video =>
-     <Video key={video.identifier} 
-            id={video.identifier} 
-            title={video.title} 
-            duration={video.duration} 
+        <Video key={video.identifier}
+            id={video.identifier}
+            title={video.title}
+            duration={video.duration}
             owner={video.creator}/>
-    )
-  
-    return (    
-      <div>
-        {renderVideos()}
-      </div>
+    );
+
+    return (
+        <div>
+            <b><Translate value="videos" /></b>
+            {renderVideos()}
+        </div>
     );
 };
 
