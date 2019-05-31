@@ -13,15 +13,11 @@ const App = (props) => {
 
     return (
         <div className="App">
-            <Language />
-            {props.apiError && <p>{props.apiError}</p>}
-            <div>
-                <User />
-                <VideoList />
-            </div>
-
             <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
-
+            <Language />
+            <User />
+            {props.apiError && <p>{props.apiError}</p>}
+            <VideoList />
         </div>
     );
 };
