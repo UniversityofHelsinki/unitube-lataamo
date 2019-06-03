@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setLocale } from 'react-redux-i18n';
 import languageChangeAction from '../actions/languageChangeAction';
+import { I18n } from 'react-redux-i18n';
 
 
 const Language = (props) => {
