@@ -17,7 +17,7 @@ function Navigation() {
                         </li>
                     </ul>
                     <ul className="nav navbar-nav mx-auto">
-                        <li className="nav-item"><a className="nav-link" href="#">Lataamo</a></li>
+                        <h2 className='text-white'><Translate value="lataamo"/></h2>
                     </ul>
                     <ul className="nav navbar-nav">
                         <Language />

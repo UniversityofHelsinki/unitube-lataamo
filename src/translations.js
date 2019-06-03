@@ -1,5 +1,6 @@
 const translationsObject = {
     en: {
+        lataamo: 'Loader',
         videos: 'Videos',
         series: 'Series',
         search: 'Search',
@@ -8,6 +9,7 @@ const translationsObject = {
         video_id : 'Video identifier'
     },
     fi: {
+        lataamo: 'Lataamo',
         videos: 'Videoni',
         series: 'Sarjani',
         search: 'Etsi',
@@ -16,6 +18,7 @@ const translationsObject = {
         video_id : 'Videon tunniste'
     },
     sv: {
+        lataamo: 'Loader',
         videos: 'Videor',
         series: 'Serie',
         search: 'Söka',
