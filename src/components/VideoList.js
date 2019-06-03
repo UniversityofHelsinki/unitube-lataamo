@@ -48,7 +48,7 @@ const VideoList = (props) => {
                     props => (
                         <div>
                             <br />
-                            <SearchBar { ...props.searchProps } placeholder="" />
+                            <SearchBar { ...props.searchProps } placeholder={translations ? translations['search'] : ''} />
                             <hr />
                             <BootstrapTable { ...props.baseProps } pagination={ paginationFactory() } />
                         </div>
