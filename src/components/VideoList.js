@@ -4,6 +4,7 @@ import { fetchVideos } from '../actions/videosAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import { Translate } from 'react-redux-i18n';
 
 
 const { SearchBar } = Search;
@@ -16,15 +17,15 @@ const VideoList = (props) => {
 
     const columns = [{
         dataField: 'identifier',
-        text: 'Identifier',
+        text: <Translate value="video_id" />,
         sort: true
     }, {
         dataField: 'title',
-        text: 'Product Name',
+        text: <Translate value="video_title" />,
         sort: true
     }, {
         dataField: 'duration',
-        text: 'Video duration',
+        text: <Translate value="video_duration" />,
         sort: true
     }];
 
