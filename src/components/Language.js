@@ -16,10 +16,10 @@ const Language = (props) => {
 
     return (
         <div>
-            <li className="">
-                <button type="button" className={props.user.preferredLanguage === 'fi' ? 'btn btn-outline-secondary mr-1 active' : 'btn btn-outline-secondary mr-1'} onClick={e => props.onLanguageChange(e, 'fi')}>Suomeksi</button>
-                <button type="button" className={props.user.preferredLanguage === 'en' ? 'btn btn-outline-secondary mr-1 active' : 'btn btn-outline-secondary mr-1'} onClick={e => props.onLanguageChange(e, 'en')}>Englanniksi</button>
-                <button type="button" className={props.user.preferredLanguage === 'sv' ? 'btn btn-outline-secondary mr-1 active' : 'btn btn-outline-secondary mr-1'} onClick={e => props.onLanguageChange(e, 'sv')}>Ruotsiksi</button>
+            <li className="nav-item">
+                <button type="button" className={props.user.preferredLanguage === 'fi' ? 'btn btn-outline-secondary mr-1 active btn-sm' : 'btn btn-outline-secondary mr-1 btn-sm'} onClick={e => props.onLanguageChange(e, 'fi')}>Suomeksi</button>
+                <button type="button" className={props.user.preferredLanguage === 'en' ? 'btn btn-outline-secondary mr-1 active btn-sm' : 'btn btn-outline-secondary mr-1 btn-sm'} onClick={e => props.onLanguageChange(e, 'en')}>Englanniksi</button>
+                <button type="button" className={props.user.preferredLanguage === 'sv' ? 'btn btn-outline-secondary mr-1 active btn-sm' : 'btn btn-outline-secondary mr-1 btn-sm'} onClick={e => props.onLanguageChange(e, 'sv')}>Ruotsiksi</button>
             </li>
         </div>
     );

@@ -1,15 +1,18 @@
 const translationsObject = {
     en: {
         videos: 'Videos',
-        series: 'Series'
+        series: 'Series',
+        search: 'Search'
     },
     fi: {
         videos: 'Videoni',
-        series: 'Sarjani'
+        series: 'Sarjani',
+        search: 'Etsi'
     },
     sv: {
         videos: 'Videor',
-        series: 'Serie'
+        series: 'Serie',
+        search: 'Söka'
     }
 };
 

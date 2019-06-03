@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {fetchVideos} from '../actions/videosAction';
+import { fetchVideos } from '../actions/videosAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import { Translate } from 'react-redux-i18n';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+
 
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
 
-    // https://reactjs.org/docs/hooks-effect.html
     useEffect(() => {
         props.onFetchVideos();
     }, []);
@@ -33,8 +33,41 @@ const VideoList = (props) => {
         order: 'desc'
     }];
 
+    const pageButtonRenderer = ({
+        page,
+        active,
+        onPageChange
+    }) => {
+        const handleClick = (e) => {
+            e.preventDefault();
+            onPageChange(page);
+        };
+        const activeStyle = {};
+        if (active) {
+            activeStyle.backgroundColor = 'black';
+            activeStyle.color = 'white';
+        } else {
+            activeStyle.backgroundColor = 'gray';
+            activeStyle.color = 'black';
+        }
+        if (typeof page === 'string') {
+            activeStyle.backgroundColor = 'white';
+            activeStyle.color = 'black';
+        }
+        return (
+            <li className="page-item">
+                <a className="page-link" href="#" onClick={ handleClick } style={ activeStyle }>{ page }</a>
+            </li>
+        );
+    };
+
+    const options = {
+        pageButtonRenderer
+    };
+
 
     return (
+
         <div>
             <ToolkitProvider
                 bootstrap4
@@ -46,12 +79,10 @@ const VideoList = (props) => {
                 {
                     props => (
                         <div>
-                            <h3>Input something at below input field:</h3>
-                            <SearchBar { ...props.searchProps } />
+                            <br />
+                            <SearchBar { ...props.searchProps } placeholder="" />
                             <hr />
-                            <BootstrapTable
-                                { ...props.baseProps }
-                            />
+                            <BootstrapTable { ...props.baseProps } pagination={ paginationFactory(options) } />
                         </div>
                     )
                 }
