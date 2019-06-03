@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setLocale } from 'react-redux-i18n';
 import languageChangeAction from '../actions/languageChangeAction';
 
 
 const Language = (props) => {
-    props.setInitialLanguage(props.user.preferredLanguage);
+
+    useEffect(() => {
+        if(props.user && props.user.preferredLanguage) {
+            props.setInitialLanguage(props.user.preferredLanguage);
+        } else {
+            props.setInitialLanguage('fi');
+        }
+    }, []);
 
     return (
         <div>

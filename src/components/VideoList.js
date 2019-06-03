@@ -36,7 +36,6 @@ const VideoList = (props) => {
 
     return (
         <div>
-            <Translate value="videos" />
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"

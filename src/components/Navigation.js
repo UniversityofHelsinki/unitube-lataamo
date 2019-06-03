@@ -1,6 +1,6 @@
 import React from 'react';
 import Language from '../components/Language';
-import User from '../components/User';
+import { Translate } from 'react-redux-i18n';
 
 function Navigation() {
 
@@ -10,20 +10,17 @@ function Navigation() {
                 <div className="container">
                     <ul className="nav navbar-nav">
                         <li className="nav-item active">
-                            <a className="nav-link" href="#">Home</a>
+                            <a className="nav-link" href="#"><Translate value="videos" /></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Download</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Register</a>
+                            <a className="nav-link" href="#"><Translate value="series" /></a>
                         </li>
                     </ul>
                     <ul className="nav navbar-nav mx-auto">
-                        <li className="nav-item"><a className="nav-link" href="#">Website Name</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#">Lataamo</a></li>
                     </ul>
                     <ul className="nav navbar-nav">
-                        <Language/>
+                        <Language />
                     </ul>
                 </div>
             </nav>
