@@ -1,6 +1,6 @@
 
 const initialState = {
-    user: {}
+    user: { eppn: '', preferredLanguage: '' }
 };
 
 const userReducer = (state = initialState, action) => {
@@ -9,6 +9,14 @@ const userReducer = (state = initialState, action) => {
         return {
             ...state,
             user: action.payload
+        };
+    case 'LANGUAGE_CHANGE':
+        return {
+            ...state,
+            user : {
+                eppn: state.user.eppn,
+                preferredLanguage: action.payload
+            }
         };
     default:
         return state;
