@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const SeriesList = () => {
+const SeriesList = (props) => {
+    const id = props.id;
     return (
         <div>
             Series
+            <p>{id}</p>
         </div>
     );
 };
 
-const mapStateToProps = state => ({
-    user : state.ur.user
+const mapStateToProps = (state, ownProps) => ({
+    id: ownProps.match.params.id
 });
 
 

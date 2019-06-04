@@ -29,6 +29,7 @@ const App = (props) => {
                         <Switch>
                             <Route exact path='/' component={VideoList}/>
                             <Route exact path='/series' component={SeriesList}/>
+                            <Route path="/series/:id" component={SeriesList} />
                         </Switch>
                     </div>
                 </div>
