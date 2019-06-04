@@ -11,21 +11,25 @@ const VideoList = (props) => {
 
     const translations =  props.i18n.translations[props.i18n.locale];
 
+    const translate = (key) => {
+        return translations ? translations[key] : '';
+    }
+
     useEffect(() => {
         props.onFetchVideos();
     }, []);
 
     const columns = [{
         dataField: 'identifier',
-        text: translations ? translations['video_id'] : '',
+        text: translate('video_id'),
         sort: true
     }, {
         dataField: 'title',
-        text: translations ? translations['video_title'] : '',
+        text: translate('video_title'),
         sort: true
     }, {
         dataField: 'duration',
-        text: translations ? translations['video_duration'] : '',
+        text: translate('video_duration'),
         sort: true
     }];
 
@@ -48,7 +52,7 @@ const VideoList = (props) => {
                     props => (
                         <div>
                             <br />
-                            <SearchBar { ...props.searchProps } placeholder={translations ? translations['search'] : ''} />
+                            <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
                             <BootstrapTable { ...props.baseProps } pagination={ paginationFactory() } />
                         </div>
