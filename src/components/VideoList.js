@@ -9,6 +9,8 @@ const { SearchBar } = Search;
 
 const VideoList = (props) => {
 
+    console.log(props.i18n.translations);
+
     const translations =  props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
