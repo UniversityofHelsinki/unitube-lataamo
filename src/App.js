@@ -1,34 +1,59 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './App.css';
+import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
-import Language from './components/Language';
-import User from './components/User';
+import SeriesList from './components/SeriesList';
+import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
+import Navigation from './components/Navigation';
+import { fetchUser } from './actions/userAction';
 
 
 const App = (props) => {
 
+    useEffect(() => {
+        props.onFetchUser();
+    }, []);
+
     const SHIBBOLETH_LOGIN = process.env.REACT_APP_LATAAMO_LOGIN;
 
     return (
-        <div className="App">
-            <Language />
-            {props.apiError && <p>{props.apiError}</p>}
-            <div>
-                <User />
-                <VideoList />
-            </div>
-
-            <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
-
+        <div className="container-fluid">
+            { props.loggedUser && props.loggedUser.eppn
+                ?
+                <div>
+                    <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
+                    <Navigation />
+                    <div className="content-wrapper">
+                        <Switch>
+                            <Route exact path='/' component={VideoList}/>
+                            <Route exact path='/series' component={SeriesList}/>
+                            <Route path="/series/:id" component={SeriesList} />
+                        </Switch>
+                    </div>
+                </div>
+                : (
+                    <div className="container-fluid">
+                        {props.apiError ?
+                            <p>{props.apiError}</p>
+                            : <p>Loading ...</p>}
+                        <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
+                    </div>
+                )
+            }
         </div>
     );
 };
 
 
 const mapStateToProps = state => ({
-    apiError : state.sr.apiError
+    apiError : state.sr.apiError,
+    loggedUser : state.ur.user
 });
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => ({
+    onFetchUser: () => dispatch(fetchUser())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

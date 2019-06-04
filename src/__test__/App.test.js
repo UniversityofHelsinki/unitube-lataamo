@@ -19,6 +19,8 @@ describe('<App />', () => {
         sr: { apiError: null }
     };
 
+    process.env.REACT_APP_LATAAMO_LOGIN = 'localhost';
+
 
     beforeEach(() => {
         store = mockStore(initialState);
