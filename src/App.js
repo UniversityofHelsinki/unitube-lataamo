@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
+import SeriesList from './components/SeriesList';
 import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
 import Navigation from './components/Navigation';
@@ -24,7 +26,10 @@ const App = (props) => {
                     <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
                     <Navigation />
                     <div className="content-wrapper">
-                        <VideoList />
+                        <Switch>
+                            <Route exact path='/' component={VideoList}/>
+                            <Route exact path='/series' component={SeriesList}/>
+                        </Switch>
                     </div>
                 </div>
                 : (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Language from '../components/Language';
 import { Translate } from 'react-redux-i18n';
 
@@ -10,10 +11,10 @@ function Navigation() {
                 <div className="container">
                     <ul className="nav navbar-nav">
                         <li className="nav-item active">
-                            <a className="nav-link" href="#"><Translate value="videos" /></a>
+                            <Link to="/" className="nav-link"><Translate value="videos" /></Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#"><Translate value="series" /></a>
+                            <Link to="/series" className="nav-link"><Translate value="series" /></Link>
                         </li>
                     </ul>
                     <ul className="nav navbar-nav mx-auto">
