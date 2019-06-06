@@ -4,7 +4,7 @@ export const fetchVideos = () => {
 
     // server from .env variable
     const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-    const PATH = '/api/events';
+    const PATH = '/api/userEvents';
 
     return async (dispatch) => {
         try {
