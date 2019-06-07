@@ -16,13 +16,13 @@ const videos =  [
     { 'identifier': 'e269af0d-3c68-457d-90b5-08da5b531152', 'title': 'Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.', 'duration   ': 25000, 'creator': 'xyx_kuvaaja' }
 ];
 
-const translations = { en: { lataamo: 'Loader', series: 'Videos', series: 'Series', search: 'Search', video_title: 'Video title' }, fi: { lataamo: 'Lataamo', series: 'Videoni', series: 'Sarjani', search: 'Etsi', video_title: 'Videon nimi' }, sv: { lataamo: 'Loader', series: 'Videor', series: 'Serie', search: 'Söka', video_title: 'Video titeln' } };
+const translations = { en: { lataamo: 'Loader', videos: 'Videos', search: 'Search', video_title: 'Video title' }, fi: { lataamo: 'Lataamo', videos: 'Videoni', search: 'Etsi', video_title: 'Videon nimi' }, sv: { lataamo: 'Loader', videos: 'Videor', search: 'Söka', video_title: 'Video titeln' } };
 
 const msg = 'Unable to fetch data';
 
 describe('<VideoList />', () => {
     const initialState =  {
-        vr: { error: '', series: videos },
+        vr: { error: '', videos: videos },
         i18n : {
             translations: translations,
             locale: 'fi'
