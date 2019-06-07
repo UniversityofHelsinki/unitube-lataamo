@@ -4,13 +4,15 @@ import videosReducer from './videosReducer';
 import { i18nReducer } from 'react-redux-i18n';
 import userReducer from './userReducer';
 import statusReducer from './statusReducer';
+import seriesReducer from './seriesReducer';
 
 const rootReducer = combineReducers({
     rotate: rotateReducer,
     i18n: i18nReducer,
     vr: videosReducer,
     ur: userReducer,
-    sr: statusReducer
+    sr: statusReducer,
+    ser: seriesReducer
 });
 
 export default rootReducer;
