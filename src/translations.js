@@ -6,7 +6,8 @@ const translationsObject = {
         search: 'Search',
         video_title: 'Video title',
         video_duration: 'Duration of video',
-        video_id : 'Video identifier'
+        video_id : 'Video identifier',
+        redirecting: 'Redirecting to login page...'
     },
     fi: {
         lataamo: 'Lataamo',
@@ -15,7 +16,8 @@ const translationsObject = {
         search: 'Etsi',
         video_title: 'Videon nimi',
         video_duration: 'Videon kesto',
-        video_id : 'Videon tunniste'
+        video_id : 'Videon tunniste',
+        redirecting: 'Ohjataan kirjautumissivulle ...'
     },
     sv: {
         lataamo: 'Loader',
@@ -24,7 +26,8 @@ const translationsObject = {
         search: 'Söka',
         video_title: 'Video titeln',
         video_duration: 'Videolängd',
-        video_id : 'Video tagg'
+        video_id : 'Video tagg',
+        redirecting: 'Riktas till inloggningssidan ...'
     }
 };
 
