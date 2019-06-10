@@ -8,6 +8,7 @@ import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
 import Navigation from './components/Navigation';
 import { fetchUser } from './actions/userAction';
+import { Translate } from 'react-redux-i18n';
 
 
 const App = (props) => {
@@ -37,7 +38,7 @@ const App = (props) => {
                     <div className="container-fluid">
                         {props.apiError ?
                             <p>{props.apiError}</p>
-                            : <p>Loading ...</p>}
+                            : <p><Translate value="redirecting"/></p>}
                         <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
                     </div>
                 )

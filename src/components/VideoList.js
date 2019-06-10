@@ -11,6 +11,7 @@ const VideoList = (props) => {
 
     const translations =  props.i18n.translations[props.i18n.locale];
 
+
     const translate = (key) => {
         return translations ? translations[key] : '';
     }

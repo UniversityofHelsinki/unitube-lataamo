@@ -14,7 +14,7 @@ describe('<App />', () => {
 
     const initialState =  {
         //rotate : {rotating: true},
-        vr: { error: '', videos:[] },
+        vr: { error: '', series:[] },
         ur: { user: '' },
         sr: { apiError: null }
     };
