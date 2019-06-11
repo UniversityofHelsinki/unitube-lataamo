@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchVideos } from '../actions/videosAction';
+import { fetchVideos, fetchVideo } from '../actions/videosAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import Video from './Video';
 
 const { SearchBar } = Search;
 
@@ -39,6 +40,15 @@ const VideoList = (props) => {
         order: 'desc'
     }];
 
+    const selectRow = {
+        mode: 'radio',
+        clickToSelect: true,
+        onSelect: (row) => {
+            console.log(row.identifier);
+            props.onSelectVideo(row);
+        }
+    };
+
     return (
 
         <div>
@@ -55,11 +65,12 @@ const VideoList = (props) => {
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } pagination={ paginationFactory() } />
+                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } />
                         </div>
                     )
                 }
             </ToolkitProvider>
+            <Video />
         </div>
     );
 };
@@ -70,7 +81,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchVideos: () => dispatch(fetchVideos())
+    onFetchVideos: () => dispatch(fetchVideos()),
+    onSelectVideo: (row) => dispatch(fetchVideo(row))
 });
 
 
