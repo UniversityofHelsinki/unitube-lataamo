@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const Video = (props) => {
     return (
-        <div className="embed-responsive embed-responsive-21by9">
+        <div className="embed-responsive embed-responsive-16by9">
             { props.video && props.video.url
                 ?
                 <video width="500" height="500" controls src={props.video.url} />
