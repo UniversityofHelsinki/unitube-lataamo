@@ -10,7 +10,8 @@ const translationsObject = {
         redirecting: 'Redirecting to login page...',
         serie_id: 'serie id',
         serie_title: 'title',
-        serie_contributors: 'contributors'
+        serie_contributors: 'contributors',
+        processing_state: 'Processing state'
     },
     fi: {
         lataamo: 'Lataamo',
@@ -23,7 +24,8 @@ const translationsObject = {
         redirecting: 'Ohjataan kirjautumissivulle ...',
         serie_id: 'sarjan tunniste',
         serie_title: 'sarjan otsikko',
-        serie_contributors: 'sarjan omistajat'
+        serie_contributors: 'sarjan omistajat',
+        processing_state: 'Tallennuksen tila'
     },
     sv: {
         lataamo: 'Loader',
@@ -36,7 +38,8 @@ const translationsObject = {
         redirecting: 'Riktas till inloggningssidan ...',
         serie_id: 'serie tagg',
         serie_title: 'serie titeln',
-        serie_contributors: 'serie ägare'
+        serie_contributors: 'serie ägare',
+        processing_state: 'inspelningsläge'
     }
 };
 
