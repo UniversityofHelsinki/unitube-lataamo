@@ -80,7 +80,7 @@ const VideoList = (props) => {
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } hiddenRows={ hiddenRowKeys } />
+                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } />
                         </div>
                     )
                 }
