@@ -6,12 +6,11 @@ const VIDEO_PATH = '/api/video/'
 
 export const fetchVideo = (row) => {
     return async (dispatch) => {
-        console.log(`${VIDEO_SERVER_API}${VIDEO_PATH}${row.identifier}`);
         try {
             let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_PATH}${row.identifier}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
-                dispatch(apiGetVideoSuccessCall(responseJSON));
+                dispatch(apiGetVideoSuccessCall(responseJSON, row.identifier));
             } else if (response.status === 404) {
                 dispatch(apiFailureCall('Unable to fetch data'));
             } else {
@@ -39,9 +38,10 @@ export const fetchVideos = () => {
     };
 };
 
-export const apiGetVideoSuccessCall = data => ({
+export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     type: 'SUCCESS_API_GET_VIDEO',
-    payload: data
+    payload: data,
+    selectedRowId: selectedRowId
 });
 
 export const apiGetVideosSuccessCall = data => ({

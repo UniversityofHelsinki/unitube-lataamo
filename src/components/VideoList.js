@@ -54,12 +54,12 @@ const VideoList = (props) => {
         return nonSelectableArray;
     };
 
-
     const selectRow = {
         mode: 'radio',
         clickToSelect: true,
         clickToEdit: true,
         nonSelectable: nonSelectableRows(),
+        selected: [props.selectedRowId],
         onSelect: (row) => {
             props.onSelectVideo(row);
         }
@@ -95,6 +95,7 @@ const VideoList = (props) => {
 
 const mapStateToProps = state => ({
     videos : state.vr.videos,
+    selectedRowId : state.vr.selectedRowId,
     i18n: state.i18n
 });
 

@@ -1,6 +1,8 @@
 
 const initialState = {
-    videos: []
+    videos: [],
+    video: {},
+    selectedRowId: ''
 };
 
 const videosReducer = (state = initialState, action) => {
@@ -13,7 +15,8 @@ const videosReducer = (state = initialState, action) => {
     case 'SUCCESS_API_GET_VIDEO':
         return {
             ...state,
-            video: action.payload
+            video: action.payload,
+            selectedRowId: action.selectedRowId
         };
     default:
         return state;
