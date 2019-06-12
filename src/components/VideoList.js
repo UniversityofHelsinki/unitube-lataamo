@@ -12,10 +12,9 @@ const VideoList = (props) => {
 
     const translations =  props.i18n.translations[props.i18n.locale];
 
-
     const translate = (key) => {
         return translations ? translations[key] : '';
-    }
+    };
 
     useEffect(() => {
         props.onFetchVideos();
@@ -33,6 +32,10 @@ const VideoList = (props) => {
         dataField: 'duration',
         text: translate('video_duration'),
         sort: true
+    }, {
+        dataField: 'processing_state',
+        text: translate('processing_state'),
+        sort: true
     }];
 
     const defaultSorted = [{
@@ -40,14 +43,29 @@ const VideoList = (props) => {
         order: 'desc'
     }];
 
+
+    const nonSelectableRows = () => {
+        let nonSelectableArray = [];
+        props.videos.forEach(video => {
+            if (video.processing_state && video.processing_state === 'RUNNING') {
+                nonSelectableArray.push(video.identifier);
+            }
+        });
+        return nonSelectableArray;
+    };
+
+
     const selectRow = {
         mode: 'radio',
         clickToSelect: true,
+        clickToEdit: true,
+        nonSelectable: nonSelectableRows(),
         onSelect: (row) => {
-            console.log(row.identifier);
             props.onSelectVideo(row);
         }
     };
+
+    const hiddenRowKeys = [1];
 
     return (
 
@@ -65,7 +83,7 @@ const VideoList = (props) => {
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } />
+                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } hiddenRows={ hiddenRowKeys } />
                         </div>
                     )
                 }
