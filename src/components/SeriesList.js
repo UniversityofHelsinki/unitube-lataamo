@@ -62,7 +62,7 @@ const SeriesList = (props) => {
     );
 };
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
     i18n: state.i18n,
     series : state.ser.series
 });
