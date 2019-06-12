@@ -12,8 +12,10 @@ export const fetchSeries = () => {
             if(response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetSeriesSuccessCall(responseJSON));
-            } else {
+            }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
             }
         } catch(err) {
             dispatch(apiFailureCall('Unable to fetch data'));

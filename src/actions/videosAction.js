@@ -2,7 +2,7 @@
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_EVENTS_PATH = '/api/userEvents';
-const VIDEO_PATH = '/api/video/'
+const VIDEO_PATH = '/api/video/';
 
 export const fetchVideo = (row) => {
     return async (dispatch) => {
@@ -13,8 +13,10 @@ export const fetchVideo = (row) => {
                 dispatch(apiGetVideoSuccessCall(responseJSON, row.identifier));
             } else if (response.status === 404) {
                 dispatch(apiFailureCall('Unable to fetch data'));
-            } else {
+            }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
             }
         } catch(err) {
             dispatch(apiFailureCall('Unable to fetch data'));
@@ -29,8 +31,10 @@ export const fetchVideos = () => {
             if(response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetVideosSuccessCall(responseJSON));
-            } else {
+            }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
             }
         } catch(err) {
             dispatch(apiFailureCall('Unable to fetch data'));
