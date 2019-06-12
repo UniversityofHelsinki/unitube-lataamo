@@ -65,10 +65,7 @@ const VideoList = (props) => {
         }
     };
 
-    const hiddenRowKeys = [1];
-
     return (
-
         <div>
             <ToolkitProvider
                 bootstrap4
