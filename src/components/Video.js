@@ -1,15 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-
-const Video = ({ title, duration }) => {
-
+const Video = (props) => {
     return (
-      <>
-        <p>
-            <b>Title: </b>{title} <b>duration: </b> {duration} s
-        </p>
-      </>
+        <div className="col-md-6 mx-auto">
+            <div className="embed-responsive embed-responsive-16by9">
+                { props.video && props.video.url
+                    ?
+                    <video controls src={props.video.url} />
+                    : <div></div>
+                }
+            </div>
+        </div>
     );
 };
 
-export default Video;
+const mapStateToProps = state => ({
+    video : state.vr.video
+});
+
+export default connect(mapStateToProps, null)(Video);

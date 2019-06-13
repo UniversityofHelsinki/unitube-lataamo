@@ -13,5 +13,11 @@
     ],
     "user": {
         "eppn": "kayttaja", "preferredLanguage" : "fi"
-    }
+    },
+    "video" : [
+        {
+            "id" : "13d1505c-0afb-456b-b5f8-46666b7640a9",
+            "url" : "http://localhost:8080/static/mh_default_org/api/2e6c0fcd-05f3-48bc-b448-b722292a93e3/e070b657-f81c-4963-b79c-fd4685919b9d/cats.mp4"
+        }
+    ]
 }

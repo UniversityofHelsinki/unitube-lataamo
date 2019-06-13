@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 import Language from '../components/Language';
 import { Translate } from 'react-redux-i18n';
+import routeAction from '../actions/routeAction';
+import { connect } from 'react-redux';
 
-function Navigation() {
+function Navigation(props) {
+
+    useEffect(() => {
+        props.setInitialRoute('home');
+    }, []);
 
     return (
         <div>
             <nav className="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
                 <div className="container">
                     <ul className="nav navbar-nav">
-                        <li className="nav-item active">
-                            <Link to="/" className="nav-link"><Translate value="videos" /></Link>
+                        <li className={props.route === 'home' ? 'nav-item active' : 'nav-item'} >
+                            <Link to="/" className="nav-link" onClick={() => props.onRouteChange( 'home')} ><Translate value="videos" /></Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/series" className="nav-link"><Translate value="series" /></Link>
+                        <li className={props.route === 'series' ? 'nav-item active' : 'nav-item'}>
+                            <Link to="/series" className="nav-link" onClick={() => props.onRouteChange( 'series')}><Translate value="series" /></Link>
                         </li>
                     </ul>
                     <ul className="nav navbar-nav mx-auto">
@@ -29,4 +35,15 @@ function Navigation() {
     );
 }
 
-export default Navigation;
+const mapStateToProps = state => ({
+    route: state.rr.route
+});
+
+const mapDispatchToProps = dispatch => ({
+    setInitialRoute: (route) => dispatch(routeAction(route)),
+    onRouteChange: (route) => {
+        dispatch(routeAction(route));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
