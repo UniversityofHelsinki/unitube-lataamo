@@ -13,9 +13,14 @@ function Navigation(props) {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
-                <div className="container">
-                    <ul className="nav navbar-nav">
+            <nav className="navbar navbar-expand-md bg-dark navbar-dark">
+                <h3 className='text-white'><Translate value="lataamo"/></h3>
+                <button className="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#collapsibleNavbar">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul className="navbar-nav ml-auto">
                         <li className={props.route === 'home' ? 'nav-item active' : 'nav-item'} >
                             <Link to="/" className="nav-link" onClick={() => props.onRouteChange( 'home')} ><Translate value="videos" /></Link>
                         </li>
@@ -23,10 +28,7 @@ function Navigation(props) {
                             <Link to="/series" className="nav-link" onClick={() => props.onRouteChange( 'series')}><Translate value="series" /></Link>
                         </li>
                     </ul>
-                    <ul className="nav navbar-nav mx-auto">
-                        <h2 className='text-white'><Translate value="lataamo"/></h2>
-                    </ul>
-                    <ul className="nav navbar-nav">
+                    <ul className='navbar-nav ml-auto'>
                         <Language />
                     </ul>
                 </div>
