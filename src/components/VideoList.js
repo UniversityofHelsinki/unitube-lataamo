@@ -18,6 +18,10 @@ const VideoList = (props) => {
 
     useEffect(() => {
         props.onFetchVideos();
+        const interval = setInterval(() => {
+            props.onFetchVideos();
+        }, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     const columns = [{
