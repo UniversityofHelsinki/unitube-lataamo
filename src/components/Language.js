@@ -20,10 +20,10 @@ const Language = (props) => {
                 <Link to="#" className='nav-link' onClick={() => props.onLanguageChange( 'fi')}>Suomeksi</Link>
             </li>
             <li className={props.user.preferredLanguage === 'en' ? 'nav-item active' : 'nav-item'}>
-                <Link to="#"  className='nav-link' onClick={() => props.onLanguageChange( 'en')}>Englanniksi</Link>
+                <Link to="#"  className='nav-link' onClick={() => props.onLanguageChange( 'en')}>In English</Link>
             </li>
             <li className={props.user.preferredLanguage === 'sv' ? 'nav-item active' : 'nav-item'}>
-                <Link to="#" className='nav-link' onClick={() => props.onLanguageChange('sv')}>Ruotsiksi</Link>
+                <Link to="#" className='nav-link' onClick={() => props.onLanguageChange('sv')}>På svenska</Link>
             </li>
         </React.Fragment>
     );
