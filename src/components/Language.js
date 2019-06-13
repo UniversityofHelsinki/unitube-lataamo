@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLocale } from 'react-redux-i18n';
 import languageChangeAction from '../actions/languageChangeAction';
@@ -14,13 +15,17 @@ const Language = (props) => {
     }, []);
 
     return (
-        <div>
-            <li className="nav-item">
-                <button type="button" className={props.user.preferredLanguage === 'fi' ? 'btn btn-outline-secondary mr-1 active btn-sm' : 'btn btn-outline-secondary mr-1 btn-sm'} onClick={e => props.onLanguageChange(e, 'fi')}>Suomeksi</button>
-                <button type="button" className={props.user.preferredLanguage === 'en' ? 'btn btn-outline-secondary mr-1 active btn-sm' : 'btn btn-outline-secondary mr-1 btn-sm'} onClick={e => props.onLanguageChange(e, 'en')}>Englanniksi</button>
-                <button type="button" className={props.user.preferredLanguage === 'sv' ? 'btn btn-outline-secondary mr-1 active btn-sm' : 'btn btn-outline-secondary mr-1 btn-sm'} onClick={e => props.onLanguageChange(e, 'sv')}>Ruotsiksi</button>
+        <React.Fragment>
+            <li className={props.user.preferredLanguage === 'fi' ? 'nav-item active' : 'nav-item'}>
+                <Link to="#" className='nav-link' onClick={() => props.onLanguageChange( 'fi')}>Suomeksi</Link>
             </li>
-        </div>
+            <li className={props.user.preferredLanguage === 'en' ? 'nav-item active' : 'nav-item'}>
+                <Link to="#"  className='nav-link' onClick={() => props.onLanguageChange( 'en')}>Englanniksi</Link>
+            </li>
+            <li className={props.user.preferredLanguage === 'sv' ? 'nav-item active' : 'nav-item'}>
+                <Link to="#" className='nav-link' onClick={() => props.onLanguageChange('sv')}>Ruotsiksi</Link>
+            </li>
+        </React.Fragment>
     );
 };
 
@@ -30,7 +35,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setInitialLanguage: (lang) => dispatch(setLocale(lang)),
-    onLanguageChange: (event, lang) => {
+    onLanguageChange: (lang) => {
         dispatch(languageChangeAction(lang));
         dispatch(setLocale(lang));
     }
