@@ -18,12 +18,16 @@ const VideoList = (props) => {
 
     useEffect(() => {
         props.onFetchVideos();
+        const interval = setInterval(() => {
+            props.onFetchVideos();
+        }, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
-        sort: true
+        hidden: true
     }, {
         dataField: 'title',
         text: translate('video_title'),
@@ -58,6 +62,8 @@ const VideoList = (props) => {
         mode: 'radio',
         clickToSelect: true,
         clickToEdit: true,
+        hideSelectColumn: true,
+        bgColor: '#8cbdff',
         nonSelectable: nonSelectableRows(),
         selected: [props.selectedRowId],
         onSelect: (row) => {
@@ -65,8 +71,17 @@ const VideoList = (props) => {
         }
     };
 
+
+    const rowStyle = (row) => {
+        const style = {};
+        if (row.processing_state === 'RUNNING') {
+            style.backgroundColor = '#f4f5f9';
+        }
+        return style;
+    };
+
     return (
-        <div>
+        <div className="table-responsive">
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"
@@ -80,7 +95,7 @@ const VideoList = (props) => {
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } />
+                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
                         </div>
                     )
                 }
