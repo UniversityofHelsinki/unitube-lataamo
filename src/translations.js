@@ -1,6 +1,5 @@
 const translationsObject = {
     en: {
-        lataamo: 'Loader',
         videos: 'Videos',
         series: 'Series',
         search: 'Search',
@@ -14,7 +13,6 @@ const translationsObject = {
         processing_state: 'Processing state'
     },
     fi: {
-        lataamo: 'Lataamo',
         videos: 'Videoni',
         series: 'Sarjani',
         search: 'Etsi',
@@ -28,7 +26,6 @@ const translationsObject = {
         processing_state: 'Tallennuksen tila'
     },
     sv: {
-        lataamo: 'Loader',
         videos: 'Videor',
         series: 'Serie',
         search: 'Söka',
