@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchVideos, fetchVideo } from '../actions/videosAction';
+import { fetchVideo, fetchVideos } from '../actions/videosAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
+import constants from '../utils/constants';
 
 const { SearchBar } = Search;
 
@@ -16,6 +17,27 @@ const VideoList = (props) => {
         return translations ? translations[key] : '';
     };
 
+
+    const translatedVideos = () => {
+        return props.videos.map(video => {
+            let visibility = [];
+            video.acls.forEach((acl) => {
+                if (acl.role === constants.ROLE_ADMIN.role) {
+                    visibility.push(translate(constants.STATUS_PRIVATE));
+                }
+                if (acl.role === constants.ROLE_ANONYMOUS.role) {
+                    visibility.push(translate(constants.STATUS_PUBLISHED));
+                }
+            });
+            return {
+                ...video,
+                visibility: [...new Set(visibility)]
+            };
+        });
+    };
+
+
+
     useEffect(() => {
         props.onFetchVideos();
         const interval = setInterval(() => {
@@ -23,6 +45,19 @@ const VideoList = (props) => {
         }, 30000);
         return () => clearInterval(interval);
     }, []);
+
+    const statusFormatter = (cell, row) => {
+        return (
+            <div>
+                {
+                    row.visibility.map((acl, index) =>
+                        <p key={index}> { acl } </p>
+                    )
+                }
+            </div>
+        );
+    }
+
 
     const columns = [{
         dataField: 'identifier',
@@ -40,6 +75,10 @@ const VideoList = (props) => {
         dataField: 'processing_state',
         text: translate('processing_state'),
         sort: true
+    }, {
+        dataField: 'visibility',
+        text: translate('publication_status'),
+        formatter: statusFormatter
     }];
 
     const defaultSorted = [{
@@ -85,7 +124,7 @@ const VideoList = (props) => {
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"
-                data={ props.videos }
+                data={ translatedVideos() }
                 columns={ columns }
                 search
                 defaultSorted={ defaultSorted }>
