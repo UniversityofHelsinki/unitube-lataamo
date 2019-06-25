@@ -22,9 +22,6 @@ const VideoList = (props) => {
         return props.videos.map(video => {
             let visibility = [];
             video.acls.forEach((acl) => {
-                if (acl.role === constants.ROLE_ADMIN.role) {
-                    visibility.push(translate(constants.STATUS_PRIVATE));
-                }
                 if (acl.role === constants.ROLE_ANONYMOUS.role) {
                     visibility.push(translate(constants.STATUS_PUBLISHED));
                 }

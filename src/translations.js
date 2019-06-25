@@ -12,8 +12,8 @@ const translationsObject = {
         serie_contributors: 'contributors',
         processing_state: 'Processing state',
         publication_status : 'Publication status',
-        status_published: 'Published',
-        status_private: 'Private'
+        status_published: 'Shared to Katsomo',
+        status_moodle: 'Shared to Moodle'
     },
     fi: {
         videos: 'Videoni',
@@ -28,8 +28,8 @@ const translationsObject = {
         serie_contributors: 'sarjan omistajat',
         processing_state: 'Tallennuksen tila',
         publication_status : 'Tallenteen julkisuus',
-        status_published: 'Julkaistu katsomoon',
-        status_private: 'Yksityinen'
+        status_published: 'Julkaistu Katsomoon',
+        status_moodle: 'Jaettu Moodleen'
     },
     sv: {
         videos: 'Videor',
@@ -43,9 +43,9 @@ const translationsObject = {
         serie_title: 'serie titeln',
         serie_contributors: 'serie ägare',
         processing_state: 'inspelningsläge',
-        publication_status: '',
-        status_published: '',
-        status_private: ''
+        publication_status: 'publicitet av inspelningen',
+        status_published: 'publicerat till Katsomo',
+        status_moodle: 'publicerat till Moodle'
     }
 };
 
