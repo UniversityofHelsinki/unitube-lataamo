@@ -22,6 +22,7 @@ const VideoList = (props) => {
             props.onFetchVideos();
         }, 30000);
         return () => clearInterval(interval);
+        // eslint-disable-next-line
     }, []);
 
     const columns = [{

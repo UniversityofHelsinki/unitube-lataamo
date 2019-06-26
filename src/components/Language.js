@@ -12,6 +12,7 @@ const Language = (props) => {
         } else {
             props.setInitialLanguage('fi');
         }
+        // eslint-disable-next-line
     }, []);
 
     return (

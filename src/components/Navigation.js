@@ -9,6 +9,7 @@ function Navigation(props) {
 
     useEffect(() => {
         props.setInitialRoute('home');
+        // eslint-disable-next-line
     }, []);
 
     return (

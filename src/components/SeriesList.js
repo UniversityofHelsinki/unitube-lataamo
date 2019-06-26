@@ -37,6 +37,7 @@ const SeriesList = (props) => {
 
     useEffect(() => {
         props.onFetchSeries();
+        // eslint-disable-next-line
     }, []);
     return (
         <div>
