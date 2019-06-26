@@ -20,7 +20,6 @@ module.exports = {
         "react", "jest"
     ],
     "rules": {
-        "react-hooks/exhaustive-deps" : "off",
         "indent": [2, 4],
         "linebreak-style": [
             "error",
