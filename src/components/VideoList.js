@@ -21,11 +21,21 @@ const VideoList = (props) => {
     const translatedVideos = () => {
         return props.videos.map(video => {
             let visibility = [];
-            video.acls.forEach((acl) => {
-                if (acl.role === constants.ROLE_ANONYMOUS.role) {
-                    visibility.push(translate(constants.STATUS_PUBLISHED));
-                }
-            });
+
+            const publishedAcl = video.acls.filter(acl => acl.role === constants.ROLE_ANONYMOUS);
+
+            const moodleAclInstructor = video.acls.filter(acl => acl.role.includes(constants.MOODLE_ACL_INSTRUCTOR));
+
+            const moodleAclLearner = video.acls.filter(acl => acl.role.includes(constants.MOODLE_ACL_LEARNER));
+
+            if (publishedAcl && publishedAcl.length > 0) {
+                visibility.push(translate(constants.STATUS_PUBLISHED));
+            }
+
+            if (moodleAclInstructor && moodleAclLearner && moodleAclInstructor.length > 0 && moodleAclLearner.length > 0) {
+                visibility.push(translate(constants.STATUS_MOODLE));
+            }
+
             return {
                 ...video,
                 visibility: [...new Set(visibility)]
@@ -53,7 +63,7 @@ const VideoList = (props) => {
                 }
             </div>
         );
-    }
+    };
 
 
     const columns = [{
