@@ -8,7 +8,7 @@ const LoginRedirect = (props) => {
         if(props.redirect401) {
             window.location.assign(props.loginUrl);
         }
-        // eslint-disable-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.redirect401]);
     return null;
 };

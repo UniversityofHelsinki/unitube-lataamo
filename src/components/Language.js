@@ -12,7 +12,7 @@ const Language = (props) => {
         } else {
             props.setInitialLanguage('fi');
         }
-        // eslint-disable-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
