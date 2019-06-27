@@ -15,6 +15,7 @@ const App = (props) => {
 
     useEffect(() => {
         props.onFetchUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const SHIBBOLETH_LOGIN = process.env.REACT_APP_LATAAMO_LOGIN;

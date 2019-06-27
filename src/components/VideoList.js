@@ -51,6 +51,7 @@ const VideoList = (props) => {
             props.onFetchVideos();
         }, 30000);
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const statusFormatter = (cell, row) => {
