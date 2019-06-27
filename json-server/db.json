@@ -18,6 +18,26 @@
                     "allow": true,
                     "role": "ROLE_USER_ADMIN",
                     "action": "write"
+                },
+                {
+                    "allow": true,
+                    "role": "123_Instructor",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "123_Learner",
+                    "action": "write"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "write"
                 }
             ]
         },
