@@ -9,12 +9,13 @@ function Navigation(props) {
 
     useEffect(() => {
         props.setInitialRoute('home');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div>
             <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                <h3 className='text-white'><Translate value="lataamo"/></h3>
+                <h3 className='text-white'>Lataamo</h3>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#collapsibleNavbar">
                     <span className="navbar-toggler-icon"></span>

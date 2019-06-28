@@ -1,6 +1,5 @@
 const translationsObject = {
     en: {
-        lataamo: 'Loader',
         videos: 'Videos',
         series: 'Series',
         search: 'Search',
@@ -11,10 +10,12 @@ const translationsObject = {
         serie_id: 'serie id',
         serie_title: 'title',
         serie_contributors: 'contributors',
-        processing_state: 'Processing state'
+        processing_state: 'Processing state',
+        publication_status : 'Publication status',
+        status_published: 'Shared to Katsomo',
+        status_moodle: 'Shared to Moodle'
     },
     fi: {
-        lataamo: 'Lataamo',
         videos: 'Videoni',
         series: 'Sarjani',
         search: 'Etsi',
@@ -25,10 +26,12 @@ const translationsObject = {
         serie_id: 'sarjan tunniste',
         serie_title: 'sarjan otsikko',
         serie_contributors: 'sarjan omistajat',
-        processing_state: 'Tallennuksen tila'
+        processing_state: 'Tallennuksen tila',
+        publication_status : 'Tallenteen julkisuus',
+        status_published: 'Julkaistu Katsomoon',
+        status_moodle: 'Jaettu Moodleen'
     },
     sv: {
-        lataamo: 'Loader',
         videos: 'Videor',
         series: 'Serie',
         search: 'Söka',
@@ -39,7 +42,10 @@ const translationsObject = {
         serie_id: 'serie tagg',
         serie_title: 'serie titeln',
         serie_contributors: 'serie ägare',
-        processing_state: 'inspelningsläge'
+        processing_state: 'inspelningsläge',
+        publication_status: 'publicitet av inspelningen',
+        status_published: 'publicerat till Katsomo',
+        status_moodle: 'publicerat till Moodle'
     }
 };
 
