@@ -17,7 +17,7 @@ const Video = (props) => {
                         </div>
                     </div>
                     <div className="col">
-                        <p>TÄHÄN TULEE VIDEON DETAILIT</p>
+                        <p></p>
                     </div>
                 </div> : (
                     <div></div>

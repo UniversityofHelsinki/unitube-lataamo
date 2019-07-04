@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Translate } from 'react-redux-i18n';
-import LoginRedirect from '../App';
 
 const EventForm = (props) => {
     const [inputs, setInputs] = useState(props.event);
@@ -28,6 +26,18 @@ const EventForm = (props) => {
             {props.event && props.event.identifier
                 ?
                 <form onSubmit={handleSubmit} className="was-validated">
+                    <div className="form-group row">
+                        <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
+                        <div className="col-sm-10">
+                            <select className="form-control" name="series">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-10">
