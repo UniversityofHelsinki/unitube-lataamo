@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 const EventForm = (props) => {
+    console.log(props.event);
     const [inputs, setInputs] = useState(props.event);
 
     useEffect(() => {
         setInputs(props.event);
-    }, [props.event]);
+    }, [props.event, props.series]);
 
     const handleSubmit = (event) => {
         console.log(inputs);
@@ -21,7 +22,7 @@ const EventForm = (props) => {
 
     const drawSelectionValues = () => {
         return props.series.map((serie) => {
-            return <option key={serie.identifier} value={serie.title}>{serie.title}</option>;
+            return <option key={serie.identifier} id={serie.identifier} value={serie.identifier}>{serie.title}</option>;
         });
     };
 
@@ -33,7 +34,7 @@ const EventForm = (props) => {
                     <div className="form-group row">
                         <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
                         <div className="col-sm-10">
-                            <select className="form-control" name="series" onChange={handleInputChange}>
+                            <select className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
                                 {drawSelectionValues()}
                             </select>
                         </div>
