@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 const EventForm = (props) => {
@@ -14,21 +14,33 @@ const EventForm = (props) => {
         if (event) {
             event.preventDefault();
         }
-    }
+    };
     const handleInputChange = (event) => {
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
-    }
+    };
 
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <label>Title</label>
-                <input type="text" name="title" onChange={handleInputChange} value={inputs.title} required />
-                <label>Description</label>
-                <textarea name="description" value={inputs.description}  onChange={handleInputChange} required />
-                <button type="submit">Tallenna</button>
+            <form onSubmit={handleSubmit} className="was-validated">
+                <div className="form-group row">
+                    <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
+                    <div className="col-sm-10">
+                        <input type="text" name="title" className="form-control" onChange={handleInputChange} placeholder="Title" value={inputs.title} required />
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
+                    <div className="col-sm-10">
+                        <textarea name="description" className="form-control"  value={inputs.description} onChange={handleInputChange} placeholder="Description" required />
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <div className="col-sm-10 offset-sm-2">
+                        <button type="submit" className="btn btn-primary">Tallenna</button>
+                    </div>
+                </div>
             </form>
         </div>
     );
