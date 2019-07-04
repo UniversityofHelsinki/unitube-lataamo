@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Translate } from 'react-redux-i18n';
+import LoginRedirect from '../App';
 
 const EventForm = (props) => {
     const [inputs, setInputs] = useState(props.event);
@@ -23,25 +25,33 @@ const EventForm = (props) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="was-validated">
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
-                    <div className="col-sm-10">
-                        <input type="text" name="title" className="form-control" onChange={handleInputChange} placeholder="Title" value={inputs.title} required />
+            {props.event && props.event.identifier
+                ?
+                <form onSubmit={handleSubmit} className="was-validated">
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
+                        <div className="col-sm-10">
+                            <input type="text" name="title" className="form-control" onChange={handleInputChange}
+                                placeholder="Title" value={inputs.title} required/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
-                    <div className="col-sm-10">
-                        <textarea name="description" className="form-control"  value={inputs.description} onChange={handleInputChange} placeholder="Description" required />
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
+                        <div className="col-sm-10">
+                            <textarea name="description" className="form-control" value={inputs.description}
+                                onChange={handleInputChange} placeholder="Description" required/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row">
-                    <div className="col-sm-10 offset-sm-2">
-                        <button type="submit" className="btn btn-primary">Tallenna</button>
+                    <div className="form-group row">
+                        <div className="col-sm-10 offset-sm-2">
+                            <button type="submit" className="btn btn-primary">Tallenna</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+                : (
+                    <div></div>
+                )
+            }
         </div>
     );
 };
