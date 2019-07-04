@@ -8,7 +8,6 @@ const EventForm = (props) => {
         setInputs(props.event);
     }, [props.event]);
 
-    console.log('INPUTS', inputs);
     const handleSubmit = (event) => {
         console.log(inputs);
         if (event) {
@@ -20,6 +19,11 @@ const EventForm = (props) => {
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
+    const drawSelectionValues = () => {
+        return props.series.map((serie) => {
+            return <option key={serie.identifier} value={serie.title}>{serie.title}</option>;
+        });
+    };
 
     return (
         <div>
@@ -29,12 +33,8 @@ const EventForm = (props) => {
                     <div className="form-group row">
                         <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
                         <div className="col-sm-10">
-                            <select className="form-control" name="series">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select className="form-control" name="series" onChange={handleInputChange}>
+                                {drawSelectionValues()}
                             </select>
                         </div>
                     </div>
@@ -67,7 +67,8 @@ const EventForm = (props) => {
 };
 
 const mapStateToProps = state => ({
-    event : state.er.event
+    event : state.er.event,
+    series : state.ser.series
 });
 
 export default connect(mapStateToProps, null)(EventForm);

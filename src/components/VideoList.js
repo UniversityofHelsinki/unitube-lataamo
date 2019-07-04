@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideo, fetchVideos } from '../actions/videosAction';
 import { fetchEvent } from '../actions/eventsAction';
+import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -166,6 +167,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectVideo: (row) => {
         dispatch(fetchVideo(row));
         dispatch(fetchEvent(row));
+        dispatch(fetchSeries());
     }
 });
 
