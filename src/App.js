@@ -6,7 +6,8 @@ import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
 import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
-import Navigation from './components/Navigation';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
 import { Translate } from 'react-redux-i18n';
 
@@ -20,13 +21,13 @@ const App = (props) => {
     const SHIBBOLETH_LOGIN = process.env.REACT_APP_LATAAMO_LOGIN;
 
     return (
-        <div className="container-fluid">
+        <div id="wrapper" className="container-fluid">
             { props.loggedUser && props.loggedUser.eppn
                 ?
                 <div>
                     <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
-                    <Navigation />
-                    <div className="content-wrapper">
+                    <Header />
+                    <div id="main-content" className="content-wrapper">
                         <Switch>
                             <Route exact path='/' component={VideoList}/>
                             <Route exact path='/series' component={SeriesList}/>
@@ -43,6 +44,7 @@ const App = (props) => {
                     </div>
                 )
             }
+        <Footer/>
         </div>
     );
 };
