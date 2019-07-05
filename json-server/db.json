@@ -7,9 +7,86 @@
         { "identifier": "e269af0d-3c68-457d-90b5-08da5b531152", "title": "Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.", "duration   ": 25000, "creator": "xyx_kuvaaja" }
     ],
     "userEvents": [
-        { "identifier": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.", "duration": 0, "creator": "xyz_kuvaaja" },
-        { "identifier": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "duration": 33000, "creator": "xyz_kuvaaja" },
-        { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "duration": 0, "creator": "xyz_kuvaaja" }
+        { "identifier": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.", "duration": "3s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED",
+            "acls": [
+                {
+                    "allow": true,
+                    "role": "ROLE_USER_ADMIN",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_USER_ADMIN",
+                    "action": "write"
+                },
+                {
+                    "allow": true,
+                    "role": "123_Instructor",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "123_Learner",
+                    "action": "write"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "write"
+                }
+            ]
+        },
+        { "identifier": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "duration": "1m 14s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED",
+            "acls": [
+                {
+                    "allow": true,
+                    "role": "ROLE_USER_ADMIN",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_USER_ADMIN",
+                    "action": "write"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "write"
+                }
+            ]},
+        { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "duration": "15min 12s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED",
+            "acls": [
+                {
+                    "allow": true,
+                    "role": "ROLE_USER_ADMIN",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_USER_ADMIN",
+                    "action": "write"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "read"
+                },
+                {
+                    "allow": true,
+                    "role": "ROLE_ANONYMOUS",
+                    "action": "write"
+                }
+            ]}
     ],
     "user": {
         "eppn": "kayttaja", "preferredLanguage" : "fi"

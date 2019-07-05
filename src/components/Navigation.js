@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 function Navigation (props) {
     useEffect(() => {
         props.setInitialRoute('home');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return(
         <div className="navigation-row">
