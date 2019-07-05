@@ -22,6 +22,8 @@ const msg = 'Unable to fetch data';
 
 describe('<VideoList />', () => {
     const initialState =  {
+        er: { event: {} },
+        ser: { series: [] },
         vr: { error: '', videos: videos },
         i18n : {
             translations: translations,
