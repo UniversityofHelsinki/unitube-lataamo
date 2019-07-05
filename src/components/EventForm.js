@@ -41,14 +41,14 @@ const EventForm = (props) => {
                         <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-10">
                             <input type="text" name="title" className="form-control" onChange={handleInputChange}
-                                placeholder="Title" value={inputs.title} required/>
+                                placeholder="Title" value={inputs.title} maxLength="150" required/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
                         <div className="col-sm-10">
                             <textarea name="description" className="form-control" value={inputs.description}
-                                onChange={handleInputChange} placeholder="Description" required/>
+                                onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                     </div>
                     {!props.event.identifier  ?
