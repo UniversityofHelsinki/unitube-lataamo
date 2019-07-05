@@ -4,7 +4,6 @@ const initialState = {
 };
 
 const seriesReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
     case 'SUCCESS_API_GET_SERIES':
         return {

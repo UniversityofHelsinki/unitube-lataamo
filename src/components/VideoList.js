@@ -52,7 +52,7 @@ const VideoList = (props) => {
         props.onFetchVideos();
         const interval = setInterval(() => {
             props.onFetchVideos();
-        }, 30000);
+        }, 60000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

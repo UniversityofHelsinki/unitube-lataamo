@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 const EventForm = (props) => {
-    console.log(props.event);
     const [inputs, setInputs] = useState(props.event);
 
     useEffect(() => {
@@ -10,7 +9,6 @@ const EventForm = (props) => {
     }, [props.event, props.series]);
 
     const handleSubmit = (event) => {
-        console.log(inputs);
         if (event) {
             event.preventDefault();
         }
@@ -28,7 +26,7 @@ const EventForm = (props) => {
 
     return (
         <div>
-            {props.event && props.event.identifier
+            {props.event && props.event.identifier !== undefined
                 ?
                 <form onSubmit={handleSubmit} className="was-validated">
                     <div className="form-group row">
@@ -53,6 +51,17 @@ const EventForm = (props) => {
                                 onChange={handleInputChange} placeholder="Description" required/>
                         </div>
                     </div>
+                    {!props.event.identifier  ?
+                        <div className="form-group row">
+                            <label htmlFor="title" className="col-sm-2 col-form-label">Video</label>
+                            <div className="col-sm-10">
+                                <input type="file" className="form-control" name="video" required/>
+                            </div>
+                        </div>
+                        : (
+                            <div></div>
+                        )
+                    }
                     <div className="form-group row">
                         <div className="col-sm-10 offset-sm-2">
                             <button type="submit" className="btn btn-primary">Tallenna</button>
