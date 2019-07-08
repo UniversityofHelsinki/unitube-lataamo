@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideo, fetchVideos } from '../actions/videosAction';
+import { fetchEvent } from '../actions/eventsAction';
+import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
 import constants from '../utils/constants';
+import EventForm from './EventForm';
 
 const { SearchBar } = Search;
 
@@ -49,7 +52,7 @@ const VideoList = (props) => {
         props.onFetchVideos();
         const interval = setInterval(() => {
             props.onFetchVideos();
-        }, 30000);
+        }, 60000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -148,6 +151,7 @@ const VideoList = (props) => {
                 }
             </ToolkitProvider>
             <Video />
+            <EventForm />
         </div>
     );
 };
@@ -160,7 +164,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onFetchVideos: () => dispatch(fetchVideos()),
-    onSelectVideo: (row) => dispatch(fetchVideo(row))
+    onSelectVideo: (row) => {
+        dispatch(fetchVideo(row));
+        dispatch(fetchEvent(row));
+        dispatch(fetchSeries());
+    }
 });
 
 

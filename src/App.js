@@ -10,7 +10,6 @@ import Navigation from './components/Navigation';
 import { fetchUser } from './actions/userAction';
 import { Translate } from 'react-redux-i18n';
 
-
 const App = (props) => {
 
     useEffect(() => {
