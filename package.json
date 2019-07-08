@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "local-dev-db": "json-server --port 3002 ./json-server/db.json --routes ./json-server/routes.json",
+    "local-dev-db": "json-server --port 3002 ./json-server/db.json --routes ./json-server/routes.json --middlewares ./json-server/singular.js",
     "lint:fix": "eslint src/**/*.js --fix"
   },
   "eslintConfig": {

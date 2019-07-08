@@ -5,6 +5,7 @@ import userReducer from './userReducer';
 import statusReducer from './statusReducer';
 import seriesReducer from './seriesReducer';
 import routeReducer from './routeReducer';
+import eventsReducer from './eventsReducer';
 
 const rootReducer = combineReducers({
     i18n: i18nReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     ur: userReducer,
     sr: statusReducer,
     ser: seriesReducer,
-    rr: routeReducer
+    rr: routeReducer,
+    er: eventsReducer
 });
 
 export default rootReducer;

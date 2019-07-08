@@ -3,14 +3,26 @@ import { connect } from 'react-redux';
 
 const Video = (props) => {
     return (
-        <div className="col-md-6 mx-auto">
-            <div className="embed-responsive embed-responsive-16by9">
-                { props.video && props.video.url
-                    ?
-                    <video controls src={props.video.url} />
-                    : <div></div>
-                }
-            </div>
+        <div className="mb-2 container-fluid">
+            {props.video && props.video.url
+                ?
+                <div className="row">
+                    <div className="col">
+                        <div className="embed-responsive embed-responsive-16by9">
+                            {props.video && props.video.url
+                                ?
+                                <video controls src={props.video.url}/>
+                                : <div></div>
+                            }
+                        </div>
+                    </div>
+                    <div className="col">
+                        <p></p>
+                    </div>
+                </div> : (
+                    <div></div>
+                )
+            }
         </div>
     );
 };

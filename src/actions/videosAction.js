@@ -42,6 +42,11 @@ export const fetchVideos = () => {
     };
 };
 
+export const apiGetEventSuccessCall = (data) => ({
+    type: 'SUCCESS_API_GET_EVENT',
+    payload: data
+});
+
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     type: 'SUCCESS_API_GET_VIDEO',
     payload: data,
