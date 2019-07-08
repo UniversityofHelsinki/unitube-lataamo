@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
         if (require('url').parse(req.url, true).query['singular']) {
             try {
                 const json = JSON.parse(body);
-                console.log(json);
                 if (Array.isArray(json)) {
                     if (json.length === 1) {
                         return _send.call(this, JSON.stringify(json[0]));
