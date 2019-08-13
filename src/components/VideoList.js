@@ -143,6 +143,7 @@ const VideoList = (props) => {
                     props => (
                         <div>
                             <br />
+                            <button>Lisää uusi video</button>
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
                             <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
