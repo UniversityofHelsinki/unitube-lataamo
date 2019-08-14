@@ -6,89 +6,17 @@
         { "identifier": "eb68f711-04f9-4b58-b6c8-582a77d7b8a5", "title": "Autonomisen yhteiskunnan mahdollisuudet ja uhat maapallolla.", "duration": 0, "creator": "xzz_kuvaaja" },
         { "identifier": "e269af0d-3c68-457d-90b5-08da5b531152", "title": "Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.", "duration   ": 25000, "creator": "xyx_kuvaaja" }
     ],
-    "userEvents": [
+    "userVideos": [
         { "identifier": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.",
             "description": "Löytyykö elämää Marsista ?",
             "duration": "3s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf" : "910ab7d2-15ca-46e7-8abe-c172130e0e9a",
-            "acls": [
-                {
-                    "allow": true,
-                    "role": "ROLE_USER_ADMIN",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_USER_ADMIN",
-                    "action": "write"
-                },
-                {
-                    "allow": true,
-                    "role": "123_Instructor",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "123_Learner",
-                    "action": "write"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_ANONYMOUS",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_ANONYMOUS",
-                    "action": "write"
-                }
-            ]
+            "visibility": ["status_published"]
         },
         { "identifier": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "description" : "Tässä kuvataan mansikoiden lisääntymistä metsässä", "duration": "1m 14s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf": "910ab7d2-15ca-46e7-8abe-c172130234234",
-            "acls": [
-                {
-                    "allow": true,
-                    "role": "ROLE_USER_ADMIN",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_USER_ADMIN",
-                    "action": "write"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_ANONYMOUS",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_ANONYMOUS",
-                    "action": "write"
-                }
-            ]},
+            "visibility": ["status_published"]
+        },
         { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "description" : "Voittokulkua ei voi estää", "duration": "15min 12s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf": "910ab7d2-15ca-46e7-8abe-c172130234234",
-            "acls": [
-                {
-                    "allow": true,
-                    "role": "ROLE_USER_ADMIN",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_USER_ADMIN",
-                    "action": "write"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_ANONYMOUS",
-                    "action": "read"
-                },
-                {
-                    "allow": true,
-                    "role": "ROLE_ANONYMOUS",
-                    "action": "write"
-                }
-            ]
+            "visibility": ["status_published", "status_moodle"]
         }
     ],
     "user": {
