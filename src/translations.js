@@ -13,7 +13,12 @@ const translationsObject = {
         processing_state: 'Processing state',
         publication_status : 'Publication status',
         status_published: 'Shared to Katsomo',
-        status_moodle: 'Shared to Moodle'
+        status_moodle: 'Shared to Moodle',
+        hy: 'University of Helsinki',
+        hy_address_part1: 'P.O. Box 4 (Yliopistonkatu 3)',
+        hy_address_part2: '00014 University of Helsinki Finland',
+        hy_switchboard: 'Switchboard: +358 (0) 2941 911',
+        hy_contact_info_link: 'Contact information'
     },
     fi: {
         videos: 'Videoni',
@@ -29,7 +34,12 @@ const translationsObject = {
         processing_state: 'Tallennuksen tila',
         publication_status : 'Tallenteen julkisuus',
         status_published: 'Julkaistu Katsomoon',
-        status_moodle: 'Jaettu Moodleen'
+        status_moodle: 'Jaettu Moodleen',
+        hy: 'Helsingin yliopisto',
+        hy_address_part1: 'PL 4 (Yliopistonkatu 3)',
+        hy_address_part2: '00014 Helsingin yliopisto',
+        hy_switchboard: 'Puhelinvaihde:  02941 911',
+        hy_contact_info_link: 'Yhteystiedot'
     },
     sv: {
         videos: 'Videor',
@@ -45,7 +55,12 @@ const translationsObject = {
         processing_state: 'inspelningsläge',
         publication_status: 'publicitet av inspelningen',
         status_published: 'publicerat till Katsomo',
-        status_moodle: 'publicerat till Moodle'
+        status_moodle: 'publicerat till Moodle',
+        hy: 'Helsingfors universitet',
+        hy_address_part1: 'PB 4 (Universitetsgatan 3)',
+        hy_address_part2: '00014 Helsingfors universitet Finland',
+        hy_switchboard: 'Växel: +358 (0) 2941 911',
+        hy_contact_info_link: 'Kontaktuppgifter'
     }
 };
 

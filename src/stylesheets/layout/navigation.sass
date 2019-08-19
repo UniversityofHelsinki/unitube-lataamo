@@ -1,0 +1,80 @@
+.navigation-row
+  border-top: 1px solid $gray
+  border-bottom: 1px solid $gray
+  background-color: $lightgray
+
+#navigation
+  max-width: 1350px
+  margin: 0 auto
+  padding: 0 15px
+
+  //@media (max-width: 1265px)
+  //max-width: 1220px
+
+  ul
+    list-style-type: none
+
+  > ul
+
+    > li
+
+      float: left
+
+      > a, > button
+        display: inline-block
+        font-size: 14px
+        font-weight: bold
+        color: $black
+        padding: 20px
+        position: relative
+        border: 0
+        background-color: $lightgray
+
+        &:hover, &:focus, &:active
+          text-decoration: none
+          color: $black
+
+        .navi-arrow
+          height: 8px
+          width: 12px
+          margin-left: 5px
+
+      &.open
+
+        > a, > button
+          z-index: 2
+          background-color: white!important
+
+          &:focus
+            outline: rgba(0, 152, 208, .5) auto
+
+          svg
+            transform: rotate(180deg)
+
+  #mainmenu
+
+    float: left
+
+    > li
+      border-right: 1px solid $gray
+
+      &:first-child
+
+        border-left: 1px solid $gray
+
+        a
+          padding-bottom: 15px
+
+        &.selected
+          background: $blue
+
+          #navi-home
+            fill: white
+
+      > a, > button
+
+        text-transform: uppercase
+
+        #navi-home
+          width: 25px
+          height: 20px

@@ -17,15 +17,15 @@ const Language = (props) => {
 
     return (
         <React.Fragment>
-            <li className={props.user.preferredLanguage === 'fi' ? 'nav-item active' : 'nav-item'}>
-                <Link to="#" className='nav-link' onClick={() => props.onLanguageChange( 'fi')}>Suomeksi</Link>
-            </li>
-            <li className={props.user.preferredLanguage === 'en' ? 'nav-item active' : 'nav-item'}>
-                <Link to="#"  className='nav-link' onClick={() => props.onLanguageChange( 'en')}>In English</Link>
-            </li>
-            <li className={props.user.preferredLanguage === 'sv' ? 'nav-item active' : 'nav-item'}>
-                <Link to="#" className='nav-link' onClick={() => props.onLanguageChange('sv')}>På svenska</Link>
-            </li>
+                <button className={props.user.preferredLanguage === 'fi' ? 'hidden' : 'lang-opt'}>
+                    <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange( 'fi')}>Suomi</Link>
+                </button>
+            <button className={props.user.preferredLanguage === 'sv' ? 'hidden' : 'lang-opt'}>
+                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange('sv')}>Svenska</Link>
+            </button>
+                <button className={props.user.preferredLanguage === 'en' ? 'hidden' : 'lang-opt'} >
+                    <Link to="#"  className='lang-opt' onClick={() => props.onLanguageChange( 'en')}>English</Link>
+                </button>
         </React.Fragment>
     );
 };
