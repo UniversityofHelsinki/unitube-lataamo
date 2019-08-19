@@ -11,7 +11,6 @@ function Navigation (props) {
     }, []);
     return(
         <div className="navigation-row">
-            <div className="portlet-content">
                 <nav id="navigation">
                     <ul id="mainmenu">
                         <li className={props.route === 'home' ? 'main-nav-item active' : 'main-nav-item'} >
@@ -23,7 +22,6 @@ function Navigation (props) {
                     </ul>
                 </nav>
                 <div className="clear"></div>
-            </div>
         </div>
     );
 }
