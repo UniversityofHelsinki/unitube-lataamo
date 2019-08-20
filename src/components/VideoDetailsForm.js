@@ -1,45 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios'; // maybe refactor to separate file
+import Alert from 'react-bootstrap/Alert';
+
 
 const VideoDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.event);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
 
-    const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-    const PATH = '/api/userVideos';
 
-    async function updateVideoDetails() {
-        const id = inputs.identifier;
-        const title  = inputs.title;
-        const description = inputs.description;
-        const isPartOf = inputs.isPartOf;
+    // maybe refactor to separate file
+    const update = (id, newObject) => {
+        const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+        const PATH = '/api/userVideos';
+        return axios.put(`${VIDEO_SERVER_API}${PATH}/${id}`, newObject);
+    };
+
+
+    const updateVideoDetails = () => {
+        const videoId = inputs.id;
 
         const video = {
-            id, title, description, isPartOf
+            id: inputs.id,
+            title: inputs.title,
+            description: inputs.description,
+            duration: inputs.duration,
+            creator: inputs.creator,
+            processing_state: inputs.processing_state,
+            isPartOf: inputs.isPartOf,
+            visibility: inputs.visibility
         };
 
-        console.log('Update video', video);
-
         // call unitube-proxy api
-        const response = await fetch(`${VIDEO_SERVER_API}${PATH}/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify(video),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        });
-        console.log('PUT RESPONSE', response);
-    }
+        update(videoId, video)
+            .then(response => {
+                console.log('success', response);
+                setSuccessMessage('JUST A PLACE HOLDER TEXT');
+            })
+            .catch(error => {
+                console.log('fail', error);
+                setErrorMessage('JUST A PLACE HOLDER TEXT');
+            });
+    };
 
     useEffect(() => {
         setInputs(props.event);
+        setSuccessMessage(null);
+        setErrorMessage(null);
     }, [props.event, props.series]);
 
     const handleSubmit = (event) => {
         if (event) {
             event.preventDefault();
-            updateVideoDetails(event);
+            updateVideoDetails();
         }
     };
+
     const handleInputChange = (event) => {
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
@@ -47,13 +64,31 @@ const VideoDetailsForm = (props) => {
 
     const drawSelectionValues = () => {
         return props.series.map((serie) => {
-            return <option key={serie.identifier} id={serie.identifier} value={serie.identifier}>{serie.title}</option>;
+            return <option key={serie.id} id={serie.id} value={serie.id}>{serie.title}</option>;
         });
     };
 
     return (
         <div>
-            {props.event && props.event.identifier !== undefined
+            {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
+            {successMessage !== null ?
+                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                    <p>
+                        {successMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            {errorMessage !== null ?
+                <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
+                    <p>
+                        {errorMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+
+            {props.event && props.event.id !== undefined
                 ?
                 <form onSubmit={handleSubmit} className="was-validated">
                     <div className="form-group row">
@@ -78,7 +113,7 @@ const VideoDetailsForm = (props) => {
                                 onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                     </div>
-                    {!props.event.identifier  ?
+                    {!props.event.id  ?
                         <div className="form-group row">
                             <label htmlFor="title" className="col-sm-2 col-form-label">Video</label>
                             <div className="col-sm-10">

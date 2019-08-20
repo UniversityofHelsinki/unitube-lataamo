@@ -17,7 +17,7 @@ const SeriesList = (props) => {
     };
 
     const columns = [{
-        dataField: 'identifier',
+        dataField: 'id',
         text: translate('serie_id'),
         sort: true
     }, {
@@ -31,7 +31,7 @@ const SeriesList = (props) => {
     }];
 
     const defaultSorted = [{
-        dataField: 'identifier',
+        dataField: 'id',
         order: 'desc'
     }];
 
@@ -43,7 +43,7 @@ const SeriesList = (props) => {
         <div>
             <ToolkitProvider
                 bootstrap4
-                keyField="identifier"
+                keyField="id"
                 data={ props.series }
                 columns={ columns }
                 search

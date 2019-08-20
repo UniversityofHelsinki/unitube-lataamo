@@ -9,14 +9,14 @@ import VideoList from '../components/VideoList';
 const mockStore = configureStore([thunk]);
 
 const videos =  [
-    { 'identifier': '13d1505c-0afb-456b-b5f8-46666b7640a9', 'title': 'Vierailuluento: Avaruudesta avaruustieteitä.', 'duration': 0, 'creator': 'xyz_kuvaaja', 'visibility': [] },
-    { 'identifier': 'e4ff3ffe-e32a-42f2-8967-20b44cdc20e1', 'title': 'Mansikoiden lisääntyminen umpimetsässä.', 'duration': 33000, 'creator': 'xyz_kuvaaja', 'visibility': [] },
-    { 'identifier': '4a6dc481-be36-4d3a-a813-bf415374b83d', 'title': 'Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.', 'duration': 0, 'creator': 'xyz_kuvaaja', 'visibility': [] },
-    { 'identifier': 'eb68f711-04f9-4b58-b6c8-582a77d7b8a5', 'title': 'Autonomisen yhteiskunnan mahdollisuudet ja uhat maapallolla.', 'duration': 0, 'creator': 'xzz_kuvaaja', 'visibility': [] },
-    { 'identifier': 'e269af0d-3c68-457d-90b5-08da5b531152', 'title': 'Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.', 'duration   ': 25000, 'creator': 'xyx_kuvaaja', 'visibility': [] }
+    { 'id': '13d1505c-0afb-456b-b5f8-46666b7640a9', 'title': 'Vierailuluento: Avaruudesta avaruustieteitä.', 'duration': 0, 'creator': 'xyz_kuvaaja', 'visibility': [] },
+    { 'id': 'e4ff3ffe-e32a-42f2-8967-20b44cdc20e1', 'title': 'Mansikoiden lisääntyminen umpimetsässä.', 'duration': 33000, 'creator': 'xyz_kuvaaja', 'visibility': [] },
+    { 'id': '4a6dc481-be36-4d3a-a813-bf415374b83d', 'title': 'Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.', 'duration': 0, 'creator': 'xyz_kuvaaja', 'visibility': [] },
+    { 'id': 'eb68f711-04f9-4b58-b6c8-582a77d7b8a5', 'title': 'Autonomisen yhteiskunnan mahdollisuudet ja uhat maapallolla.', 'duration': 0, 'creator': 'xzz_kuvaaja', 'visibility': [] },
+    { 'id': 'e269af0d-3c68-457d-90b5-08da5b531152', 'title': 'Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.', 'duration   ': 25000, 'creator': 'xyx_kuvaaja', 'visibility': [] }
 ];
 
-const translations = { en: { video_id: 'identifier', lataamo: 'Loader', videos: 'Videos', search: 'Search', video_title: 'Video title', video_duration: 'video duration', processing_state: 'Processing state' , publication_status: 'Publication Status' }, fi: { video_id: 'videon id', lataamo: 'Lataamo', videos: 'Videoni', search: 'Etsi', video_title: 'Videon nimi', video_duration: 'video duration', processing_state: 'Tallennuksen tila', publication_status: 'Tallenteen julkisuus' }, sv: { video_id: 'video id', lataamo: 'Loader', videos: 'Videor', search: 'Söka', video_title: 'Video titeln' , video_duration: 'video duration' , processing_state: 'processing_state', publication_status: 'publicitet av inspelningen' } };
+const translations = { en: { video_id: 'id', lataamo: 'Loader', videos: 'Videos', search: 'Search', video_title: 'Video title', video_duration: 'video duration', processing_state: 'Processing state' , publication_status: 'Publication Status' }, fi: { video_id: 'videon id', lataamo: 'Lataamo', videos: 'Videoni', search: 'Etsi', video_title: 'Videon nimi', video_duration: 'video duration', processing_state: 'Tallennuksen tila', publication_status: 'Tallenteen julkisuus' }, sv: { video_id: 'video id', lataamo: 'Loader', videos: 'Videor', search: 'Söka', video_title: 'Video titeln' , video_duration: 'video duration' , processing_state: 'processing_state', publication_status: 'publicitet av inspelningen' } };
 
 const msg = 'Unable to fetch data';
 
