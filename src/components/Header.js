@@ -1,9 +1,10 @@
 import React from 'react';
 import Language from '../components/Language';
-import Navigation from "./Navigation";
+import Navigation from './Navigation';
+import 'react-hint/css/index.css';
 import { Translate } from 'react-redux-i18n';
 
-const Header = (props) => {
+const Header = () => {
     return (
         <>
         <header id="banner" role="banner">
