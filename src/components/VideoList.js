@@ -7,7 +7,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
-import constants from '../utils/constants';
 import EventForm from './EventForm';
 
 const { SearchBar } = Search;
@@ -20,32 +19,15 @@ const VideoList = (props) => {
         return translations ? translations[key] : '';
     };
 
-
+    // the only translated property is the visibility value
     const translatedVideos = () => {
         return props.videos.map(video => {
-            let visibility = [];
-
-            const publishedAcl = video.acls.filter(acl => acl.role === constants.ROLE_ANONYMOUS);
-
-            const moodleAclInstructor = video.acls.filter(acl => acl.role.includes(constants.MOODLE_ACL_INSTRUCTOR));
-
-            const moodleAclLearner = video.acls.filter(acl => acl.role.includes(constants.MOODLE_ACL_LEARNER));
-
-            if (publishedAcl && publishedAcl.length > 0) {
-                visibility.push(translate(constants.STATUS_PUBLISHED));
-            }
-
-            if (moodleAclInstructor && moodleAclLearner && moodleAclInstructor.length > 0 && moodleAclLearner.length > 0) {
-                visibility.push(translate(constants.STATUS_MOODLE));
-            }
-
             return {
                 ...video,
-                visibility: [...new Set(visibility)]
+                visibility: video.visibility.map(visibilityKey => translate(visibilityKey))
             };
         });
     };
-
 
 
     useEffect(() => {
