@@ -1,28 +1,28 @@
 {
     "events": [
-        { "identifier": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.", "duration": 0, "creator": "xyz_kuvaaja" },
-        { "identifier": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "duration": 33000, "creator": "xyz_kuvaaja" },
-        { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "duration": 0, "creator": "xyz_kuvaaja" },
-        { "identifier": "eb68f711-04f9-4b58-b6c8-582a77d7b8a5", "title": "Autonomisen yhteiskunnan mahdollisuudet ja uhat maapallolla.", "duration": 0, "creator": "xzz_kuvaaja" },
-        { "identifier": "e269af0d-3c68-457d-90b5-08da5b531152", "title": "Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.", "duration   ": 25000, "creator": "xyx_kuvaaja" }
+        { "id": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.", "duration": 0, "creator": "xyz_kuvaaja" },
+        { "id": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "duration": 33000, "creator": "xyz_kuvaaja" },
+        { "id": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "duration": 0, "creator": "xyz_kuvaaja" },
+        { "id": "eb68f711-04f9-4b58-b6c8-582a77d7b8a5", "title": "Autonomisen yhteiskunnan mahdollisuudet ja uhat maapallolla.", "duration": 0, "creator": "xzz_kuvaaja" },
+        { "id": "e269af0d-3c68-457d-90b5-08da5b531152", "title": "Atomien välisten yhteyksien hahmottaminen Cernin ulkopuolella.", "duration   ": 25000, "creator": "xyx_kuvaaja" }
     ],
     "userVideos": [
-        { "identifier": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.",
+        { "id": "13d1505c-0afb-456b-b5f8-46666b7640a9", "title": "Vierailuluento: Avaruudesta avaruustieteitä.",
             "description": "Löytyykö elämää Marsista ?",
             "duration": "3s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf" : "910ab7d2-15ca-46e7-8abe-c172130e0e9a",
             "visibility": ["status_published"]
         },
-        { "identifier": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "description" : "Tässä kuvataan mansikoiden lisääntymistä metsässä", "duration": "1m 14s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf": "910ab7d2-15ca-46e7-8abe-c172130234234",
+        { "id": "e4ff3ffe-e32a-42f2-8967-20b44cdc20e1", "title": "Mansikoiden lisääntyminen umpimetsässä.", "description" : "Tässä kuvataan mansikoiden lisääntymistä metsässä", "duration": "1m 14s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf": "910ab7d2-15ca-46e7-8abe-c172130234234",
             "visibility": ["status_published"]
         },
-        { "identifier": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "description" : "Voittokulkua ei voi estää", "duration": "15min 12s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf": "910ab7d2-15ca-46e7-8abe-c172130234234",
+        { "id": "4a6dc481-be36-4d3a-a813-bf415374b83d", "title": "Voittokulku ja kuinka se taklataan. Projektioita projektimaailmasta.", "description" : "Voittokulkua ei voi estää", "duration": "15min 12s", "creator": "xyz_kuvaaja", "processing_state": "SUCCEEDED", "isPartOf": "910ab7d2-15ca-46e7-8abe-c172130234234",
             "visibility": ["status_published", "status_moodle"]
         }
     ],
     "user": {
         "eppn": "kayttaja", "preferredLanguage" : "fi"
     },
-    "userSeries" : [{"identifier":"910ab7d2-15ca-46e7-8abe-c172130234234","creator":"Lataamo Api User","created":"2019-06-11T04:59:42Z","subjects":[""],"organizers":[],"publishers":["publisher-kasitunnus"],"contributors":["vmheikki"],"title":"inbox sarja"},{"identifier":"910ab7d2-15ca-46e7-8abe-c172130e0e9a","creator":"Lataamo Api User","created":"2019-06-11T04:59:42Z","subjects":[""],"organizers":[],"publishers":["publisher-kasitunnus"],"contributors":["vmheikki","grp-lataamo-1"],"title":"Avaruus sarja"}],
+    "userSeries" : [{"id":"910ab7d2-15ca-46e7-8abe-c172130234234","creator":"Lataamo Api User","created":"2019-06-11T04:59:42Z","subjects":[""],"organizers":[],"publishers":["publisher-kasitunnus"],"contributors":["vmheikki"],"title":"inbox sarja"},{"id":"910ab7d2-15ca-46e7-8abe-c172130e0e9a","creator":"Lataamo Api User","created":"2019-06-11T04:59:42Z","subjects":[""],"organizers":[],"publishers":["publisher-kasitunnus"],"contributors":["vmheikki","grp-lataamo-1"],"title":"Avaruus sarja"}],
     "video" : [
         {
             "id" : "13d1505c-0afb-456b-b5f8-46666b7640a9",

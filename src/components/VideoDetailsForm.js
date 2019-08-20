@@ -1,8 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-const EventForm = (props) => {
+const VideoDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.event);
+
+    const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+    const PATH = '/api/userVideos';
+
+    async function updateVideoDetails() {
+        const id = inputs.identifier;
+        const title  = inputs.title;
+        const description = inputs.description;
+        const isPartOf = inputs.isPartOf;
+
+        const video = {
+            id, title, description, isPartOf
+        };
+
+        console.log('Update video', video);
+
+        // call unitube-proxy api
+        const response = await fetch(`${VIDEO_SERVER_API}${PATH}/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(video),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('PUT RESPONSE', response);
+    }
 
     useEffect(() => {
         setInputs(props.event);
@@ -11,6 +37,7 @@ const EventForm = (props) => {
     const handleSubmit = (event) => {
         if (event) {
             event.preventDefault();
+            updateVideoDetails(event);
         }
     };
     const handleInputChange = (event) => {
@@ -81,4 +108,4 @@ const mapStateToProps = state => ({
     series : state.ser.series
 });
 
-export default connect(mapStateToProps, null)(EventForm);
+export default connect(mapStateToProps, null)(VideoDetailsForm);
