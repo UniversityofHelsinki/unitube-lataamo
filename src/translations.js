@@ -18,7 +18,8 @@ const translationsObject = {
         hy_address_part1: 'P.O. Box 4 (Yliopistonkatu 3)',
         hy_address_part2: '00014 University of Helsinki Finland',
         hy_switchboard: 'Switchboard: +358 (0) 2941 911',
-        hy_contact_info_link: 'Contact information'
+        hy_contact_info_link: 'Contact information',
+        created: 'Created'
     },
     fi: {
         videos: 'Videoni',
@@ -39,7 +40,8 @@ const translationsObject = {
         hy_address_part1: 'PL 4 (Yliopistonkatu 3)',
         hy_address_part2: '00014 Helsingin yliopisto',
         hy_switchboard: 'Puhelinvaihde:  02941 911',
-        hy_contact_info_link: 'Yhteystiedot'
+        hy_contact_info_link: 'Yhteystiedot',
+        created: 'Tallennettu'
     },
     sv: {
         videos: 'Videor',
@@ -60,7 +62,8 @@ const translationsObject = {
         hy_address_part1: 'PB 4 (Universitetsgatan 3)',
         hy_address_part2: '00014 Helsingfors universitet Finland',
         hy_switchboard: 'Växel: +358 (0) 2941 911',
-        hy_contact_info_link: 'Kontaktuppgifter'
+        hy_contact_info_link: 'Kontaktuppgifter',
+        created: 'Skapad'
     }
 };
 
