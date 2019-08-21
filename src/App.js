@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
+import VideoUploadForm from './components/VideoUploadForm';
 import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';
@@ -32,6 +33,7 @@ const App = (props) => {
                             <Route exact path='/' component={VideoList}/>
                             <Route exact path='/series' component={SeriesList}/>
                             <Route path="/series/:id" component={SeriesList} />
+                            <Route exact path='/uploadVideo' component={VideoUploadForm} />
                         </Switch>
                     </div>
                 </div>
@@ -44,7 +46,7 @@ const App = (props) => {
                     </div>
                 )
             }
-        <Footer/>
+            <Footer/>
         </div>
     );
 };
