@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 import { fetchSeries } from '../actions/seriesAction';
 
 
-
 const VideoUploadForm = (props) => {
-    // const [title, setTitle] = useState('');
-    // const [description, setDescription] = useState('');
-    // const [series, setSeries] = useState('');  // this will be initialized from the redux state
-    // const [videoPath, setVideoPath] = useState('');  // TODO: check how this is done
     const [inputs, setInputs] = useState(props.event);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
 
 
     useEffect(() => {
@@ -17,9 +16,34 @@ const VideoUploadForm = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // maybe refactor to a separate file
+    const upload = (newVideo) => {
+        newVideo.id = 'if local test generate this';
+        const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+        const PATH = '/api/userVideos';
+        return axios.post(`${VIDEO_SERVER_API}${PATH}`, newVideo);
+    };
+
+    const uploadVideo = () => {
+        const newVideo = { ...inputs }; // values from the form
+
+        // call unitube-proxy api
+        upload(newVideo)
+            .then(response => {
+                setSuccessMessage('JUST A PLACE HOLDER TEXT');
+                // add the new video to redux state
+                props.onVideoDetailsEdit(props.videos.concat(newVideo));
+            })
+            .catch(error => {
+                setErrorMessage('JUST A PLACE HOLDER TEXT');
+            });
+    };
+
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
         console.log('submit', inputs);
+        uploadVideo();
     };
 
     const handleInputChange = (event) => {
@@ -36,6 +60,19 @@ const VideoUploadForm = (props) => {
 
     return (
         <div>
+            {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
+            {successMessage !== null ?
+                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                    <p>{successMessage}</p>
+                </Alert>
+                : (<></>)
+            }
+            {errorMessage !== null ?
+                <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
+                    <p>{errorMessage}</p>
+                </Alert>
+                : (<></>)
+            }
             <h2>I am the upload form, who are you?</h2>
             <form onSubmit={handleSubmit} className="was-validated">
                 <div className="form-group row">
