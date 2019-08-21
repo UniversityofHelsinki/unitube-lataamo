@@ -1,54 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios'; // maybe refactor to separate file
+import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
+import { updateVideoList } from '../actions/videosAction';
+
+
+// maybe refactor to a separate file
+const update = (id, newObject) => {
+    const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+    const PATH = '/api/userVideos';
+    return axios.put(`${VIDEO_SERVER_API}${PATH}/${id}`, newObject);
+};
 
 
 const VideoDetailsForm = (props) => {
-    const [inputs, setInputs] = useState(props.event);
+    const [inputs, setInputs] = useState(props.video);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-
-    // maybe refactor to separate file
-    const update = (id, newObject) => {
-        const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-        const PATH = '/api/userVideos';
-        return axios.put(`${VIDEO_SERVER_API}${PATH}/${id}`, newObject);
-    };
-
-
     const updateVideoDetails = () => {
         const videoId = inputs.id;
-
-        const video = {
-            id: inputs.id,
-            title: inputs.title,
-            description: inputs.description,
-            duration: inputs.duration,
-            creator: inputs.creator,
-            processing_state: inputs.processing_state,
-            isPartOf: inputs.isPartOf,
-            visibility: inputs.visibility
-        };
+        const updatedVideo = { ...inputs }; // values from the form
 
         // call unitube-proxy api
-        update(videoId, video)
+        update(videoId, updatedVideo)
             .then(response => {
-                console.log('success', response);
                 setSuccessMessage('JUST A PLACE HOLDER TEXT');
+
+                // update the videolist to redux state
+                props.onVideoDetailsEdit(props.videos.map(
+                    video => video.id !== videoId ? video : updatedVideo));
             })
             .catch(error => {
-                console.log('fail', error);
                 setErrorMessage('JUST A PLACE HOLDER TEXT');
             });
     };
 
     useEffect(() => {
-        setInputs(props.event);
+        setInputs(props.video);
         setSuccessMessage(null);
         setErrorMessage(null);
-    }, [props.event, props.series]);
+    }, [props.video, props.series]);
 
     const handleSubmit = (event) => {
         if (event) {
@@ -88,7 +80,7 @@ const VideoDetailsForm = (props) => {
                 : (<></>)
             }
 
-            {props.event && props.event.id !== undefined
+            {props.video && props.video.id !== undefined
                 ?
                 <form onSubmit={handleSubmit} className="was-validated">
                     <div className="form-group row">
@@ -113,7 +105,7 @@ const VideoDetailsForm = (props) => {
                                 onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                     </div>
-                    {!props.event.id  ?
+                    {!props.video.id  ?
                         <div className="form-group row">
                             <label htmlFor="title" className="col-sm-2 col-form-label">Video</label>
                             <div className="col-sm-10">
@@ -138,9 +130,15 @@ const VideoDetailsForm = (props) => {
     );
 };
 
+
 const mapStateToProps = state => ({
-    event : state.er.event,
-    series : state.ser.series
+    video : state.er.event,
+    series : state.ser.series,
+    videos : state.vr.videos,
 });
 
-export default connect(mapStateToProps, null)(VideoDetailsForm);
+const mapDispatchToProps = dispatch => ({
+    onVideoDetailsEdit: (freshVideoList) => dispatch(updateVideoList(freshVideoList))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);

@@ -42,6 +42,13 @@ export const fetchVideos = () => {
     };
 };
 
+// update the videolist in state (called on video information update)
+export const updateVideoList = (updatedList) => {
+    return async dispatch => {
+        dispatch(apiGetVideosSuccessCall(updatedList));
+    };
+};
+
 export const apiGetEventSuccessCall = (data) => ({
     type: 'SUCCESS_API_GET_EVENT',
     payload: data
