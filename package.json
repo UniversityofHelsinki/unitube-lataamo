@@ -14,6 +14,7 @@
     "react-bootstrap-table2-paginator": "^2.0.6",
     "react-bootstrap-table2-toolkit": "^2.0.0",
     "react-dom": "^16.8.4",
+    "react-hint": "^3.2.0",
     "react-redux": "^6.0.1",
     "react-redux-i18n": "^1.9.3",
     "react-router-dom": "^5.0.0",
