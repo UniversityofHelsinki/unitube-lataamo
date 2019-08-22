@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import { fetchSeries } from '../actions/seriesAction';
+import { actionUploadVideo } from '../actions/videosAction';
 
 
 const VideoUploadForm = (props) => {
@@ -16,39 +16,34 @@ const VideoUploadForm = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // maybe refactor to a separate file
-    const upload = (newVideo) => {
-        newVideo.id = 'if local test generate this';
-        const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-        const PATH = '/api/userVideos';
-        return axios.post(`${VIDEO_SERVER_API}${PATH}`, newVideo);
-    };
 
-    const uploadVideo = () => {
+    const uploadVideo = async() => {
         const newVideo = { ...inputs }; // values from the form
 
         // call unitube-proxy api
-        upload(newVideo)
-            .then(response => {
-                setSuccessMessage('JUST A PLACE HOLDER TEXT');
-                // add the new video to redux state
-                props.onVideoDetailsEdit(props.videos.concat(newVideo));
-            })
-            .catch(error => {
-                setErrorMessage('JUST A PLACE HOLDER TEXT');
-            });
+        try {
+            await actionUploadVideo(newVideo);
+            setSuccessMessage('JUST A PLACE HOLDER TEXT');
+            // no state udpates here
+        } catch (err) {
+            setErrorMessage('JUST A PLACE HOLDER TEXT');
+        }
     };
 
-
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
-        console.log('submit', inputs);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('handleSubmit', inputs);
         uploadVideo();
     };
 
     const handleInputChange = (event) => {
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
+    };
+
+    const handleFileInputChange = (event) => {
+        event.persist();
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.files[0] }));
     };
 
     const drawSelectionValues = () => {
@@ -74,7 +69,14 @@ const VideoUploadForm = (props) => {
                 : (<></>)
             }
             <h2>I am the upload form, who are you?</h2>
-            <form onSubmit={handleSubmit} className="was-validated">
+            <form encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
+                <div className="form-group row">
+                    <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
+                    <div className="col-sm-10">
+                        <input onChange={handleFileInputChange} type="file" className="form-control" name="video_file" required/>
+                    </div>
+                </div>
+                <br></br>
                 <div className="form-group row">
                     <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
                     <div className="col-sm-10">
@@ -97,13 +99,6 @@ const VideoUploadForm = (props) => {
                             onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                     </div>
                 </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
-                    <div className="col-sm-10">
-                        <input onChange={handleInputChange} type="file" className="form-control" name="video" required/>
-                    </div>
-                </div>
-
                 <div className="form-group row">
                     <div className="col-sm-10 offset-sm-2">
                         <button type="submit" className="btn btn-primary">Tallenna</button>

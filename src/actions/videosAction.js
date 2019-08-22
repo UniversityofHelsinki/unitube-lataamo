@@ -1,5 +1,7 @@
 // asynchronous action creator
 
+import axios from 'axios';
+
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_EVENTS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/video/';
@@ -40,6 +42,25 @@ export const fetchVideos = () => {
             dispatch(apiFailureCall('Unable to fetch data'));
         }
     };
+};
+
+export const actionUploadVideo = async (newVideo) => {
+    try {
+        let response = await axios.post(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, newVideo,{
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+
+        if(response.status === 200) {
+            let responseJSON = await response.json;
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
 export const apiGetEventSuccessCall = (data) => ({
