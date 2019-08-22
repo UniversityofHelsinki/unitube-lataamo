@@ -10,7 +10,7 @@ const VideoDetailsForm = (props) => {
     const [successMessage, setSuccessMessage] = useState(null);
 
     const updateVideoDetails = async() => {
-        const videoId = inputs.id;
+        const videoId = inputs.identifier;
         const updatedVideo = { ...inputs }; // values from the form
 
         // call unitube-proxy api
@@ -43,7 +43,7 @@ const VideoDetailsForm = (props) => {
 
     const drawSelectionValues = () => {
         return props.series.map((serie) => {
-            return <option key={serie.id} id={serie.id} value={serie.id}>{serie.title}</option>;
+            return <option key={serie.identifier} id={serie.identifier} value={serie.identifier}>{serie.title}</option>;
         });
     };
 
@@ -67,7 +67,7 @@ const VideoDetailsForm = (props) => {
                 : (<></>)
             }
 
-            {props.video && props.video.id !== undefined
+            {props.video && props.video.identifier !== undefined
                 ?
                 <form onSubmit={handleSubmit} className="was-validated">
                     <div className="form-group row">
@@ -90,7 +90,7 @@ const VideoDetailsForm = (props) => {
                             <textarea name="description" className="form-control" value={inputs.description} onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                     </div>
-                    {!props.video.id  ?
+                    {!props.video.identifier  ?
                         <div className="form-group row">
                             <label htmlFor="title" className="col-sm-2 col-form-label">Video</label>
                             <div className="col-sm-10">

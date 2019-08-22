@@ -53,7 +53,7 @@ const VideoList = (props) => {
 
 
     const columns = [{
-        dataField: 'id',
+        dataField: 'identifier',
         text: translate('video_id'),
         hidden: true
     }, {
@@ -75,7 +75,7 @@ const VideoList = (props) => {
     }];
 
     const defaultSorted = [{
-        dataField: 'id',
+        dataField: 'identifier',
         order: 'desc'
     }];
 
@@ -84,7 +84,7 @@ const VideoList = (props) => {
         let nonSelectableArray = [];
         props.videos.forEach(video => {
             if (video.processing_state && video.processing_state === 'RUNNING') {
-                nonSelectableArray.push(video.id);
+                nonSelectableArray.push(video.identifier);
             }
         });
         return nonSelectableArray;
@@ -116,7 +116,7 @@ const VideoList = (props) => {
         <div className="table-responsive">
             <ToolkitProvider
                 bootstrap4
-                keyField="id"
+                keyField="identifier"
                 data={ translatedVideos() }
                 columns={ columns }
                 search

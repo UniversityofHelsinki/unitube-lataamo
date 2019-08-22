@@ -6,7 +6,7 @@ const EVENT_PATH = '/api/event/';
 export const fetchEvent = (row) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${row.id}`);
+            let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${row.identifier}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetEventSuccessCall(responseJSON));
