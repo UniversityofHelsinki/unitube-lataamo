@@ -10,12 +10,10 @@ const VideoUploadForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-
     useEffect(() => {
         props.onFetchSeries();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     const uploadVideo = async() => {
         const newVideo = { ...inputs }; // values from the form
@@ -32,7 +30,6 @@ const VideoUploadForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('handleSubmit', inputs);
         uploadVideo();
     };
 
