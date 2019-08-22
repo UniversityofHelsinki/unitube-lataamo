@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
-import { updateVideoList } from '../actions/videosAction';
-
-
-// maybe refactor to a separate file
-const update = (id, newObject) => {
-    const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-    const PATH = '/api/userVideos';
-    return axios.put(`${VIDEO_SERVER_API}${PATH}/${id}`, newObject);
-};
+import { updateVideoList, actionUpdateVideoDetails } from '../actions/videosAction';
 
 
 const VideoDetailsForm = (props) => {
@@ -18,34 +9,30 @@ const VideoDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-    const updateVideoDetails = () => {
+    const updateVideoDetails = async() => {
         const videoId = inputs.id;
         const updatedVideo = { ...inputs }; // values from the form
 
         // call unitube-proxy api
-        update(videoId, updatedVideo)
-            .then(response => {
-                setSuccessMessage('JUST A PLACE HOLDER TEXT');
-
-                // update the videolist to redux state
-                props.onVideoDetailsEdit(props.videos.map(
-                    video => video.id !== videoId ? video : updatedVideo));
-            })
-            .catch(error => {
-                setErrorMessage('JUST A PLACE HOLDER TEXT');
-            });
+        try {
+            await actionUpdateVideoDetails(videoId, updatedVideo);
+            setSuccessMessage('JUST A PLACE HOLDER TEXT');
+            // update the videolist to redux state
+            props.onVideoDetailsEdit(props.videos.map(
+                video => video.id !== videoId ? video : updatedVideo));
+        } catch (err) {
+            setErrorMessage('JUST A PLACE HOLDER TEXT');
+        }
     };
 
     useEffect(() => {
         setInputs(props.video);
-        setSuccessMessage(null);
-        setErrorMessage(null);
     }, [props.video, props.series]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
-            updateVideoDetails();
+            await updateVideoDetails();
         }
     };
 
@@ -94,15 +81,13 @@ const VideoDetailsForm = (props) => {
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-10">
-                            <input type="text" name="title" className="form-control" onChange={handleInputChange}
-                                placeholder="Title" value={inputs.title} maxLength="150" required/>
+                            <input type="text" name="title" className="form-control" onChange={handleInputChange} placeholder="Title" value={inputs.title} maxLength="150" required/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
                         <div className="col-sm-10">
-                            <textarea name="description" className="form-control" value={inputs.description}
-                                onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
+                            <textarea name="description" className="form-control" value={inputs.description} onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                     </div>
                     {!props.video.id  ?

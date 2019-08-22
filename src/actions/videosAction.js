@@ -42,6 +42,26 @@ export const fetchVideos = () => {
     };
 };
 
+export const actionUpdateVideoDetails = async (id, updatedVideo) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedVideo)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json;
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 // update the videolist in state (called on video information update)
 export const updateVideoList = (updatedList) => {
     return async dispatch => {
