@@ -22,7 +22,7 @@ const translationsObject = {
         series_info: 'Info text for series field',
         video_title_info: 'Info text for video_title field',
         video_description_info: 'Info text for description field',
-        video_file_info: 'Info text for video file field'
+        video_file_info: 'Info text for video file field',
         created: 'Created'
     },
     fi: {
@@ -48,7 +48,7 @@ const translationsObject = {
         series_info: 'Sarjan infokenttä',
         video_title_info: 'Videon otsikon infokenttä',
         video_description_info: 'Videon kuvauksen infokenttä',
-        video_file_info: 'Videotiedoston infokenttä'
+        video_file_info: 'Videotiedoston infokenttä',
         created: 'Tallennettu'
     },
     sv: {
@@ -74,7 +74,7 @@ const translationsObject = {
         series_info: 'serie info',
         video_title_info: 'video titeln info',
         video_description_info: 'Video beskrivning info',
-        video_file_info: 'video fil info'
+        video_file_info: 'video fil info',
         created: 'Skapad'
     }
 };
