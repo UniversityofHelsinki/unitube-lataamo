@@ -1,0 +1,40 @@
+@mixin aspect-ratio($width, $height)
+  position: relative
+  &:before
+    display: block
+    content: " "
+    width: 100%
+    padding-top: ($height / $width) * 100%
+
+
+  > .content
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+
+
+.sixteen-nine
+  @include aspect-ratio(16,9)
+
+
+.one-to-one
+  @include aspect-ratio(1,1)
+
+
+@mixin displayFlex()
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+
+@mixin textHyphens()
+  word-wrap: break-word
+  overflow-wrap: break-word
+  -webkit-hyphens: auto
+  -moz-hyphens: auto
+  -ms-hyphens: auto
+  hyphens: auto

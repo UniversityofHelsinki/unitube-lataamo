@@ -1,7 +1,7 @@
 // asynchronous action creator
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-const USER_EVENTS_PATH = '/api/userEvents';
+const USER_EVENTS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/video/';
 
 export const fetchVideo = (row) => {

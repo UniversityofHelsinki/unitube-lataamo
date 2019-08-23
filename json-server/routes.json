@@ -1,4 +1,4 @@
 {
-    "/api/event/:id": "/api/userEvents?identifier=:id&singular=1",
+    "/api/event/:id": "/api/userVideos?identifier=:id&singular=1",
     "/api/*": "/$1"
 }
