@@ -27,6 +27,8 @@ const VideoDetailsForm = (props) => {
 
     useEffect(() => {
         setInputs(props.video);
+        setSuccessMessage(null);
+        setErrorMessage(null);
     }, [props.video, props.series]);
 
     const handleSubmit = async (event) => {
