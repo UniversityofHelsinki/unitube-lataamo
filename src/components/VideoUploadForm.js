@@ -6,7 +6,7 @@ import { actionUploadVideo } from '../actions/videosAction';
 
 
 const VideoUploadForm = (props) => {
-    const [inputs, setInputs] = useState(props.event);
+    const [selectedVideoFile, setVideoFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
@@ -16,15 +16,18 @@ const VideoUploadForm = (props) => {
     }, []);
 
     const uploadVideo = async() => {
-        const newVideo = { ...inputs }; // values from the form
+        //https://developer.mozilla.org/en-US/docs/Web/API/FormData/set
+        const data = new FormData();
+        data.set('videofile', selectedVideoFile);
 
         // call unitube-proxy api
         try {
-            await actionUploadVideo(newVideo);
-            setSuccessMessage('JUST A PLACE HOLDER TEXT');
+            const response = await actionUploadVideo(data);
+
+            setSuccessMessage('JUST A PLACE HOLDER TEXT ' + response);
             // no state udpates here
         } catch (err) {
-            setErrorMessage('JUST A PLACE HOLDER TEXT');
+            setErrorMessage('JUST A PLACE HOLDER TEXT ' + err);
         }
     };
 
@@ -33,22 +36,10 @@ const VideoUploadForm = (props) => {
         uploadVideo();
     };
 
-    const handleInputChange = (event) => {
-        event.persist();
-        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
-    };
-
     const handleFileInputChange = (event) => {
         event.persist();
-        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.files[0] }));
+        setVideoFile(event.target.files[0]);
     };
-
-    const drawSelectionValues = () => {
-        return props.series.map((serie) => {
-            return <option key={serie.identifier} id={serie.identifier} value={serie.identifier}>{serie.title}</option>;
-        });
-    };
-
 
     return (
         <div>
@@ -73,29 +64,7 @@ const VideoUploadForm = (props) => {
                         <input onChange={handleFileInputChange} type="file" className="form-control" name="video_file" required/>
                     </div>
                 </div>
-                <br></br>
-                <div className="form-group row">
-                    <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
-                    <div className="col-sm-10">
-                        <select className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
-                            {drawSelectionValues()}
-                        </select>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
-                    <div className="col-sm-10">
-                        <input type="text" name="title" className="form-control" onChange={handleInputChange}
-                            placeholder="Title" value={inputs.title} maxLength="150" required/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
-                    <div className="col-sm-10">
-                        <textarea name="description" className="form-control" value={inputs.description}
-                            onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
-                    </div>
-                </div>
+
                 <div className="form-group row">
                     <div className="col-sm-10 offset-sm-2">
                         <button type="submit" className="btn btn-primary">Tallenna</button>

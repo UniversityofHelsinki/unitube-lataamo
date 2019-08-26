@@ -53,8 +53,8 @@ export const actionUploadVideo = async (newVideo) => {
         });
 
         if(response.status === 200) {
-            let responseJSON = await response.json;
-            return responseJSON;
+            let msg = await response.data.message;
+            return msg;
         } else {
             throw new Error(response.status);
         }
