@@ -7,7 +7,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
-import EventForm from './EventForm';
+import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
 
 const { SearchBar } = Search;
@@ -142,7 +142,7 @@ const VideoList = (props) => {
                 }
             </ToolkitProvider>
             <Video />
-            <EventForm />
+            <VideoDetailsForm />
         </div>
     );
 };
