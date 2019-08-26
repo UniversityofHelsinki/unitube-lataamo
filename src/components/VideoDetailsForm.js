@@ -22,14 +22,13 @@ const VideoDetailsForm = (props) => {
     const updateVideoDetails = async() => {
         const videoId = inputs.identifier;
         const updatedVideo = { ...inputs }; // values from the form
-
         // call unitube-proxy api
         try {
             await actionUpdateVideoDetails(videoId, updatedVideo);
             setSuccessMessage('JUST A PLACE HOLDER TEXT');
             // update the videolist to redux state
             props.onVideoDetailsEdit(props.videos.map(
-                video => video.id !== videoId ? video : updatedVideo));
+                video => video.identifier !== videoId ? video :  updatedVideo));
         } catch (err) {
             setErrorMessage('JUST A PLACE HOLDER TEXT');
         }
