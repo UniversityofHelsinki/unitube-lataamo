@@ -23,8 +23,9 @@ const VideoUploadForm = (props) => {
         // call unitube-proxy api
         try {
             const response = await actionUploadVideo(data);
+            console.log('response from upload', response.message);
 
-            setSuccessMessage('JUST A PLACE HOLDER TEXT ' + response);
+            setSuccessMessage('JUST A PLACE HOLDER TEXT ' + response.message);
             // no state udpates here
         } catch (err) {
             setErrorMessage('JUST A PLACE HOLDER TEXT ' + err);
