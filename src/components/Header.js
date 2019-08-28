@@ -3,6 +3,7 @@ import Language from '../components/Language';
 import Navigation from './Navigation';
 import 'react-hint/css/index.css';
 import { Translate } from 'react-redux-i18n';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -28,7 +29,6 @@ const Header = () => {
                 </div>
                 <div className="clear"></div>
             </div>
-
             <div className="clear"></div>
         </header>
         <Navigation />

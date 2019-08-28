@@ -9,6 +9,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
+import {Translate} from "react-redux-i18n";
+import {Link} from "react-router-dom";
 
 const { SearchBar } = Search;
 
@@ -123,26 +125,31 @@ const VideoList = (props) => {
     };
 
     return (
-        <div className="table-responsive">
-            <ToolkitProvider
-                bootstrap4
-                keyField="identifier"
-                data={ translatedVideos() }
-                columns={ columns }
-                search>
-                {
-                    props => (
-                        <div>
-                            <br />
-                            <SearchBar { ...props.searchProps } placeholder={translate('search')} />
-                            <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } defaultSorted={ defaultSorted } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
-                        </div>
-                    )
-                }
-            </ToolkitProvider>
-            <Video />
-            <VideoDetailsForm />
+        <div>
+            <Link to="/uploadVideo" className="btn btn-primary" >
+                <Translate value="add_video" />
+            </Link>
+            <div className="table-responsive">
+                <ToolkitProvider
+                    bootstrap4
+                    keyField="identifier"
+                    data={ translatedVideos() }
+                    columns={ columns }
+                    search>
+                    {
+                        props => (
+                            <div>
+                                <br />
+                                <SearchBar { ...props.searchProps } placeholder={translate('search')} />
+                                <hr />
+                                <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } defaultSorted={ defaultSorted } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
+                            </div>
+                        )
+                    }
+                </ToolkitProvider>
+                <Video />
+                <VideoDetailsForm />
+            </div>
         </div>
     );
 };

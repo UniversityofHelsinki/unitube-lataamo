@@ -2,7 +2,7 @@ const initialState = {
     route: 'home'
 };
 
-const rotateReducer = (state = initialState, action) => {
+const routeReducer = (state = initialState, action) => {
     switch (action.type) {
     case 'routeChange':
         return {
@@ -14,4 +14,4 @@ const rotateReducer = (state = initialState, action) => {
     }
 };
 
-export default rotateReducer;
+export default routeReducer;
