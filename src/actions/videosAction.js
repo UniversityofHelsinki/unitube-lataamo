@@ -1,5 +1,4 @@
 // asynchronous action creator
-
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_EVENTS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/video/';
@@ -42,6 +41,26 @@ export const fetchVideos = () => {
     };
 };
 
+export const actionUploadVideo = async (newVideo) => {
+
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: newVideo
+        });
+        if(response.status === 200) {
+            return await response.json();
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const actionUpdateVideoDetails = async (id, updatedVideo) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}/${id}`, {
@@ -52,7 +71,7 @@ export const actionUpdateVideoDetails = async (id, updatedVideo) => {
             body: JSON.stringify(updatedVideo)
         });
         if(response.status === 200) {
-            let responseJSON = await response.json;
+            let responseJSON = await response.json();
             return responseJSON;
         } else {
             throw new Error(response.status);
