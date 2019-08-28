@@ -7,7 +7,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
-import EventForm from './EventForm';
+import VideoDetailsForm from './VideoDetailsForm';
+import moment from 'moment';
 
 const { SearchBar } = Search;
 
@@ -51,12 +52,21 @@ const VideoList = (props) => {
         );
     };
 
+    const dateFormatter = (cell) => {
+        return moment(cell).format('DD.MM.YYYY hh:mm:ss');
+    };
 
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
         hidden: true
     }, {
+        dataField: 'created',
+        text: translate('created'),
+        type: 'date',
+        sort:true,
+        formatter: dateFormatter
+    },{
         dataField: 'title',
         text: translate('video_title'),
         sort: true
@@ -75,7 +85,7 @@ const VideoList = (props) => {
     }];
 
     const defaultSorted = [{
-        dataField: 'identifier',
+        dataField: 'created',
         order: 'desc'
     }];
 
@@ -119,21 +129,20 @@ const VideoList = (props) => {
                 keyField="identifier"
                 data={ translatedVideos() }
                 columns={ columns }
-                search
-                defaultSorted={ defaultSorted }>
+                search>
                 {
                     props => (
                         <div>
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
+                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } defaultSorted={ defaultSorted } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
                         </div>
                     )
                 }
             </ToolkitProvider>
             <Video />
-            <EventForm />
+            <VideoDetailsForm />
         </div>
     );
 };

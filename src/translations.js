@@ -18,7 +18,12 @@ const translationsObject = {
         hy_address_part1: 'P.O. Box 4 (Yliopistonkatu 3)',
         hy_address_part2: '00014 University of Helsinki Finland',
         hy_switchboard: 'Switchboard: +358 (0) 2941 911',
-        hy_contact_info_link: 'Contact information'
+        hy_contact_info_link: 'Contact information',
+        series_info: 'Info text for series field',
+        video_title_info: 'Info text for video_title field',
+        video_description_info: 'Info text for description field',
+        video_file_info: 'Info text for video file field',
+        created: 'Created'
     },
     fi: {
         videos: 'Videoni',
@@ -39,7 +44,12 @@ const translationsObject = {
         hy_address_part1: 'PL 4 (Yliopistonkatu 3)',
         hy_address_part2: '00014 Helsingin yliopisto',
         hy_switchboard: 'Puhelinvaihde:  02941 911',
-        hy_contact_info_link: 'Yhteystiedot'
+        hy_contact_info_link: 'Yhteystiedot',
+        series_info: 'Sarjan infokenttä',
+        video_title_info: 'Videon otsikon infokenttä',
+        video_description_info: 'Videon kuvauksen infokenttä',
+        video_file_info: 'Videotiedoston infokenttä',
+        created: 'Tallennettu'
     },
     sv: {
         videos: 'Videor',
@@ -60,7 +70,12 @@ const translationsObject = {
         hy_address_part1: 'PB 4 (Universitetsgatan 3)',
         hy_address_part2: '00014 Helsingfors universitet Finland',
         hy_switchboard: 'Växel: +358 (0) 2941 911',
-        hy_contact_info_link: 'Kontaktuppgifter'
+        hy_contact_info_link: 'Kontaktuppgifter',
+        series_info: 'serie info',
+        video_title_info: 'video titeln info',
+        video_description_info: 'Video beskrivning info',
+        video_file_info: 'video fil info',
+        created: 'Skapad'
     }
 };
 

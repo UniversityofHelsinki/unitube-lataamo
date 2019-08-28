@@ -31,9 +31,9 @@ const VideoUploadForm = (props) => {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        uploadVideo();
+        await uploadVideo();
     };
 
     const handleFileInputChange = (event) => {
