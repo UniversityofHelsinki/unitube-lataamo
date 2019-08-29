@@ -23,7 +23,7 @@ const translationsObject = {
         video_title_info: 'Info text for video_title field',
         video_description_info: 'Info text for description field',
         video_file_info: 'Info text for video file field',
-        created: 'Created'
+        created: 'Created',
     },
     fi: {
         videos: 'Videoni',
