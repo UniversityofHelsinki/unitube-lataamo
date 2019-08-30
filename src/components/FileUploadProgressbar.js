@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const FileUploadProgressbar = (props) => {
-    console.log(props.percentage);
-
     return (
         <div>
             <Filler percentage={props.percentage} />
