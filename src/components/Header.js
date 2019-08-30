@@ -28,7 +28,6 @@ const Header = () => {
                 </div>
                 <div className="clear"></div>
             </div>
-
             <div className="clear"></div>
         </header>
         <Navigation />
