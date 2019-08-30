@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const FileUploadProgressbar = (props) => {
+    console.log(props.percentage);
+
     return (
         <div>
             <Filler percentage={props.percentage} />
@@ -10,13 +12,9 @@ const FileUploadProgressbar = (props) => {
 };
 
 const Filler = (props) => {
-    const showProgress = () => {
-        return parseInt(props.percentage);
-    };
-
     return (
         <div className="progress-bar" style={{ width: `${props.percentage}%` }} >
-            <span>{ showProgress() }% Complete</span>
+            <span>{ props.percentage }% Complete</span>
         </div>
     );
 };
