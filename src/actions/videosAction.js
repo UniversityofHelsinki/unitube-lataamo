@@ -64,7 +64,7 @@ export const actionUploadVideo = (newVideo) => {
                 dispatch(fileUploadProgressAction( 0));
             }
         } catch (error) {
-            dispatch(fileUploadFailedActionMessage(error));
+            dispatch(fileUploadFailedActionMessage(JSON.stringify(error)));
             dispatch(fileUploadProgressAction( 0));
         }
     };
