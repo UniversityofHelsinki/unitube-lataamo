@@ -6,6 +6,7 @@ import statusReducer from './statusReducer';
 import seriesReducer from './seriesReducer';
 import routeReducer from './routeReducer';
 import eventsReducer from './eventsReducer';
+import fileUploadReducer from './fileUploadReducer';
 
 const rootReducer = combineReducers({
     i18n: i18nReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     sr: statusReducer,
     ser: seriesReducer,
     rr: routeReducer,
-    er: eventsReducer
+    er: eventsReducer,
+    fur : fileUploadReducer
 });
 
 export default rootReducer;

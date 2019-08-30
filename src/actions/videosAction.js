@@ -1,4 +1,6 @@
 // asynchronous action creator
+import axios from 'axios';
+import { fileUploadProgressAction, fileUploadFailedActionMessage, fileUploadSuccessActionMessage } from './fileUploadAction';
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_EVENTS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/video/';
@@ -41,6 +43,34 @@ export const fetchVideos = () => {
     };
 };
 
+export const actionUploadVideo = (newVideo) => {
+    return async (dispatch) => {
+        try {
+            let response = await axios.post(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, newVideo, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                onUploadProgress: ProgressEvent => {
+                    dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total)));
+                }
+            });
+
+            if (response.status === 200) {
+                const responseMessage = await response.data.message;
+                dispatch(fileUploadSuccessActionMessage(responseMessage));
+            } else {
+                const responseMessage = await response.data.message;
+                dispatch(fileUploadFailedActionMessage(responseMessage));
+                dispatch(fileUploadProgressAction( 0));
+            }
+        } catch (error) {
+            dispatch(fileUploadFailedActionMessage(error));
+            dispatch(fileUploadProgressAction( 0));
+        }
+    };
+};
+
+/*
 export const actionUploadVideo = async (newVideo) => {
 
     try {
@@ -60,6 +90,7 @@ export const actionUploadVideo = async (newVideo) => {
         throw new Error(error);
     }
 };
+*/
 
 export const actionUpdateVideoDetails = async (id, updatedVideo) => {
     try {
