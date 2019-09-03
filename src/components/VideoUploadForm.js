@@ -17,6 +17,7 @@ const ReactHint = ReactHintFactory(React);
 const VideoUploadForm = (props) => {
 
     const [selectedVideoFile, setVideoFile] = useState(null);
+    const [selectedButtonDisabled, setButtonDisabled] = useState(false);
 
     useEffect(() => {
         props.onFetchSeries();
@@ -41,7 +42,9 @@ const VideoUploadForm = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setButtonDisabled(true);
         await uploadVideo();
+        setButtonDisabled(false);
     };
 
     const handleFileInputChange = (event) => {
@@ -84,7 +87,7 @@ const VideoUploadForm = (props) => {
 
                 <div className="form-group row">
                     <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary">Tallenna</button>
+                        <button type="submit" className="btn btn-primary" disabled={selectedButtonDisabled}>Tallenna</button>
                     </div>
                 </div>
             </form>

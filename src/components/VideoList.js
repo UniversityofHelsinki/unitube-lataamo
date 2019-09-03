@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
-import {fetchVideo, fetchVideos} from '../actions/videosAction';
-import {fetchEvent} from '../actions/eventsAction';
-import {fetchSeries} from '../actions/seriesAction';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchVideo, fetchVideos } from '../actions/videosAction';
+import { fetchEvent } from '../actions/eventsAction';
+import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import {Translate} from "react-redux-i18n";
-import {Link} from "react-router-dom";
+import { Translate } from 'react-redux-i18n';
+import { Link } from 'react-router-dom';
+import { VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_FAILED } from '../utils/constants';
 
-const {SearchBar} = Search;
+const { SearchBar } = Search;
 
 const VideoList = (props) => {
 
@@ -91,11 +92,15 @@ const VideoList = (props) => {
         order: 'desc'
     }];
 
+    const videoNotSelectable = (processingState) => {
+        return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
+            processingState === VIDEO_PROCESSING_FAILED ));
+    };
 
     const nonSelectableRows = () => {
         let nonSelectableArray = [];
         props.videos.forEach(video => {
-            if (video.processing_state && video.processing_state === 'RUNNING') {
+            if (videoNotSelectable(video.processing_state)) {
                 nonSelectableArray.push(video.identifier);
             }
         });
@@ -118,7 +123,7 @@ const VideoList = (props) => {
 
     const rowStyle = (row) => {
         const style = {};
-        if (row.processing_state === 'RUNNING') {
+        if (videoNotSelectable(row.processing_state)) {
             style.backgroundColor = '#f4f5f9';
         }
         return style;
@@ -145,9 +150,9 @@ const VideoList = (props) => {
                                 <SearchBar {...props.searchProps} placeholder={translate('search')}/>
                                 <hr/>
                                 <BootstrapTable {...props.baseProps} selectRow={selectRow}
-                                                pagination={paginationFactory()} defaultSorted={defaultSorted}
-                                                noDataIndication="Table is Empty" bordered={false} rowStyle={rowStyle}
-                                                hover/>
+                                    pagination={paginationFactory()} defaultSorted={defaultSorted}
+                                    noDataIndication="Table is Empty" bordered={false} rowStyle={rowStyle}
+                                    hover/>
                             </div>
                         )
                     }
