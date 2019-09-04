@@ -7,45 +7,31 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
-import constants from '../utils/constants';
-import EventForm from './EventForm';
+import VideoDetailsForm from './VideoDetailsForm';
+import moment from 'moment';
+import { Translate } from 'react-redux-i18n';
+import { Link } from 'react-router-dom';
+import { VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_FAILED } from '../utils/constants';
 
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
 
-    const translations =  props.i18n.translations[props.i18n.locale];
+    const translations = props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
 
-
+    // the only translated property is the visibility value
     const translatedVideos = () => {
         return props.videos.map(video => {
-            let visibility = [];
-
-            const publishedAcl = video.acls.filter(acl => acl.role === constants.ROLE_ANONYMOUS);
-
-            const moodleAclInstructor = video.acls.filter(acl => acl.role.includes(constants.MOODLE_ACL_INSTRUCTOR));
-
-            const moodleAclLearner = video.acls.filter(acl => acl.role.includes(constants.MOODLE_ACL_LEARNER));
-
-            if (publishedAcl && publishedAcl.length > 0) {
-                visibility.push(translate(constants.STATUS_PUBLISHED));
-            }
-
-            if (moodleAclInstructor && moodleAclLearner && moodleAclInstructor.length > 0 && moodleAclLearner.length > 0) {
-                visibility.push(translate(constants.STATUS_MOODLE));
-            }
-
             return {
                 ...video,
-                visibility: [...new Set(visibility)]
+                visibility: video.visibility.map(visibilityKey => translate(visibilityKey))
             };
         });
     };
-
 
 
     useEffect(() => {
@@ -62,18 +48,27 @@ const VideoList = (props) => {
             <div>
                 {
                     row.visibility.map((acl, index) =>
-                        <p key={index}> { acl } </p>
+                        <p key={index}> {acl} </p>
                     )
                 }
             </div>
         );
     };
 
+    const dateFormatter = (cell) => {
+        return moment(cell).format('DD.MM.YYYY hh:mm:ss');
+    };
 
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
         hidden: true
+    }, {
+        dataField: 'created',
+        text: translate('created'),
+        type: 'date',
+        sort: true,
+        formatter: dateFormatter
     }, {
         dataField: 'title',
         text: translate('video_title'),
@@ -93,15 +88,19 @@ const VideoList = (props) => {
     }];
 
     const defaultSorted = [{
-        dataField: 'identifier',
+        dataField: 'created',
         order: 'desc'
     }];
 
+    const videoNotSelectable = (processingState) => {
+        return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
+            processingState === VIDEO_PROCESSING_FAILED ));
+    };
 
     const nonSelectableRows = () => {
         let nonSelectableArray = [];
         props.videos.forEach(video => {
-            if (video.processing_state && video.processing_state === 'RUNNING') {
+            if (videoNotSelectable(video.processing_state)) {
                 nonSelectableArray.push(video.identifier);
             }
         });
@@ -124,42 +123,50 @@ const VideoList = (props) => {
 
     const rowStyle = (row) => {
         const style = {};
-        if (row.processing_state === 'RUNNING') {
+        if (videoNotSelectable(row.processing_state)) {
             style.backgroundColor = '#f4f5f9';
         }
         return style;
     };
 
     return (
-        <div className="table-responsive">
-            <ToolkitProvider
-                bootstrap4
-                keyField="identifier"
-                data={ translatedVideos() }
-                columns={ columns }
-                search
-                defaultSorted={ defaultSorted }>
-                {
-                    props => (
-                        <div>
-                            <br />
-                            <button>Lisää uusi video</button>
-                            <SearchBar { ...props.searchProps } placeholder={translate('search')} />
-                            <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={ selectRow } pagination={ paginationFactory() } noDataIndication="Table is Empty" bordered={ false } rowStyle={ rowStyle }  hover />
-                        </div>
-                    )
-                }
-            </ToolkitProvider>
-            <Video />
-            <EventForm />
+        <div>
+            <div className="margintop">
+                <Link to="/uploadVideo" className="btn btn-primary">
+                    <Translate value="add_video"/>
+                </Link>
+            </div>
+            <div className="table-responsive">
+                <ToolkitProvider
+                    bootstrap4
+                    keyField="identifier"
+                    data={translatedVideos()}
+                    columns={columns}
+                    search>
+                    {
+                        props => (
+                            <div>
+                                <br/>
+                                <SearchBar {...props.searchProps} placeholder={translate('search')}/>
+                                <hr/>
+                                <BootstrapTable {...props.baseProps} selectRow={selectRow}
+                                    pagination={paginationFactory()} defaultSorted={defaultSorted}
+                                    noDataIndication="Table is Empty" bordered={false} rowStyle={rowStyle}
+                                    hover/>
+                            </div>
+                        )
+                    }
+                </ToolkitProvider>
+                <Video/>
+                <VideoDetailsForm/>
+            </div>
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    videos : state.vr.videos,
-    selectedRowId : state.vr.selectedRowId,
+    videos: state.vr.videos,
+    selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n
 });
 

@@ -1,7 +1,8 @@
 // asynchronous action creator
-
+import axios from 'axios';
+import { fileUploadProgressAction, fileUploadFailedActionMessage, fileUploadSuccessActionMessage } from './fileUploadAction';
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-const USER_EVENTS_PATH = '/api/userEvents';
+const USER_EVENTS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/video/';
 
 export const fetchVideo = (row) => {
@@ -39,6 +40,82 @@ export const fetchVideos = () => {
         } catch(err) {
             dispatch(apiFailureCall('Unable to fetch data'));
         }
+    };
+};
+
+export const actionUploadVideo = (newVideo) => {
+    return async (dispatch) => {
+        try {
+            let response = await axios.post(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, newVideo, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                onUploadProgress: ProgressEvent => {
+                    dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total)));
+                }
+            });
+
+            if (response.status === 200) {
+                const responseMessage = await response.data.message;
+                dispatch(fileUploadSuccessActionMessage(responseMessage));
+            } else {
+                const responseMessage = await response.data.message;
+                dispatch(fileUploadFailedActionMessage(responseMessage));
+                dispatch(fileUploadProgressAction( 0));
+            }
+        } catch (error) {
+            dispatch(fileUploadFailedActionMessage(JSON.stringify(error)));
+            dispatch(fileUploadProgressAction( 0));
+        }
+    };
+};
+
+/*
+export const actionUploadVideo = async (newVideo) => {
+
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: newVideo
+        });
+        if(response.status === 200) {
+            return await response.json();
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+*/
+
+export const actionUpdateVideoDetails = async (id, updatedVideo) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedVideo)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+// update the videolist in state (called on video information update)
+export const updateVideoList = (updatedList) => {
+    return async dispatch => {
+        dispatch(apiGetVideosSuccessCall(updatedList));
     };
 };
 
