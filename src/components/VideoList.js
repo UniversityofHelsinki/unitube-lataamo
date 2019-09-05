@@ -56,7 +56,7 @@ const VideoList = (props) => {
     };
 
     const dateFormatter = (cell) => {
-        return moment(cell).format('DD.MM.YYYY hh:mm:ss');
+        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
     const columns = [{
