@@ -20,6 +20,7 @@ const VideoUploadForm = (props) => {
     const [selectedButtonDisabled, setButtonDisabled] = useState(false);
 
     useEffect(() => {
+        document.getElementById("chosen_file").value=null;
         props.onFetchSeries();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.fur.updateSuccessMessage, props.fur.updateFailedMessage]);
@@ -41,15 +42,21 @@ const VideoUploadForm = (props) => {
     };
 
     const handleSubmit = async (event) => {
+        event.persist();
         event.preventDefault();
         setButtonDisabled(true);
         await uploadVideo();
+        clearVideoFileSelection();
         setButtonDisabled(false);
     };
 
     const handleFileInputChange = (event) => {
         event.persist();
         setVideoFile(event.target.files[0]);
+    };
+
+    const clearVideoFileSelection = () => {
+        setVideoFile(null);
     };
 
     return (
@@ -72,7 +79,7 @@ const VideoUploadForm = (props) => {
                 <div className="form-group row">
                     <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
                     <div className="col-sm-8">
-                        <input onChange={handleFileInputChange} type="file" className="form-control" name="video_file" required/>
+                        <input id="chosen_file" onChange={handleFileInputChange} type="file" className="form-control" name="video_file" required/>
                     </div>
                     <div className="col-sm-2">
                         <button className="btn btn-primary" data-rh={translate('video_file_info')}>?</button>
