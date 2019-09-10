@@ -4,6 +4,8 @@ import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import {Link} from "react-router-dom";
+import {Translate} from "react-redux-i18n";
 
 
 const { SearchBar } = Search;
@@ -41,6 +43,11 @@ const SeriesList = (props) => {
     }, []);
     return (
         <div>
+            <div className="margintop">
+                <Link to="/uploadSerie" className="btn btn-primary">
+                    <Translate value="add_serie"/>
+                </Link>
+            </div>
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"
