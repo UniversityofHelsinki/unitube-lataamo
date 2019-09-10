@@ -55,7 +55,7 @@ const VideoUploadForm = (props) => {
     };
 
     const clearVideoFileSelection = () => {
-        document.getElementById("upload_video_file").reset();
+        document.getElementById('upload_video_form').reset();
     };
 
     return (
@@ -74,7 +74,7 @@ const VideoUploadForm = (props) => {
                 </Alert>
                 : (<></>)
             }
-            <form id="upload_video_file" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
+            <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="form-group row">
                     <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
                     <div className="col-sm-8">
