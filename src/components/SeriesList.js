@@ -44,8 +44,8 @@ const SeriesList = (props) => {
     return (
         <div>
             <div className="margintop">
-                <Link to="/uploadSerie" className="btn btn-primary">
-                    <Translate value="add_serie"/>
+                <Link to="/uploadSeries" className="btn btn-primary">
+                    <Translate value="add_series"/>
                 </Link>
             </div>
             <ToolkitProvider
