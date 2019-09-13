@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchSeries } from '../actions/seriesAction';
+import { fetchSerie, fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import SerieDetailsForm from "./SerieDetailsForm";
+import { fetchEvent } from "../actions/eventsAction";
 
 
 const { SearchBar } = Search;
@@ -35,6 +37,23 @@ const SeriesList = (props) => {
         order: 'desc'
     }];
 
+    const selectRow = {
+        mode: 'radio',
+        clickToSelect: true,
+        clickToEdit: true,
+        hideSelectColumn: true,
+        bgColor: '#8cbdff',
+        selected: [props.selectedRowId],
+        onSelect: (row) => {
+            props.onSelectSerie(row);
+        }
+    };
+
+    const rowStyle = (row) => {
+        const style = {};
+        return style;
+    };
+
     useEffect(() => {
         props.onFetchSeries();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,22 +73,29 @@ const SeriesList = (props) => {
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } pagination={ paginationFactory() } />
+                            <BootstrapTable { ...props.baseProps } selectRow={selectRow} pagination={ paginationFactory() }  rowStyle={rowStyle} hover/>
                         </div>
                     )
                 }
             </ToolkitProvider>
+            <SerieDetailsForm/>
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    i18n: state.i18n,
-    series : state.ser.series
+    series : state.ser.series,
+    selectedRowId: state.ser.selectedRowId,
+    i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries())
+    onFetchSeries: () => dispatch(fetchSeries()),
+    onSelectSerie: (row) => {
+        dispatch(fetchSerie(row));
+        //dispatch(fetchEvent(row));
+        dispatch(fetchSeries());
+    }
 });
 
 
