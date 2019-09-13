@@ -1,6 +1,9 @@
 const initialState = {
     series: [],
-    serie: {},
+    serie: {
+        title : '',
+        description: ''
+    },
     selectedRowId: ''
 };
 

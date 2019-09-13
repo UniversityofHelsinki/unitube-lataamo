@@ -5,8 +5,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import SerieDetailsForm from "./SerieDetailsForm";
-import { fetchEvent } from "../actions/eventsAction";
-
 
 const { SearchBar } = Search;
 
@@ -93,7 +91,6 @@ const mapDispatchToProps = dispatch => ({
     onFetchSeries: () => dispatch(fetchSeries()),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
-        //dispatch(fetchEvent(row));
         dispatch(fetchSeries());
     }
 });
