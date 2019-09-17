@@ -1,15 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Translate } from 'react-redux-i18n';
+import {actionUploadSeries} from "../actions/seriesAction";
+import Alert from "react-bootstrap/Alert";
+import ReactHintFactory from 'react-hint';
 
-const SeriesUploadForm = (props) => {
+const ReactHint = ReactHintFactory(React);
+
+const SeriesUploadForm = () => {
+    const [inputs, setInputs] = useState({
+        title: "",
+        description: ""
+    });
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
+
+    useEffect(() => {
+        setSuccessMessage(null);
+        setErrorMessage(null);
+    }, [inputs]);
+
+    const uploadSeries = async() => {
+        const newSeries = { ...inputs };
+        //call unitube proxy api
+        try {
+            await actionUploadSeries(newSeries);
+            setSuccessMessage('SERIES UPLOAD SUCCESS MESSAGE');
+        }catch (error){
+            setErrorMessage('SERIES UPLOAD ERROR MESSAGE');
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        await uploadSeries();
+    };
+
+    const handleInputChange = (event) => {
+        event.persist();
+        setInputs(inputs => ({...inputs, [event.target.name]:event.target.value}));
+    };
+
     return(
         <div>
-            <form>
+            <ReactHint events autoPosition="true" />
+            {successMessage !== null ?
+                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                    <p>
+                        {successMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            {errorMessage !== null ?
+                <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
+                    <p>
+                        {errorMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            <form onSubmit={handleSubmit}>
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Sarjan nimi</label>
                     <div className="col-sm-8">
-                        <input type="text" name="seriesTitle" className="form-control" required/>
+                        <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
                     </div>
                     <div className="col-sm-2">
                         <button className="btn btn-primary">?</button>
@@ -18,7 +71,7 @@ const SeriesUploadForm = (props) => {
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Kuvaus</label>
                     <div className="col-sm-8">
-                        <textarea type="text" name="seriesDescription" className="form-control" maxLength="1500" required/>
+                        <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
                     </div>
                     <div className="col-sm-2">
                         <button className="btn btn-primary">?</button>
