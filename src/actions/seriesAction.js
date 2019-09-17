@@ -1,5 +1,8 @@
 // asynchronous action creator
 
+const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+const USER_SERIES_PATH = '/api/series';
+
 export const fetchSeries = () => {
 
     // server from .env variable
@@ -21,6 +24,27 @@ export const fetchSeries = () => {
             dispatch(apiFailureCall('Unable to fetch data'));
         }
     };
+};
+
+export const actionUploadSeries = async (newSeries) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newSeries)
+            });
+            if(response.status === 200){
+                let responseJSON = await response.json();
+                return responseJSON;
+            }else{
+                throw new Error(response.status);
+            }
+
+        }catch (error) {
+            throw new Error(error);
+        }
 };
 
 export const apiGetSeriesSuccessCall = data => ({

@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme/build';
 import { Provider } from 'react-redux';
+import {BrowserRouter as Router} from 'react-router-dom';
 import getAction from './utils/getAction';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -31,7 +32,9 @@ describe('<SerieList />', () => {
     beforeEach(() => {
         store = mockStore(initialState);
         wrapper = mount(<Provider store={store}>
-            <SeriesList />
+            <Router>
+                <SeriesList />
+            </Router>
         </Provider>);
     });
 
