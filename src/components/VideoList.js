@@ -152,10 +152,10 @@ const VideoList = (props) => {
                                     <SearchBar {...props.searchProps} placeholder={translate('search')}/>
                                     <hr/>
                                     <BootstrapTable {...props.baseProps} selectRow={selectRow}
-                                                    pagination={paginationFactory()} defaultSorted={defaultSorted}
-                                                    noDataIndication="Table is Empty" bordered={false}
-                                                    rowStyle={rowStyle}
-                                                    hover/>
+                                        pagination={paginationFactory()} defaultSorted={defaultSorted}
+                                        noDataIndication="Table is Empty" bordered={false}
+                                        rowStyle={rowStyle}
+                                        hover/>
                                 </div>
                             )
                         }
