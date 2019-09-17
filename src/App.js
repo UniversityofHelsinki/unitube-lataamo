@@ -5,6 +5,7 @@ import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
 import VideoUploadForm from './components/VideoUploadForm';
+import SeriesUploadForm from './components/SeriesUploadForm'
 import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';
@@ -34,6 +35,7 @@ const App = (props) => {
                             <Route exact path='/series' component={SeriesList}/>
                             <Route path="/series/:id" component={SeriesList} />
                             <Route exact path='/uploadVideo' component={VideoUploadForm} />
+                            <Route exact path='/uploadSeries' component={SeriesUploadForm}/>
                         </Switch>
                     </div>
                 </div>
