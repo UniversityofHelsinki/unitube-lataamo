@@ -118,12 +118,22 @@ describe('<VideoList />', () => {
         expect(wrapper.contains(<VideoList/>)).toEqual(true);
     });
 
+    it('initially should show loading bar', async () => {
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'GET_VIDEOS_REQUEST')).not.toBe(null);
+        expect(await getAction(store, 'GET_VIDEOS_REQUEST')).toEqual({
+            'loading': true,
+            'type': 'GET_VIDEOS_REQUEST',
+        });
+    });
+
     it('Should pass actions updated values ', async () => {
         expect(store.getActions().length).toBe(1);
         expect(await getAction(store, 'GET_VIDEOS_REQUEST')).not.toBe(null);
         store.dispatch(apiGetVideosSuccessCall(videos));
         expect(await getAction(store, 'SUCCESS_API_GET_VIDEOS')).not.toBe(null);
         expect(await getAction(store, 'SUCCESS_API_GET_VIDEOS')).toEqual({
+            'loading': false,
             'type': 'SUCCESS_API_GET_VIDEOS',
             'payload': videos
         });
@@ -134,6 +144,7 @@ describe('<VideoList />', () => {
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({
+            'loading': false,
             'type': 'FAILURE_API_CALL',
             'payload': msg
         });

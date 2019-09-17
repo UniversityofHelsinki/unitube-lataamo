@@ -133,8 +133,7 @@ export const apiGetEventSuccessCall = (data) => ({
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     type: 'SUCCESS_API_GET_VIDEO',
     payload: data,
-    selectedRowId: selectedRowId,
-    loading: false
+    selectedRowId: selectedRowId
 });
 
 export const apiGetVideosRequestCall = () => ({
@@ -144,16 +143,19 @@ export const apiGetVideosRequestCall = () => ({
 
 export const apiGetVideosSuccessCall = data => ({
     type: 'SUCCESS_API_GET_VIDEOS',
-    payload: data
+    payload: data,
+    loading: false
 });
 
 export const api401FailureCall = failureTime => ({
     type: 'STATUS_401_API_CALL',
-    payload : failureTime
+    payload : failureTime,
+    loading: false
 });
 
 
 export const apiFailureCall = msg => ({
     type: 'FAILURE_API_CALL',
-    payload: msg
+    payload: msg,
+    loading: false
 });
