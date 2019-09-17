@@ -11,7 +11,8 @@ import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
-import { VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_FAILED } from '../utils/constants';
+import Loader from './Loader';
+import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 
 const { SearchBar } = Search;
 
@@ -136,30 +137,34 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            <div className="table-responsive">
-                <ToolkitProvider
-                    bootstrap4
-                    keyField="identifier"
-                    data={translatedVideos()}
-                    columns={columns}
-                    search>
-                    {
-                        props => (
-                            <div>
-                                <br/>
-                                <SearchBar {...props.searchProps} placeholder={translate('search')}/>
-                                <hr/>
-                                <BootstrapTable {...props.baseProps} selectRow={selectRow}
-                                    pagination={paginationFactory()} defaultSorted={defaultSorted}
-                                    noDataIndication="Table is Empty" bordered={false} rowStyle={rowStyle}
-                                    hover/>
-                            </div>
-                        )
-                    }
-                </ToolkitProvider>
-                <Video/>
-                <VideoDetailsForm/>
-            </div>
+            {!props.loading ?
+                <div className="table-responsive">
+                    <ToolkitProvider
+                        bootstrap4
+                        keyField="identifier"
+                        data={translatedVideos()}
+                        columns={columns}
+                        search>
+                        {
+                            props => (
+                                <div>
+                                    <br/>
+                                    <SearchBar {...props.searchProps} placeholder={translate('search')}/>
+                                    <hr/>
+                                    <BootstrapTable {...props.baseProps} selectRow={selectRow}
+                                                    pagination={paginationFactory()} defaultSorted={defaultSorted}
+                                                    noDataIndication="Table is Empty" bordered={false}
+                                                    rowStyle={rowStyle}
+                                                    hover/>
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
+                    <Video/>
+                    <VideoDetailsForm/>
+                </div>
+                : (<Loader loading={translate('loading')} />)
+            }
         </div>
     );
 };
@@ -167,7 +172,8 @@ const VideoList = (props) => {
 const mapStateToProps = state => ({
     videos: state.vr.videos,
     selectedRowId: state.vr.selectedRowId,
-    i18n: state.i18n
+    i18n: state.i18n,
+    loading: state.vr.loading
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -24,7 +24,8 @@ const translationsObject = {
         video_description_info: 'Info text for description field',
         video_file_info: 'Info text for video file field',
         created: 'Created',
-        add_video: 'Add new video'
+        add_video: 'Add new video',
+        loading: 'Loading'
     },
     fi: {
         videos: 'Videoni',
@@ -51,7 +52,8 @@ const translationsObject = {
         video_description_info: 'Videon kuvauksen infokenttä',
         video_file_info: 'Videotiedoston infokenttä',
         created: 'Tallennettu',
-        add_video: 'Lisää uusi video'
+        add_video: 'Lisää uusi video',
+        loading: 'Ladataan'
     },
     sv: {
         videos: 'Videor',
@@ -78,7 +80,8 @@ const translationsObject = {
         video_description_info: 'Video beskrivning info',
         video_file_info: 'video fil info',
         created: 'Skapad',
-        add_video: 'Add ny video'
+        add_video: 'Add ny video',
+        loading: 'Vänta på'
     }
 };
 
