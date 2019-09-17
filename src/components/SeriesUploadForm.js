@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import {actionUploadSeries} from "../actions/seriesAction";
-import Alert from "react-bootstrap/Alert";
+import { actionUploadSeries } from '../actions/seriesAction';
+import Alert from 'react-bootstrap/Alert';
 import ReactHintFactory from 'react-hint';
+import { connect } from 'react-redux';
 
 const ReactHint = ReactHintFactory(React);
 
-const SeriesUploadForm = () => {
+const SeriesUploadForm = (props) => {
+
+    const translations =  props.i18n.translations[props.i18n.locale];
+
+    const translate = (key) => {
+        return translations ? translations[key] : '';
+    };
+
     const [inputs, setInputs] = useState({
-        title: "",
-        description: ""
+        title: '',
+        description: ''
     });
+
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
@@ -36,7 +45,7 @@ const SeriesUploadForm = () => {
 
     const handleInputChange = (event) => {
         event.persist();
-        setInputs(inputs => ({...inputs, [event.target.name]:event.target.value}));
+        setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
     };
 
     return(
@@ -60,26 +69,26 @@ const SeriesUploadForm = () => {
             }
             <form onSubmit={handleSubmit}>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Sarjan nimi</label>
+                    <label className="col-sm-2 col-form-label">{translate('series_title')}</label>
                     <div className="col-sm-8">
                         <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
                     </div>
                     <div className="col-sm-2">
-                        <button className="btn btn-primary">?</button>
+                        <button className="btn btn-primary" data-rh={translate('series_title_info')}>?</button>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Kuvaus</label>
+                    <label className="col-sm-2 col-form-label">{translate('series_description')}</label>
                     <div className="col-sm-8">
                         <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
                     </div>
                     <div className="col-sm-2">
-                        <button className="btn btn-primary">?</button>
+                        <button className="btn btn-primary" data-rh={translate('series_description_info')}>?</button>
                     </div>
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-10 offset-sm-9">
-                        <button type="submit" className="btn btn-primary">Tallenna</button>
+                        <button type="submit" className="btn btn-primary">{translate('save')}</button>
                     </div>
                 </div>
             </form>
@@ -87,4 +96,8 @@ const SeriesUploadForm = () => {
     );
 };
 
-export default SeriesUploadForm;
+const mapStateToProps = state => ({
+    i18n: state.i18n
+});
+
+export default connect(mapStateToProps, null)(SeriesUploadForm);
