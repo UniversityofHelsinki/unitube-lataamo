@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchSerie, fetchSeries } from '../actions/seriesAction';
+import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import SerieDetailsForm from "./SerieDetailsForm";
+import {Link} from "react-router-dom";
+import {Translate} from "react-redux-i18n";
+
 
 const { SearchBar } = Search;
 
@@ -14,6 +17,18 @@ const SeriesList = (props) => {
 
     const translate = (key) => {
         return translations ? translations[key] : '';
+    };
+
+    const contributorsFormatter = (cell, row) => {
+        return (
+            <div>
+                {
+                    row.contributors.map((contributor, index) =>
+                        <p key={index}> {contributor} </p>
+                    )
+                }
+            </div>
+        );
     };
 
     const columns = [{
@@ -27,7 +42,8 @@ const SeriesList = (props) => {
     }, {
         dataField: 'contributors',
         text: translate('serie_contributors'),
-        sort:true
+        sort:true,
+        formatter: contributorsFormatter
     }];
 
     const defaultSorted = [{
@@ -58,6 +74,11 @@ const SeriesList = (props) => {
     }, []);
     return (
         <div>
+            <div className="margintop">
+                <Link to="/uploadSeries" className="btn btn-primary">
+                    <Translate value="add_series"/>
+                </Link>
+            </div>
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"
@@ -71,7 +92,7 @@ const SeriesList = (props) => {
                             <br />
                             <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                             <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={selectRow} pagination={ paginationFactory() }  rowStyle={rowStyle} hover/>
+                            <BootstrapTable { ...props.baseProps } pagination={ paginationFactory() } />
                         </div>
                     )
                 }

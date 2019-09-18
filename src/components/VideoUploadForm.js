@@ -41,15 +41,21 @@ const VideoUploadForm = (props) => {
     };
 
     const handleSubmit = async (event) => {
+        event.persist();
         event.preventDefault();
         setButtonDisabled(true);
         await uploadVideo();
+        clearVideoFileSelection();
         setButtonDisabled(false);
     };
 
     const handleFileInputChange = (event) => {
         event.persist();
         setVideoFile(event.target.files[0]);
+    };
+
+    const clearVideoFileSelection = () => {
+        document.getElementById('upload_video_form').reset();
     };
 
     return (
@@ -68,7 +74,7 @@ const VideoUploadForm = (props) => {
                 </Alert>
                 : (<></>)
             }
-            <form encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
+            <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="form-group row">
                     <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
                     <div className="col-sm-8">
