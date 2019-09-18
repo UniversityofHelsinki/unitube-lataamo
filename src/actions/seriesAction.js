@@ -1,11 +1,11 @@
 // asynchronous action creator
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-const SERIE_PATH = '/api/series/';
+const USER_SERIES_PATH = '/api/series/';
 
 export const fetchSerie = (row) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(`${ VIDEO_SERVER_API }${ SERIE_PATH }${ row.identifier }`);
+            let response = await fetch(`${ VIDEO_SERVER_API }${ USER_SERIES_PATH }${ row.identifier }`);
             if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetSerieSuccessCall(responseJSON, row.identifier));
@@ -25,7 +25,6 @@ export const fetchSerie = (row) => {
 export const fetchSeries = () => {
 
     // server from .env variable
-    const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
     const PATH = '/api/userSeries';
 
     return async (dispatch) => {
@@ -47,7 +46,7 @@ export const fetchSeries = () => {
 
 export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     try {
-        let response = await fetch(`${VIDEO_SERVER_API}${SERIE_PATH}${id}`, {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
