@@ -18,6 +18,18 @@ const SeriesList = (props) => {
         return translations ? translations[key] : '';
     };
 
+    const contributorsFormatter = (cell, row) => {
+        return (
+            <div>
+                {
+                    row.contributors.map((contributor, index) =>
+                        <p key={index}> {contributor} </p>
+                    )
+                }
+            </div>
+        );
+    };
+
     const columns = [{
         dataField: 'identifier',
         text: translate('serie_id'),
@@ -29,7 +41,8 @@ const SeriesList = (props) => {
     }, {
         dataField: 'contributors',
         text: translate('serie_contributors'),
-        sort:true
+        sort:true,
+        formatter: contributorsFormatter
     }];
 
     const defaultSorted = [{

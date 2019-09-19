@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { actionUploadSeries } from '../actions/seriesAction';
-import Alert from 'react-bootstrap/Alert';
-import ReactHintFactory from 'react-hint';
 import { connect } from 'react-redux';
-
-const ReactHint = ReactHintFactory(React);
+import { Button, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
 
 const SeriesUploadForm = (props) => {
 
@@ -50,7 +47,6 @@ const SeriesUploadForm = (props) => {
 
     return(
         <div>
-            <ReactHint events autoPosition="true" />
             {successMessage !== null ?
                 <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
                     <p>
@@ -74,7 +70,11 @@ const SeriesUploadForm = (props) => {
                         <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
                     </div>
                     <div className="col-sm-2">
-                        <button className="btn btn-primary" data-rh={translate('series_title_info')}>?</button>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -83,7 +83,11 @@ const SeriesUploadForm = (props) => {
                         <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
                     </div>
                     <div className="col-sm-2">
-                        <button className="btn btn-primary" data-rh={translate('series_description_info')}>?</button>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
                     </div>
                 </div>
                 <div className="form-group row">
