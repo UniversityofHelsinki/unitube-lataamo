@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
-import { updateSerieList, actionUpdateSerieDetails } from "../actions/seriesAction";
-
-import ReactHintFactory from 'react-hint';
-
-const ReactHint = ReactHintFactory(React);
-
+import { updateSerieList, actionUpdateSerieDetails } from '../actions/seriesAction';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const SerieDetailsForm = (props) => {
 
@@ -54,7 +50,6 @@ const SerieDetailsForm = (props) => {
 
     return (
         <div>
-            <ReactHint events autoPosition="true" />
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
             {successMessage !== null ?
                 <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
@@ -81,20 +76,28 @@ const SerieDetailsForm = (props) => {
                         <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-8">
                             <input type="text" name="title" className="form-control" value={inputs.title}
-                                   onChange={handleInputChange} placeholder="Title"  maxLength="150" required/>
+                                onChange={handleInputChange} placeholder="Title"  maxLength="150" required/>
                         </div>
                         <div className="col-sm-2">
-                            <button className="btn btn-primary" data-rh={translate('serie_title_info')}>?</button>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('serie_title_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
                         <div className="col-sm-8">
                             <textarea name="description" className="form-control" value={inputs.description}
-                                      onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
+                                onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                         <div className="col-sm-2">
-                            <button className="btn btn-primary" data-rh={translate('serie_description_info')}>?</button>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('serie_description_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <div className="form-group row">
