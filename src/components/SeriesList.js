@@ -4,9 +4,9 @@ import { fetchSerie, fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import SerieDetailsForm from "./SerieDetailsForm";
-import {Link} from "react-router-dom";
-import {Translate} from "react-redux-i18n";
+import SerieDetailsForm from './SerieDetailsForm';
+import { Link } from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
 
 
 const { SearchBar } = Search;
@@ -63,6 +63,7 @@ const SeriesList = (props) => {
         }
     };
 
+    // eslint-disable-next-line no-unused-vars
     const rowStyle = (row) => {
         const style = {};
         return style;
@@ -74,6 +75,11 @@ const SeriesList = (props) => {
     }, []);
     return (
         <div>
+            <div className="margintop">
+                <Link to="/uploadSeries" className="btn btn-primary">
+                    <Translate value="add_series"/>
+                </Link>
+            </div>
             <ToolkitProvider
                 bootstrap4
                 keyField="identifier"
