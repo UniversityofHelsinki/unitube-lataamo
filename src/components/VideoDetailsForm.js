@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Alert from 'react-bootstrap/Alert';
-import { updateVideoList, actionUpdateVideoDetails } from '../actions/videosAction';
-
-import ReactHintFactory from 'react-hint';
-
-const ReactHint = ReactHintFactory(React);
+import { Alert, OverlayTrigger, Button, Tooltip } from 'react-bootstrap';
+import { actionUpdateVideoDetails, updateVideoList } from '../actions/videosAction';
 
 const VideoDetailsForm = (props) => {
 
@@ -60,7 +56,6 @@ const VideoDetailsForm = (props) => {
 
     return (
         <div>
-            <ReactHint events autoPosition="true" />
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
             {successMessage !== null ?
                 <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
@@ -90,7 +85,11 @@ const VideoDetailsForm = (props) => {
                             </select>
                         </div>
                         <div className="col-sm-2">
-                            <button className="btn btn-primary" data-rh={translate('series_info')}>?</button>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <div className="form-group row">
@@ -100,7 +99,11 @@ const VideoDetailsForm = (props) => {
                                 placeholder="Title" value={inputs.title} maxLength="150" required/>
                         </div>
                         <div className="col-sm-2">
-                            <button className="btn btn-primary" data-rh={translate('video_title_info')}>?</button>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <div className="form-group row">
@@ -110,7 +113,11 @@ const VideoDetailsForm = (props) => {
                                 onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                         <div className="col-sm-2">
-                            <button className="btn btn-primary" data-rh={translate('video_description_info')}>?</button>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <div className="form-group row">

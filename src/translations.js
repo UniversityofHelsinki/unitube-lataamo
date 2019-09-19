@@ -30,7 +30,8 @@ const translationsObject = {
         save: 'Save',
         series_title: 'Title of series',
         series_description: 'Description of series',
-        add_series: 'Add new series'
+        add_series: 'Add new series',
+        series_description_info: 'Infotext for series description'
     },
     fi: {
         videos: 'Videoni',
@@ -63,7 +64,8 @@ const translationsObject = {
         save: 'Tallenna',
         series_title: 'Sarjan otsikko',
         series_description: 'Sarjan kuvaus',
-        add_series: 'Lisää sarja'
+        add_series: 'Lisää sarja',
+        series_description_info: 'sarjan kuvauksen infokenttä'
     },
     sv: {
         videos: 'Videor',
@@ -96,7 +98,8 @@ const translationsObject = {
         save: 'Spara',
         series_title: 'Titeln',
         series_description: 'Beskrivning',
-        add_series: 'Lägg till en serie'
+        add_series: 'Lägg till en serie',
+        series_description_info: 'Beskrivning för series'
     }
 };
 
