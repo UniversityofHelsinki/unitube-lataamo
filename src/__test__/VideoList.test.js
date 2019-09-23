@@ -96,6 +96,7 @@ describe('<VideoList />', () => {
         er: { event: {} },
         ser: { series: [] },
         vr: { error: '', videos: videos, loading: false },
+        sr: { apiError: ''},
         i18n: {
             translations: translations,
             locale: 'fi'
