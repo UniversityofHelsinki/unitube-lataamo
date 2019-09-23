@@ -10,6 +10,8 @@ const translationsObject = {
         serie_id: 'serie id',
         serie_title: 'title',
         serie_contributors: 'contributors',
+        serie_title_info: 'Sarjan otsikon infokenttä',
+        serie_description_info: 'Sarjan kuvauksen infokenttä',
         processing_state: 'Processing state',
         publication_status : 'Publication status',
         status_published: 'Shared to Katsomo',
@@ -24,8 +26,13 @@ const translationsObject = {
         video_description_info: 'Info text for description field',
         video_file_info: 'Info text for video file field',
         created: 'Created',
+        loading: 'Loading',
         add_video: 'Add new video',
-        loading: 'Loading'
+        save: 'Save',
+        series_title: 'Title of series',
+        series_description: 'Description of series',
+        add_series: 'Add new series',
+        series_description_info: 'Infotext for series description'
     },
     fi: {
         videos: 'Videoni',
@@ -38,6 +45,8 @@ const translationsObject = {
         serie_id: 'sarjan tunniste',
         serie_title: 'sarjan otsikko',
         serie_contributors: 'sarjan omistajat',
+        serie_title_info: 'Sarjan otsikon infokenttä',
+        serie_description_info: 'Sarjan kuvauksen infokenttä',
         processing_state: 'Tallennuksen tila',
         publication_status : 'Tallenteen julkisuus',
         status_published: 'Julkaistu Katsomoon',
@@ -52,8 +61,13 @@ const translationsObject = {
         video_description_info: 'Videon kuvauksen infokenttä',
         video_file_info: 'Videotiedoston infokenttä',
         created: 'Tallennettu',
+        loading: 'Ladataan',
         add_video: 'Lisää uusi video',
-        loading: 'Ladataan'
+        save: 'Tallenna',
+        series_title: 'Sarjan otsikko',
+        series_description: 'Sarjan kuvaus',
+        add_series: 'Lisää sarja',
+        series_description_info: 'sarjan kuvauksen infokenttä'
     },
     sv: {
         videos: 'Videor',
@@ -66,6 +80,8 @@ const translationsObject = {
         serie_id: 'serie tagg',
         serie_title: 'serie titeln',
         serie_contributors: 'serie ägare',
+        serie_title_info: 'Sarjan otsikon infokenttä',
+        serie_description_info: 'Sarjan kuvauksen infokenttä',
         processing_state: 'inspelningsläge',
         publication_status: 'publicitet av inspelningen',
         status_published: 'publicerat till Katsomo',
@@ -80,8 +96,13 @@ const translationsObject = {
         video_description_info: 'Video beskrivning info',
         video_file_info: 'video fil info',
         created: 'Skapad',
+        loading: 'Vänta på',
         add_video: 'Add ny video',
-        loading: 'Vänta på'
+        save: 'Spara',
+        series_title: 'Titeln',
+        series_description: 'Beskrivning',
+        add_series: 'Lägg till en serie',
+        series_description_info: 'Beskrivning för series'
     }
 };
 

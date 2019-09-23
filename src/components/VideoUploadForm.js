@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Alert from 'react-bootstrap/Alert';
+import { Alert, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { fetchSeries } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage
 } from '../actions/fileUploadAction';
-import ReactHintFactory from 'react-hint';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
-
-
-const ReactHint = ReactHintFactory(React);
-
 
 const VideoUploadForm = (props) => {
 
@@ -60,7 +55,6 @@ const VideoUploadForm = (props) => {
 
     return (
         <div>
-            <ReactHint events autoPosition="true" />
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
             {props.fur.updateSuccessMessage !== null ?
                 <Alert variant="success" onClose={() => props.onSuccessMessageClick()} dismissible>
@@ -81,7 +75,11 @@ const VideoUploadForm = (props) => {
                         <input onChange={handleFileInputChange} type="file" className="form-control" name="video_file" required/>
                     </div>
                     <div className="col-sm-2">
-                        <button className="btn btn-primary" data-rh={translate('video_file_info')}>?</button>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
                     </div>
                 </div>
 
