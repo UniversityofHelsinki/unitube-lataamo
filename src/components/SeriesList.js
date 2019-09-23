@@ -81,25 +81,6 @@ const SeriesList = (props) => {
                     <Translate value="add_series"/>
                 </Link>
             </div>
-            <ToolkitProvider
-                bootstrap4
-                keyField="identifier"
-                data={ props.series }
-                columns={ columns }
-                search
-                defaultSorted={ defaultSorted }>
-                {
-                    props => (
-                        <div>
-                            <br />
-                            <SearchBar { ...props.searchProps } placeholder={translate('search')} />
-                            <hr />
-                            <BootstrapTable { ...props.baseProps } selectRow={selectRow} pagination={ paginationFactory() }  rowStyle={rowStyle} hover/>
-                        </div>
-                    )
-                }
-            </ToolkitProvider>
-            <SerieDetailsForm/>
             {!props.loading ?
                 <ToolkitProvider
                     bootstrap4
@@ -114,13 +95,14 @@ const SeriesList = (props) => {
                                 <br />
                                 <SearchBar { ...props.searchProps } placeholder={translate('search')} />
                                 <hr />
-                                <BootstrapTable { ...props.baseProps } pagination={ paginationFactory() } />
+                                <BootstrapTable { ...props.baseProps } selectRow={selectRow} pagination={ paginationFactory() }  rowStyle={rowStyle} hover/>
                             </div>
                         )
                     }
                 </ToolkitProvider>
                 : (<Loader loading={translate('loading')} />)
             }
+            <SerieDetailsForm/>
         </div>
     );
 };
@@ -128,10 +110,8 @@ const SeriesList = (props) => {
 const mapStateToProps = state => ({
     i18n: state.i18n,
     series : state.ser.series,
-    loading: state.ser.loading
-    series : state.ser.series,
+    loading: state.ser.loading,
     selectedRowId: state.ser.selectedRowId,
-    i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -141,7 +121,5 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSeries());
     }
 });
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesList);
