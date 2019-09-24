@@ -2,10 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Video = (props) => {
-
-    console.log(props.videoFiles);
-
-
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
             return (
