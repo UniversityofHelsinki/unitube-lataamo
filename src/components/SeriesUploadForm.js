@@ -118,7 +118,7 @@ const SeriesUploadForm = (props) => {
                         <div className="form-check-inline">
                             <label className="form-check-label">
                                 <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" onChange={handleCheckBoxChange} />
-                                Julkinen (näkyy katsomoon)
+                                {translate('public_series')}
                             </label>
                         </div>
                     </div>
