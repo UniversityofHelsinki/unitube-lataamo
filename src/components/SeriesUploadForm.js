@@ -123,7 +123,7 @@ const SeriesUploadForm = (props) => {
                         </div>
                     </div>
                     <div className="col-sm-2">
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>

@@ -32,7 +32,8 @@ const translationsObject = {
         series_description: 'Description of series',
         add_series: 'Add new series',
         series_description_info: 'Infotext for series description',
-        public_series : 'Public series, it will be available in Katsomo'
+        public_series : 'Public series, it will be available in Katsomo',
+        series_visibility_info: 'Infotext for series publicity'
     },
     fi: {
         videos: 'Videoni',
@@ -67,7 +68,8 @@ const translationsObject = {
         series_description: 'Sarjan kuvaus',
         add_series: 'Lisää sarja',
         series_description_info: 'sarjan kuvauksen infokenttä',
-        public_series : 'Julkinen sarja (näkyy katsomoon)'
+        public_series : 'Julkinen sarja (näkyy katsomoon)',
+        series_visibility_info: 'sarjan julkisuuden infokenttä'
     },
     sv: {
         videos: 'Videor',
@@ -102,7 +104,8 @@ const translationsObject = {
         series_description: 'Beskrivning',
         add_series: 'Lägg till en serie',
         series_description_info: 'Beskrivning för series',
-        public_series : 'offentliga serier'
+        public_series : 'offentliga serier',
+        series_visibility_info: 'Beskrivning för offentliga serier'
     }
 };
 
