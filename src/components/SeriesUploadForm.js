@@ -13,7 +13,8 @@ const SeriesUploadForm = (props) => {
 
     const [inputs, setInputs] = useState({
         title: '',
-        description: ''
+        description: '',
+        published: ''
     });
 
     const [errorMessage, setErrorMessage] = useState(null);
@@ -24,8 +25,18 @@ const SeriesUploadForm = (props) => {
         setErrorMessage(null);
     }, [inputs]);
 
+    const generateAclList = (newSeries) => {
+        let aclList = [];
+        newSeries.acl = [];
+        if (newSeries.published) {
+            aclList.push(newSeries.published);
+        }
+        newSeries.acl = aclList;
+    };
+
     const uploadSeries = async() => {
         const newSeries = { ...inputs };
+        generateAclList(newSeries);
         //call unitube proxy api
         try {
             await actionUploadSeries(newSeries);
@@ -40,7 +51,18 @@ const SeriesUploadForm = (props) => {
         await uploadSeries();
     };
 
+    const handleCheckBoxChange = (event) => {
+        event.persist();
+        if (event.target.checked) {
+            setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
+        } else {
+            setInputs(inputs => ({ ...inputs, [event.target.name]:'' }));
+        }
+    };
+
     const handleInputChange = (event) => {
+        console.log(event.target.value);
+        console.log(event.target.checked);
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
     };
@@ -84,6 +106,24 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                    <div className="col-sm-8">
+                        <div className="form-check-inline">
+                            <label className="form-check-label">
+                                <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" onChange={handleCheckBoxChange} />
+                                {translate('public_series')}
+                            </label>
+                        </div>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>
