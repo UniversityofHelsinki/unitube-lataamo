@@ -1,8 +1,8 @@
 import React from 'react';
-import {mount} from 'enzyme/build';
-import {Provider} from 'react-redux';
-import {BrowserRouter as Router} from 'react-router-dom';
-import {apiFailureCall, apiGetVideosSuccessCall} from '../actions/videosAction';
+import { mount } from 'enzyme/build';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { apiFailureCall, apiGetVideosSuccessCall } from '../actions/videosAction';
 import getAction from './utils/getAction';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -93,9 +93,10 @@ const msg = 'Unable to fetch data';
 
 describe('<VideoList />', () => {
     const initialState = {
-        er: {event: {}},
-        ser: {series: []},
-        vr: {error: '', videos: videos},
+        er: { event: {} },
+        ser: { series: [] },
+        vr: { error: '', videos: videos, loading: false },
+        sr: { apiError: ''},
         i18n: {
             translations: translations,
             locale: 'fi'
@@ -118,21 +119,33 @@ describe('<VideoList />', () => {
         expect(wrapper.contains(<VideoList/>)).toEqual(true);
     });
 
+    it('initially should show loading bar', async () => {
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'GET_VIDEOS_REQUEST')).not.toBe(null);
+        expect(await getAction(store, 'GET_VIDEOS_REQUEST')).toEqual({
+            'loading': true,
+            'type': 'GET_VIDEOS_REQUEST',
+        });
+    });
+
     it('Should pass actions updated values ', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'GET_VIDEOS_REQUEST')).not.toBe(null);
         store.dispatch(apiGetVideosSuccessCall(videos));
         expect(await getAction(store, 'SUCCESS_API_GET_VIDEOS')).not.toBe(null);
         expect(await getAction(store, 'SUCCESS_API_GET_VIDEOS')).toEqual({
+            'loading': false,
             'type': 'SUCCESS_API_GET_VIDEOS',
             'payload': videos
         });
     });
 
     it('Should return error values ', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({
+            'loading': false,
             'type': 'FAILURE_API_CALL',
             'payload': msg
         });

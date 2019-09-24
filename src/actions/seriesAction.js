@@ -29,6 +29,7 @@ export const fetchSeries = () => {
 
     return async (dispatch) => {
         try {
+            dispatch(apiGetSeriesRequestCall());
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
@@ -43,6 +44,11 @@ export const fetchSeries = () => {
         }
     };
 };
+
+export const apiGetSeriesRequestCall = () => ({
+    type: 'GET_SERIES_REQUEST',
+    loading: true
+});
 
 export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     try {
@@ -100,16 +106,19 @@ export const actionUploadSeries = async (newSeries) => {
 
 export const apiGetSeriesSuccessCall = data => ({
     type: 'SUCCESS_API_GET_SERIES',
-    payload: data
+    payload: data,
+    loading: false
 });
 
 export const api401FailureCall = failureTime => ({
     type: 'STATUS_401_API_CALL',
-    payload : failureTime
+    payload : failureTime,
+    loading: false
 });
 
 
 export const apiFailureCall = msg => ({
     type: 'FAILURE_API_CALL',
-    payload: msg
+    payload: msg,
+    loading: false
 });

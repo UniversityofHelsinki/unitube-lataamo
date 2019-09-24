@@ -5,7 +5,7 @@ import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
 import VideoUploadForm from './components/VideoUploadForm';
-import SeriesUploadForm from './components/SeriesUploadForm'
+import SeriesUploadForm from './components/SeriesUploadForm';
 import './stylesheets/main.sass';
 import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';

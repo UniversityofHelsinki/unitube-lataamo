@@ -20,7 +20,8 @@ const msg = 'Unable to fetch data';
 
 describe('<SerieList />', () => {
     const initialState =  {
-        ser: { error: '', series: series },
+        ser: { error: '', series: series, loading: false },
+        sr: { apiError: ''},
         i18n : {
             translations: translations,
             locale: 'fi'
@@ -43,21 +44,34 @@ describe('<SerieList />', () => {
         expect(wrapper.contains(<SeriesList/>)).toEqual(true);
     });
 
+    it('initially should show loading bar', async () => {
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'GET_SERIES_REQUEST')).not.toBe(null);
+        expect(await getAction(store, 'GET_SERIES_REQUEST')).toEqual({
+            'loading': true,
+            'type': 'GET_SERIES_REQUEST',
+        });
+    });
+
     it('Should pass actions updated values ', async() => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'GET_SERIES_REQUEST')).not.toBe(null);
         store.dispatch(apiGetSeriesSuccessCall(series));
         expect(await getAction(store, 'SUCCESS_API_GET_SERIES')).not.toBe(null);
         expect(await getAction(store, 'SUCCESS_API_GET_SERIES')).toEqual({
+            'loading': false,
             'type': 'SUCCESS_API_GET_SERIES',
             'payload': series
         });
     });
 
     it('Should return error values ', async() => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'GET_SERIES_REQUEST')).not.toBe(null);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({
+            'loading': false,
             'type': 'FAILURE_API_CALL',
             'payload': msg
         });
