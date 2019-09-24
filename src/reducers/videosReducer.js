@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const videosReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
     case 'SUCCESS_API_GET_VIDEOS':
         return {
