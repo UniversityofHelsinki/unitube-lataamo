@@ -143,7 +143,7 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            { !props.loading ?
+            { !props.loading && !errorMessage ?
                 <div className="table-responsive">
                     <ToolkitProvider
                         bootstrap4
@@ -170,7 +170,7 @@ const VideoList = (props) => {
                     <VideoDetailsForm/>
                 </div>
                 : errorMessage !== null ?
-                    <Alert variant="danger" onClose={ () => setErrorMessage(null) } dismissible>
+                    <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
                         <p>
                             { errorMessage }
                         </p>

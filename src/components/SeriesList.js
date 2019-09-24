@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchSerie, fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -8,13 +8,16 @@ import Loader from './Loader';
 import SerieDetailsForm from './SerieDetailsForm';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
+import Alert from "react-bootstrap/Alert";
 
 
-const { SearchBar } = Search;
+const {SearchBar} = Search;
 
 const SeriesList = (props) => {
 
-    const translations =  props.i18n.translations[props.i18n.locale];
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const translations = props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -25,7 +28,7 @@ const SeriesList = (props) => {
             <div>
                 {
                     row.contributors.map((contributor, index) =>
-                        <p key={index}> {contributor} </p>
+                        <p key={ index }> { contributor } </p>
                     )
                 }
             </div>
@@ -43,7 +46,7 @@ const SeriesList = (props) => {
     }, {
         dataField: 'contributors',
         text: translate('serie_contributors'),
-        sort:true,
+        sort: true,
         formatter: contributorsFormatter
     }];
 
@@ -72,8 +75,11 @@ const SeriesList = (props) => {
 
     useEffect(() => {
         props.onFetchSeries();
+        if (props.apiError) {
+            setErrorMessage(props.apiError);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [props.apiError]);
     return (
         <div>
             <div className="margintop">
@@ -81,7 +87,7 @@ const SeriesList = (props) => {
                     <Translate value="add_series"/>
                 </Link>
             </div>
-            {!props.loading ?
+            { !props.loading && !errorMessage ?
                 <ToolkitProvider
                     bootstrap4
                     keyField="identifier"
@@ -92,15 +98,22 @@ const SeriesList = (props) => {
                     {
                         props => (
                             <div>
-                                <br />
-                                <SearchBar { ...props.searchProps } placeholder={translate('search')} />
-                                <hr />
-                                <BootstrapTable { ...props.baseProps } selectRow={selectRow} pagination={ paginationFactory() }  rowStyle={rowStyle} hover/>
+                                <br/>
+                                <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
+                                <hr/>
+                                <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
+                                                pagination={ paginationFactory() } rowStyle={ rowStyle } hover/>
                             </div>
                         )
                     }
                 </ToolkitProvider>
-                : (<Loader loading={translate('loading')} />)
+                : errorMessage !== null ?
+                    <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
+                        <p>
+                            { errorMessage }
+                        </p>
+                    </Alert>
+                    : <Loader loading={ translate('loading') }/>
             }
             <SerieDetailsForm/>
         </div>
@@ -109,9 +122,10 @@ const SeriesList = (props) => {
 
 const mapStateToProps = state => ({
     i18n: state.i18n,
-    series : state.ser.series,
+    series: state.ser.series,
     loading: state.ser.loading,
     selectedRowId: state.ser.selectedRowId,
+    apiError: state.sr.apiError,
 });
 
 const mapDispatchToProps = dispatch => ({
