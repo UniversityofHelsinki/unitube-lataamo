@@ -2,16 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Video = (props) => {
-    return (
-        <div className="mb-2 container-fluid">
-            {props.video && props.video.url
-                ?
-                <div className="row">
+
+    console.log(props.videoFiles);
+
+
+    const getVideoFiles = () => {
+        return props.videoFiles.map((video, index) => {
+            return (
+                <div key={index} className="row">
                     <div className="col">
                         <div className="embed-responsive embed-responsive-16by9">
-                            {props.video && props.video.url
+                            {video && video.url
                                 ?
-                                <video controls src={props.video.url}/>
+                                <video controls src={video.url}/>
                                 : <div></div>
                             }
                         </div>
@@ -19,7 +22,17 @@ const Video = (props) => {
                     <div className="col">
                         <p></p>
                     </div>
-                </div> : (
+                </div>
+            );
+        });
+    };
+
+    return (
+        <div className="mb-2 container-fluid">
+            {props.videoFiles && props.videoFiles.length > 0
+                ?
+                getVideoFiles()
+                : (
                     <div></div>
                 )
             }
@@ -28,7 +41,7 @@ const Video = (props) => {
 };
 
 const mapStateToProps = state => ({
-    video : state.vr.video
+    videoFiles : state.vr.videoFiles
 });
 
 export default connect(mapStateToProps, null)(Video);
