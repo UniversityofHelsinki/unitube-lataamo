@@ -1,6 +1,11 @@
 // asynchronous action creator
 import axios from 'axios';
-import { fileUploadProgressAction, fileUploadFailedActionMessage, fileUploadSuccessActionMessage } from './fileUploadAction';
+import {
+    fileUploadFailedActionMessage,
+    fileUploadProgressAction,
+    fileUploadSuccessActionMessage
+} from './fileUploadAction';
+
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_EVENTS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/video/';
@@ -28,6 +33,7 @@ export const fetchVideo = (row) => {
 export const fetchVideos = () => {
     return async (dispatch) => {
         try {
+            dispatch(apiGetVideosRequestCall());
             let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
@@ -130,18 +136,26 @@ export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     selectedRowId: selectedRowId
 });
 
+export const apiGetVideosRequestCall = () => ({
+    type: 'GET_VIDEOS_REQUEST',
+    loading: true
+});
+
 export const apiGetVideosSuccessCall = data => ({
     type: 'SUCCESS_API_GET_VIDEOS',
-    payload: data
+    payload: data,
+    loading: false
 });
 
 export const api401FailureCall = failureTime => ({
     type: 'STATUS_401_API_CALL',
-    payload : failureTime
+    payload : failureTime,
+    loading: false
 });
 
 
 export const apiFailureCall = msg => ({
     type: 'FAILURE_API_CALL',
-    payload: msg
+    payload: msg,
+    loading: false
 });

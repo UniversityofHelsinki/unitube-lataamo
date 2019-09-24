@@ -1,0 +1,34 @@
+@import "../utils/variables.sass"
+
+.loader
+  margin-bottom: 10px
+  margin-top: 10px
+  height: $height-loader
+  width: 100%
+  position: relative
+  overflow: hidden
+  background-color: $color-loader-background
+  &:before
+    display: block
+    position: absolute
+    content: ""
+    left: -$width-loader
+    width: $width-loader
+    height: $height-loader
+    background-color: $color-loader-bar
+    animation: loading 2s linear infinite
+
+@keyframes loading
+  0%
+    left: -$width-loader
+    width: 30%
+  50%
+    width: 30%
+  70%
+    width: 70%
+  80%
+    left: 50%
+  95%
+    left: 120%
+  100%
+    left: 100%

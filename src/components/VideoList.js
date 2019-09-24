@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideo, fetchVideos } from '../actions/videosAction';
 import { fetchEvent } from '../actions/eventsAction';
@@ -11,11 +11,15 @@ import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
-import { VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_FAILED } from '../utils/constants';
+import Loader from './Loader';
+import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
+import Alert from "react-bootstrap/Alert";
 
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
+
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const translations = props.i18n.translations[props.i18n.locale];
 
@@ -36,19 +40,22 @@ const VideoList = (props) => {
 
     useEffect(() => {
         props.onFetchVideos();
+        if (props.apiError) {
+            setErrorMessage(props.apiError);
+        }
         const interval = setInterval(() => {
             props.onFetchVideos();
         }, 60000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [props.apiError]);
 
     const statusFormatter = (cell, row) => {
         return (
             <div>
                 {
                     row.visibility.map((acl, index) =>
-                        <p key={index}> {acl} </p>
+                        <p key={ index }> { acl } </p>
                     )
                 }
             </div>
@@ -94,7 +101,7 @@ const VideoList = (props) => {
 
     const videoNotSelectable = (processingState) => {
         return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
-            processingState === VIDEO_PROCESSING_FAILED ));
+            processingState === VIDEO_PROCESSING_FAILED));
     };
 
     const nonSelectableRows = () => {
@@ -136,30 +143,40 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            <div className="table-responsive">
-                <ToolkitProvider
-                    bootstrap4
-                    keyField="identifier"
-                    data={translatedVideos()}
-                    columns={columns}
-                    search>
-                    {
-                        props => (
-                            <div>
-                                <br/>
-                                <SearchBar {...props.searchProps} placeholder={translate('search')}/>
-                                <hr/>
-                                <BootstrapTable {...props.baseProps} selectRow={selectRow}
-                                    pagination={paginationFactory()} defaultSorted={defaultSorted}
-                                    noDataIndication="Table is Empty" bordered={false} rowStyle={rowStyle}
-                                    hover/>
-                            </div>
-                        )
-                    }
-                </ToolkitProvider>
-                <Video/>
-                <VideoDetailsForm/>
-            </div>
+            { !props.loading && !errorMessage ?
+                <div className="table-responsive">
+                    <ToolkitProvider
+                        bootstrap4
+                        keyField="identifier"
+                        data={ translatedVideos() }
+                        columns={ columns }
+                        search>
+                        {
+                            props => (
+                                <div>
+                                    <br/>
+                                    <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
+                                    <hr/>
+                                    <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
+                                                    pagination={ paginationFactory() } defaultSorted={ defaultSorted }
+                                                    noDataIndication="Table is Empty" bordered={ false }
+                                                    rowStyle={ rowStyle }
+                                                    hover/>
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
+                    <Video/>
+                    <VideoDetailsForm/>
+                </div>
+                : errorMessage !== null ?
+                    <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
+                        <p>
+                            { errorMessage }
+                        </p>
+                    </Alert>
+                    : <Loader loading={ translate('loading') }/>
+            }
         </div>
     );
 };
@@ -167,7 +184,9 @@ const VideoList = (props) => {
 const mapStateToProps = state => ({
     videos: state.vr.videos,
     selectedRowId: state.vr.selectedRowId,
-    i18n: state.i18n
+    i18n: state.i18n,
+    loading: state.vr.loading,
+    apiError: state.sr.apiError
 });
 
 const mapDispatchToProps = dispatch => ({
