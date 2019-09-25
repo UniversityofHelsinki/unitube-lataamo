@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { actionUploadSeries } from '../actions/seriesAction';
 import { connect } from 'react-redux';
-import { Button, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const SeriesUploadForm = (props) => {
 
@@ -14,7 +14,8 @@ const SeriesUploadForm = (props) => {
     const [inputs, setInputs] = useState({
         title: '',
         description: '',
-        published: ''
+        published: '',
+        moodleNumber: '',
     });
 
     const [errorMessage, setErrorMessage] = useState(null);
@@ -60,11 +61,28 @@ const SeriesUploadForm = (props) => {
         }
     };
 
+    const containsOnlyNumbers = (event) => {
+        if (/^\d+$/.test(event.target.value)) {
+            return true;
+        }
+        return false;
+    };
+
+    const handleMoodleInputChange = (event) => {
+        if(event.target.value === '' || containsOnlyNumbers(event)) {
+            event.persist();
+            setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
+        }
+    };
+
     const handleInputChange = (event) => {
-        console.log(event.target.value);
-        console.log(event.target.checked);
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
+    };
+
+    const handleButtonClick = (event) => {
+        console.log('hit');
+        event.preventDefault();
     };
 
     return(
@@ -124,6 +142,22 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('series_moodle_visibility')}</label>
+                    <div className="col-sm-8">
+                        <input type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} /><button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Lisää</button>
+                        <div className="form-check-inline">
+
+                        </div>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>
