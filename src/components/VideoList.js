@@ -39,12 +39,12 @@ const VideoList = (props) => {
 
 
     useEffect(() => {
-        props.onFetchVideos();
+        props.onFetchVideos(true);
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
         const interval = setInterval(() => {
-            props.onFetchVideos();
+            props.onFetchVideos(false);
         }, 60000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -190,7 +190,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchVideos: () => dispatch(fetchVideos()),
+    onFetchVideos: (refresh) => dispatch(fetchVideos(refresh)),
     onSelectVideo: (row) => {
         dispatch(fetchVideo(row));
         dispatch(fetchEvent(row));
