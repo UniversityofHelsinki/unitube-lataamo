@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const ClosableButton = (props) => {
+const SelectedMoodleNumbers = (props) => {
+
+    
+
+
     return (
         <div>
             <button disabled type="button" className="btn btn-primary">{ props.moodleId }<span className="close" aria-hidden="true">&times;</span></button>
@@ -10,11 +14,9 @@ const ClosableButton = (props) => {
 };
 
 const mapStateToProps = state => ({
-
+    moodleNumbers: state.sr.moodleNumbers
 });
 
-const mapDispatchToProps = dispatch => ({
 
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClosableButton);
+export default connect(mapStateToProps, null)(SelectedMoodleNumbers);

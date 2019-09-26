@@ -2,6 +2,12 @@
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
 
+export const addMoodleNumber = (moodleNumber) => {
+    return async (dispatch) => {
+        dispatch(addMoodleNumberCall(moodleNumber));
+    };
+};
+
 export const fetchSerie = (row) => {
     return async (dispatch) => {
         try {
@@ -44,6 +50,11 @@ export const fetchSeries = () => {
         }
     };
 };
+
+export const addMoodleNumberCall = (moodleNumber) => ({
+    type: 'ADD_MOODLE_NUMBER',
+    payload: moodleNumber
+});
 
 export const apiGetSeriesRequestCall = () => ({
     type: 'GET_SERIES_REQUEST',

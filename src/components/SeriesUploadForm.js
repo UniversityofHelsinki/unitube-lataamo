@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { actionUploadSeries } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import {updateVideoList} from "../actions/videosAction";
 
 const SeriesUploadForm = (props) => {
 
@@ -81,7 +82,7 @@ const SeriesUploadForm = (props) => {
     };
 
     const handleButtonClick = (event) => {
-        console.log('hit');
+        console.log(inputs.moodleNumber);
         event.preventDefault();
     };
 
@@ -178,4 +179,8 @@ const mapStateToProps = state => ({
     i18n: state.i18n
 });
 
-export default connect(mapStateToProps, null)(SeriesUploadForm);
+const mapDispatchToProps = dispatch => ({
+    onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);
