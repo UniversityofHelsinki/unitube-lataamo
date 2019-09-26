@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme/build';
 import { Provider } from 'react-redux';
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import getAction from './utils/getAction';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -21,7 +21,7 @@ const msg = 'Unable to fetch data';
 describe('<SerieList />', () => {
     const initialState =  {
         ser: { error: '', series: series, loading: false },
-        sr: { apiError: ''},
+        sr: { apiError: '' },
         i18n : {
             translations: translations,
             locale: 'fi'

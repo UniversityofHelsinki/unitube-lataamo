@@ -30,10 +30,16 @@ export const fetchVideo = (row) => {
     };
 };
 
-export const fetchVideos = () => {
+const videosRequestCall = (dispatch, refresh) => {
+    if (refresh) {
+        dispatch(apiGetVideosRequestCall());
+    }
+};
+
+export const fetchVideos = (refresh) => {
     return async (dispatch) => {
         try {
-            dispatch(apiGetVideosRequestCall());
+            videosRequestCall(dispatch, refresh);
             let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
