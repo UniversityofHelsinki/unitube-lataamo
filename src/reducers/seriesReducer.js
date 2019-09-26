@@ -31,7 +31,7 @@ const seriesReducer = (state = initialState, action) => {
     case 'ADD_MOODLE_NUMBER':
         return {
             ...state,
-            moodleNumbers: [...state.moodleNumbers, action.payload],
+            moodleNumbers: [...new Set([...state.moodleNumbers, action.payload])],
         };
     case 'REMOVE_MOODLE_NUMBER':
         return {

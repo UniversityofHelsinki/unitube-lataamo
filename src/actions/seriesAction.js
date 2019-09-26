@@ -108,22 +108,22 @@ export const apiGetSerieSuccessCall = (data, selectedRowId) => ({
 export const actionUploadSeries = async (newSeries) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newSeries)
-            });
-            if(response.status === 200){
-                let responseJSON = await response.json();
-                return responseJSON;
-            }else{
-                throw new Error(response.status);
-            }
-
-        }catch (error) {
-            throw new Error(error);
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newSeries)
+        });
+        if(response.status === 200){
+            let responseJSON = await response.json();
+            return responseJSON;
+        }else{
+            throw new Error(response.status);
         }
+
+    }catch (error) {
+        throw new Error(error);
+    }
 };
 
 export const apiGetSeriesSuccessCall = data => ({

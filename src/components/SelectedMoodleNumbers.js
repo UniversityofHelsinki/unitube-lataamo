@@ -4,10 +4,7 @@ import { removeMoodleNumber } from '../actions/seriesAction';
 
 const SelectedMoodleNumbers = (props) => {
 
-    console.log(props.moodleNumbers);
-
     const removeNumber = (moodleNumber) => {
-        console.log(moodleNumber);
         props.onMoodleNumberDelete(moodleNumber);
     };
 

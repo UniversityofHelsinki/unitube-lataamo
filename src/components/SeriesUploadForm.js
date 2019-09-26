@@ -82,9 +82,9 @@ const SeriesUploadForm = (props) => {
     };
 
     const handleButtonClick = (event) => {
-        console.log(inputs.moodleNumber);
         props.onMoodleNumberAdd(inputs.moodleNumber);
         event.preventDefault();
+        setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
 
     return(
