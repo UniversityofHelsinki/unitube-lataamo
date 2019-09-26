@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {actionUploadSeries, addMoodleNumber} from '../actions/seriesAction';
+import { actionUploadSeries, addMoodleNumber } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
@@ -157,13 +157,28 @@ const SeriesUploadForm = (props) => {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">{translate('series_moodle_visibility')}</label>
-                    <div className="col-sm-8">
-                        <input type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} /><button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Lisää</button>
-                        <SelectedMoodleNumbers/>
+                    <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
+                    <div className="col-sm-4">
+                        <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
+                    </div>
+                    <div className="col-sm-4">
+                        <button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Lisää</button>
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
+                    <div className="col-sm-8">
+                        <SelectedMoodleNumbers/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_moodle_courses_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>

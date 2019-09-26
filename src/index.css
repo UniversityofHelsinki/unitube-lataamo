@@ -40,10 +40,10 @@ code {
 
 .close {
   position: relative;
-  float: right;
-  color: white;
+  color: red;
   top: -10px;
   right: -10px;
+  opacity: 1;
 }
 
 

@@ -12,7 +12,7 @@ const SelectedMoodleNumbers = (props) => {
         return props.moodleNumbers.map((moodleNumber, index) => {
             return (
                 <div key={index} className="form-check-inline">
-                    <button disabled type="button" className="btn btn-primary">{ moodleNumber }<span className="close" onClick={() => removeNumber(moodleNumber)} aria-hidden="true">&times;</span></button>
+                    <button disabled type="button" className="btn btn-outline-dark">{ moodleNumber }<span className="close" onClick={() => removeNumber(moodleNumber)} aria-hidden="true">&times;</span></button>
                 </div>
             );
         });
