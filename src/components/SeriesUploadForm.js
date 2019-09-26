@@ -27,18 +27,24 @@ const SeriesUploadForm = (props) => {
         setErrorMessage(null);
     }, [inputs]);
 
-    const generateAclList = (newSeries) => {
+    const generateAclList = (newSeries, moodleNumbers) => {
         let aclList = [];
         newSeries.acl = [];
         if (newSeries.published) {
             aclList.push(newSeries.published);
+        }
+        if (moodleNumbers && moodleNumbers.length > 0) {
+            moodleNumbers.forEach(moodleNumber => {
+                aclList.push(moodleNumber + '_Instructor');
+                aclList.push(moodleNumber + '_Learner');
+            });
         }
         newSeries.acl = aclList;
     };
 
     const uploadSeries = async() => {
         const newSeries = { ...inputs };
-        generateAclList(newSeries);
+        generateAclList(newSeries, props.moodleNumbers);
         //call unitube proxy api
         try {
             await actionUploadSeries(newSeries);
@@ -175,7 +181,8 @@ const SeriesUploadForm = (props) => {
 };
 
 const mapStateToProps = state => ({
-    i18n: state.i18n
+    i18n: state.i18n,
+    moodleNumbers: state.ser.moodleNumbers
 });
 
 const mapDispatchToProps = dispatch => ({
