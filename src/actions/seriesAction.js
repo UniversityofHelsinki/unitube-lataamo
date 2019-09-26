@@ -8,6 +8,12 @@ export const addMoodleNumber = (moodleNumber) => {
     };
 };
 
+export const removeMoodleNumber = (moodleNumber) => {
+    return async (dispatch) => {
+        dispatch(removeMoodleNumberCall(moodleNumber));
+    };
+};
+
 export const fetchSerie = (row) => {
     return async (dispatch) => {
         try {
@@ -50,6 +56,11 @@ export const fetchSeries = () => {
         }
     };
 };
+
+export const removeMoodleNumberCall = (moodleNumber) => ({
+    type: 'REMOVE_MOODLE_NUMBER',
+    payload: moodleNumber
+});
 
 export const addMoodleNumberCall = (moodleNumber) => ({
     type: 'ADD_MOODLE_NUMBER',

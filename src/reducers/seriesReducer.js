@@ -33,6 +33,11 @@ const seriesReducer = (state = initialState, action) => {
             ...state,
             moodleNumbers: [...state.moodleNumbers, action.payload],
         };
+    case 'REMOVE_MOODLE_NUMBER':
+        return {
+            ...state,
+            moodleNumbers : [...state.moodleNumbers.filter(moodleNumber => moodleNumber !== action.payload)],
+        };
     default:
         return state;
     }
