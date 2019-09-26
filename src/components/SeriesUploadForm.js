@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { actionUploadSeries } from '../actions/seriesAction';
+import {actionUploadSeries, addMoodleNumber} from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import {updateVideoList} from "../actions/videosAction";
+import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 
 const SeriesUploadForm = (props) => {
 
@@ -83,6 +83,7 @@ const SeriesUploadForm = (props) => {
 
     const handleButtonClick = (event) => {
         console.log(inputs.moodleNumber);
+        props.onMoodleNumberAdd(inputs.moodleNumber);
         event.preventDefault();
     };
 
@@ -153,9 +154,7 @@ const SeriesUploadForm = (props) => {
                     <label className="col-sm-2 col-form-label">{translate('series_moodle_visibility')}</label>
                     <div className="col-sm-8">
                         <input type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} /><button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Lisää</button>
-                        <div className="form-check-inline">
-
-                        </div>
+                        <SelectedMoodleNumbers/>
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>

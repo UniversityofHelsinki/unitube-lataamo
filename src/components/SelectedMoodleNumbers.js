@@ -6,7 +6,7 @@ const SelectedMoodleNumbers = (props) => {
     const drawMoodleNumbers = () => {
         return props.moodleNumbers.map((moodleNumber, index) => {
             return (
-                <div key={index} className="row">
+                <div key={index} className="form-check-inline">
                     <button disabled type="button" className="btn btn-primary">{ moodleNumber }<span className="close" aria-hidden="true">&times;</span></button>
                 </div>
             );
@@ -16,13 +16,19 @@ const SelectedMoodleNumbers = (props) => {
 
     return (
         <div>
-            {drawMoodleNumbers()}
+            {props.moodleNumbers && props.moodleNumbers.length > 0
+                ?
+                drawMoodleNumbers()
+                : (
+                    <div></div>
+                )
+            }
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    moodleNumbers: state.sr.moodleNumbers
+    moodleNumbers: state.ser.moodleNumbers
 });
 
 

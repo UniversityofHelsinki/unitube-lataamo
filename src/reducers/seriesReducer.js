@@ -1,4 +1,3 @@
-import { addMoodleNumber } from '../actions/seriesAction';
 
 const initialState = {
     series: [],
