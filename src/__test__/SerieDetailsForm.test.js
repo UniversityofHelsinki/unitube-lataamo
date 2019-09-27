@@ -3,10 +3,11 @@ import { mount } from 'enzyme/build';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import getAction from './utils/getAction';
+import SeriesReducer from '../reducers/seriesReducer';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import SeriesUploadForm from '../components/SeriesUploadForm';
-import { addMoodleNumberCall, apiFailureCall, removeMoodleNumberCall } from '../actions/seriesAction';
+import { addMoodleNumberCall, apiFailureCall, removeMoodleNumber, removeMoodleNumberCall } from '../actions/seriesAction';
 
 const mockStore = configureStore([thunk]);
 
@@ -15,7 +16,9 @@ const series =  [
     { 'identifier': '13d1505c-0afb-456b-b5f8-46666b764032', 'title': 'lataamo-testisarja-2.', 'creator': 'lataamo-testi', contributors: ['baabe'] }
 ];
 
-const moodleNumber = '123';
+const moodleNumber1 = 123;
+const moodleNumber2 = 234;
+const moodleNumber3 = 345;
 
 const translations = { en: { serie_id: 'identifier', lataamo: 'Loader', videos: 'Videos', search: 'Search', series_title: 'Series title', serie_contributors: 'Contributors' }, fi: { serie_id: 'sarjan id', lataamo: 'Lataamo', search: 'Etsi', serie_title: 'Sarjan nimi', serie_contributors: 'kontribuuttori' }, sv: { serie_id: 'serie id', lataamo: 'Loader', search: 'Söka', serie_title: 'serie titeln' , serie_contributors: 'kontribuuttor' } };
 
@@ -51,24 +54,42 @@ describe('<SerieList />', () => {
         expect(store.getActions().length).toBe(0);
     });
 
-    it('when user adds new moodle course fire action', async () => {
+    it('when user adds new moodle course fire action and return correct state', async () => {
         expect(store.getActions().length).toBe(0);
-        store.dispatch(addMoodleNumberCall(moodleNumber));
+        store.dispatch(addMoodleNumberCall(moodleNumber1));
         expect(await getAction(store, 'ADD_MOODLE_NUMBER')).not.toBe(null);
         expect(await getAction(store, 'ADD_MOODLE_NUMBER')).toEqual({
             'type': 'ADD_MOODLE_NUMBER',
-            'payload': moodleNumber
+            'payload': moodleNumber1
         });
+        const expectedState =   { 'moodleNumbers': [moodleNumber1], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [] };
+        expect(SeriesReducer(undefined, await getAction(store, 'ADD_MOODLE_NUMBER'))).toEqual(expectedState);
+    });
+
+    it('when user adds multiple moodle courses fire action and return correct state', async () => {
+        expect(store.getActions().length).toBe(0);
+        store.dispatch(addMoodleNumberCall(moodleNumber2));
+        const initialState =   { 'moodleNumbers': [moodleNumber1], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [] };
+        const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [] };
+        expect(SeriesReducer(initialState, await getAction(store, 'ADD_MOODLE_NUMBER'))).toEqual(expectedState);
     });
 
     it('when user removes new moodle course fire action', async () => {
         expect(store.getActions().length).toBe(0);
-        store.dispatch(removeMoodleNumberCall(moodleNumber));
+        store.dispatch(removeMoodleNumberCall(moodleNumber1));
         expect(await getAction(store, 'REMOVE_MOODLE_NUMBER')).not.toBe(null);
         expect(await getAction(store, 'REMOVE_MOODLE_NUMBER')).toEqual({
             'type': 'REMOVE_MOODLE_NUMBER',
-            'payload': moodleNumber
+            'payload': moodleNumber1
         });
+    });
+
+    it('when user removes moodle courses fire action and return correct state', async () => {
+        expect(store.getActions().length).toBe(0);
+        store.dispatch(removeMoodleNumber(moodleNumber2));
+        const initialState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [] };
+        const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [] };
+        expect(SeriesReducer(initialState, await getAction(store, 'REMOVE_MOODLE_NUMBER'))).toEqual(expectedState);
     });
 
     it('Should return error values ', async() => {
