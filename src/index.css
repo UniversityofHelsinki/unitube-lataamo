@@ -38,6 +38,14 @@ code {
   transition: width 0.3s ease-in;
 }
 
+.close {
+  position: relative;
+  color: red;
+  top: -10px;
+  right: -10px;
+  opacity: 1;
+}
+
 
 
 

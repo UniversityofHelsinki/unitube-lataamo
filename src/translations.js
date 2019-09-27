@@ -34,7 +34,11 @@ const translationsObject = {
         add_series: 'Add new series',
         series_description_info: 'Infotext for series description',
         public_series : 'Public series, it will be available in Katsomo',
-        series_visibility_info: 'Infotext for series publicity'
+        series_visibility_info: 'Infotext for series publicity',
+        add_moodle_course : 'Add Moodle courses',
+        added_moodle_courses: 'Added Moodle course numbers:',
+        series_moodle_visibility_info: 'Infotext for moodle publicity',
+        added_moodle_courses_info: 'Infotext for added moodle courses'
     },
     fi: {
         videos: 'Videoni',
@@ -71,7 +75,11 @@ const translationsObject = {
         add_series: 'Lisää sarja',
         series_description_info: 'sarjan kuvauksen infokenttä',
         public_series : 'Julkinen sarja (näkyy katsomoon)',
-        series_visibility_info: 'sarjan julkisuuden infokenttä'
+        series_visibility_info: 'sarjan julkisuuden infokenttä',
+        add_moodle_course : 'Lisää Moodle kurssinumero',
+        added_moodle_courses: 'Lisätyt Moodle kurssinumerot:',
+        series_moodle_visibility_info: 'Moodle kurssien kuvauskenttä',
+        added_moodle_courses_info: 'lisättyjen moodle kurssien infokenttä'
     },
     sv: {
         videos: 'Videor',
@@ -108,7 +116,11 @@ const translationsObject = {
         add_series: 'Lägg till en serie',
         series_description_info: 'Beskrivning för series',
         public_series : 'offentliga serier',
-        series_visibility_info: 'Beskrivning för offentliga serier'
+        series_visibility_info: 'Beskrivning för offentliga serier',
+        add_moodle_course : '',
+        added_moodle_courses: '',
+        series_moodle_visibility_info: '',
+        added_moodle_courses_info: ''
     }
 };
 
