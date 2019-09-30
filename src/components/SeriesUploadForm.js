@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall} from '../actions/seriesAction';
+import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
+import AutoSuggest from './AutoSuggest';
 
 const SeriesUploadForm = (props) => {
 
@@ -167,6 +168,19 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
+                    <div className="col-sm-8">
+                        <AutoSuggest/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_moodle_courses_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>
