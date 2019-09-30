@@ -3,7 +3,8 @@ const initialState = {
     series: [],
     serie: {
         title : '',
-        description: ''
+        description: '',
+        published: '',
     },
     selectedRowId: '',
     moodleNumbers: []
