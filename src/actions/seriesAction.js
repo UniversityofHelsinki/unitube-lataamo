@@ -14,6 +14,12 @@ export const removeMoodleNumber = (moodleNumber) => {
     };
 };
 
+export const emptyMoodleNumber = () => {
+    return async (dispatch) => {
+        dispatch(emptyMoodleNumberCall());
+    };
+};
+
 export const fetchSerie = (row) => {
     return async (dispatch) => {
         try {
@@ -65,6 +71,11 @@ export const removeMoodleNumberCall = (moodleNumber) => ({
 export const addMoodleNumberCall = (moodleNumber) => ({
     type: 'ADD_MOODLE_NUMBER',
     payload: moodleNumber
+});
+
+export const emptyMoodleNumberCall = () => ({
+    type: 'EMPTY_MOODLE_NUMBER',
+    payload: []
 });
 
 export const apiGetSeriesRequestCall = () => ({
