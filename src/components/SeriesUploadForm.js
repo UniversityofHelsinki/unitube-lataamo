@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { actionUploadSeries, addMoodleNumber } from '../actions/seriesAction';
+import {actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall} from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
@@ -48,6 +48,7 @@ const SeriesUploadForm = (props) => {
         //call unitube proxy api
         try {
             await actionUploadSeries(newSeries);
+            props.onEmptyMoodleNumbers();
             setSuccessMessage('SERIES UPLOAD SUCCESS MESSAGE');
         }catch (error){
             setErrorMessage('SERIES UPLOAD ERROR MESSAGE');
@@ -201,7 +202,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber))
+    onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
+    onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);

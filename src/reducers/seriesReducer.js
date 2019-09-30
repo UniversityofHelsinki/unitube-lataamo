@@ -38,6 +38,11 @@ const seriesReducer = (state = initialState, action) => {
             ...state,
             moodleNumbers : [...state.moodleNumbers.filter(moodleNumber => moodleNumber !== action.payload)],
         };
+    case 'EMPTY_MOODLE_NUMBER':
+        return {
+            ...state,
+            moodleNumbers : action.payload,
+        };
     default:
         return state;
     }
