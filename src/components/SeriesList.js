@@ -8,10 +8,10 @@ import Loader from './Loader';
 import SerieDetailsForm from './SerieDetailsForm';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
-import Alert from "react-bootstrap/Alert";
+import Alert from 'react-bootstrap/Alert';
 
 
-const {SearchBar} = Search;
+const { SearchBar } = Search;
 
 const SeriesList = (props) => {
 
@@ -102,7 +102,7 @@ const SeriesList = (props) => {
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <hr/>
                                 <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                                pagination={ paginationFactory() } rowStyle={ rowStyle } hover/>
+                                    pagination={ paginationFactory() } rowStyle={ rowStyle } hover/>
                             </div>
                         )
                     }
@@ -132,7 +132,6 @@ const mapDispatchToProps = dispatch => ({
     onFetchSeries: () => dispatch(fetchSeries()),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
-        dispatch(fetchSeries());
     }
 });
 
