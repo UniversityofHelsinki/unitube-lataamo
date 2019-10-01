@@ -59,7 +59,7 @@ const IAMGroupAutoSuggest = (props) => {
                 ref={(ref) => iamGroupTypeAhead = ref}
                 isLoading={isLoading}
                 minLength={3}
-                labelKey={(option) => `${option.grpName}`+' ('+ `${option.description}` + ')'}
+                labelKey={(option) => `${option.grpName}`+ ' ('+ `${option.description}` + ')'}
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
                 options={iamGroups}

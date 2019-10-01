@@ -43,9 +43,22 @@ const SeriesUploadForm = (props) => {
         newSeries.acl = aclList;
     };
 
+    const generateContributorsList = (newSeries, list) => {
+        let contributorsList = [];
+        if (list && list.length > 0) {
+            list.forEach(contributor => {
+                contributorsList.push(contributor);
+            });
+        }
+        newSeries.contributors = contributorsList;
+    };
+
     const uploadSeries = async() => {
+        console.log(props.iamGroups);
         const newSeries = { ...inputs };
         generateAclList(newSeries, props.moodleNumbers);
+        generateContributorsList(newSeries, props.iamGroups);
+        console.log(newSeries);
         //call unitube proxy api
         try {
             await actionUploadSeries(newSeries);
@@ -159,6 +172,19 @@ const SeriesUploadForm = (props) => {
                     </div>
                 </div>
                 <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
+                    <div className="col-sm-8">
+                        <IAMGroupAutoSuggest/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
                     <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                     <div className="col-sm-4">
                         <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
@@ -168,19 +194,6 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
-                        </OverlayTrigger>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
-                    <div className="col-sm-8">
-                        <IAMGroupAutoSuggest/>
-                    </div>
-                    <div className="col-sm-2">
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>
@@ -212,7 +225,8 @@ const SeriesUploadForm = (props) => {
 
 const mapStateToProps = state => ({
     i18n: state.i18n,
-    moodleNumbers: state.ser.moodleNumbers
+    moodleNumbers: state.ser.moodleNumbers,
+    iamGroups : state.ser.iamGroups
 });
 
 const mapDispatchToProps = dispatch => ({
