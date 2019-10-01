@@ -62,7 +62,16 @@ describe('<SerieList />', () => {
             'type': 'ADD_MOODLE_NUMBER',
             'payload': moodleNumber1
         });
-        const expectedState =   { 'moodleNumbers': [moodleNumber1], 'selectedRowId': '', 'serie': { 'description': '', 'title': '', 'published': ''},'series': [] };
+        const expectedState =   {
+            'moodleNumbers': [moodleNumber1],
+            'selectedRowId': '',
+            'serie': {
+                'description': '',
+                'title': '',
+                'published': '' },
+            'series': [],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
         //const value = SeriesReducer(undefined, await getAction(store, 'ADD_MOODLE_NUMBER'));
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_MOODLE_NUMBER'))).toEqual(expectedState);
     });

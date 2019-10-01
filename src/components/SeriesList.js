@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { emptyMoodleNumber, fetchSerie, fetchSeries } from '../actions/seriesAction';
+import { emptyMoodleNumber, fetchSerie, fetchSeries, clearPostSeriesSuccessMessage } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -22,6 +22,15 @@ const SeriesList = (props) => {
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            props.onClearPostSeriesSuccessMessage();
+        }, 5000);
+        return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
 
     const contributorsFormatter = (cell, row) => {
         return (
@@ -82,8 +91,17 @@ const SeriesList = (props) => {
     }, [props.apiError]);
     return (
         <div>
+            {props.seriesPostSuccessMessage !== null ?
+                <Alert variant="success">
+                    <p>
+                        {props.seriesPostSuccessMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
             <div className="margintop">
-                <Link to="/uploadSeries" onClick={() => props.emptyMoodleNumber()} className="btn btn-primary">
+                <Link to="/uploadSeries" onClick={() => {props.emptyMoodleNumber();
+                    props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
                     <Translate value="add_series"/>
                 </Link>
             </div>
@@ -126,6 +144,7 @@ const mapStateToProps = state => ({
     loading: state.ser.loading,
     selectedRowId: state.ser.selectedRowId,
     apiError: state.sr.apiError,
+    seriesPostSuccessMessage : state.ser.seriesPostSuccessMessage
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -133,7 +152,8 @@ const mapDispatchToProps = dispatch => ({
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },
-    emptyMoodleNumber: () => dispatch(emptyMoodleNumber())
+    emptyMoodleNumber: () => dispatch(emptyMoodleNumber()),
+    onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesList);

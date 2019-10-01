@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall} from '../actions/seriesAction';
+import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall, clearPostSeriesFailureMessage } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
@@ -19,13 +19,17 @@ const SeriesUploadForm = (props) => {
         moodleNumber: '',
     });
 
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
-
     useEffect(() => {
-        setSuccessMessage(null);
-        setErrorMessage(null);
-    }, [inputs]);
+        if (props.seriesPostSuccessMessage !== null && props.history) {
+            props.history.push('series'); // redirect to Router's series path
+        }
+        const interval = setInterval(() => {
+            props.onClearPostSeriesFailureMessage();
+        }, 5000);
+        return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.seriesPostFailureMessage, props.seriesPostSuccessMessage]);
+
 
     const generateAclList = (newSeries, moodleNumbers) => {
         let aclList = [];
@@ -42,17 +46,12 @@ const SeriesUploadForm = (props) => {
         newSeries.acl = aclList;
     };
 
-    const uploadSeries = async() => {
+    const uploadSeries = async () => {
         const newSeries = { ...inputs };
         generateAclList(newSeries, props.moodleNumbers);
         //call unitube proxy api
-        try {
-            await actionUploadSeries(newSeries);
-            props.onEmptyMoodleNumbers();
-            setSuccessMessage('SERIES UPLOAD SUCCESS MESSAGE');
-        }catch (error){
-            setErrorMessage('SERIES UPLOAD ERROR MESSAGE');
-        }
+        props.actionUploadSeries(newSeries);
+        props.onEmptyMoodleNumbers();
     };
 
     const handleSubmit = async (event) => {
@@ -96,18 +95,10 @@ const SeriesUploadForm = (props) => {
 
     return(
         <div>
-            {successMessage !== null ?
-                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+            {props.seriesPostFailureMessage !== null ?
+                <Alert variant="danger">
                     <p>
-                        {successMessage}
-                    </p>
-                </Alert>
-                : (<></>)
-            }
-            {errorMessage !== null ?
-                <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
-                    <p>
-                        {errorMessage}
+                        {props.seriesPostFailureMessage}
                     </p>
                 </Alert>
                 : (<></>)
@@ -198,12 +189,17 @@ const SeriesUploadForm = (props) => {
 
 const mapStateToProps = state => ({
     i18n: state.i18n,
-    moodleNumbers: state.ser.moodleNumbers
+    moodleNumbers: state.ser.moodleNumbers,
+    seriesPostFailureMessage: state.ser.seriesPostFailureMessage,
+    seriesPostSuccessMessage: state.ser.seriesPostSuccessMessage
 });
 
 const mapDispatchToProps = dispatch => ({
     onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
-    onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall())
+    onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
+    actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
+    onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage())
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);
