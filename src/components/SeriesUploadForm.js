@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
+import IAMGroupList from './IamGroupList';
 
 const SeriesUploadForm = (props) => {
 
@@ -176,6 +177,19 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
+                    <div className="col-sm-8">
+                        <IAMGroupList/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_iam_groups_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>

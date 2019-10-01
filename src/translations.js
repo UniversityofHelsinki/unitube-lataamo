@@ -41,7 +41,8 @@ const translationsObject = {
         added_moodle_courses_info: 'Infotext for added moodle courses',
         add_iam_group: 'Add IAM group',
         add_iam_groups_info: 'Infotext for IAM groups',
-        chooseIamGroup: 'Choose IAM group ...'
+        chooseIamGroup: 'Choose IAM group ...',
+        added_iam_groups: 'Added IAM groups'
     },
     fi: {
         videos: 'Videoni',
@@ -85,7 +86,8 @@ const translationsObject = {
         added_moodle_courses_info: 'lisättyjen moodle kurssien infokenttä',
         add_iam_group: 'Lisää IAM ryhmä',
         add_iam_groups_info: 'IAM ryhmien kuvauskenttä',
-        chooseIamGroup: 'Valitse IAM ryhmä ...'
+        chooseIamGroup: 'Valitse IAM ryhmä ...',
+        added_iam_groups: 'Lisätyt IAM ryhmät'
     },
     sv: {
         videos: 'Videor',
@@ -129,7 +131,8 @@ const translationsObject = {
         added_moodle_courses_info: '',
         add_iam_group: '',
         add_iam_groups_info: '',
-        chooseIamGroup: ''
+        chooseIamGroup: '',
+        added_iam_groups: ''
     }
 };
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { asyncContainer, Typeahead } from 'react-bootstrap-typeahead';
 import { connect } from 'react-redux';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { iamGroupQuery, addIamGroup, removeIamGroup } from '../actions/seriesAction';
+import { iamGroupQuery, addIamGroup } from '../actions/seriesAction';
 
 const AsyncTypeahead = asyncContainer(Typeahead);
 
@@ -12,19 +12,6 @@ const IAMGroupAutoSuggest = (props) => {
 
     const translate = (key) => {
         return translations ? translations[key] : '';
-    };
-
-    const drawSelections = () => {
-        if (props.iamGroups && props.iamGroups.length > 0) {
-            return props.iamGroups.map((selection, index) => {
-                return (
-                    <div key={index} className="form-check-inline">
-                        <button disabled type="button" className="btn btn-outline-dark">{selection}<span
-                            onClick={() => props.onIamGroupRemove(selection)} className="close" aria-hidden="true">&times;</span></button>
-                    </div>
-                );
-            });
-        }
     };
 
     const labelKey = (option) => {
@@ -57,7 +44,6 @@ const IAMGroupAutoSuggest = (props) => {
 
     return (
         <div>
-            {drawSelections()}
             <AsyncTypeahead
                 id="iam-group-typeahead"
                 ref={(ref) => iamGroupTypeAhead = ref}
@@ -80,7 +66,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onIamGroupAdd : (iamGroup) => dispatch(addIamGroup(iamGroup)),
-    onIamGroupRemove: (iamGroup) => dispatch(removeIamGroup(iamGroup))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps) (IAMGroupAutoSuggest);
