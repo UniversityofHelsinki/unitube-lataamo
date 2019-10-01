@@ -54,11 +54,9 @@ const SeriesUploadForm = (props) => {
     };
 
     const uploadSeries = async() => {
-        console.log(props.iamGroups);
         const newSeries = { ...inputs };
         generateAclList(newSeries, props.moodleNumbers);
         generateContributorsList(newSeries, props.iamGroups);
-        console.log(newSeries);
         //call unitube proxy api
         try {
             await actionUploadSeries(newSeries);

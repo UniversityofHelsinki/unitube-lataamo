@@ -27,6 +27,10 @@ const IAMGroupAutoSuggest = (props) => {
         }
     };
 
+    const labelKey = (option) => {
+        return option.grpName + ' ('+ option.description + ')';
+    };
+
     const handleSearch = async (query) => {
         setLoading(true);
         setGroups(await iamGroupQuery(query));
@@ -59,7 +63,7 @@ const IAMGroupAutoSuggest = (props) => {
                 ref={(ref) => iamGroupTypeAhead = ref}
                 isLoading={isLoading}
                 minLength={3}
-                labelKey={(option) => `${option.grpName}`+ ' ('+ `${option.description}` + ')'}
+                labelKey={(option) => labelKey(option)}
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
                 options={iamGroups}
