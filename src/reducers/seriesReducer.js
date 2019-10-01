@@ -6,10 +6,13 @@ const initialState = {
         description: ''
     },
     selectedRowId: '',
-    moodleNumbers: []
+    moodleNumbers: [],
+    iamGroups: []
 };
 
 const seriesReducer = (state = initialState, action) => {
+    console.log(action.type);
+    console.log(action.payload);
     switch (action.type) {
     case 'SUCCESS_API_GET_SERIES':
         return {
@@ -42,6 +45,16 @@ const seriesReducer = (state = initialState, action) => {
         return {
             ...state,
             moodleNumbers : action.payload,
+        };
+    case 'ADD_IAM_GROUP':
+        return {
+            ...state,
+            iamGroups : [...new Set([...state.iamGroups, action.payload])],
+        };
+    case 'REMOVE_IAM_GROUP':
+        return {
+            ...state,
+            iamGroups : [...state.iamGroups.filter(iamGroup => iamGroup !== action.payload)],
         };
     default:
         return state;
