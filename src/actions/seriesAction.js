@@ -20,6 +20,19 @@ export const emptyMoodleNumber = () => {
     };
 };
 
+export const clearPostSeriesSuccessMessage = () => {
+    return async (dispatch) => {
+        dispatch(clearPostSeriesSuccessCall());
+    };
+};
+
+export const clearPostSeriesFailureMessage = () => {
+    return async (dispatch) => {
+        dispatch(clearPostSeriesFailureCall());
+    };
+};
+
+
 export const fetchSerie = (row) => {
     return async (dispatch) => {
         try {
@@ -116,26 +129,46 @@ export const apiGetSerieSuccessCall = (data, selectedRowId) => ({
     selectedRowId: selectedRowId
 });
 
-export const actionUploadSeries = async (newSeries) => {
-    try {
-        let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newSeries)
-        });
-        if(response.status === 200){
-            let responseJSON = await response.json();
-            return responseJSON;
-        }else{
-            throw new Error(response.status);
+export const actionUploadSeries = (newSeries) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newSeries)
+            });
+            if (response.status === 200) {
+                dispatch(apiPostSeriesSuccessCall());
+            } else {
+                dispatch(apiPostSeriesFailureCall());
+            }
+        } catch (error) {
+            dispatch(apiPostSeriesFailureCall());
         }
-
-    }catch (error) {
-        throw new Error(error);
-    }
+    };
 };
+
+export const apiPostSeriesSuccessCall = () => ({
+    type: 'SUCCESS_API_POST_SERIES',
+    payload: 'api_post_series_successful'
+});
+
+export const apiPostSeriesFailureCall = () => ({
+    type: 'FAILURE_API_POST_SERIES',
+    payload: 'api_post_series_failed'
+});
+
+export const clearPostSeriesSuccessCall = () => ({
+    type: 'CLEAR_API_POST_SERIES_SUCCESS_CALL',
+    payload: null
+});
+
+export const clearPostSeriesFailureCall = () => ({
+    type: 'CLEAR_API_POST_SERIES_FAILURE_CALL',
+    payload: null
+});
 
 export const apiGetSeriesSuccessCall = data => ({
     type: 'SUCCESS_API_GET_SERIES',
