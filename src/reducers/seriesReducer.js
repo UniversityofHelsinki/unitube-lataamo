@@ -7,7 +7,9 @@ const initialState = {
         published: '',
     },
     selectedRowId: '',
-    moodleNumbers: []
+    moodleNumbers: [],
+    seriesPostSuccessMessage: null,
+    seriesPostFailureMessage: null
 };
 
 const seriesReducer = (state = initialState, action) => {
@@ -43,6 +45,26 @@ const seriesReducer = (state = initialState, action) => {
         return {
             ...state,
             moodleNumbers : action.payload,
+        };
+    case 'SUCCESS_API_POST_SERIES':
+        return {
+            ...state,
+            seriesPostSuccessMessage: action.payload
+        };
+    case 'CLEAR_API_POST_SERIES_SUCCESS_CALL':
+        return {
+            ...state,
+            seriesPostSuccessMessage: action.payload
+        };
+    case 'FAILURE_API_POST_SERIES':
+        return {
+            ...state,
+            seriesPostFailureMessage: action.payload
+        };
+    case 'CLEAR_API_POST_SERIES_FAILURE_CALL':
+        return {
+            ...state,
+            seriesPostFailureMessage: null
         };
     default:
         return state;
