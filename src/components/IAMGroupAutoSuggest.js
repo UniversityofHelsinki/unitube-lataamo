@@ -14,6 +14,9 @@ const IAMGroupAutoSuggest = (props) => {
         return translations ? translations[key] : '';
     };
 
+    const removeIamGroup = (removeGroup) => {
+        setSelection([...selections.filter(iamGroup => iamGroup !== removeGroup)]);
+    };
 
     const drawSelections = (selections) => {
         if (selections && selections.length > 0) {
@@ -21,7 +24,7 @@ const IAMGroupAutoSuggest = (props) => {
                 return (
                     <div key={index} className="form-check-inline">
                         <button disabled type="button" className="btn btn-outline-dark">{selection}<span
-                            className="close" aria-hidden="true">&times;</span></button>
+                            onClick={() => removeIamGroup(selection)} className="close" aria-hidden="true">&times;</span></button>
                     </div>
                 );
             });
@@ -30,9 +33,7 @@ const IAMGroupAutoSuggest = (props) => {
 
     const handleSearch = async (query) => {
         setLoading(true);
-        console.log(query);
-        let result = await iamGroupQuery(query);
-        setGroups(result);
+        setGroups(await iamGroupQuery(query));
         setLoading(false);
     };
 
