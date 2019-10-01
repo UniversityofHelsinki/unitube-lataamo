@@ -112,6 +112,11 @@ export const removeIamGroup = (iamGroup) => ({
     payload: iamGroup
 });
 
+export const emptyIamGroupsCall = () => ({
+    type: 'EMPTY_IAM_GROUPS',
+    payload: []
+});
+
 export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${id}`, {

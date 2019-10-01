@@ -54,6 +54,11 @@ const seriesReducer = (state = initialState, action) => {
             ...state,
             iamGroups : [...state.iamGroups.filter(iamGroup => iamGroup !== action.payload)],
         };
+    case 'EMPTY_IAM_GROUPS':
+        return {
+            ...state,
+            iamGroups : action.payload,
+        };
     default:
         return state;
     }
