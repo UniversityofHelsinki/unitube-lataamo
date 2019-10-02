@@ -53,7 +53,7 @@ const IAMGroupAutoSuggest = (props) => {
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
                 options={iamGroups}
-                placeholder={translate('chooseIamGroup')}
+                placeholder={translate('searchForIamGroup')}
             />
         </div>
     );
