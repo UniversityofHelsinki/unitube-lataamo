@@ -11,7 +11,6 @@ import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
-import { Translate } from 'react-redux-i18n';
 
 const App = (props) => {
 
