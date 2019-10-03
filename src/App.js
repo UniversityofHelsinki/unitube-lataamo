@@ -11,7 +11,6 @@ import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
-import { Translate } from 'react-redux-i18n';
 
 const App = (props) => {
 
@@ -38,17 +37,17 @@ const App = (props) => {
                             <Route exact path='/uploadSeries' component={SeriesUploadForm}/>
                         </Switch>
                     </div>
+                    <Footer/>
                 </div>
                 : (
                     <div className="container-fluid">
                         {props.apiError ?
                             <p>{props.apiError}</p>
-                            : <p><Translate value="redirecting"/></p>}
+                            : <div></div>}
                         <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
                     </div>
                 )
             }
-            <Footer/>
         </div>
     );
 };
