@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall, clearPostSeriesFailureMessage } from '../actions/seriesAction';
+import {
+    actionUploadSeries,
+    addMoodleNumber,
+    emptyMoodleNumberCall,
+    clearPostSeriesFailureMessage,
+    emptyPersons
+} from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
+import PersonListAutoSuggest from "./PersonListAutoSuggest";
+import PersonList from "./PersonList";
 
 const SeriesUploadForm = (props) => {
 
@@ -52,6 +60,7 @@ const SeriesUploadForm = (props) => {
         //call unitube proxy api
         props.actionUploadSeries(newSeries);
         props.onEmptyMoodleNumbers();
+        props.onEmptyPersonList();
     };
 
     const handleSubmit = async (event) => {
@@ -165,6 +174,33 @@ const SeriesUploadForm = (props) => {
                     </div>
                 </div>
                 <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
+                    <div className="col-sm-8">
+                        <PersonListAutoSuggest/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                    <div className="col-sm-8">
+                        <PersonList/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+
+                <div className="form-group row">
                     <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
                     <div className="col-sm-8">
                         <SelectedMoodleNumbers/>
@@ -198,8 +234,8 @@ const mapDispatchToProps = dispatch => ({
     onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
     onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
     actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
-    onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage())
-
+    onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage()),
+    onEmptyPersonList: () => dispatch(emptyPersons())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);

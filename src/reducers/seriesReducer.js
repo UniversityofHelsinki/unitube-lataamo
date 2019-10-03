@@ -9,65 +9,82 @@ const initialState = {
     selectedRowId: '',
     moodleNumbers: [],
     seriesPostSuccessMessage: null,
-    seriesPostFailureMessage: null
+    seriesPostFailureMessage: null,
+    persons: []
 };
 
 const seriesReducer = (state = initialState, action) => {
     switch (action.type) {
-    case 'SUCCESS_API_GET_SERIES':
-        return {
-            ...state,
-            series: action.payload,
-            loading: action.loading
-        };
-    case 'GET_SERIES_REQUEST':
-        return {
-            ...state,
-            loading: action.loading
-        };
-    case 'SUCCESS_API_GET_SERIE':
-        return {
-            ...state,
-            serie: action.payload,
-            selectedRowId: action.selectedRowId
-        };
-    case 'ADD_MOODLE_NUMBER':
-        return {
-            ...state,
-            moodleNumbers: [...new Set([...state.moodleNumbers, action.payload])],
-        };
-    case 'REMOVE_MOODLE_NUMBER':
-        return {
-            ...state,
-            moodleNumbers : [...state.moodleNumbers.filter(moodleNumber => moodleNumber !== action.payload)],
-        };
-    case 'EMPTY_MOODLE_NUMBER':
-        return {
-            ...state,
-            moodleNumbers : action.payload,
-        };
-    case 'SUCCESS_API_POST_SERIES':
-        return {
-            ...state,
-            seriesPostSuccessMessage: action.payload
-        };
-    case 'CLEAR_API_POST_SERIES_SUCCESS_CALL':
-        return {
-            ...state,
-            seriesPostSuccessMessage: action.payload
-        };
-    case 'FAILURE_API_POST_SERIES':
-        return {
-            ...state,
-            seriesPostFailureMessage: action.payload
-        };
-    case 'CLEAR_API_POST_SERIES_FAILURE_CALL':
-        return {
-            ...state,
-            seriesPostFailureMessage: null
-        };
-    default:
-        return state;
+        case 'SUCCESS_API_GET_SERIES':
+            return {
+                ...state,
+                series: action.payload,
+                loading: action.loading
+            };
+        case 'GET_SERIES_REQUEST':
+            return {
+                ...state,
+                loading: action.loading
+            };
+        case 'SUCCESS_API_GET_SERIE':
+            return {
+                ...state,
+                serie: action.payload,
+                selectedRowId: action.selectedRowId
+            };
+        case 'ADD_MOODLE_NUMBER':
+            return {
+                ...state,
+                moodleNumbers: [...new Set([...state.moodleNumbers, action.payload])],
+            };
+        case 'REMOVE_MOODLE_NUMBER':
+            return {
+                ...state,
+                moodleNumbers : [...state.moodleNumbers.filter(moodleNumber => moodleNumber !== action.payload)],
+            };
+        case 'EMPTY_MOODLE_NUMBER':
+            return {
+                ...state,
+                moodleNumbers : action.payload,
+            };
+        case 'SUCCESS_API_POST_SERIES':
+            return {
+                ...state,
+                seriesPostSuccessMessage: action.payload
+            };
+        case 'CLEAR_API_POST_SERIES_SUCCESS_CALL':
+            return {
+                ...state,
+                seriesPostSuccessMessage: action.payload
+            };
+        case 'FAILURE_API_POST_SERIES':
+            return {
+                ...state,
+                seriesPostFailureMessage: action.payload
+            };
+        case 'CLEAR_API_POST_SERIES_FAILURE_CALL':
+            return {
+                ...state,
+                seriesPostFailureMessage: null
+            };
+        case 'ADD_PERSON':
+            return {
+                ...state,
+                persons : [...new Set([...state.persons, action.payload])],
+            };
+        case 'REMOVE_PERSON':
+            return {
+                ...state,
+                persons : [...state.persons.filter(person => person !== action.payload)],
+            };
+        case 'EMPTY_PERSONS':
+            return {
+                ...state,
+                persons : action.payload,
+            };
+
+        default:
+            return state;
     }
 };
 

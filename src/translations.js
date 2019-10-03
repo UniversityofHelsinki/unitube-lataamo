@@ -38,7 +38,11 @@ const translationsObject = {
         add_moodle_course : 'Add Moodle courses',
         added_moodle_courses: 'Added Moodle course numbers:',
         series_moodle_visibility_info: 'Infotext for moodle publicity',
-        added_moodle_courses_info: 'Infotext for added moodle courses'
+        added_moodle_courses_info: 'Infotext for added moodle courses',
+        searchForPersons: 'Search for persons...',
+        add_person: 'Add person',
+        add_persons_info: 'Infotext for person add',
+        added_persons_info: 'Infotext for added persons'
     },
     fi: {
         videos: 'Videoni',
@@ -79,7 +83,11 @@ const translationsObject = {
         add_moodle_course : 'Lisää Moodle kurssinumero',
         added_moodle_courses: 'Lisätyt Moodle kurssinumerot:',
         series_moodle_visibility_info: 'Moodle kurssien kuvauskenttä',
-        added_moodle_courses_info: 'lisättyjen moodle kurssien infokenttä'
+        added_moodle_courses_info: 'lisättyjen moodle kurssien infokenttä',
+        searchForPersons: 'Etsi henkilöitä...',
+        add_person: 'Lisää henkilöitä',
+        add_persons_info: 'Henkilöiden haku infokenttä',
+        added_persons_info: 'Lisättyjen henkilöiden infokenttä'
     },
     sv: {
         videos: 'Videor',
@@ -120,7 +128,11 @@ const translationsObject = {
         add_moodle_course : '',
         added_moodle_courses: '',
         series_moodle_visibility_info: '',
-        added_moodle_courses_info: ''
+        added_moodle_courses_info: '',
+        searchForPersons: '',
+        add_person: '',
+        add_persons_info: '',
+        added_persons_info: ''
     }
 };
 
