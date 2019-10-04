@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall, clearPostSeriesFailureMessage } from '../actions/seriesAction';
+import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall, clearPostSeriesFailureMessage, emptyIamGroupsCall } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
+import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
+import IAMGroupList from './IamGroupList';
 
 const SeriesUploadForm = (props) => {
 
@@ -45,13 +47,25 @@ const SeriesUploadForm = (props) => {
         }
         newSeries.acl = aclList;
     };
+    const generateContributorsList = (newSeries, list) => {
+        let contributorsList = [];
+        if (list && list.length > 0) {
+            list.forEach(contributor => {
+                contributorsList.push(contributor);
+            });
+        }
+        newSeries.contributors = contributorsList;
+    };
 
     const uploadSeries = async () => {
         const newSeries = { ...inputs };
         generateAclList(newSeries, props.moodleNumbers);
+        generateContributorsList(newSeries, props.iamGroups);
         //call unitube proxy api
         props.actionUploadSeries(newSeries);
         props.onEmptyMoodleNumbers();
+        props.onEmptyIamGroups();
+
     };
 
     const handleSubmit = async (event) => {
@@ -149,6 +163,32 @@ const SeriesUploadForm = (props) => {
                     </div>
                 </div>
                 <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
+                    <div className="col-sm-8">
+                        <IAMGroupAutoSuggest/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
+                    <div className="col-sm-8">
+                        <IAMGroupList/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_iam_groups_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
                     <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                     <div className="col-sm-4">
                         <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
@@ -190,6 +230,7 @@ const SeriesUploadForm = (props) => {
 const mapStateToProps = state => ({
     i18n: state.i18n,
     moodleNumbers: state.ser.moodleNumbers,
+    iamGroups : state.ser.iamGroups,
     seriesPostFailureMessage: state.ser.seriesPostFailureMessage,
     seriesPostSuccessMessage: state.ser.seriesPostSuccessMessage
 });
@@ -197,6 +238,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
     onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
+    onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
     onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage())
 
