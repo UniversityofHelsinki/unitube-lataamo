@@ -120,7 +120,9 @@ describe('<SerieList />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [iamGroup1] };
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [iamGroup1],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_IAM_GROUP'))).toEqual(expectedState);
     });
 
