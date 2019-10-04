@@ -67,6 +67,8 @@ describe('<SerieList />', () => {
             'selectedRowId': '',
             'serie': {
                 'description': '',
+                'moodleNumber': "",
+                'moodleNumbers': [],
                 'title': '',
                 'published': '' },
             'series': [],

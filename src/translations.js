@@ -79,7 +79,10 @@ const translationsObject = {
         add_moodle_course : 'Lisää Moodle kurssinumero',
         added_moodle_courses: 'Lisätyt Moodle kurssinumerot:',
         series_moodle_visibility_info: 'Moodle kurssien kuvauskenttä',
-        added_moodle_courses_info: 'lisättyjen moodle kurssien infokenttä'
+        added_moodle_courses_info: 'lisättyjen moodle kurssien infokenttä',
+        update_moodle_course : 'Päivitä Moodle kurssinumero',
+        updated_moodle_courses: 'Päivitetyt Moodle kurssinumerot:',
+        updated_moodle_courses_info: 'Päivitettyjen moodle kurssien infokenttä'
     },
     sv: {
         videos: 'Videor',
