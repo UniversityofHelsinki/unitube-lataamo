@@ -62,15 +62,10 @@ const SeriesUploadForm = (props) => {
         generateAclList(newSeries, props.moodleNumbers);
         generateContributorsList(newSeries, props.iamGroups);
         //call unitube proxy api
-        try {
-            // props.actionUploadSeries(newSeries);
-            await actionUploadSeries(newSeries);
-            props.onEmptyMoodleNumbers();
-            props.onEmptyIamGroups();
-            setSuccessMessage('SERIES UPLOAD SUCCESS MESSAGE');
-        }catch (error){
-            setErrorMessage('SERIES UPLOAD ERROR MESSAGE');
-        }
+        props.actionUploadSeries(newSeries);
+        props.onEmptyMoodleNumbers();
+        props.onEmptyIamGroups();
+
     };
 
     const handleSubmit = async (event) => {
@@ -244,7 +239,7 @@ const mapDispatchToProps = dispatch => ({
     onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
     onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
-    //actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
+    actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
     onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage())
 
 });
