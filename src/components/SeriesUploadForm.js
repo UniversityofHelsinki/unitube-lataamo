@@ -50,7 +50,7 @@ const SeriesUploadForm = (props) => {
         newSeries.acl = aclList;
     };
 
-    function addToContributorsList(list, contributorsList) {
+    const addToContributorsList = (list, contributorsList) => {
         if (list && list.length > 0) {
             list.forEach(item => {
                 contributorsList.push(item);
