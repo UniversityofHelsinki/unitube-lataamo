@@ -1,13 +1,11 @@
 // asynchronous action creator
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
-
-const SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const PERSON_API_PATH = '/api/persons/';
 
 export const personQuery = async (query) => {
     try {
-        let response = await fetch(`${SERVER_API}${PERSON_API_PATH}${query}`, {
+        let response = await fetch(`${VIDEO_SERVER_API}${PERSON_API_PATH}${query}`, {
             method: 'GET',
         });
         if(response.status === 200) {
@@ -127,6 +125,40 @@ export const emptyMoodleNumberCall = () => ({
 export const apiGetSeriesRequestCall = () => ({
     type: 'GET_SERIES_REQUEST',
     loading: true
+});
+
+const SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+const IAM_GROUP_PATH = '/api/iamGroups/';
+
+export const iamGroupQuery = async (query) => {
+    try {
+        let response = await fetch(`${SERVER_API}${IAM_GROUP_PATH}${query}`, {
+            method: 'GET',
+        });
+        if(response.status === 200) {
+            return await response.json();
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+
+export const addIamGroup = (iamGroup) => ({
+    type: 'ADD_IAM_GROUP',
+    payload: iamGroup
+});
+
+export const removeIamGroup = (iamGroup) => ({
+    type: 'REMOVE_IAM_GROUP',
+    payload: iamGroup
+});
+
+export const emptyIamGroupsCall = () => ({
+    type: 'EMPTY_IAM_GROUPS',
+    payload: []
 });
 
 export const actionUpdateSerieDetails = async (id, updatedSerie) => {

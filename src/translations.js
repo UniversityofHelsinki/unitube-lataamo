@@ -42,7 +42,11 @@ const translationsObject = {
         searchForPersons: 'Search for persons...',
         add_person: 'Add person',
         add_persons_info: 'Infotext for person add',
-        added_persons_info: 'Infotext for added persons'
+        added_persons_info: 'Infotext for added persons',
+        add_iam_group: 'Add IAM group',
+        add_iam_groups_info: 'Infotext for IAM groups',
+        searchForIamGroup: 'Search for IAM group ...',
+        added_iam_groups: 'Added IAM groups'
     },
     fi: {
         videos: 'Videoni',
@@ -87,7 +91,11 @@ const translationsObject = {
         searchForPersons: 'Etsi henkilöitä...',
         add_person: 'Lisää henkilöitä',
         add_persons_info: 'Henkilöiden haku infokenttä',
-        added_persons_info: 'Lisättyjen henkilöiden infokenttä'
+        added_persons_info: 'Lisättyjen henkilöiden infokenttä',
+        add_iam_group: 'Lisää IAM ryhmä',
+        add_iam_groups_info: 'IAM ryhmien kuvauskenttä',
+        searchForIamGroup: 'Etsi IAM ryhmää ...',
+        added_iam_groups: 'Lisätyt IAM ryhmät'
     },
     sv: {
         videos: 'Videor',
@@ -128,11 +136,15 @@ const translationsObject = {
         add_moodle_course : '',
         added_moodle_courses: '',
         series_moodle_visibility_info: '',
-        added_moodle_courses_info: '',
         searchForPersons: '',
         add_person: '',
         add_persons_info: '',
-        added_persons_info: ''
+        added_persons_info: '',
+        added_moodle_courses_info: '',
+        add_iam_group: '',
+        add_iam_groups_info: '',
+        searchForIamGroup: '',
+        added_iam_groups: ''
     }
 };
 

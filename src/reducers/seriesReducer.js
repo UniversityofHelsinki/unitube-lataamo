@@ -10,7 +10,8 @@ const initialState = {
     moodleNumbers: [],
     seriesPostSuccessMessage: null,
     seriesPostFailureMessage: null,
-    persons: []
+    persons: [],
+    iamGroups: []
 };
 
 const seriesReducer = (state = initialState, action) => {
@@ -82,7 +83,21 @@ const seriesReducer = (state = initialState, action) => {
                 ...state,
                 persons : action.payload,
             };
-
+        case 'ADD_IAM_GROUP':
+            return {
+                ...state,
+                iamGroups : [...new Set([...state.iamGroups, action.payload])],
+            };
+        case 'REMOVE_IAM_GROUP':
+            return {
+                ...state,
+                iamGroups : [...state.iamGroups.filter(iamGroup => iamGroup !== action.payload)],
+            };
+        case 'EMPTY_IAM_GROUPS':
+            return {
+                ...state,
+                iamGroups : action.payload,
+            };
         default:
             return state;
     }
