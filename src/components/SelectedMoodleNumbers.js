@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeMoodleNumber } from '../actions/seriesAction';
+import {Badge} from "react-bootstrap";
 
 const SelectedMoodleNumbers = (props) => {
 
@@ -12,7 +13,10 @@ const SelectedMoodleNumbers = (props) => {
         return props.moodleNumbers.map((moodleNumber, index) => {
             return (
                 <div key={index} className="form-check-inline">
-                    <button disabled type="button" className="btn btn-outline-dark">{ moodleNumber }<span className="close" onClick={() => removeNumber(moodleNumber)} aria-hidden="true">&times;</span></button>
+                        <Badge variant='primary'>
+                            { moodleNumber }
+                            <span className='close' onClick={() => removeNumber(moodleNumber)} aria-hidden='true'>&times;</span>
+                        </Badge>
                 </div>
             );
         });
