@@ -35,7 +35,7 @@ const msg = 'Unable to fetch data';
 
 describe('<SerieList />', () => {
     const initialState =  {
-        ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [] },
+        ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
         sr: { apiError: '' },
         i18n : {
             translations: translations,
@@ -80,6 +80,7 @@ describe('<SerieList />', () => {
                 'published': '' },
             'series': [],
             'iamGroups': [],
+            'persons': [],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         //const value = SeriesReducer(undefined, await getAction(store, 'ADD_MOODLE_NUMBER'));
@@ -89,8 +90,8 @@ describe('<SerieList />', () => {
     it('when user adds multiple moodle courses fire action and return correct state', async () => {
         expect(store.getActions().length).toBe(0);
         store.dispatch(addMoodleNumberCall(moodleNumber2));
-        const initialState =   { 'moodleNumbers': [moodleNumber1], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [] };
-        const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [] };
+        const initialState =   { 'moodleNumbers': [moodleNumber1], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons': [] };
+        const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons':[]  };
         expect(SeriesReducer(initialState, await getAction(store, 'ADD_MOODLE_NUMBER'))).toEqual(expectedState);
     });
 
@@ -107,8 +108,8 @@ describe('<SerieList />', () => {
     it('when user removes moodle courses fire action and return correct state', async () => {
         expect(store.getActions().length).toBe(0);
         store.dispatch(removeMoodleNumberCall(moodleNumber2));
-        const initialState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [] };
-        const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [] };
+        const initialState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [], 'persons': [] };
+        const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons': [] };
         expect(SeriesReducer(initialState, await getAction(store, 'REMOVE_MOODLE_NUMBER'))).toEqual(expectedState);
     });
 
@@ -120,7 +121,7 @@ describe('<SerieList />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [iamGroup1],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [iamGroup1], 'persons': [],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_IAM_GROUP'))).toEqual(expectedState);
@@ -134,8 +135,8 @@ describe('<SerieList />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup2
         });
-        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1] };
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1, iamGroup2] };
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1], 'persons': [] };
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1, iamGroup2], 'persons': [] };
         expect(SeriesReducer(initialState, await getAction(store, 'ADD_IAM_GROUP'))).toEqual(expectedState);
     });
 
@@ -147,8 +148,8 @@ describe('<SerieList />', () => {
             'type': 'REMOVE_IAM_GROUP',
             'payload': iamGroup2
         });
-        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [iamGroup1, iamGroup2, iamGroup3] };
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1, iamGroup3] };
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [iamGroup1, iamGroup2, iamGroup3], 'persons':[]  };
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1, iamGroup3], 'persons':[]  };
         expect(SeriesReducer(initialState, await getAction(store, 'REMOVE_IAM_GROUP'))).toEqual(expectedState);
     });
 
