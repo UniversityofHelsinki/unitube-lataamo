@@ -9,9 +9,9 @@ import thunk from 'redux-thunk';
 import SeriesUploadForm from '../components/SeriesUploadForm';
 import {
     addIamGroup,
-    addMoodleNumberCall,
+    addMoodleNumberCall, addPerson,
     apiFailureCall, removeIamGroup,
-    removeMoodleNumberCall
+    removeMoodleNumberCall, removePerson
 } from '../actions/seriesAction';
 
 const mockStore = configureStore([thunk]);
@@ -28,6 +28,10 @@ const moodleNumber3 = 345;
 const iamGroup1 = 'grp-a02700-test-1';
 const iamGroup2 = 'grp-a02700-test-2';
 const iamGroup3 = 'grp-a02700-test-3';
+
+const person1 = 'ekvekara';
+const person2 = 'balenov';
+const person3 = 'baepe';
 
 const translations = { en: { serie_id: 'identifier', lataamo: 'Loader', videos: 'Videos', search: 'Search', series_title: 'Series title', serie_contributors: 'Contributors' }, fi: { serie_id: 'sarjan id', lataamo: 'Lataamo', search: 'Etsi', serie_title: 'Sarjan nimi', serie_contributors: 'kontribuuttori' }, sv: { serie_id: 'serie id', lataamo: 'Loader', search: 'Söka', serie_title: 'serie titeln' , serie_contributors: 'kontribuuttor' } };
 
@@ -151,6 +155,68 @@ describe('<SerieList />', () => {
         const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [iamGroup1, iamGroup2, iamGroup3], 'persons':[]  };
         const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [iamGroup1, iamGroup3], 'persons':[]  };
         expect(SeriesReducer(initialState, await getAction(store, 'REMOVE_IAM_GROUP'))).toEqual(expectedState);
+    });
+
+    it('when user adds new person fire action and return correct state', async () => {
+        expect(store.getActions().length).toBe(0);
+        store.dispatch(addPerson(person1));
+        expect(await getAction(store, 'ADD_PERSON')).not.toBe(null);
+        expect(await getAction(store, 'ADD_PERSON')).toEqual({
+            'type': 'ADD_PERSON',
+            'payload': person1
+        });
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
+        expect(SeriesReducer(undefined, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
+    });
+
+    it('when user adds multiple new persons fire action and return correct state', async () => {
+        expect(store.getActions().length).toBe(0);
+        store.dispatch(addPerson(person2));
+        expect(await getAction(store, 'ADD_PERSON')).not.toBe(null);
+        expect(await getAction(store, 'ADD_PERSON')).toEqual({
+            'type': 'ADD_PERSON',
+            'payload': person2
+        });
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1, person2],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
+        expect(SeriesReducer(initialState, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
+    });
+
+    it('when user removes person fire action and return correct state', async () => {
+        expect(store.getActions().length).toBe(0);
+        store.dispatch(removePerson(person1));
+        expect(await getAction(store, 'REMOVE_PERSON')).not.toBe(null);
+        expect(await getAction(store, 'REMOVE_PERSON')).toEqual({
+            'type': 'REMOVE_PERSON',
+            'payload': person1
+        });
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [], 'persons':[person1, person2, person3]  };
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons':[person2, person3]  };
+        expect(SeriesReducer(initialState, await getAction(store, 'REMOVE_PERSON'))).toEqual(expectedState);
+    });
+
+
+    it('when user tries to add same person twice fire action and return correct state', async () => {
+        expect(store.getActions().length).toBe(0);
+        store.dispatch(addPerson(person1));
+        expect(await getAction(store, 'ADD_PERSON')).not.toBe(null);
+        expect(await getAction(store, 'ADD_PERSON')).toEqual({
+            'type': 'ADD_PERSON',
+            'payload': person1
+        });
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+            seriesPostSuccessMessage: null,
+            seriesPostFailureMessage: null };
+        expect(SeriesReducer(initialState, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
     });
 
     it('Should return error values ', async() => {
