@@ -172,6 +172,32 @@ const SeriesUploadForm = (props) => {
                     </div>
                 </div>
                 <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
+                    <div className="col-sm-8">
+                        <PersonListAutoSuggest/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                    <div className="col-sm-8">
+                        <PersonList/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
                     <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
                     <div className="col-sm-8">
                         <IAMGroupAutoSuggest/>
@@ -213,33 +239,6 @@ const SeriesUploadForm = (props) => {
                         </OverlayTrigger>
                     </div>
                 </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
-                    <div className="col-sm-8">
-                        <PersonListAutoSuggest/>
-                    </div>
-                    <div className="col-sm-2">
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_persons_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
-                        </OverlayTrigger>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
-                    <div className="col-sm-8">
-                        <PersonList/>
-                    </div>
-                    <div className="col-sm-2">
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_persons_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
-                        </OverlayTrigger>
-                    </div>
-                </div>
-
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
                     <div className="col-sm-8">
