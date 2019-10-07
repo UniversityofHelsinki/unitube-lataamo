@@ -1,6 +1,7 @@
 import React from 'react';
 import { removePerson } from '../actions/seriesAction';
 import { connect } from 'react-redux';
+import {Badge} from "react-bootstrap";
 
 const PersonList = (props) => {
 
@@ -9,9 +10,10 @@ const PersonList = (props) => {
             return props.persons.map((selection, index) => {
                 return (
                     <div key={index} className="form-check-inline">
-                        <button disabled type="button" className="btn btn-outline-dark">{selection}<span
-                            onClick={() => props.onPersonRemove(selection)} className="close"
-                            aria-hidden="true">&times;</span></button>
+                        <Badge variant='primary'>
+                            { selection }
+                            <span className='close' onClick={() =>  props.onPersonRemove(selection)} aria-hidden='true'>&times;</span>
+                        </Badge>
                     </div>
                 );
             });
