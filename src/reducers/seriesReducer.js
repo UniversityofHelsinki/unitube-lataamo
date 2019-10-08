@@ -1,10 +1,11 @@
-
 const initialState = {
     series: [],
     serie: {
         title : '',
         description: '',
         published: '',
+        moodleNumber: '',
+        moodleNumbers: [],
     },
     selectedRowId: '',
     moodleNumbers: [],
@@ -30,7 +31,8 @@ const seriesReducer = (state = initialState, action) => {
         return {
             ...state,
             serie: action.payload,
-            selectedRowId: action.selectedRowId
+            selectedRowId: action.selectedRowId,
+            moodleNumbers: action.payload.moodleNumbers
         };
     case 'ADD_MOODLE_NUMBER':
         return {
