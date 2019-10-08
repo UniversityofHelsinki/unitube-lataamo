@@ -32,7 +32,8 @@ const seriesReducer = (state = initialState, action) => {
             ...state,
             serie: action.payload,
             selectedRowId: action.selectedRowId,
-            moodleNumbers: action.payload.moodleNumbers
+            moodleNumbers: action.payload.moodleNumbers,
+            iamGroups: action.payload.contributors
         };
     case 'ADD_MOODLE_NUMBER':
         return {
