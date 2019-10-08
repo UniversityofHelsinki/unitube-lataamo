@@ -177,12 +177,12 @@ const SerieDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">{translate('update_moodle_course')}</label>
+                        <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                         <div className="col-sm-4">
                             <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
                         </div>
                         <div className="col-sm-4">
-                            <button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Päivitä</button>
+                            <button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Lisää</button>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
@@ -193,12 +193,12 @@ const SerieDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">{translate('updated_moodle_courses')}</label>
+                        <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
                         <div className="col-sm-8">
                             <SelectedMoodleNumbers/>
                         </div>
                         <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('updated_moodle_courses_info')}</Tooltip>}>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_moodle_courses_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>
