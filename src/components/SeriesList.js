@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchSerie, fetchSeries, clearPostSeriesSuccessMessage, emptyMoodleNumber } from '../actions/seriesAction';
+import {
+    fetchSerie,
+    fetchSeries,
+    clearPostSeriesSuccessMessage,
+    emptyMoodleNumber,
+    emptyIamGroupsCall
+} from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -100,7 +106,7 @@ const SeriesList = (props) => {
                 : (<></>)
             }
             <div className="margintop">
-                <Link to="/uploadSeries" onClick={() => {props.emptyMoodleNumber(); props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
+                <Link to="/uploadSeries" onClick={() => {props.emptyMoodleNumber(); {props.onEmptyIamGroups()}; props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
                     <Translate value="add_series"/>
                 </Link>
             </div>
@@ -152,6 +158,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSerie(row));
     },
     emptyMoodleNumber: () => dispatch(emptyMoodleNumber()),
+    onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage())
 });
 
