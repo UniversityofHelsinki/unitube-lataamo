@@ -1,6 +1,7 @@
 import React from 'react';
 import { removeIamGroup } from '../actions/seriesAction';
 import { connect } from 'react-redux';
+import { Badge } from "react-bootstrap";
 
 const IAMGroupList = (props) => {
 
@@ -9,9 +10,10 @@ const IAMGroupList = (props) => {
             return props.iamGroups.map((selection, index) => {
                 return (
                     <div key={index} className="form-check-inline">
-                        <button disabled type="button" className="btn btn-outline-dark">{selection}<span
-                            onClick={() => props.onIamGroupRemove(selection)} className="close"
-                            aria-hidden="true">&times;</span></button>
+                        <Badge variant='primary'>
+                            { selection }
+                            <span className='close' onClick={() =>  props.onIamGroupRemove(selection)} aria-hidden='true'>&times;</span>
+                        </Badge>
                     </div>
                 );
             });

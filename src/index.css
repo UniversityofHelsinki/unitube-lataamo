@@ -44,6 +44,14 @@ code {
   top: -10px;
   right: -10px;
   opacity: 1;
+  cursor: pointer;
+}
+
+.badge {
+  font-size: 15px;
+  font-weight: normal;
+  padding: 0.25em 0.8em;
+  line-height: 2;
 }
 
 
