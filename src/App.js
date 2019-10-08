@@ -1,45 +1,65 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import rotateAction from "./actions/rotateAction";
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import './stylesheets/layout/app.sass';
+import VideoList from './components/VideoList';
+import SeriesList from './components/SeriesList';
+import VideoUploadForm from './components/VideoUploadForm';
+import SeriesUploadForm from './components/SeriesUploadForm';
+import './stylesheets/main.sass';
+import LoginRedirect from './components/LoginRedirect';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { fetchUser } from './actions/userAction';
 
+const App = (props) => {
 
-class App extends Component {
-  render() {
-    console.log(this.props);
+    useEffect(() => {
+        props.onFetchUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const SHIBBOLETH_LOGIN = process.env.REACT_APP_LATAAMO_LOGIN;
+
     return (
-        <div className="App">
-          <header className="App-header">
-            <img
-                src={logo}
-                className={
-                  "App-logo" +
-                  (this.props.rotate.rotating ? "":" App-logo-paused")
-                }
-                alt="logo"
-            />
-            <button className="rotate-button" onClick={() => this.props.rotateAction(!this.props.rotate.rotating)} >{this.props.rotate.rotating ? "STOP ROTATE" : "START ROTATE"}</button>
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
+        <div id="wrapper" className="container-fluid">
+            { props.loggedUser && props.loggedUser.eppn
+                ?
+                <div>
+                    <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
+                    <Header />
+                    <div id="main-content" className="content-wrapper">
+                        <Switch>
+                            <Route exact path='/' component={VideoList}/>
+                            <Route exact path='/series' component={SeriesList}/>
+                            <Route path="/series/:id" component={SeriesList} />
+                            <Route exact path='/uploadVideo' component={VideoUploadForm} />
+                            <Route exact path='/uploadSeries' component={SeriesUploadForm}/>
+                        </Switch>
+                    </div>
+                    <Footer/>
+                </div>
+                : (
+                    <div className="container-fluid">
+                        {props.apiError ?
+                            <p>{props.apiError}</p>
+                            : <div></div>}
+                        <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
+                    </div>
+                )
+            }
         </div>
     );
-  }
-}
+};
+
+
 const mapStateToProps = state => ({
-  ...state
+    apiError : state.sr.apiError,
+    loggedUser : state.ur.user
 });
+
 const mapDispatchToProps = dispatch => ({
-  rotateAction: (payload) => dispatch(rotateAction(payload))
+    onFetchUser: () => dispatch(fetchUser())
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);

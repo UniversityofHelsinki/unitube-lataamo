@@ -1,0 +1,144 @@
+@import "../utils/variables.sass"
+
+header#banner
+  padding: 0 15px
+  max-width: 1350px
+  margin: 0 auto
+
+  @media (max-width: 1265px)
+   max-width: 1220px
+
+  .topbar
+
+    padding: 10px 0
+
+    @media (max-width: $site-bp-mobile)
+     padding: 0
+
+    .left-content
+      a
+        color: $darkergray
+        font-size: 11px
+        font-weight: 600
+        text-transform: uppercase
+
+    .right-content
+
+      .language-change
+
+        form
+          float: left
+
+          &:last-child
+            .lang-opt
+              margin-right: 0
+
+        .lang-opt
+          background: none
+          border: 0
+          padding: 0
+          position: relative
+          margin: 1px 7px 2px 7px
+          color: $darkergray
+          font-size: 11px
+          font-weight: 600
+          text-transform: uppercase
+
+  .main-header
+    padding: 35px 0
+    position: relative
+
+    button
+      background: none
+      padding: 0
+      border: 0
+      position: relative
+
+
+    .header-left
+
+      .site-title
+        margin: 0
+        margin-top: 12px
+
+        .logo
+          display: inline-block
+          font-weight: 800
+          color: $black
+          font-size: 32px
+          text-transform: uppercase
+
+          &:hover
+            color: $black
+            text-decoration: none
+
+    .header-right
+
+      min-height: 61px
+
+      .icon-nav-item
+        float: left
+
+        &.icon-box
+
+          margin: 0 5px
+          text-align: center
+          min-width: 72px
+
+          button, a
+            color: $darkgray
+            font-size: 10px
+            font-weight: 600
+            text-transform: uppercase
+            text-decoration: none
+            display: inline-block
+
+          svg
+            fill: $darkgray
+            background-color: $lightgray
+            height: 20px
+            width: 20px
+            box-sizing: content-box
+            padding: 10px
+            border-radius: 5px
+
+          span
+            display: block
+            margin-top: 3px
+
+
+
+    //@media (max-width: $header-tablet-size)
+
+    .header-right
+
+      .icon-nav-item
+
+        &.icon-box
+
+          margin-top: 8px
+          min-width: auto
+
+          span
+            display: none
+
+    @media (max-width: $site-bp-mobile)
+
+     padding: 20px 0 15px 0
+
+    .header-right
+
+      .user-profile-buttons
+        margin-left: 10px
+
+        .icon-nav-item
+
+          &.small-icon
+
+            margin-top: 13px
+
+            svg
+              width: 16px
+              height: 16px
+              padding: 8px
+              border-radius: 30px
