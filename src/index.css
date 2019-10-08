@@ -54,6 +54,12 @@ code {
   line-height: 2;
 }
 
+.table-hover tbody td {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 
 
 
