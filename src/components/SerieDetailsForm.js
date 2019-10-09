@@ -191,6 +191,32 @@ const SerieDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
+                        <div className="col-sm-8">
+                            <IAMGroupAutoSuggest/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
+                        <div className="col-sm-8">
+                            <IAMGroupList/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_iam_groups_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
                         <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                         <div className="col-sm-4">
                             <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
@@ -219,35 +245,6 @@ const SerieDetailsForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
-
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
-                        <div className="col-sm-8">
-                            <IAMGroupAutoSuggest/>
-                        </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
-                        <div className="col-sm-8">
-                            <IAMGroupList/>
-                        </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_iam_groups_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-
-
                     <div className="form-group row">
                         <div className="col-sm-10 offset-sm-2">
                             <button type="submit" className="btn btn-primary">Tallenna</button>
