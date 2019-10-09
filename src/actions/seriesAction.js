@@ -1,6 +1,37 @@
 // asynchronous action creator
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
+const PERSON_API_PATH = '/api/persons/';
+
+export const personQuery = async (query) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${PERSON_API_PATH}${query}`, {
+            method: 'GET',
+        });
+        if(response.status === 200) {
+            return await response.json();
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const addPerson = (person) => ({
+    type: 'ADD_PERSON',
+    payload: person
+});
+
+export const removePerson = (person) => ({
+    type: 'REMOVE_PERSON',
+    payload: person
+});
+
+export const emptyPersons = () => ({
+    type: 'EMPTY_PERSONS',
+    payload: []
+});
 
 export const addMoodleNumber = (moodleNumber) => {
     return async (dispatch) => {

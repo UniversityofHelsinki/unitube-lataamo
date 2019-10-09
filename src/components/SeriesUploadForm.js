@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall, clearPostSeriesFailureMessage, emptyIamGroupsCall } from '../actions/seriesAction';
+import { actionUploadSeries, addMoodleNumber, emptyMoodleNumberCall, clearPostSeriesFailureMessage, emptyIamGroupsCall, emptyPersons } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
+import PersonListAutoSuggest from "./PersonListAutoSuggest";
+import PersonList from "./PersonList";
 
 const SeriesUploadForm = (props) => {
 
@@ -47,23 +49,30 @@ const SeriesUploadForm = (props) => {
         }
         newSeries.acl = aclList;
     };
-    const generateContributorsList = (newSeries, list) => {
-        let contributorsList = [];
+
+    const addToContributorsList = (list, contributorsList) => {
         if (list && list.length > 0) {
-            list.forEach(contributor => {
-                contributorsList.push(contributor);
+            list.forEach(item => {
+                contributorsList.push(item);
             });
         }
+    }
+
+    const generateContributorsList = (newSeries, iamGroupList, personList) => {
+        let contributorsList = [];
+        addToContributorsList(iamGroupList, contributorsList);
+        addToContributorsList(personList, contributorsList);
         newSeries.contributors = contributorsList;
     };
 
     const uploadSeries = async () => {
         const newSeries = { ...inputs };
         generateAclList(newSeries, props.moodleNumbers);
-        generateContributorsList(newSeries, props.iamGroups);
+        generateContributorsList(newSeries, props.iamGroups, props.persons);
         //call unitube proxy api
         props.actionUploadSeries(newSeries);
         props.onEmptyMoodleNumbers();
+        props.onEmptyPersonList();
         props.onEmptyIamGroups();
 
     };
@@ -163,6 +172,32 @@ const SeriesUploadForm = (props) => {
                     </div>
                 </div>
                 <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
+                    <div className="col-sm-8">
+                        <PersonListAutoSuggest/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                    <div className="col-sm-8">
+                        <PersonList/>
+                    </div>
+                    <div className="col-sm-2">
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                </div>
+                <div className="form-group row">
                     <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
                     <div className="col-sm-8">
                         <IAMGroupAutoSuggest/>
@@ -231,6 +266,7 @@ const mapStateToProps = state => ({
     i18n: state.i18n,
     moodleNumbers: state.ser.moodleNumbers,
     iamGroups : state.ser.iamGroups,
+    persons: state.ser.persons,
     seriesPostFailureMessage: state.ser.seriesPostFailureMessage,
     seriesPostSuccessMessage: state.ser.seriesPostSuccessMessage
 });
@@ -240,8 +276,8 @@ const mapDispatchToProps = dispatch => ({
     onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
-    onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage())
-
+    onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage()),
+    onEmptyPersonList: () => dispatch(emptyPersons())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);
