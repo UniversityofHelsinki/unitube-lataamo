@@ -39,7 +39,7 @@ const msg = 'Unable to fetch data';
 
 describe('<SerieList />', () => {
     const initialState =  {
-        ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
+        ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [] },
         sr: { apiError: '' },
         i18n : {
             translations: translations,
@@ -80,6 +80,8 @@ describe('<SerieList />', () => {
             'selectedRowId': '',
             'serie': {
                 'description': '',
+                'moodleNumber': "",
+                'moodleNumbers': [],
                 'title': '',
                 'published': '' },
             'series': [],
@@ -125,6 +127,7 @@ describe('<SerieList />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup1
         });
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": "", 'moodleNumber': '', 'moodleNumbers': []},'series': [], 'iamGroups': [iamGroup1],
         const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [iamGroup1], 'persons': [],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };

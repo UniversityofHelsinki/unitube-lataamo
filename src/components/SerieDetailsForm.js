@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
-import { updateSerieList, actionUpdateSerieDetails } from '../actions/seriesAction';
+import {
+    updateSerieList,
+    actionUpdateSerieDetails,
+    addMoodleNumber,
+    emptyMoodleNumberCall
+} from '../actions/seriesAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import SelectedMoodleNumbers from "./SelectedMoodleNumbers";
 
 const SerieDetailsForm = (props) => {
 
@@ -19,7 +25,8 @@ const SerieDetailsForm = (props) => {
     const updateSerieDetails = async () => {
         const serieId = inputs.identifier;
         const updatedSerie = {...inputs}; // values from the form
-        generateAclList(updatedSerie);
+        generateAclList(updatedSerie, props.moodleNumbers);
+
         // call unitube-proxy api
         try {
             await actionUpdateSerieDetails(serieId, updatedSerie);
@@ -27,6 +34,7 @@ const SerieDetailsForm = (props) => {
             // update the serielist to redux state
             props.onSerieDetailsEdit(props.series.map(
                 serie => serie.identifier !== serieId ? serie : updatedSerie));
+           // props.onEmptyMoodleNumbers();
         } catch (err) {
             setErrorMessage('JUST A PLACE HOLDER TEXT');
         }
@@ -38,11 +46,17 @@ const SerieDetailsForm = (props) => {
         setErrorMessage(null);
     }, [props.serie]);
 
-    const generateAclList = (updateSeries) => {
+    const generateAclList = (updateSeries, moodleNumbers) => {
         let aclList = [];
         updateSeries.acl = [];
         if (updateSeries.published) {
             aclList.push(updateSeries.published);
+        }
+        if (moodleNumbers && moodleNumbers.length > 0) {
+            moodleNumbers.forEach(moodleNumber => {
+                aclList.push(moodleNumber + '_Instructor');
+                aclList.push(moodleNumber + '_Learner');
+            });
         }
         updateSeries.acl = aclList;
     };
@@ -66,6 +80,26 @@ const SerieDetailsForm = (props) => {
     const handleInputChange = (event) => {
         event.persist();
         setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+    };
+
+    const containsOnlyNumbers = (event) => {
+        if (/^\d+$/.test(event.target.value)) {
+            return true;
+        }
+        return false;
+    };
+
+    const handleMoodleInputChange = (event) => {
+        if(event.target.value === '' || containsOnlyNumbers(event)) {
+            event.persist();
+            setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
+        }
+    };
+
+    const handleButtonClick = (event) => {
+        props.onMoodleNumberAdd(inputs.moodleNumber);
+        event.preventDefault();
+        setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
 
     return (
@@ -142,7 +176,35 @@ const SerieDetailsForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
-
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
+                        <div className="col-sm-4">
+                            <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
+                        </div>
+                        <div className="col-sm-4">
+                            <button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>Lisää</button>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
+                        <div className="col-sm-8">
+                            <SelectedMoodleNumbers/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_moodle_courses_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <div className="col-sm-10 offset-sm-2">
                             <button type="submit" className="btn btn-primary">Tallenna</button>
@@ -160,11 +222,14 @@ const SerieDetailsForm = (props) => {
 
 const mapStateToProps = state => ({
     serie: state.ser.serie,
+    moodleNumbers: state.ser.moodleNumbers,
     series: state.ser.series,
     i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
+    onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
+    onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
     onSerieDetailsEdit: (freshSerieList) => dispatch(updateSerieList(freshSerieList))
 });
 
