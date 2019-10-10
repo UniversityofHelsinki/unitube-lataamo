@@ -12,6 +12,8 @@ import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from "./SelectedMoodleNumbers";
 import IAMGroupAutoSuggest from "./IAMGroupAutoSuggest";
 import IAMGroupList from "./IamGroupList";
+import PersonListAutoSuggest from "./PersonListAutoSuggest";
+import PersonList from "./PersonList";
 
 const SerieDetailsForm = (props) => {
 
@@ -25,13 +27,18 @@ const SerieDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-    const generateContributorsList = (updatedSeries, list) => {
-        let contributorsList = [];
+    const addToContributorsList = (list, contributorsList) => {
         if (list && list.length > 0) {
-            list.forEach(contributor => {
-                contributorsList.push(contributor);
+            list.forEach(item => {
+                contributorsList.push(item);
             });
         }
+    }
+
+    const generateContributorsList = (updatedSeries, iamGroupList, personList) => {
+        let contributorsList = [];
+        addToContributorsList(iamGroupList, contributorsList);
+        addToContributorsList(personList, contributorsList);
         updatedSeries.contributors = contributorsList;
     };
 
@@ -39,9 +46,7 @@ const SerieDetailsForm = (props) => {
         const serieId = inputs.identifier;
         const updatedSeries = {...inputs}; // values from the form
         generateAclList(updatedSeries, props.moodleNumbers);
-
-        generateContributorsList(updatedSeries, props.iamGroups);
-
+        generateContributorsList(updatedSeries, props.iamGroups, props.persons);
         // call unitube-proxy api
         try {
             await actionUpdateSerieDetails(serieId, updatedSeries);
@@ -190,6 +195,35 @@ const SerieDetailsForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
+
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
+                        <div className="col-sm-8">
+                            <PersonListAutoSuggest/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                        <div className="col-sm-8">
+                            <PersonList/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_persons_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+
+
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
                         <div className="col-sm-8">
@@ -266,13 +300,14 @@ const mapStateToProps = state => ({
     series: state.ser.series,
     i18n: state.i18n,
     iamGroups : state.ser.iamGroups,
+    persons: state.ser.persons,
 });
 
 const mapDispatchToProps = dispatch => ({
     onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
     onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
-    onSerieDetailsEdit: (freshSerieList) => dispatch(updateSerieList(freshSerieList))
+    onSerieDetailsEdit: (freshSerieList) => dispatch(updateSerieList(freshSerieList)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SerieDetailsForm);
