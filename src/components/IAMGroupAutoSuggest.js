@@ -20,8 +20,12 @@ const IAMGroupAutoSuggest = (props) => {
 
     const handleSearch = async (query) => {
         setLoading(true);
-        setGroups(await iamGroupQuery(query));
-        setLoading(false);
+        try {
+            setGroups(await iamGroupQuery(query));
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
 
     const clearTypeAheadSelection = () => {
