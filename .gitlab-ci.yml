@@ -18,7 +18,6 @@ stages:
 compile:
   stage: compile
   script:
-    - npm rebuild node-sass
     - npm install
 # ------------------------------ test stage ------------------------------
 
