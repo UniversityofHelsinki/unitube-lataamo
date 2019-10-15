@@ -1,7 +1,7 @@
 import React from 'react';
 import { removeIamGroup } from '../actions/seriesAction';
 import { connect } from 'react-redux';
-import { Badge } from "react-bootstrap";
+import { Badge } from 'react-bootstrap';
 
 const IAMGroupList = (props) => {
 

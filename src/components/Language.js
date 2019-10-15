@@ -17,15 +17,15 @@ const Language = (props) => {
 
     return (
         <React.Fragment>
-                <button className={props.user.preferredLanguage === 'fi' ? 'hidden' : 'lang-opt'}>
-                    <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange( 'fi')}>Suomi</Link>
-                </button>
+            <button className={props.user.preferredLanguage === 'fi' ? 'hidden' : 'lang-opt'}>
+                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange( 'fi')}>Suomi</Link>
+            </button>
             <button className={props.user.preferredLanguage === 'sv' ? 'hidden' : 'lang-opt'}>
                 <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange('sv')}>Svenska</Link>
             </button>
-                <button className={props.user.preferredLanguage === 'en' ? 'hidden' : 'lang-opt'} >
-                    <Link to="#"  className='lang-opt' onClick={() => props.onLanguageChange( 'en')}>English</Link>
-                </button>
+            <button className={props.user.preferredLanguage === 'en' ? 'hidden' : 'lang-opt'} >
+                <Link to="#"  className='lang-opt' onClick={() => props.onLanguageChange( 'en')}>English</Link>
+            </button>
         </React.Fragment>
     );
 };

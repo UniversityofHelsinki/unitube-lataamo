@@ -5,8 +5,8 @@ import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
-import PersonListAutoSuggest from "./PersonListAutoSuggest";
-import PersonList from "./PersonList";
+import PersonListAutoSuggest from './PersonListAutoSuggest';
+import PersonList from './PersonList';
 
 const SeriesUploadForm = (props) => {
 
@@ -56,7 +56,7 @@ const SeriesUploadForm = (props) => {
                 contributorsList.push(item);
             });
         }
-    }
+    };
 
     const generateContributorsList = (newSeries, iamGroupList, personList) => {
         let contributorsList = [];
