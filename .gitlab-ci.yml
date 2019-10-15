@@ -1,4 +1,4 @@
-image: node:8-alpine
+image: node:10-alpine
 
 # Cache node modules - speeds up future builds
 cache:
@@ -19,7 +19,6 @@ compile:
   stage: compile
   script:
     - npm install
-
 # ------------------------------ test stage ------------------------------
 
 test:
