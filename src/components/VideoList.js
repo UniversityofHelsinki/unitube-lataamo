@@ -13,7 +13,7 @@ import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
-import Alert from "react-bootstrap/Alert";
+import Alert from 'react-bootstrap/Alert';
 
 const { SearchBar } = Search;
 
@@ -158,10 +158,10 @@ const VideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                                    pagination={ paginationFactory() } defaultSorted={ defaultSorted }
-                                                    noDataIndication="Table is Empty" bordered={ false }
-                                                    rowStyle={ rowStyle }
-                                                    hover/>
+                                        pagination={ paginationFactory() } defaultSorted={ defaultSorted }
+                                        noDataIndication="Table is Empty" bordered={ false }
+                                        rowStyle={ rowStyle }
+                                        hover/>
                                 </div>
                             )
                         }
