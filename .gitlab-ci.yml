@@ -59,6 +59,7 @@ build_prod:
   only:
     - prod
   script:
+    - npm rebuild node-sass
     - npm run build
   artifacts:
     name: lataamo-build
