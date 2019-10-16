@@ -20,8 +20,12 @@ const PersonListAutoSuggest = (props) => {
 
     const handleSearch = async (query) => {
         setLoading(true);
-        setPersons(await personQuery(query));
-        setLoading(false);
+        try {
+            setPersons(await personQuery(query));
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
 
     const clearTypeAheadSelection = () => {

@@ -90,15 +90,15 @@ const SerieDetailsForm = (props) => {
     const handleCheckBoxChange = (event) => {
         event.persist();
         if (event.target.checked) {
-            setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+            setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
         } else {
-            setInputs(inputs => ({...inputs, [event.target.name]: ''}));
+            setInputs(inputs => ({ ...inputs, [event.target.name]: '' }));
         }
     };
 
     const handleInputChange = (event) => {
         event.persist();
-        setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
     const containsOnlyNumbers = (event) => {
@@ -149,13 +149,13 @@ const SerieDetailsForm = (props) => {
                         <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-8">
                             <input type="text" name="title" className="form-control" value={ inputs.title }
-                                   onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
+                                onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger
                                 overlay={ <Tooltip id="tooltip-disabled">{ translate('serie_title_info') }</Tooltip> }>
                                 <span className="d-inline-block">
-                                    <Button disabled style={ {pointerEvents: 'none'} }>?</Button>
+                                    <Button disabled style={ { pointerEvents: 'none' } }>?</Button>
                                 </span>
                             </OverlayTrigger>
                         </div>
@@ -164,14 +164,14 @@ const SerieDetailsForm = (props) => {
                         <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
                         <div className="col-sm-8">
                             <textarea name="description" className="form-control" value={ inputs.description }
-                                      onChange={ handleInputChange } placeholder="Description" maxLength="1500"
-                                      required/>
+                                onChange={ handleInputChange } placeholder="Description" maxLength="1500"
+                                required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={ <Tooltip
                                 id="tooltip-disabled">{ translate('serie_description_info') }</Tooltip> }>
                                 <span className="d-inline-block">
-                                    <Button disabled style={ {pointerEvents: 'none'} }>?</Button>
+                                    <Button disabled style={ { pointerEvents: 'none' } }>?</Button>
                                 </span>
                             </OverlayTrigger>
                         </div>
@@ -189,9 +189,9 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>
@@ -260,9 +260,9 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>
@@ -273,9 +273,9 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_moodle_courses_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>
