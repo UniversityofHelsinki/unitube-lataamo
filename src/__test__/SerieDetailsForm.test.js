@@ -39,8 +39,13 @@ const msg = 'Unable to fetch data';
 
 describe('<SerieList />', () => {
     const initialState =  {
-        ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
+        ser: { error: '', series: series, serie: {
+                title : '',
+                description: '',
+                published: '',
+            }, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
         sr: { apiError: '' },
+        ur : { user: { eppn: '', preferredLanguage: '' }},
         i18n : {
             translations: translations,
             locale: 'fi'
