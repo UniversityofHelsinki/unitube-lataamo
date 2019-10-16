@@ -11,7 +11,7 @@ const Footer = () => {
                         <div className="row">
                             <div className="col-md-3">
                                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-	 viewBox="0 0 31 31" enableBackground="new 0 0 31 31">
+                                    viewBox="0 0 31 31" enableBackground="new 0 0 31 31">
                                     <g>
                                         <g>
                                             <g>
@@ -48,9 +48,9 @@ const Footer = () => {
                                 <p> <Translate value="hy_switchboard" /></p>
                                 <p>
                                     <strong>
-                                    <a href="https://flamma.helsinki.fi/fi/group/yliopisto/yhteystiedot" >
-                                        <Translate value="hy_contact_info_link" />
-                                    </a>
+                                        <a href="https://flamma.helsinki.fi/fi/group/yliopisto/yhteystiedot" >
+                                            <Translate value="hy_contact_info_link" />
+                                        </a>
                                     </strong>
                                 </p>
                             </div>
