@@ -5,14 +5,33 @@ import { Badge } from 'react-bootstrap';
 
 const PersonList = (props) => {
 
+    let lastAdministrator = false;
+    const lastAdminstratorLeft = () => {
+        if ((props.iamGroups && props.iamGroups.length === 0) && (props.persons && props.persons.length === 1)) {
+            return true;
+        }
+        return false;
+    };
+
     const drawSelections = () => {
         if (props.persons && props.persons.length > 0) {
+            lastAdministrator = lastAdminstratorLeft();
             return props.persons.map((selection, index) => {
                 return (
-                    <div key={index} className="form-check-inline">
+                    <div key={ index } className="form-check-inline">
                         <Badge variant='primary'>
                             { selection }
-                            <span className='close' onClick={() =>  props.onPersonRemove(selection)} aria-hidden='true'>&times;</span>
+                            { lastAdministrator !== true
+                                ?
+                                <span className='close' onClick={ (event) => {
+                                    event.isDefaultPrevented();
+                                    props.onPersonRemove(selection)
+                                } } aria-hidden='true'>&times;</span>
+                                : (
+                                    <div></div>
+                                )
+                            }
+
                         </Badge>
                     </div>
                 );
@@ -22,15 +41,15 @@ const PersonList = (props) => {
 
     return (
         <div>
-            {drawSelections()}
+            { drawSelections() }
         </div>
     );
 };
 
 
-
 const mapStateToProps = state => ({
-    persons: state.ser.persons
+    persons: state.ser.persons,
+    iamGroups: state.ser.iamGroups
 });
 
 const mapDispatchToProps = dispatch => ({
