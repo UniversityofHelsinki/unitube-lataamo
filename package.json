@@ -28,7 +28,7 @@
   "scripts": {
     "start": "cross-env PORT=8000 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "local-dev-db": "json-server --port 3002 ./json-server/db.json --routes ./json-server/routes.json --middlewares ./json-server/singular.js",
     "lint:fix": "eslint src/**/*.js --fix"
