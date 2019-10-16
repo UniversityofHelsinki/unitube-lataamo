@@ -106,7 +106,7 @@ const SeriesList = (props) => {
                 : (<></>)
             }
             <div className="margintop">
-                <Link to="/uploadSeries" onClick={() => {props.emptyMoodleNumber(); {props.onEmptyIamGroups()}; props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
+                <Link to="/uploadSeries" onClick={() => {props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
                     <Translate value="add_series"/>
                 </Link>
             </div>
