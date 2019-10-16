@@ -48,6 +48,7 @@ build_test:
     - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
+    - npm rebuild node-sass
     - npm run build
   artifacts:
     name: lataamo-build
