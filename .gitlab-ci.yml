@@ -25,6 +25,7 @@ test:
   stage: test
   script:
     - npm test
+  coverage: /All files\s*\|\s*([\d\.]+)/
     ### ToDo: selvitä ajaako Gitlab automaattisesti Jestiä CI-moodissa (ts. ei interaktiivisesti)
     ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
 

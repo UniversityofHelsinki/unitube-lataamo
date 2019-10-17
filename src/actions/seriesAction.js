@@ -206,6 +206,8 @@ export const actionUploadSeries = (newSeries) => {
             });
             if (response.status === 200) {
                 dispatch(apiPostSeriesSuccessCall());
+            } else if(response.status === 403){
+                dispatch(apiPostSeries403FailureCall());
             } else {
                 dispatch(apiPostSeriesFailureCall());
             }
@@ -252,4 +254,9 @@ export const apiFailureCall = msg => ({
     type: 'FAILURE_API_CALL',
     payload: msg,
     loading: false
+});
+
+export const apiPostSeries403FailureCall = () => ({
+    type: 'STATUS_403_API_CALL',
+    payload: 'api_post_series_failed_series_inbox_exists_already'
 });

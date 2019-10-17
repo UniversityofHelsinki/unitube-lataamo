@@ -20,8 +20,14 @@ const msg = 'Unable to fetch data';
 
 describe('<SerieList />', () => {
     const initialState =  {
-        ser: { error: '', series: series, loading: false },
-        sr: { apiError: '' },
+        ser: { error: '', series: series, loading: false,  serie: {
+                title : '',
+                description: '',
+                published: '',
+                }
+            },
+        sr: { apiError: ''},
+        ur : { user: { eppn: '', preferredLanguage: '' }},
         i18n : {
             translations: translations,
             locale: 'fi'
