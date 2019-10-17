@@ -60,17 +60,18 @@ const SerieDetailsForm = (props) => {
         }
     };
 
-    const disableVisibility = () => {
-        if(props.serie.title){
-            if(props.serie.title===("inbox " + props.user.eppn)) {
-                setDisableFormIfInbox(true);
-            }else{
-                setDisableFormIfInbox(false);
-            }
-        }
-    }
-
     useEffect(() => {
+
+        const disableVisibility = () => {
+            if(props.serie.title){
+                if(props.serie.title===("inbox " + props.user.eppn)) {
+                    setDisableFormIfInbox(true);
+                }else{
+                    setDisableFormIfInbox(false);
+                }
+            }
+        };
+
         disableVisibility();
         setInputs(props.serie);
         setSuccessMessage(null);
