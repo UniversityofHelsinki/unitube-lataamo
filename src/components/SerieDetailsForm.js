@@ -266,7 +266,7 @@ const SerieDetailsForm = (props) => {
                             <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} disabled={disableFormIfInbox}/>
                         </div>
                         <div className="col-sm-4">
-                            <button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick} disabled={disableFormIfInbox}>Lisää</button>
+                            <button type="submit" className="btn btn-primary" onClick={handleButtonClick} disabled={disableFormIfInbox || !inputs.moodleNumber}>Lisää</button>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
