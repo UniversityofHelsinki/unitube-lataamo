@@ -14,6 +14,7 @@ import IAMGroupAutoSuggest from "./IAMGroupAutoSuggest";
 import IAMGroupList from "./IamGroupList";
 import PersonListAutoSuggest from "./PersonListAutoSuggest";
 import PersonList from "./PersonList";
+import * as constants from "../utils/constants";
 
 const SerieDetailsForm = (props) => {
 
@@ -83,6 +84,7 @@ const SerieDetailsForm = (props) => {
         updateSeries.acl = [];
         if (updateSeries.published) {
             aclList.push(updateSeries.published);
+            aclList.push(constants.ROLE_KATSOMO);
         }
         if (moodleNumbers && moodleNumbers.length > 0) {
             moodleNumbers.forEach(moodleNumber => {
