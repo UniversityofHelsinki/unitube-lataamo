@@ -6,7 +6,7 @@ import { Badge } from 'react-bootstrap';
 const IAMGroupList = (props) => {
 
     let lastAdministrator = false;
-    const lastAdminstratorLeft = () => {
+    const lastAdministratorLeft = () => {
         if ((props.persons && props.persons.length === 0) && (props.iamGroups && props.iamGroups.length === 1)) {
             return true;
         }
@@ -15,7 +15,7 @@ const IAMGroupList = (props) => {
 
     const drawSelections = () => {
         if (props.iamGroups && props.iamGroups.length > 0) {
-            lastAdministrator = lastAdminstratorLeft();
+            lastAdministrator = lastAdministratorLeft();
             return props.iamGroups.map((selection, index) => {
                 return (
                     <div key={ index } className="form-check-inline">
