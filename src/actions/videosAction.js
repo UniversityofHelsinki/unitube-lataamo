@@ -7,10 +7,11 @@ import {
 } from './fileUploadAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-const USER_EVENTS_PATH = '/api/userVideos';
-const VIDEO_PATH = '/api/video/';
+const USER_VIDEOS_PATH = '/api/userVideos';
+const VIDEO_PATH = '/api/videoUrl/';
 
-export const fetchVideo = (row) => {
+//fetch video url
+export const fetchVideoUrl = (row) => {
     return async (dispatch) => {
         try {
             let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_PATH}${row.identifier}`);
@@ -30,35 +31,10 @@ export const fetchVideo = (row) => {
     };
 };
 
-const videosRequestCall = (dispatch, refresh) => {
-    if (refresh) {
-        dispatch(apiGetVideosRequestCall());
-    }
-};
-
-export const fetchVideos = (refresh) => {
-    return async (dispatch) => {
-        try {
-            videosRequestCall(dispatch, refresh);
-            let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`);
-            if(response.status === 200) {
-                let responseJSON = await response.json();
-                dispatch(apiGetVideosSuccessCall(responseJSON));
-            }else if(response.status === 401){
-                dispatch(api401FailureCall(new Date()));
-            } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
-            }
-        } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
-        }
-    };
-};
-
 export const actionUploadVideo = (newVideo) => {
     return async (dispatch) => {
         try {
-            let response = await axios.post(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, newVideo, {
+            let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
                     'content-type': 'multipart/form-data'
                 },
@@ -82,59 +58,7 @@ export const actionUploadVideo = (newVideo) => {
     };
 };
 
-/*
-export const actionUploadVideo = async (newVideo) => {
 
-    try {
-        let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json'
-            },
-            body: newVideo
-        });
-        if(response.status === 200) {
-            return await response.json();
-        } else {
-            throw new Error(response.status);
-        }
-    } catch (error) {
-        throw new Error(error);
-    }
-};
-*/
-
-export const actionUpdateVideoDetails = async (id, updatedVideo) => {
-    try {
-        let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedVideo)
-        });
-        if(response.status === 200) {
-            let responseJSON = await response.json();
-            return responseJSON;
-        } else {
-            throw new Error(response.status);
-        }
-    } catch (error) {
-        throw new Error(error);
-    }
-};
-
-// update the videolist in state (called on video information update)
-export const updateVideoList = (updatedList) => {
-    return async dispatch => {
-        dispatch(apiGetVideosSuccessCall(updatedList));
-    };
-};
-
-export const apiGetEventSuccessCall = (data) => ({
-    type: 'SUCCESS_API_GET_EVENT',
-    payload: data
-});
 
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     type: 'SUCCESS_API_GET_VIDEO',
@@ -142,23 +66,11 @@ export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     selectedRowId: selectedRowId
 });
 
-export const apiGetVideosRequestCall = () => ({
-    type: 'GET_VIDEOS_REQUEST',
-    loading: true
-});
-
-export const apiGetVideosSuccessCall = data => ({
-    type: 'SUCCESS_API_GET_VIDEOS',
-    payload: data,
-    loading: false
-});
-
 export const api401FailureCall = failureTime => ({
     type: 'STATUS_401_API_CALL',
     payload : failureTime,
     loading: false
 });
-
 
 export const apiFailureCall = msg => ({
     type: 'FAILURE_API_CALL',
