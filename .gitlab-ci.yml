@@ -1,4 +1,4 @@
-image: node:8-alpine
+image: node:10-alpine
 
 # Cache node modules - speeds up future builds
 cache:
@@ -19,13 +19,13 @@ compile:
   stage: compile
   script:
     - npm install
-
 # ------------------------------ test stage ------------------------------
 
 test:
   stage: test
   script:
     - npm test
+  coverage: /All files\s*\|\s*([\d\.]+)/
     ### ToDo: selvitä ajaako Gitlab automaattisesti Jestiä CI-moodissa (ts. ei interaktiivisesti)
     ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
 
@@ -49,6 +49,7 @@ build_test:
     - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
+    - npm rebuild node-sass
     - npm run build
   artifacts:
     name: lataamo-build
@@ -60,6 +61,7 @@ build_prod:
   only:
     - prod
   script:
+    - npm rebuild node-sass
     - npm run build
   artifacts:
     name: lataamo-build

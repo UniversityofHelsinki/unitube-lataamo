@@ -11,17 +11,17 @@ function Navigation (props) {
     }, []);
     return(
         <div className="navigation-row">
-                <nav id="navigation">
-                    <ul id="mainmenu">
-                        <li className={props.route === 'home' ? 'main-nav-item open' : 'main-nav-item'} >
-                            <Link to="/" className="menuitem" onClick={() => props.onRouteChange( 'home')} ><Translate value="videos" /></Link>
-                        </li>
-                        <li className={props.route === 'series' ? 'main-nav-item open' : 'main-nav-item'}>
-                            <Link to="/series" className="menuitem" onClick={() => props.onRouteChange( 'series')}><Translate value="series" /></Link>
-                        </li>
-                    </ul>
-                </nav>
-                <div className="clear"></div>
+            <nav id="navigation">
+                <ul id="mainmenu">
+                    <li className={props.route === 'home' ? 'main-nav-item open' : 'main-nav-item'} >
+                        <Link to="/" className="menuitem" onClick={() => props.onRouteChange( 'home')} ><Translate value="videos" /></Link>
+                    </li>
+                    <li className={props.route === 'series' ? 'main-nav-item open' : 'main-nav-item'}>
+                        <Link to="/series" className="menuitem" onClick={() => props.onRouteChange( 'series')}><Translate value="series" /></Link>
+                    </li>
+                </ul>
+            </nav>
+            <div className="clear"></div>
         </div>
     );
 }
