@@ -51,6 +51,7 @@ const VideoUploadForm = (props) => {
 
     const clearVideoFileSelection = () => {
         document.getElementById('upload_video_form').reset();
+        setVideoFile('');
     };
 
     return (
