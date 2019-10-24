@@ -57,9 +57,7 @@ const VideoUploadForm = (props) => {
         document.getElementById('video_input_file').value = '';
         setVideoFile('');
     };
-
-    console.log(submitButtonStatus());
-
+    
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
