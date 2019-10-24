@@ -51,6 +51,7 @@ const VideoUploadForm = (props) => {
 
     const clearVideoFileSelection = () => {
         document.getElementById('upload_video_form').reset();
+        document.getElementById('video_input_file').value = '';
         setVideoFile('');
     };
 
@@ -73,7 +74,7 @@ const VideoUploadForm = (props) => {
                 <div className="form-group row">
                     <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
                     <div className="col-sm-8">
-                        <input onChange={handleFileInputChange} type="file" className="form-control" name="video_file" required/>
+                        <input onChange={handleFileInputChange} id="video_input_file" type="file" className="form-control" name="video_file" required/>
                     </div>
                     <div className="col-sm-2">
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
