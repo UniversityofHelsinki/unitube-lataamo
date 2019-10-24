@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, OverlayTrigger, Button, Tooltip } from 'react-bootstrap';
-import { actionUpdateVideoDetails, updateVideoList } from '../actions/videosAction';
+import { actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
 
 const VideoDetailsForm = (props) => {
 
@@ -15,16 +15,16 @@ const VideoDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-    const updateVideoDetails = async() => {
-        const videoId = inputs.identifier;
-        const updatedVideo = { ...inputs }; // values from the form
+    const updateEventDetails = async() => {
+        const eventId = inputs.identifier;
+        const updatedEvent = { ...inputs }; // values from the form
         // call unitube-proxy api
         try {
-            await actionUpdateVideoDetails(videoId, updatedVideo);
+            await actionUpdateEventDetails(eventId, updatedEvent);
             setSuccessMessage('JUST A PLACE HOLDER TEXT');
-            // update the videolist to redux state
-            props.onVideoDetailsEdit(props.videos.map(
-                video => video.identifier !== videoId ? video :  updatedVideo));
+            // update the eventlist to redux state
+            props.onEventDetailsEdit(props.videos.map(
+                event => event.identifier !== eventId ? event :  updatedEvent));
         } catch (err) {
             setErrorMessage('JUST A PLACE HOLDER TEXT');
         }
@@ -39,7 +39,7 @@ const VideoDetailsForm = (props) => {
     const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
-            await updateVideoDetails();
+            await updateEventDetails();
         }
     };
 
@@ -49,8 +49,8 @@ const VideoDetailsForm = (props) => {
     };
 
     const drawSelectionValues = () => {
-        return props.series.map((serie) => {
-            return <option key={serie.identifier} id={serie.identifier} value={serie.identifier}>{serie.title}</option>;
+        return props.series.map((series) => {
+            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title}</option>;
         });
     };
 
@@ -138,12 +138,12 @@ const VideoDetailsForm = (props) => {
 const mapStateToProps = state => ({
     video : state.er.event,
     series : state.ser.series,
-    videos : state.vr.videos,
+    videos : state.er.videos,
     i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
-    onVideoDetailsEdit: (freshVideoList) => dispatch(updateVideoList(freshVideoList))
+    onEventDetailsEdit: (freshEventList) => dispatch(updateEventList(freshEventList))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);
