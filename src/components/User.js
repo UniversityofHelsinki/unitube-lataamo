@@ -1,13 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { IconContext } from "react-icons";
+import { FaUserAlt } from 'react-icons/fa';
 
 const User = (props) => {
+    console.log(props.user);
     const loggedUser = props.user ? props.user : {};
 
     return (
-        <div>
-            Username: {loggedUser.eppn} preferredLanguage: {loggedUser.preferredLanguage}
-        </div>
+        <React.Fragment>
+            <IconContext.Provider value={{ color: "grey", className: "global-class-name" }}>
+                <FaUserAlt /> <span>{loggedUser.displayName}</span>
+            </IconContext.Provider>
+        </React.Fragment>
     );
 };
 
