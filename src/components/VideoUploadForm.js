@@ -12,7 +12,7 @@ import FileUploadProgressbar from '../components/FileUploadProgressbar';
 const VideoUploadForm = (props) => {
 
     const [selectedVideoFile, setVideoFile] = useState(null);
-    const [selectedButtonDisabled, setButtonDisabled] = useState(false);
+    const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
     useEffect(() => {
         props.onFetchSeries();
@@ -36,16 +36,19 @@ const VideoUploadForm = (props) => {
         await props.onUploadVideo(data);
     };
 
+    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
+
     const handleSubmit = async (event) => {
         event.persist();
         event.preventDefault();
-        setButtonDisabled(true);
+        setSubmitButtonDisabled(true);
         await uploadVideo();
         clearVideoFileSelection();
-        setButtonDisabled(false);
+        setSubmitButtonDisabled(false);
     };
 
     const handleFileInputChange = (event) => {
+        setSubmitButtonDisabled(false);
         event.persist();
         setVideoFile(event.target.files[0]);
     };
@@ -55,7 +58,7 @@ const VideoUploadForm = (props) => {
         document.getElementById('video_input_file').value = '';
         setVideoFile('');
     };
-
+    
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -94,7 +97,7 @@ const VideoUploadForm = (props) => {
 
                 <div className="form-group row">
                     <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary" disabled={selectedButtonDisabled}>Tallenna</button>
+                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>Tallenna</button>
                     </div>
                 </div>
             </form>
