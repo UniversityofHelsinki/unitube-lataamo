@@ -16,9 +16,10 @@ const VideoUploadForm = (props) => {
 
     useEffect(() => {
         props.onFetchSeries();
+        props.onSuccessMessageClick();
+        props.onFailureMessageClick();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.fur.updateSuccessMessage, props.fur.updateFailedMessage]);
-
+    }, []);// Only re-run the effect if values of arguments changes
 
     const translations =  props.i18n.translations[props.i18n.locale];
 

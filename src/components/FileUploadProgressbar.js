@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect  } from 'react';
 import { connect } from 'react-redux';
+import { actionRemoveProgressBar } from "../actions/fileUploadAction";
 
 const FileUploadProgressbar = (props) => {
+
+    useEffect(() => {
+        props.onRemoveProgressBar(0);
+    }, []);
+
     return (
         <div>
             <Filler percentage={props.percentage} />
@@ -21,4 +27,8 @@ const mapStateToProps = state => ({
     percentage : state.fur.percentage
 });
 
-export default connect(mapStateToProps, null)(FileUploadProgressbar);
+const mapDispatchToProps = dispatch => ({
+    onRemoveProgressBar : (value) => dispatch(actionRemoveProgressBar(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUploadProgressbar);

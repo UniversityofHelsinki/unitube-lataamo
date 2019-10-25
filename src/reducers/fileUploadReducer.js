@@ -31,6 +31,11 @@ const fileUploadReducer = (state = initialState, action) => {
             ...state,
             updateFailedMessage: action.payload
         };
+    case 'EMPTY_PROGRESS_BAR':
+        return {
+            ...state,
+            percentage: action.payload
+        };
     default:
         return state;
     }
