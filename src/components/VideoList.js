@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { fetchVideoUrl } from '../actions/videosAction';
-import { fetchEvent, fetchEvents } from '../actions/eventsAction';
-import { fetchSeries } from '../actions/seriesAction';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {fetchVideoUrl} from '../actions/videosAction';
+import {fetchEvent, fetchEvents} from '../actions/eventsAction';
+import {fetchSeries} from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Video from './Video';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
+import {Translate} from 'react-redux-i18n';
+import {Link} from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
+import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 
 const { SearchBar } = Search;
@@ -89,6 +89,10 @@ const VideoList = (props) => {
         text: translate('processing_state'),
         sort: true
     }, {
+        dataField: 'series',
+        text: translate('series_title'),
+        sort: true
+    }, {
         dataField: 'visibility',
         text: translate('publication_status'),
         formatter: statusFormatter
@@ -158,10 +162,10 @@ const VideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory() } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                                    pagination={ paginationFactory() } defaultSorted={ defaultSorted }
+                                                    noDataIndication="Table is Empty" bordered={ false }
+                                                    rowStyle={ rowStyle }
+                                                    hover/>
                                 </div>
                             )
                         }
