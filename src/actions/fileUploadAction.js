@@ -22,8 +22,3 @@ export const actionEmptyFileUploadProgressErrorMessage = () => ({
     type: 'EMPTY_PROGRESS_ERROR_MESSAGE',
     payload: null
 });
-
-export const actionRemoveProgressBar = (data) => ({
-    type: 'EMPTY_PROGRESS_BAR',
-    payload: data
-});
