@@ -5,7 +5,8 @@ import { fetchSeries } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
 import {
     actionEmptyFileUploadProgressErrorMessage,
-    actionEmptyFileUploadProgressSuccessMessage
+    actionEmptyFileUploadProgressSuccessMessage,
+    fileUploadProgressAction
 } from '../actions/fileUploadAction';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 
@@ -16,9 +17,10 @@ const VideoUploadForm = (props) => {
 
     useEffect(() => {
         props.onFetchSeries();
+        props.onSuccessMessageClick();
+        props.onFailureMessageClick();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.fur.updateSuccessMessage, props.fur.updateFailedMessage]);
-
+    }, []);// Only re-run the effect if values of arguments changes
 
     const translations =  props.i18n.translations[props.i18n.locale];
 
@@ -57,12 +59,12 @@ const VideoUploadForm = (props) => {
         document.getElementById('video_input_file').value = '';
         setVideoFile('');
     };
-    
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
             {props.fur.updateSuccessMessage !== null ?
-                <Alert variant="success" onClose={() => props.onSuccessMessageClick()} dismissible>
+                <Alert variant="success" onClose={() => {props.onSuccessMessageClick(); props.onResetProgressbar();}} dismissible>
                     <p>{props.fur.updateSuccessMessage}</p>
                 </Alert>
                 : (<></>)
@@ -116,7 +118,8 @@ const mapDispatchToProps = dispatch => ({
     onFetchSeries: () => dispatch(fetchSeries()),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
-    onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage())
+    onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
+    onResetProgressbar: () => dispatch(fileUploadProgressAction(0)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoUploadForm);

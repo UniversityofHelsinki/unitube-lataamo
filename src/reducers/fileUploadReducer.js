@@ -37,4 +37,3 @@ const fileUploadReducer = (state = initialState, action) => {
 };
 
 export default fileUploadReducer;
-
