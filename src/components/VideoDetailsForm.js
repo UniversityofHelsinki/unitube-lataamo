@@ -54,6 +54,12 @@ const VideoDetailsForm = (props) => {
         });
     };
 
+    const drawLicenseSelectionValues = () => {
+        return props.video.licenses.map((license) => {
+            return <option key={license} id={license} value={license}>{license}</option>;
+        });
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -78,9 +84,9 @@ const VideoDetailsForm = (props) => {
                 ?
                 <form onSubmit={handleSubmit} className="was-validated">
                     <div className="form-group row">
-                        <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
+                        <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                         <div className="col-sm-8">
-                            <select className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
+                            <select required className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
                                 {drawSelectionValues()}
                             </select>
                         </div>
@@ -93,7 +99,7 @@ const VideoDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                         <div className="col-sm-8">
                             <input type="text" name="title" className="form-control" onChange={handleInputChange}
                                 placeholder="Title" value={inputs.title} maxLength="150" required/>
@@ -107,13 +113,29 @@ const VideoDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                         <div className="col-sm-8">
                             <textarea name="description" className="form-control" value={inputs.description}
                                 onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
+                        <div className="col-sm-8">
+                            <select required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawLicenseSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                                 </span>

@@ -4,6 +4,7 @@ const translationsObject = {
         series: 'Series',
         search: 'Search',
         video_title: 'Video title',
+        video_description : 'Video Description',
         video_duration: 'Duration of video',
         video_id : 'Video identifier',
         redirecting: 'Redirecting to login page...',
@@ -24,6 +25,7 @@ const translationsObject = {
         series_info: 'Info text for series field',
         video_title_info: 'Info text for video_title field',
         video_description_info: 'Info text for description field',
+        video_file: 'Video file',
         video_file_info: 'Info text for video file field',
         created: 'Created',
         loading: 'Loading',
@@ -49,7 +51,10 @@ const translationsObject = {
         add_iam_group: 'Add IAM group',
         add_iam_groups_info: 'Infotext for IAM groups',
         searchForIamGroup: 'Search for IAM group ...',
-        added_iam_groups: 'Added IAM groups'
+        added_iam_groups: 'Added IAM groups',
+        select : 'Select',
+        license : 'License',
+        licenses_info: 'License info text'
     },
     fi: {
         videos: 'Videoni',
@@ -57,6 +62,7 @@ const translationsObject = {
         search: 'Etsi',
         video_title: 'Videon nimi',
         video_duration: 'Videon kesto',
+        video_description : 'Videon kuvaus',
         video_id : 'Videon tunniste',
         redirecting: 'Ohjataan kirjautumissivulle ...',
         serie_id: 'sarjan tunniste',
@@ -76,6 +82,7 @@ const translationsObject = {
         series_info: 'Sarjan infokenttä',
         video_title_info: 'Videon otsikon infokenttä',
         video_description_info: 'Videon kuvauksen infokenttä',
+        video_file: 'Videotiedosto',
         video_file_info: 'Videotiedoston infokenttä',
         created: 'Tallennettu',
         loading: 'Ladataan',
@@ -101,7 +108,10 @@ const translationsObject = {
         add_iam_group: 'Lisää IAM ryhmä',
         add_iam_groups_info: 'IAM ryhmien kuvauskenttä',
         searchForIamGroup: 'Etsi IAM ryhmää ...',
-        added_iam_groups: 'Lisätyt IAM ryhmät'
+        added_iam_groups: 'Lisätyt IAM ryhmät',
+        select : 'Valitse',
+        license : 'Lisenssi',
+        licenses_info: 'Lisenssin info kenttä'
     },
     sv: {
         searchForPersons: '???searchForPersons???',
@@ -111,8 +121,10 @@ const translationsObject = {
         videos: '???videos???',
         series: '???series???',
         search: '???search???',
+        video_file: '???video_file???',
         video_title: '???video_title???',
         video_duration: '???video_duration???',
+        video_description : '???video_description???',
         video_id : '???video_id???',
         redirecting: '???redirecting???',
         serie_id: '???serie_id???',
@@ -150,7 +162,10 @@ const translationsObject = {
         add_iam_group: '???add_iam_group???',
         add_iam_groups_info: '???add_iam_groups_info???',
         searchForIamGroup: '???searchForIamGroup???',
-        added_iam_groups: '???added_iam_groups???'
+        added_iam_groups: '???added_iam_groups???',
+        select: '???select???',
+        license : '???license???',
+        licenses_info: '???licenses_info???'
     }
 };
 
