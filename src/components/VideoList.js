@@ -88,6 +88,10 @@ const VideoList = (props) => {
         text: translate('processing_state'),
         sort: true
     }, {
+        dataField: 'series',
+        text: translate('series_title'),
+        sort: true
+    }, {
         dataField: 'visibility',
         text: translate('publication_status'),
         formatter: statusFormatter
@@ -158,10 +162,10 @@ const VideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory() } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                                    pagination={ paginationFactory() } defaultSorted={ defaultSorted }
+                                                    noDataIndication="Table is Empty" bordered={ false }
+                                                    rowStyle={ rowStyle }
+                                                    hover/>
                                 </div>
                             )
                         }
