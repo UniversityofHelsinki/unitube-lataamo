@@ -50,9 +50,9 @@ export const fetchEvents = (refresh) => {
 };
 
 // update the eventlist in state (called on video information update)
-export const updateEventList = (updatedList) => {
-    return async dispatch => {
-        dispatch(apiGetEventsSuccessCall(updatedList));
+export const updateEventList = () => {
+   return async dispatch => {
+        dispatch(fetchEvents(false));
     };
 };
 
