@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchVideo, fetchVideos } from '../actions/videosAction';
-import { fetchEvent } from '../actions/eventsAction';
+import { fetchVideoUrl } from '../actions/videosAction';
+import { fetchEvent, fetchEvents } from '../actions/eventsAction';
 import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import Video from './Video';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
+import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_INSTANTIATED } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 
 const { SearchBar } = Search;
@@ -39,12 +38,12 @@ const VideoList = (props) => {
 
 
     useEffect(() => {
-        props.onFetchVideos(true);
+        props.onFetchEvents(true);
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
         const interval = setInterval(() => {
-            props.onFetchVideos(false);
+            props.onFetchEvents(false);
         }, 60000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,6 +88,10 @@ const VideoList = (props) => {
         text: translate('processing_state'),
         sort: true
     }, {
+        dataField: 'series',
+        text: translate('series_title'),
+        sort: true
+    }, {
         dataField: 'visibility',
         text: translate('publication_status'),
         formatter: statusFormatter
@@ -99,15 +102,16 @@ const VideoList = (props) => {
         order: 'desc'
     }];
 
-    const videoNotSelectable = (processingState) => {
+    const eventNotSelectable = (processingState) => {
         return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
-            processingState === VIDEO_PROCESSING_FAILED));
+            processingState === VIDEO_PROCESSING_FAILED ||
+            processingState === VIDEO_PROCESSING_INSTANTIATED));
     };
 
     const nonSelectableRows = () => {
         let nonSelectableArray = [];
         props.videos.forEach(video => {
-            if (videoNotSelectable(video.processing_state)) {
+            if (eventNotSelectable(video.processing_state)) {
                 nonSelectableArray.push(video.identifier);
             }
         });
@@ -123,14 +127,14 @@ const VideoList = (props) => {
         nonSelectable: nonSelectableRows(),
         selected: [props.selectedRowId],
         onSelect: (row) => {
-            props.onSelectVideo(row);
+            props.onSelectEvent(row);
         }
     };
 
 
     const rowStyle = (row) => {
         const style = {};
-        if (videoNotSelectable(row.processing_state)) {
+        if (eventNotSelectable(row.processing_state)) {
             style.backgroundColor = '#f4f5f9';
         }
         return style;
@@ -166,7 +170,6 @@ const VideoList = (props) => {
                             )
                         }
                     </ToolkitProvider>
-                    <Video/>
                     <VideoDetailsForm/>
                 </div>
                 : errorMessage !== null ?
@@ -182,17 +185,17 @@ const VideoList = (props) => {
 };
 
 const mapStateToProps = state => ({
-    videos: state.vr.videos,
+    videos: state.er.videos,
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
-    loading: state.vr.loading,
+    loading: state.er.loading,
     apiError: state.sr.apiError
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchVideos: (refresh) => dispatch(fetchVideos(refresh)),
-    onSelectVideo: (row) => {
-        dispatch(fetchVideo(row));
+    onFetchEvents: (refresh) => dispatch(fetchEvents(refresh)),
+    onSelectEvent: (row) => {
+        dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
         dispatch(fetchSeries());
     }

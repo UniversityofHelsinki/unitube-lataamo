@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, OverlayTrigger, Button, Tooltip } from 'react-bootstrap';
-import { actionUpdateVideoDetails, updateVideoList } from '../actions/videosAction';
+import { actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import Video from './Video';
 
 const VideoDetailsForm = (props) => {
 
@@ -14,17 +15,18 @@ const VideoDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.video);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [hideIfEventUpdate, setHideIfEventUpdate] = useState(false);
 
-    const updateVideoDetails = async() => {
-        const videoId = inputs.identifier;
-        const updatedVideo = { ...inputs }; // values from the form
+    const updateEventDetails = async() => {
+        const eventId = inputs.identifier;
+        const updatedEvent = { ...inputs }; // values from the form
         // call unitube-proxy api
         try {
-            await actionUpdateVideoDetails(videoId, updatedVideo);
+            await actionUpdateEventDetails(eventId, updatedEvent);
             setSuccessMessage('JUST A PLACE HOLDER TEXT');
-            // update the videolist to redux state
-            props.onVideoDetailsEdit(props.videos.map(
-                video => video.identifier !== videoId ? video :  updatedVideo));
+            // update the eventlist to redux state
+            props.onEventDetailsEdit();
+            setHideIfEventUpdate(true);
         } catch (err) {
             setErrorMessage('JUST A PLACE HOLDER TEXT');
         }
@@ -34,12 +36,13 @@ const VideoDetailsForm = (props) => {
         setInputs(props.video);
         setSuccessMessage(null);
         setErrorMessage(null);
+        setHideIfEventUpdate(false);
     }, [props.video, props.series]);
 
     const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
-            await updateVideoDetails();
+            await updateEventDetails();
         }
     };
 
@@ -49,8 +52,8 @@ const VideoDetailsForm = (props) => {
     };
 
     const drawSelectionValues = () => {
-        return props.series.map((serie) => {
-            return <option key={serie.identifier} id={serie.identifier} value={serie.identifier}>{serie.title}</option>;
+        return props.series.map((series) => {
+            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title}</option>;
         });
     };
 
@@ -73,63 +76,65 @@ const VideoDetailsForm = (props) => {
                 </Alert>
                 : (<></>)
             }
-
-            {props.video && props.video.identifier !== undefined
-                ?
-                <form onSubmit={handleSubmit} className="was-validated">
-                    <div className="form-group row">
-                        <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
-                        <div className="col-sm-8">
-                            <select className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
-                                {drawSelectionValues()}
-                            </select>
+             <div hidden={hideIfEventUpdate}>
+                <Video/>
+                {props.video && props.video.identifier !== undefined
+                    ?
+                    <form onSubmit={handleSubmit} className="was-validated">
+                        <div className="form-group row">
+                            <label htmlFor="series" className="col-sm-2 col-form-label">Series</label>
+                            <div className="col-sm-8">
+                                <select className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
+                                    {drawSelectionValues()}
+                                </select>
+                            </div>
+                            <div className="col-sm-2">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
                         </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                            </OverlayTrigger>
+                        <div className="form-group row">
+                            <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
+                            <div className="col-sm-8">
+                                <input type="text" name="title" className="form-control" onChange={handleInputChange}
+                                    placeholder="Title" value={inputs.title} maxLength="150" required/>
+                            </div>
+                            <div className="col-sm-2">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
-                        <div className="col-sm-8">
-                            <input type="text" name="title" className="form-control" onChange={handleInputChange}
-                                placeholder="Title" value={inputs.title} maxLength="150" required/>
+                        <div className="form-group row">
+                            <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
+                            <div className="col-sm-8">
+                                <textarea name="description" className="form-control" value={inputs.description}
+                                    onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
+                            </div>
+                            <div className="col-sm-2">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
                         </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                            </OverlayTrigger>
+                        <div className="form-group row">
+                            <div className="col-sm-10 offset-sm-2">
+                                <button type="submit" className="btn btn-primary">Tallenna</button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
-                        <div className="col-sm-8">
-                            <textarea name="description" className="form-control" value={inputs.description}
-                                onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
-                        </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col-sm-10 offset-sm-2">
-                            <button type="submit" className="btn btn-primary">Tallenna</button>
-                        </div>
-                    </div>
-                </form>
-                : (
-                    <div></div>
-                )
-            }
+                    </form>
+                    : (
+                        <div></div>
+                    )
+                }
+                </div>
         </div>
     );
 };
@@ -138,12 +143,12 @@ const VideoDetailsForm = (props) => {
 const mapStateToProps = state => ({
     video : state.er.event,
     series : state.ser.series,
-    videos : state.vr.videos,
+    videos : state.er.videos,
     i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
-    onVideoDetailsEdit: (freshVideoList) => dispatch(updateVideoList(freshVideoList))
+    onEventDetailsEdit: () => dispatch(updateEventList())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);
