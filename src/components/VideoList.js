@@ -6,7 +6,6 @@ import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import Video from './Video';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
@@ -171,7 +170,6 @@ const VideoList = (props) => {
                             )
                         }
                     </ToolkitProvider>
-                    <Video/>
                     <VideoDetailsForm/>
                 </div>
                 : errorMessage !== null ?
@@ -187,11 +185,9 @@ const VideoList = (props) => {
 };
 
 const mapStateToProps = state => ({
-    //videos: state.vr.videos,
     videos: state.er.videos,
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
-    //loading: state.vr.loading,
     loading: state.er.loading,
     apiError: state.sr.apiError
 });
