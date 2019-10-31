@@ -17,12 +17,16 @@ stages:
 
 compile:
   stage: compile
+  tags:
+    - ohtu-build-2
   script:
     - npm install
 # ------------------------------ test stage ------------------------------
 
 test:
   stage: test
+  tags:
+    - ohtu-build-2
   script:
     - npm test
   coverage: /All files\s*\|\s*([\d\.]+)/
@@ -33,6 +37,8 @@ test:
 
 build_dev:
   stage: build
+  tags:
+    - ohtu-build-2
   only:
     - master
   script:
@@ -45,6 +51,8 @@ build_dev:
 
 build_test:
   stage: build
+  tags:
+    - ohtu-build-2
   only:
     - test
   script:
@@ -58,6 +66,8 @@ build_test:
 
 build_prod:
   stage: build
+  tags:
+    - ohtu-build-2
   only:
     - prod
   script:
