@@ -35,6 +35,11 @@ const translationsObject = {
         series_description_info: 'Infotext for series description',
         public_series : 'Public series, it will be available in Katsomo',
         series_visibility_info: 'Infotext for series publicity',
+        series_title_info: 'Max 150 characters long',
+        series_basic_info: 'Basic info',
+        series_visibility_title: 'Visibility',
+        series_editing_rights: 'Editing rights',
+        series_editing_rights_info: 'Editing rights info',
         add_moodle_course : 'Add Moodle courses',
         added_moodle_courses: 'Added Moodle course numbers:',
         series_moodle_visibility_info: 'Infotext for moodle publicity',
@@ -44,12 +49,14 @@ const translationsObject = {
         updated_moodle_courses_info: 'Päivitettyjen moodle kurssien infokenttä',
         searchForPersons: 'Search for persons...',
         add_person: 'Add person',
+        added_persons: 'Chosen admins',
         add_persons_info: 'Infotext for person add',
         added_persons_info: 'Infotext for added persons',
         add_iam_group: 'Add IAM group',
         add_iam_groups_info: 'Infotext for IAM groups',
         searchForIamGroup: 'Search for IAM group ...',
-        added_iam_groups: 'Added IAM groups'
+        added_iam_groups: 'Added IAM groups',
+        series_creation_form: 'Series creating form'
     },
     fi: {
         videos: 'Videoni',
@@ -95,13 +102,20 @@ const translationsObject = {
         updated_moodle_courses: 'Päivitetyt Moodle kurssinumerot:',
         updated_moodle_courses_info: 'Päivitettyjen moodle kurssien infokenttä',
         searchForPersons: 'Etsi henkilöitä...',
-        add_person: 'Lisää henkilöitä',
+        series_title_info: 'Saa olla 150 merkkiä pitkä',
+        series_basic_info: 'Sarjan perustiedot',
+        series_visibility_title: 'Sarjan näkyvyys',
+        series_editing_rights: 'Sarjan muokkausoikeudet',
+        series_editing_rights_info: 'Sarjan muokkausoikeudet info',
+        add_person: 'Valitse hallinnointihenkilö',
         add_persons_info: 'Henkilöiden haku infokenttä',
-        added_persons_info: 'Lisättyjen henkilöiden infokenttä',
-        add_iam_group: 'Lisää IAM ryhmä',
+        added_persons: 'Valitut hallinnointihenkilöt',
+        added_persons_info: 'Valittujen henkilöiden infokenttä',
+        add_iam_group: 'Valitse IAM ryhmä',
         add_iam_groups_info: 'IAM ryhmien kuvauskenttä',
         searchForIamGroup: 'Etsi IAM ryhmää ...',
-        added_iam_groups: 'Lisätyt IAM ryhmät'
+        added_iam_groups: 'Valitut IAM ryhmät',
+        series_creation_form: 'Sarjan luontilomake'
     },
     sv: {
         searchForPersons: '???searchForPersons???',
@@ -138,11 +152,17 @@ const translationsObject = {
         add_video: '???add_video???',
         save: '???save???',
         series_title: '???series_title???',
+        series_title_info: '???series_title_info???',
+        series_basic_info: '???series_basic_info???',
         series_description: '???series_description???',
         add_series: '???add_series???',
         series_description_info: '???series_description_info???',
         public_series : '???public_series???',
         series_visibility_info: '???series_visibility_info???',
+        series_visibility_title: '???series_visibility_title???',
+        series_editing_rights: '???series_editing_rights???',
+        series_editing_rights_info: '???series_editing_rights_info???',
+        added_persons: '???added_persons???',
         add_moodle_course : '???add_moodle_course???',
         added_moodle_courses: '???added_moodle_courses???',
         series_moodle_visibility_info: '???series_moodle_visibility_info???',
@@ -150,7 +170,8 @@ const translationsObject = {
         add_iam_group: '???add_iam_group???',
         add_iam_groups_info: '???add_iam_groups_info???',
         searchForIamGroup: '???searchForIamGroup???',
-        added_iam_groups: '???added_iam_groups???'
+        added_iam_groups: '???added_iam_groups???',
+        series_creation_form: '???series_creation_form???'
     }
 };
 
