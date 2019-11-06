@@ -52,7 +52,7 @@ const SeriesList = (props) => {
 
     const columns = [{
         dataField: 'identifier',
-        text: translate('serie_id'),
+        text: translate('series_id'),
         sort: true
     }, {
         dataField: 'title',

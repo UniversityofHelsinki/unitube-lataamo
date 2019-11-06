@@ -139,6 +139,20 @@ const SerieDetailsForm = (props) => {
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
 
+    const copyTextToClipboard = (event) => {
+        event.preventDefault();
+        event.persist();
+        let copySeriesId = document.getElementById("seriesId").innerText;
+        let seriesId = document.createElement('input');
+        document.body.appendChild(seriesId);
+        seriesId.value = copySeriesId;
+        seriesId.select();
+        //for mobile devices
+        seriesId.setSelectionRange(0,99999);
+        document.execCommand("copy");
+        seriesId.remove();
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
@@ -165,6 +179,14 @@ const SerieDetailsForm = (props) => {
                     <div className="series-bg">
                         <div className="form-group row">
                             <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
+                            <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
+                            <div className="col-sm-3">
+                                <button type="text" className="btn btn-primary" onClick={ copyTextToClipboard }>{translate('copy_to_clipboard')}</button>
+                            </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
@@ -272,7 +294,7 @@ const SerieDetailsForm = (props) => {
                                     <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <button type="submit" className="btn btn-primary" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>Lisää</button>
+                                    <button type="submit" className="btn btn-primary" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
                                 </div>
                                 <div className="col-sm-1">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
