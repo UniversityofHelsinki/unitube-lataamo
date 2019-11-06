@@ -132,42 +132,41 @@ const SeriesUploadForm = (props) => {
             <h2>{translate('series_creation_form')}</h2>
 
             <form onSubmit={handleSubmit}>
-
-                    <div className="series-bg">
-                        <div className="form-group row">
-                            <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                <div className="series-bg">
+                    <div className="form-group row">
+                        <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label"></label>
+                        <label className="col-sm-2 col-form-label">{translate('series_title')}</label>
+                        <div className="col-sm-7">
+                            <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
                         </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
-                            <label className="col-sm-2 col-form-label">{translate('series_title')}</label>
-                            <div className="col-sm-7">
-                                <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
-                            </div>
-                            <div className="col-sm-1">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_title_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                                </OverlayTrigger>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
-                            <label className="col-sm-2 col-form-label">{translate('series_description')}</label>
-                            <div className="col-sm-7">
-                                <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
-                            </div>
-                            <div className="col-sm-1">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                                </OverlayTrigger>
-                            </div>
+                        <div className="col-sm-1">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_title_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label"></label>
+                        <label className="col-sm-2 col-form-label">{translate('series_description')}</label>
+                        <div className="col-sm-7">
+                            <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
+                        </div>
+                        <div className="col-sm-1">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                            </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                </div>
                 <div>
-                    <div className="series-bg ">
+                    <div className="series-bg">
                         <div className="form-group row">
                             <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
                             <div className="col-sm-1 info-box-margin">
