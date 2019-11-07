@@ -37,7 +37,7 @@ const translations = { en: { serie_id: 'identifier', lataamo: 'Loader', videos: 
 
 const msg = 'Unable to fetch data';
 
-describe('<SerieList />', () => {
+describe('<SerieUploadForm />', () => {
     const initialState =  {
         ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
         sr: { apiError: '' },
@@ -63,12 +63,13 @@ describe('<SerieList />', () => {
         expect(wrapper.contains(<SeriesUploadForm/>)).toEqual(true);
     });
 
-    it('initially should not fire any action', async () => {
-        expect(store.getActions().length).toBe(0);
+    it('initially should fire route change action', async () => {
+        expect(store.getActions().length).toBe(1);
+        expect(await getAction(store, 'routeChange')).toEqual({"payload": undefined, "type": "routeChange"})
     });
 
     it('when user adds new moodle course fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addMoodleNumberCall(moodleNumber1));
         expect(await getAction(store, 'ADD_MOODLE_NUMBER')).not.toBe(null);
         expect(await getAction(store, 'ADD_MOODLE_NUMBER')).toEqual({
@@ -94,7 +95,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user adds multiple moodle courses fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addMoodleNumberCall(moodleNumber2));
         const initialState =   { 'moodleNumbers': [moodleNumber1], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons': [] };
         const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons':[]  };
@@ -102,7 +103,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user removes new moodle course fire action', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(removeMoodleNumberCall(moodleNumber1));
         expect(await getAction(store, 'REMOVE_MOODLE_NUMBER')).not.toBe(null);
         expect(await getAction(store, 'REMOVE_MOODLE_NUMBER')).toEqual({
@@ -112,7 +113,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user removes moodle courses fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(removeMoodleNumberCall(moodleNumber2));
         const initialState =   { 'moodleNumbers': [moodleNumber1, moodleNumber2, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [], 'iamGroups': [], 'persons': [] };
         const expectedState =   { 'moodleNumbers': [moodleNumber1, moodleNumber3], 'selectedRowId': '', 'serie': { 'description': '', 'title': '' },'series': [],'iamGroups': [], 'persons': [] };
@@ -120,7 +121,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user adds new iam group fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addIamGroup(iamGroup1));
         expect(await getAction(store, 'ADD_IAM_GROUP')).not.toBe(null);
         expect(await getAction(store, 'ADD_IAM_GROUP')).toEqual({
@@ -134,7 +135,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user adds multiple iam groups fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addIamGroup(iamGroup2));
         expect(await getAction(store, 'ADD_IAM_GROUP')).not.toBe(null);
         expect(await getAction(store, 'ADD_IAM_GROUP')).toEqual({
@@ -147,7 +148,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user removes iam group fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(removeIamGroup(iamGroup2));
         expect(await getAction(store, 'REMOVE_IAM_GROUP')).not.toBe(null);
         expect(await getAction(store, 'REMOVE_IAM_GROUP')).toEqual({
@@ -160,7 +161,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user adds new person fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addPerson(person1));
         expect(await getAction(store, 'ADD_PERSON')).not.toBe(null);
         expect(await getAction(store, 'ADD_PERSON')).toEqual({
@@ -174,7 +175,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user adds multiple new persons fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addPerson(person2));
         expect(await getAction(store, 'ADD_PERSON')).not.toBe(null);
         expect(await getAction(store, 'ADD_PERSON')).toEqual({
@@ -191,7 +192,7 @@ describe('<SerieList />', () => {
     });
 
     it('when user removes person fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(removePerson(person1));
         expect(await getAction(store, 'REMOVE_PERSON')).not.toBe(null);
         expect(await getAction(store, 'REMOVE_PERSON')).toEqual({
@@ -205,7 +206,7 @@ describe('<SerieList />', () => {
 
 
     it('when user tries to add same person twice fire action and return correct state', async () => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(addPerson(person1));
         expect(await getAction(store, 'ADD_PERSON')).not.toBe(null);
         expect(await getAction(store, 'ADD_PERSON')).toEqual({
@@ -222,7 +223,7 @@ describe('<SerieList />', () => {
     });
 
     it('Should return error values ', async() => {
-        expect(store.getActions().length).toBe(0);
+        expect(store.getActions().length).toBe(1);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({

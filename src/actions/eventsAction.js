@@ -32,7 +32,6 @@ const eventsRequestCall = (dispatch, refresh) => {
 };
 
 export const fetchInboxEvents = (refresh) => {
-    console.log("HIT");
     return async (dispatch) => {
         try {
             eventsRequestCall(dispatch, refresh);

@@ -38,7 +38,6 @@ const VideoList = (props) => {
 
 
     useEffect(() => {
-        console.log('onroutechange', props.route);
         props.onRouteChange(props.route);
         props.onFetchEvents(true);
         if (props.apiError) {
