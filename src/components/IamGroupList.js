@@ -19,7 +19,6 @@ const IAMGroupList = (props) => {
             return props.iamGroups.map((selection, index) => {
                 return (
                     <div key={ index } className="form-check-inline">
-                        <h2>
                             <Badge variant='primary'>
                                 { selection }
                                 { lastAdministrator !== true
@@ -31,7 +30,6 @@ const IAMGroupList = (props) => {
                                     )
                                 }
                             </Badge>
-                        </h2>
                     </div>
                 );
             });
