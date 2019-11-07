@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { IconContext } from 'react-icons';
+import { IoIosSave } from "react-icons/io";
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
@@ -139,6 +141,21 @@ const SerieDetailsForm = (props) => {
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
 
+    const copyTextToClipboard = (event) => {
+        event.preventDefault();
+        event.persist();
+        let copySeriesId = document.getElementById("seriesId").innerText;
+        let seriesId = document.createElement('input');
+        document.body.appendChild(seriesId);
+        seriesId.value = copySeriesId;
+        seriesId.select();
+        //for mobile devices
+        seriesId.setSelectionRange(0,99999);
+        document.execCommand("copy");
+        seriesId.remove();
+        setSuccessMessage(translate('copied_to_clipboard'));
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
@@ -162,143 +179,149 @@ const SerieDetailsForm = (props) => {
             { props.serie && props.serie.identifier !== undefined
                 ?
                 <form onSubmit={ handleSubmit } className="was-validated" >
-                    <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
-                        <div className="col-sm-8">
-                            <input type="text" name="title" className="form-control" value={ inputs.title }
-                                   onChange={ handleInputChange } placeholder="Title" maxLength="150" disabled={disableFormIfInbox} required/>
-                        </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger
-                                overlay={ <Tooltip id="tooltip-disabled">{ translate('serie_title_info') }</Tooltip> }>
-                                <span className="d-inline-block">
-                                    <Button disabled style={ { pointerEvents: 'none' } }>?</Button>
-                                </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Description</label>
-                        <div className="col-sm-8">
-                            <textarea name="description" className="form-control" value={ inputs.description }
-                                      onChange={ handleInputChange } placeholder="Description" maxLength="1500" disabled={disableFormIfInbox}
-                                      required/>
-                        </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={ <Tooltip
-                                id="tooltip-disabled">{ translate('serie_description_info') }</Tooltip> }>
-                                <span className="d-inline-block">
-                                    <Button disabled style={ { pointerEvents: 'none' } }>?</Button>
-                                </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-                    <div id='hideIfInboxSeries' hidden={hideFormIfInbox}>
+                    <div className="series-bg">
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
-                            <div className="col-sm-8">
-                                <div className="form-check-inline">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
-                                        {translate('public_series')}
-                                    </label>
+                            <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
+                            <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
+                            <div className="col-sm-3">
+                                <IconContext.Provider value={{ size: "2em"}}>
+                                    <div>
+                                        <IoIosSave onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</IoIosSave>
+                                    </div>
+                                </IconContext.Provider>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
+                            <div className="col-sm-7">
+                                <input type="text" name="title" className="form-control" value={ inputs.title }
+                                       onChange={ handleInputChange } placeholder="Title" maxLength="150" disabled={disableFormIfInbox} required/>
+                            </div>
+                            <div className="col-sm-1">
+                                <OverlayTrigger
+                                    overlay={ <Tooltip id="tooltip-disabled">{ translate('serie_title_info') }</Tooltip> }>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={ { pointerEvents: 'none' } }>?</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
+                            <div className="col-sm-7">
+                                <textarea name="description" className="form-control" value={ inputs.description }
+                                          onChange={ handleInputChange } placeholder="Description" maxLength="1500" disabled={disableFormIfInbox}
+                                          required/>
+                            </div>
+                            <div className="col-sm-1">
+                                <OverlayTrigger overlay={ <Tooltip
+                                    id="tooltip-disabled">{ translate('serie_description_info') }</Tooltip> }>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={ { pointerEvents: 'none' } }>?</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id='hideIfInboxSeries' hidden={hideFormIfInbox}>
+                        <div className="series-bg">
+                            <div className="form-group row">
+                                <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
+                                <div className="col-sm-1 info-box-margin">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                    </span>
-                                </OverlayTrigger>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
+                                <div className="col-sm-7">
+                                    <PersonListAutoSuggest/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                                <div className="col-sm-7">
+                                    <PersonList/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
+                                <div className="col-sm-7">
+                                    <IAMGroupAutoSuggest/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
+                                <div className="col-sm-7">
+                                    <IAMGroupList/>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
-                            <div className="col-sm-8">
-                                <PersonListAutoSuggest/>
+                        <div className="series-bg">
+                            <div className="form-group row">
+                                <label className="series-title col-sm-2 col-form-label">{translate('series_visibility_title')}</label>
                             </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_persons_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                                </OverlayTrigger>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                                <div className="col-sm-9">
+                                    <div className="form-check-inline">
+                                        <label className="form-check-label">
+                                            <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
+                                            {translate('public_series')}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="col-sm-1">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
-                            <div className="col-sm-8">
-                                <PersonList/>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
+                                <div className="col-sm-4">
+                                    <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <button type="submit" className="btn btn-primary" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
+                                </div>
+                                <div className="col-sm-1">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
                             </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_persons_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                                </OverlayTrigger>
-                            </div>
-                        </div>
-
-
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
-                            <div className="col-sm-8">
-                                <IAMGroupAutoSuggest/>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('add_iam_groups_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                                </OverlayTrigger>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
-                            <div className="col-sm-8">
-                                <IAMGroupList/>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_iam_groups_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
-                                </OverlayTrigger>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
+                                <div className="col-sm-7">
+                                    <SelectedMoodleNumbers/>
+                                </div>
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
-                            <div className="col-sm-4">
-                                <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
-                            </div>
-                            <div className="col-sm-4">
-                                <button type="submit" className="btn btn-primary" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>Lisää</button>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                    </span>
-                                </OverlayTrigger>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
-                            <div className="col-sm-8">
-                                <SelectedMoodleNumbers/>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('added_moodle_courses_info')}</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                    </span>
-                                </OverlayTrigger>
-                            </div>
-                            </div>
-                        <div className="form-group row">
-                            <div className="col-sm-10 offset-sm-2">
-                                <button type="submit" className="btn btn-primary">Tallenna</button>
+                            <div className="col-sm-10 offset-sm-9">
+                                <button type="submit" className="btn btn-primary">{translate('save')}</button>
                             </div>
                         </div>
                     </div>

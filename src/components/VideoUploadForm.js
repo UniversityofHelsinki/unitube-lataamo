@@ -77,7 +77,7 @@ const VideoUploadForm = (props) => {
             }
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
+                    <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                     <div className="col-sm-8">
                         <input onChange={handleFileInputChange} id="video_input_file" type="file" className="form-control" name="video_file" required/>
                     </div>
