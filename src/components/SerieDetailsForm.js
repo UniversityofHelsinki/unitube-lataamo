@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { IconContext } from 'react-icons';
+import { IoIosSave } from "react-icons/io";
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
@@ -185,7 +187,11 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
                             <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
                             <div className="col-sm-3">
-                                <button type="text" className="btn btn-primary" onClick={ copyTextToClipboard }>{translate('copy_to_clipboard')}</button>
+                                <IconContext.Provider value={{ size: "2em"}}>
+                                    <div>
+                                        <IoIosSave onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</IoIosSave>
+                                    </div>
+                                </IconContext.Provider>
                             </div>
                         </div>
                         <div className="form-group row">
