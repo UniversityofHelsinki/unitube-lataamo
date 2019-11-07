@@ -58,7 +58,8 @@ const translationsObject = {
         add_iam_groups_info: 'Infotext for IAM groups',
         searchForIamGroup: 'Search for IAM group ...',
         added_iam_groups: 'Added IAM groups',
-        series_creation_form: 'Series creating form'
+        series_creation_form: 'Series creating form',
+        copied_to_clipboard: 'Copied to clipboard'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -119,7 +120,8 @@ fi: {
         add_iam_groups_info: 'Lisää tämän sarjan hallinnoijiksi halutessasi jonkin HY:n ryhmien hallintatyökalulla tehdyn käyttäjäryhmän kaikki jäsenet. Voit halutessasi lisätä hallinnoijiksi myös useampia HY:n ryhmiä. Huomaathan, että jos lisäät sarjaan ryhmäjäsenyyksiä, niiden käyttäjäoikeudet periytyvät IAM-ryhmähallintatyökalulla määritellyistä! Toisin sanoen: jos sinulla ei ole hallintaoikeuksia kyseiseen IAM-ryhmään, et siis välttämättä voi tietää, keitä siihen kuuluu. Lisää tietoa IAM-ryhmistä Helpdeskissä',
         searchForIamGroup: 'Hae tiettyä HY:n käyttäjäryhmää (IAM-ryhmää)',
         added_iam_groups: 'Tätä sarjaa hallinnoivat HY:n käyttäjäryhmät',
-        series_creation_form: 'Sarjan luontilomake'
+        series_creation_form: 'Sarjan luontilomake',
+        copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle'
     },
 
     sv: {
@@ -178,7 +180,8 @@ fi: {
         add_iam_groups_info: '???add_iam_groups_info???',
         searchForIamGroup: '???searchForIamGroup???',
         added_iam_groups: '???added_iam_groups???',
-        series_creation_form: '???series_creation_form???'
+        series_creation_form: '???series_creation_form???',
+        copied_to_clipboard: '???copied_to_clipboard???'
     }
 };
 

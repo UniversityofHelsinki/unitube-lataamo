@@ -153,6 +153,7 @@ const SerieDetailsForm = (props) => {
         seriesId.setSelectionRange(0,99999);
         document.execCommand("copy");
         seriesId.remove();
+        setSuccessMessage(translate('copied_to_clipboard'));
     };
 
     return (
