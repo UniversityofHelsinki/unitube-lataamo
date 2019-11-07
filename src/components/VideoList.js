@@ -141,6 +141,16 @@ const VideoList = (props) => {
         return style;
     };
 
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
+    };
+
     return (
         <div>
             <div className="margintop">
@@ -163,7 +173,7 @@ const VideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory() } defaultSorted={ defaultSorted }
+                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                         noDataIndication="Table is Empty" bordered={ false }
                                         rowStyle={ rowStyle }
                                         hover/>

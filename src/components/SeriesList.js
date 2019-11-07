@@ -54,7 +54,7 @@ const SeriesList = (props) => {
 
     const columns = [{
         dataField: 'identifier',
-        text: translate('serie_id'),
+        text: translate('series_id'),
         sort: true
     }, {
         dataField: 'title',
@@ -88,6 +88,16 @@ const SeriesList = (props) => {
     const rowStyle = (row) => {
         const style = {};
         return style;
+    };
+
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
     };
 
     useEffect(() => {
@@ -127,7 +137,7 @@ const SeriesList = (props) => {
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <hr/>
                                 <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                    pagination={ paginationFactory() } rowStyle={ rowStyle } hover/>
+                                    pagination={ paginationFactory(options) } rowStyle={ rowStyle } hover/>
                             </div>
                         )
                     }

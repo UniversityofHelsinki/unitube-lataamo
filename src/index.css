@@ -15,8 +15,8 @@ body {
 .page-item.active .page-link {
   z-index: 1;
   color: #fff;
-  background-color: black;
-  border-color: black;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 
 
