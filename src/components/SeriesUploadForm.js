@@ -8,6 +8,7 @@ import IAMGroupList from './IamGroupList';
 import PersonListAutoSuggest from './PersonListAutoSuggest';
 import PersonList from './PersonList';
 import * as constants from "../utils/constants";
+import routeAction from "../actions/routeAction";
 
 const SeriesUploadForm = (props) => {
 
@@ -25,6 +26,7 @@ const SeriesUploadForm = (props) => {
     });
 
     useEffect(() => {
+        props.onRouteChange(props.route);
         if (props.seriesPostSuccessMessage !== null && props.history) {
             props.history.push('series'); // redirect to Router's series path
         }
@@ -279,7 +281,8 @@ const mapDispatchToProps = dispatch => ({
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
     onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage()),
-    onEmptyPersonList: () => dispatch(emptyPersons())
+    onEmptyPersonList: () => dispatch(emptyPersons()),
+    onRouteChange: (route) =>  dispatch(routeAction(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);

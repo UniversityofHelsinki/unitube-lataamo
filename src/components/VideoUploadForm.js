@@ -9,6 +9,7 @@ import {
     fileUploadProgressAction
 } from '../actions/fileUploadAction';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
+import routeAction from "../actions/routeAction";
 
 const VideoUploadForm = (props) => {
 
@@ -16,6 +17,7 @@ const VideoUploadForm = (props) => {
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
     useEffect(() => {
+        props.onRouteChange(props.route);
         props.onFetchSeries();
         props.onSuccessMessageClick();
         props.onFailureMessageClick();
@@ -120,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
     onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
     onResetProgressbar: () => dispatch(fileUploadProgressAction(0)),
+    onRouteChange: (route) =>  dispatch(routeAction(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoUploadForm);
