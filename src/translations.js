@@ -4,6 +4,7 @@ const translationsObject = {
         series: 'Series',
         search: 'Search',
         video_title: 'Video title',
+        video_description : 'Video Description',
         video_duration: 'Duration of video',
         video_id : 'Video identifier',
         redirecting: 'Redirecting to login page...',
@@ -24,6 +25,7 @@ const translationsObject = {
         series_info: 'Info text for series field',
         video_title_info: 'Info text for video_title field',
         video_description_info: 'Info text for description field',
+        video_file: 'Video file',
         video_file_info: 'Info text for video file field',
         created: 'Created',
         loading: 'Loading',
@@ -59,7 +61,10 @@ const translationsObject = {
         searchForIamGroup: 'Search for IAM group ...',
         added_iam_groups: 'Added IAM groups',
         series_creation_form: 'Series creating form',
-        copied_to_clipboard: 'Copied to clipboard'
+        copied_to_clipboard: 'Copied to clipboard',
+        select : 'Select',
+        license : 'License',
+        licenses_info: 'License info text'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -75,6 +80,7 @@ fi: {
         serie_title_info: 'Sarjan näkyvä nimi. Voit muuttaa nimeä kirjoittamalla uuden ja painamalla Tallenna-painiketta. Huomaathan, että tietojen muokkaus lukittuu hetkeksi tallennuksen jälkeen!',
         serie_description_info: 'Kuvaa tässä sarjan videoiden sisältöä. Ovatko videot osa samaa luentosarjaa, kurssia tai kokonaisuutta? Onko ne kenties kuvattu samassa paikassa? Keitä sarjan videoilla esiintyy? Paina lopuksi Tallenna-painiketta. Huomaathan, että tietojen muokkaus lukittuu hetkeksi tallennuksen jälkeen!',
         processing_state: 'Käsittelyn tila',
+        video_description : 'Videon kuvaus',
         publication_status : 'Tallenteen julkisuus',
         status_published: 'Julkaistu Unitube-katsomossa',
         status_moodle: 'Jaettu Moodlessa',
@@ -87,6 +93,7 @@ fi: {
         video_title_info: 'Tallenteen näkyvä nimi. Voit muuttaa nimeä kirjoittamalla uuden ja painamalla Tallenna-painiketta. Huomaathan, että tietojen muokkaus lukittuu hetkeksi tallennuksen jälkeen!',
         video_description_info: 'Kuvaa tässä tallenteen sisältöä. Ovatko videot osa samaa luentosarjaa, kurssia tai kokonaisuutta? Onko ne kenties kuvattu samassa paikassa? Keitä sarjan videoilla esiintyy? Paina lopuksi Tallenna-painiketta. Huomaathan, että tietojen muokkaus lukittuu hetkeksi tallennuksen jälkeen!',
         video_file_info: 'Klikkaa Browse-painiketta ja etsi avautuvasta ikkunasta koneeltasi tai laitteeltasi tallenne, jonka haluat ladata palveluun. Tuettuja tiedostomuotoja ovat (ainakin) .avi, .mov, .mp4., TÄYDENTELEPPÄS TOTANOINNIIN',
+        video_file: 'Videotiedosto',
         created: 'Tallennettu',
         loading: 'Ladataan',
         add_video: 'Lisää uusi tallenne',
@@ -115,13 +122,15 @@ fi: {
         add_person: 'Valitse hallinnointihenkilö',
         add_persons_info: 'Henkilöiden haku infokenttä',
         added_persons_info: 'Lisättyjen henkilöiden infokenttä',
-        added_persons: 'Valitut hallinnointihenkilöt',
         add_iam_group: 'Lisää hallinnoijaksi HY:n käyttäjäryhmän kaikki jäsenet',
         add_iam_groups_info: 'Lisää tämän sarjan hallinnoijiksi halutessasi jonkin HY:n ryhmien hallintatyökalulla tehdyn käyttäjäryhmän kaikki jäsenet. Voit halutessasi lisätä hallinnoijiksi myös useampia HY:n ryhmiä. Huomaathan, että jos lisäät sarjaan ryhmäjäsenyyksiä, niiden käyttäjäoikeudet periytyvät IAM-ryhmähallintatyökalulla määritellyistä! Toisin sanoen: jos sinulla ei ole hallintaoikeuksia kyseiseen IAM-ryhmään, et siis välttämättä voi tietää, keitä siihen kuuluu. Lisää tietoa IAM-ryhmistä Helpdeskissä',
         searchForIamGroup: 'Hae tiettyä HY:n käyttäjäryhmää (IAM-ryhmää)',
         added_iam_groups: 'Tätä sarjaa hallinnoivat HY:n käyttäjäryhmät',
         series_creation_form: 'Sarjan luontilomake',
-        copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle'
+        copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle',
+        select : 'Valitse',
+        license : 'Lisenssi',
+        licenses_info: 'Lisenssin info kenttä'
     },
 
     sv: {
@@ -132,8 +141,10 @@ fi: {
         videos: '???videos???',
         series: '???series???',
         search: '???search???',
+        video_file: '???video_file???',
         video_title: '???video_title???',
         video_duration: '???video_duration???',
+        video_description : '???video_description???',
         video_id : '???video_id???',
         redirecting: '???redirecting???',
         series_id: '???series_id???',
@@ -180,6 +191,9 @@ fi: {
         add_iam_groups_info: '???add_iam_groups_info???',
         searchForIamGroup: '???searchForIamGroup???',
         added_iam_groups: '???added_iam_groups???',
+        select: '???select???',
+        license : '???license???',
+        licenses_info: '???licenses_info???',
         series_creation_form: '???series_creation_form???',
         copied_to_clipboard: '???copied_to_clipboard???'
     }
