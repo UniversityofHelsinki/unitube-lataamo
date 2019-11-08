@@ -9,7 +9,7 @@ function Navigation (props) {
             <nav id="navigation">
                 <ul id="mainmenu">
                     <li className={props.route === 'inbox' ? 'main-nav-item open' : 'main-nav-item'} >
-                        <Link to="/" className="menuitem" ><Translate value="inbox" /><span> </span><span className="videos-count">{props.videos}</span></Link>
+                        <Link to="/" className="menuitem" ><Translate value="inbox" /> <span hidden={props.videos<=0} className="videos-count">{props.videos}</span></Link>
                     </li>
                     <li className={props.route === 'events' ? 'main-nav-item open' : 'main-nav-item'} >
                         <Link to="/events" className="menuitem"  ><Translate value="videos" /></Link>
