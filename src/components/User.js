@@ -4,7 +4,6 @@ import { IconContext } from "react-icons";
 import { FaUserAlt } from 'react-icons/fa';
 
 const User = (props) => {
-    console.log(props.user);
     const loggedUser = props.user ? props.user : {};
 
     return (
