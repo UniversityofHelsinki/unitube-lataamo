@@ -198,7 +198,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
-        dispatch(fetchSeries());
+        dispatch(fetchSeries(false));
     },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });

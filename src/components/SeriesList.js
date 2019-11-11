@@ -165,7 +165,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries()),
+    onFetchSeries: () => dispatch(fetchSeries(true)),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },

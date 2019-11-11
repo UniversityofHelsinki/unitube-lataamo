@@ -84,7 +84,7 @@ export const fetchSerie = (row) => {
     };
 };
 
-export const fetchSeries = () => {
+export const fetchSeries = (isSeriesList) => {
 
     // server from .env variable
     const PATH = '/api/userSeries';
@@ -95,7 +95,12 @@ export const fetchSeries = () => {
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
-                dispatch(apiGetSeriesSuccessCall(responseJSON));
+                if(isSeriesList){
+                    const seriesListWithoutInbox = responseJSON.filter(series => !series.title.toLowerCase().includes('inbox'));
+                    dispatch(apiGetSeriesSuccessCall(seriesListWithoutInbox));
+                }else{
+                    dispatch(apiGetSeriesSuccessCall(responseJSON));
+                }
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
