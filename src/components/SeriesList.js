@@ -53,7 +53,8 @@ const SeriesList = (props) => {
     const columns = [{
         dataField: 'identifier',
         text: translate('series_id'),
-        sort: true
+        sort: true,
+        hidden: true
     }, {
         dataField: 'title',
         text: translate('serie_title'),
@@ -63,6 +64,10 @@ const SeriesList = (props) => {
         text: translate('serie_contributors'),
         sort: true,
         formatter: contributorsFormatter
+    }, {
+        dataField: 'eventsCount',
+        text: translate('events_count'),
+        sort: true
     }];
 
     const defaultSorted = [{
