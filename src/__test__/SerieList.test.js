@@ -51,7 +51,7 @@ describe('<SerieList />', () => {
     });
 
     it('initially should show loading bar', async () => {
-        expect(store.getActions().length).toBe(1);
+        expect(store.getActions().length).toBe(2);
         expect(await getAction(store, 'GET_SERIES_REQUEST')).not.toBe(null);
         expect(await getAction(store, 'GET_SERIES_REQUEST')).toEqual({
             'loading': true,
@@ -60,7 +60,7 @@ describe('<SerieList />', () => {
     });
 
     it('Should pass actions updated values ', async() => {
-        expect(store.getActions().length).toBe(1);
+        expect(store.getActions().length).toBe(2);
         expect(await getAction(store, 'GET_SERIES_REQUEST')).not.toBe(null);
         store.dispatch(apiGetSeriesSuccessCall(series));
         expect(await getAction(store, 'SUCCESS_API_GET_SERIES')).not.toBe(null);
@@ -72,7 +72,7 @@ describe('<SerieList />', () => {
     });
 
     it('Should return error values ', async() => {
-        expect(store.getActions().length).toBe(1);
+        expect(store.getActions().length).toBe(2);
         expect(await getAction(store, 'GET_SERIES_REQUEST')).not.toBe(null);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);

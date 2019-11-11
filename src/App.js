@@ -11,6 +11,7 @@ import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
+import InboxVideoList from "./components/InboxVideoList";
 
 const App = (props) => {
 
@@ -30,10 +31,10 @@ const App = (props) => {
                     <Header />
                     <div id="main-content" className="content-wrapper">
                         <Switch>
-                            <Route exact path='/' component={VideoList}/>
-                            <Route exact path='/series' component={SeriesList}/>
-                            <Route path="/series/:id" component={SeriesList} />
-                            <Route exact path='/uploadVideo' component={VideoUploadForm} />
+                            <Route exact path='/' render={(props) => <InboxVideoList {...props} route={'inbox'}  />}/>
+                            <Route exact path='/events' render={(props) => <VideoList {...props} route={'events'} />}/>
+                            <Route exact path='/series' render={(props) => <SeriesList {...props} route={'series'} />}/>
+                            <Route exact path='/uploadVideo' render={(props) => <VideoUploadForm {...props} route={'uploadVideo'} />} />
                             <Route exact path='/uploadSeries' component={SeriesUploadForm}/>
                         </Switch>
                     </div>

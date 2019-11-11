@@ -3,6 +3,7 @@ import { api401FailureCall, apiFailureCall } from './videosAction';
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
+const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -28,6 +29,25 @@ const eventsRequestCall = (dispatch, refresh) => {
     if (refresh) {
         dispatch(apiGetEventsRequestCall());
     }
+};
+
+export const fetchInboxEvents = (refresh) => {
+    return async (dispatch) => {
+        try {
+            eventsRequestCall(dispatch, refresh);
+            let response = await fetch(`${VIDEO_SERVER_API}${USER_INBOX_EVENTS_PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetInboxEventsSuccessCall(responseJSON));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
+            }
+        } catch(err) {
+            dispatch(apiFailureCall('Unable to fetch data'));
+        }
+    };
 };
 
 export const fetchEvents = (refresh) => {
@@ -88,6 +108,12 @@ export const apiGetEventsRequestCall = () => ({
 
 export const apiGetEventsSuccessCall = data => ({
     type: 'SUCCESS_API_GET_EVENTS',
+    payload: data,
+    loading: false
+});
+
+export const apiGetInboxEventsSuccessCall = data => ({
+    type: 'SUCCESS_API_GET_INBOX_EVENTS',
     payload: data,
     loading: false
 });
