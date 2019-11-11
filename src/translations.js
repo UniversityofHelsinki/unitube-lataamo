@@ -66,7 +66,8 @@ const translationsObject = {
         select : 'Select',
         license : 'License',
         licenses_info: 'License info text',
-        events_count: 'Videos count'
+        events_count: 'Videos count',
+        series_publication_status: 'Series publication'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -134,7 +135,8 @@ fi: {
         select : 'Valitse',
         license : 'Lisenssi',
         licenses_info: 'Lisenssin info kenttä',
-        events_count: 'Videoiden lukumäärä'
+        events_count: 'Videoiden lukumäärä',
+        series_publication_status: 'Sarjan julkisuus'
     },
 
     sv: {
@@ -201,7 +203,8 @@ fi: {
         licenses_info: '???licenses_info???',
         series_creation_form: '???series_creation_form???',
         copied_to_clipboard: '???copied_to_clipboard???',
-        events_count: '???videos_count???'
+        events_count: '???videos_count???',
+        series_publication_status: '???series_publication_status???'
     }
 };
 
