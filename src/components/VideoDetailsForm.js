@@ -92,6 +92,9 @@ const VideoDetailsForm = (props) => {
                                 <div className="form-group row">
                                     <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
                                 </div>
+                                <div className='col'>
+                                    {translate('events_link_series')}
+                                </div>
                                 <div className="form-group row">
                                     <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                     <div className="col-sm-8">
