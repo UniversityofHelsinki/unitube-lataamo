@@ -1,5 +1,5 @@
 const initialState = {
-    route: 'home'
+    route: 'inbox'
 };
 
 const routeReducer = (state = initialState, action) => {

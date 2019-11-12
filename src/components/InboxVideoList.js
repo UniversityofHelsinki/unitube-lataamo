@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideoUrl } from '../actions/videosAction';
-import { fetchEvent, fetchEvents } from '../actions/eventsAction';
+import { fetchEvent, fetchInboxEvents } from '../actions/eventsAction';
 import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -17,7 +17,7 @@ import routeAction from "../actions/routeAction";
 
 const { SearchBar } = Search;
 
-const VideoList = (props) => {
+const InboxVideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const translations = props.i18n.translations[props.i18n.locale];
@@ -36,6 +36,15 @@ const VideoList = (props) => {
         });
     };
 
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
+    };
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -141,16 +150,6 @@ const VideoList = (props) => {
         return style;
     };
 
-    const options = {
-        sizePerPageList: [{
-            text: '5', value: 5
-        }, {
-            text: '10', value: 10
-        }, {
-            text: '30', value: 30
-        }]
-    };
-
     return (
         <div>
             <div className="margintop">
@@ -173,10 +172,10 @@ const VideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                    noDataIndication="Table is Empty" bordered={ false }
+                                                    rowStyle={ rowStyle }
+                                                    hover/>
                                 </div>
                             )
                         }
@@ -196,7 +195,7 @@ const VideoList = (props) => {
 };
 
 const mapStateToProps = state => ({
-    videos: state.er.videos,
+    videos: state.er.inboxVideos,
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,
@@ -204,7 +203,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchEvents: (refresh, inbox) => dispatch(fetchEvents(refresh, inbox)),
+    onFetchEvents: (refresh, inbox) => dispatch(fetchInboxEvents(refresh, inbox)),
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
@@ -214,4 +213,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(VideoList);
+export default connect(mapStateToProps, mapDispatchToProps)(InboxVideoList);

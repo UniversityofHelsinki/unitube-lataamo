@@ -8,6 +8,7 @@ import IAMGroupList from './IamGroupList';
 import PersonListAutoSuggest from './PersonListAutoSuggest';
 import PersonList from './PersonList';
 import * as constants from "../utils/constants";
+import routeAction from "../actions/routeAction";
 
 const SeriesUploadForm = (props) => {
 
@@ -25,6 +26,7 @@ const SeriesUploadForm = (props) => {
     });
 
     useEffect(() => {
+        props.onRouteChange(props.route);
         if (props.seriesPostSuccessMessage !== null && props.history) {
             props.history.push('series'); // redirect to Router's series path
         }
@@ -134,7 +136,7 @@ const SeriesUploadForm = (props) => {
             <form onSubmit={handleSubmit}>
                 <div className="series-bg">
                     <div className="form-group row">
-                        <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                        <label className="events-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
@@ -260,7 +262,7 @@ const SeriesUploadForm = (props) => {
                 </div>
 
                 <div className="form-group row">
-                    <div className="col-sm-10 offset-sm-9">
+                    <div className="col-sm-2">
                         <button type="submit" className="btn btn-primary">{translate('save')}</button>
                     </div>
                 </div>
@@ -284,7 +286,8 @@ const mapDispatchToProps = dispatch => ({
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     actionUploadSeries: (data) => dispatch(actionUploadSeries(data)),
     onClearPostSeriesFailureMessage: () => dispatch(clearPostSeriesFailureMessage()),
-    onEmptyPersonList: () => dispatch(emptyPersons())
+    onEmptyPersonList: () => dispatch(emptyPersons()),
+    onRouteChange: (route) =>  dispatch(routeAction(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesUploadForm);

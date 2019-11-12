@@ -17,6 +17,7 @@ const translationsObject = {
         publication_status : 'Publication status',
         status_published: 'Shared to Katsomo',
         status_moodle: 'Shared to Moodle',
+        status_private: 'Private',
         hy: 'University of Helsinki',
         hy_address_part1: 'P.O. Box 4 (Yliopistonkatu 3)',
         hy_address_part2: '00014 University of Helsinki Finland',
@@ -64,7 +65,11 @@ const translationsObject = {
         copied_to_clipboard: 'Copied to clipboard',
         select : 'Select',
         license : 'License',
-        licenses_info: 'License info text'
+        licenses_info: 'License info text',
+        events_basic_info: 'Events basic info',
+        video_preview: 'Video preview',
+        video_file_title: 'Save video file',
+        video: 'Video'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -83,6 +88,7 @@ fi: {
         video_description : 'Videon kuvaus',
         publication_status : 'Tallenteen julkisuus',
         status_published: 'Julkaistu Unitube-katsomossa',
+        status_private: 'Ei julkaistu',
         status_moodle: 'Jaettu Moodlessa',
         hy: 'Helsingin yliopisto',
         hy_address_part1: 'PL 4 (Yliopistonkatu 3)',
@@ -130,7 +136,11 @@ fi: {
         copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle',
         select : 'Valitse',
         license : 'Lisenssi',
-        licenses_info: 'Lisenssin info kenttä'
+        licenses_info: 'Lisenssin info kenttä',
+        events_basic_info: 'Videon perustiedot',
+        video_preview: 'Videon esikatselu',
+        video_file_title: 'Videon tallennus',
+        video: 'Video'
     },
 
     sv: {
@@ -155,6 +165,7 @@ fi: {
         processing_state: '???processing_state???',
         publication_status: '???publication_status???',
         status_published: '???status_published???',
+        status_private: '???status_private???',
         status_moodle: '???status_moodle???',
         hy: '???hy???',
         hy_address_part1: '???hy_address_part1???',
@@ -195,7 +206,11 @@ fi: {
         license : '???license???',
         licenses_info: '???licenses_info???',
         series_creation_form: '???series_creation_form???',
-        copied_to_clipboard: '???copied_to_clipboard???'
+        copied_to_clipboard: '???copied_to_clipboard???',
+        events_basic_info: '???events_basic_info???',
+        video_preview: '???video_preview???',
+        video_file_title: '???video_file_title???',
+        video: '???video???'
     }
 };
 

@@ -15,6 +15,7 @@ import SerieDetailsForm from './SerieDetailsForm';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
+import routeAction from "../actions/routeAction";
 
 
 const { SearchBar } = Search;
@@ -30,6 +31,7 @@ const SeriesList = (props) => {
     };
 
     useEffect(() => {
+        props.onRouteChange(props.route);
         const interval = setInterval(() => {
             props.onClearPostSeriesSuccessMessage();
         }, 5000);
@@ -88,6 +90,16 @@ const SeriesList = (props) => {
         return style;
     };
 
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
+    };
+
     useEffect(() => {
         props.onFetchSeries();
         if (props.apiError) {
@@ -125,7 +137,7 @@ const SeriesList = (props) => {
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <hr/>
                                 <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                    pagination={ paginationFactory() } rowStyle={ rowStyle } hover/>
+                                    pagination={ paginationFactory(options) } rowStyle={ rowStyle } hover/>
                             </div>
                         )
                     }
@@ -159,7 +171,8 @@ const mapDispatchToProps = dispatch => ({
     },
     emptyMoodleNumber: () => dispatch(emptyMoodleNumber()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
-    onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage())
+    onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage()),
+    onRouteChange: (route) =>  dispatch(routeAction(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesList);
