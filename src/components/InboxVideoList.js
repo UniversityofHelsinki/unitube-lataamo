@@ -36,6 +36,15 @@ const InboxVideoList = (props) => {
         });
     };
 
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
+    };
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -163,7 +172,7 @@ const InboxVideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                                    pagination={ paginationFactory() } defaultSorted={ defaultSorted }
+                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                                     noDataIndication="Table is Empty" bordered={ false }
                                                     rowStyle={ rowStyle }
                                                     hover/>

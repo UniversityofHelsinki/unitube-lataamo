@@ -344,7 +344,7 @@ const SerieDetailsForm = (props) => {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <div className="col-sm-10 offset-sm-9">
+                            <div className="col-sm-2">
                                 <button type="submit" className="btn btn-primary">{translate('save')}</button>
                             </div>
                         </div>

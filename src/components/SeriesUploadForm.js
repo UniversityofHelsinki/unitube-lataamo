@@ -136,7 +136,7 @@ const SeriesUploadForm = (props) => {
             <form onSubmit={handleSubmit}>
                 <div className="series-bg">
                     <div className="form-group row">
-                        <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                        <label className="events-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
@@ -262,7 +262,7 @@ const SeriesUploadForm = (props) => {
                 </div>
 
                 <div className="form-group row">
-                    <div className="col-sm-10 offset-sm-9">
+                    <div className="col-sm-2">
                         <button type="submit" className="btn btn-primary">{translate('save')}</button>
                     </div>
                 </div>
