@@ -95,7 +95,8 @@ const VideoList = (props) => {
     }, {
         dataField: 'visibility',
         text: translate('publication_status'),
-        formatter: statusFormatter
+        formatter: statusFormatter,
+        sort: true
     }];
 
     const defaultSorted = [{
