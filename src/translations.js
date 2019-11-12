@@ -69,8 +69,7 @@ const translationsObject = {
         events_basic_info: 'Events basic info',
         video_preview: 'Video preview',
         video_file_title: 'Save video file',
-        video: 'Video'
-        licenses_info: 'License info text',
+        video: 'Video',
         events_count: 'Videos count',
         series_publication_status: 'Series publication'
     },
