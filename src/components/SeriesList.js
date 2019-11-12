@@ -39,6 +39,27 @@ const SeriesList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const translatedSeries = () => {
+        return props.series.map(series => {
+            return {
+                ...series,
+                visibility: series.visibility.map(visibilityKey => translate(visibilityKey))
+            };
+        });
+    };
+
+
+    const statusFormatter = (cell, row) => {
+        return (
+            <div>
+                {
+                    row.visibility.map((acl, index) =>
+                        <p key={ index }> { acl } </p>
+                    )
+                }
+            </div>
+        );
+    };
 
     const contributorsFormatter = (cell, row) => {
         return (
@@ -55,7 +76,8 @@ const SeriesList = (props) => {
     const columns = [{
         dataField: 'identifier',
         text: translate('series_id'),
-        sort: true
+        sort: true,
+        hidden: true
     }, {
         dataField: 'title',
         text: translate('serie_title'),
@@ -65,6 +87,14 @@ const SeriesList = (props) => {
         text: translate('serie_contributors'),
         sort: true,
         formatter: contributorsFormatter
+    }, {
+        dataField: 'eventsCount',
+        text: translate('events_count'),
+        sort: true
+    },{
+        dataField: 'visibility',
+        text: translate('series_publication_status'),
+        formatter: statusFormatter
     }];
 
     const defaultSorted = [{
@@ -126,7 +156,7 @@ const SeriesList = (props) => {
                 <ToolkitProvider
                     bootstrap4
                     keyField="identifier"
-                    data={ props.series }
+                    data={ translatedSeries() }
                     columns={ columns }
                     search
                     defaultSorted={ defaultSorted }>

@@ -69,7 +69,9 @@ const translationsObject = {
         events_basic_info: 'Events basic info',
         video_preview: 'Video preview',
         video_file_title: 'Save video file',
-        video: 'Video'
+        video: 'Video',
+        events_count: 'Videos count',
+        series_publication_status: 'Series publication'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -137,6 +139,8 @@ fi: {
         select : 'Valitse',
         license : 'Lisenssi',
         licenses_info: 'Lisenssin info kenttä',
+        events_count: 'Videoiden lukumäärä',
+        series_publication_status: 'Sarjan julkisuus',
         events_basic_info: 'Videon perustiedot',
         video_preview: 'Videon esikatselu',
         video_file_title: 'Videon tallennus',
@@ -207,6 +211,8 @@ fi: {
         licenses_info: '???licenses_info???',
         series_creation_form: '???series_creation_form???',
         copied_to_clipboard: '???copied_to_clipboard???',
+        events_count: '???videos_count???',
+        series_publication_status: '???series_publication_status???',
         events_basic_info: '???events_basic_info???',
         video_preview: '???video_preview???',
         video_file_title: '???video_file_title???',
