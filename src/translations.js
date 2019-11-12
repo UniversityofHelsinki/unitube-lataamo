@@ -65,7 +65,11 @@ const translationsObject = {
         copied_to_clipboard: 'Copied to clipboard',
         select : 'Select',
         license : 'License',
-        licenses_info: 'License info text'
+        licenses_info: 'License info text',
+        events_basic_info: 'Events basic info',
+        video_preview: 'Video preview',
+        video_file_title: 'Save video file',
+        video: 'Video'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -132,7 +136,11 @@ fi: {
         copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle',
         select : 'Valitse',
         license : 'Lisenssi',
-        licenses_info: 'Lisenssin info kenttä'
+        licenses_info: 'Lisenssin info kenttä',
+        events_basic_info: 'Videon perustiedot',
+        video_preview: 'Videon esikatselu',
+        video_file_title: 'Videon tallennus',
+        video: 'Video'
     },
 
     sv: {
@@ -198,7 +206,11 @@ fi: {
         license : '???license???',
         licenses_info: '???licenses_info???',
         series_creation_form: '???series_creation_form???',
-        copied_to_clipboard: '???copied_to_clipboard???'
+        copied_to_clipboard: '???copied_to_clipboard???',
+        events_basic_info: '???events_basic_info???',
+        video_preview: '???video_preview???',
+        video_file_title: '???video_file_title???',
+        video: '???video???'
     }
 };
 
