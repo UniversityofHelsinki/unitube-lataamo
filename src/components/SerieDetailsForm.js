@@ -343,6 +343,26 @@ const SerieDetailsForm = (props) => {
                                 </div>
                             </div>
                         </div>
+
+{/*
+
+                        <div className="series-bg">
+                        <div className="form-group row">
+                            <label className="series-title col-sm-2 col-form-label">{translate('series_included_videos')}</label>
+                        </div>
+                        <div className="series-bg">
+
+                            <div className="form-group row">
+                                <div className="col-sm-7">
+                                    <SelectedMoodleNumbers/>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+*/}
+
+
+
                         <div className="form-group row">
                             <div className="col-sm-2">
                                 <button type="submit" className="btn btn-primary">{translate('save')}</button>

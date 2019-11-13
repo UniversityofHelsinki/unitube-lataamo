@@ -127,6 +127,7 @@ fi: {
         series_visibility_title: 'Sarjan näkyvyys',
         series_editing_rights: 'Sarjan muokkausoikeudet',
         series_editing_rights_info: 'Sarjan muokkausoikeudet info',
+        series_included_videos: 'Sarjaan kuuluvat videot',
         add_person: 'Valitse hallinnointihenkilö',
         add_persons_info: 'Henkilöiden haku infokenttä',
         added_persons_info: 'Lisättyjen henkilöiden infokenttä',
