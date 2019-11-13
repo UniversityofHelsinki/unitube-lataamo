@@ -71,7 +71,8 @@ const translationsObject = {
         video_file_title: 'Save video file',
         video: 'Video',
         events_count: 'Videos count',
-        series_publication_status: 'Series publication'
+        series_publication_status: 'Series publication',
+        video_info: 'Video info'
     },
 fi: {
         videos: 'Tallenteeni',
@@ -144,7 +145,8 @@ fi: {
         events_basic_info: 'Videon perustiedot',
         video_preview: 'Videon esikatselu',
         video_file_title: 'Videon tallennus',
-        video: 'Video'
+        video: 'Video',
+        video_info: 'Videotiedosto'
     },
 
     sv: {
@@ -216,7 +218,8 @@ fi: {
         events_basic_info: '???events_basic_info???',
         video_preview: '???video_preview???',
         video_file_title: '???video_file_title???',
-        video: '???video???'
+        video: '???video???',
+        video_info: '???video_info???'
     }
 };
 

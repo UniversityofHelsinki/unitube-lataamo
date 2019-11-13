@@ -28,7 +28,15 @@ const Video = (props) => {
                             </div>
                         </div>
                         <div className="col events-bg">
-                            <p></p>
+                            <div className="form-group row">
+                                <label className="events-title col-sm-10 col-form-label">{translate('video_info')}</label>
+                            </div>
+                            <div className="form-group row">
+                                Videon laatu: {video.quality}
+                            </div>
+                            <div className="form-group row">
+                                Videon kesto: {video.duration}
+                            </div>
                         </div>
                     </div>
                 </div>
