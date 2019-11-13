@@ -12,7 +12,7 @@ const Video = (props) => {
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
             return (
-                <div>
+                <div key={index}>
                     <h2>{translate('video')}</h2>
                     <div key={index} className="row">
                         <div className="col events-bg">
