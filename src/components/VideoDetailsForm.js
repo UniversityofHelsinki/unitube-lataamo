@@ -63,6 +63,16 @@ const VideoDetailsForm = (props) => {
         });
     };
 
+    const inboxSeries = (seriesName) => {
+        if (seriesName && seriesName.toLowerCase().includes('inbox')) {
+            return (
+                <div className='col'>
+                    {translate('events_link_series')}
+                </div>
+            );
+        }
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -92,9 +102,9 @@ const VideoDetailsForm = (props) => {
                                 <div className="form-group row">
                                     <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
                                 </div>
-                                <div className='col'>
-                                    {translate('events_link_series')}
-                                </div>
+
+                                {inboxSeries(props.video.series)}
+
                                 <div className="form-group row">
                                     <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                     <div className="col-sm-8">
