@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const eventsReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
         case 'SUCCESS_API_GET_EVENTS':
             return {

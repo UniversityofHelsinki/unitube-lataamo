@@ -6,6 +6,7 @@ const MOODLE_ACL_INSTRUCTOR = '_Instructor';
 const MOODLE_ACL_LEARNER = '_Learner';
 const STATUS_PUBLISHED = 'status_published';
 const STATUS_MOODLE = 'status_moodle';
+const STATUS_PRIVATE = 'status_private';
 
 const VIDEO_PROCESSING_RUNNING = 'RUNNING';
 const VIDEO_PROCESSING_FAILED = 'FAILED';
@@ -16,6 +17,7 @@ module.exports = {
     ROLE_ANONYMOUS,
     ROLE_KATSOMO,
     STATUS_PUBLISHED,
+    STATUS_PRIVATE,
     STATUS_MOODLE,
     MOODLE_ACL_INSTRUCTOR,
     MOODLE_ACL_LEARNER,

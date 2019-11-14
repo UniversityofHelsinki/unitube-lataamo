@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { IconContext } from 'react-icons';
-import { IoIosSave } from "react-icons/io";
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {IconContext} from 'react-icons';
+import {IoIosSave} from "react-icons/io";
+import {connect} from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
-    updateSerieList,
     actionUpdateSerieDetails,
     addMoodleNumber,
+    emptyIamGroupsCall,
     emptyMoodleNumberCall,
-    emptyIamGroupsCall
+    updateSerieList
 } from '../actions/seriesAction';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import SelectedMoodleNumbers from "./SelectedMoodleNumbers";
 import IAMGroupAutoSuggest from "./IAMGroupAutoSuggest";
 import IAMGroupList from "./IamGroupList";
@@ -47,11 +47,34 @@ const SerieDetailsForm = (props) => {
         updatedSeries.contributors = contributorsList;
     };
 
+
+    const setVisibilityForSeries = (series) => {
+        const visibility = [];
+
+        const roleAnonymous = series.acl.filter(acl => acl.includes(constants.ROLE_ANONYMOUS));
+        const roleKatsomo = series.acl.filter(acl => acl.includes(constants.ROLE_KATSOMO));
+
+        if (roleAnonymous && roleAnonymous.length > 0 && roleKatsomo && roleKatsomo.length > 0) { //video has both (constants.ROLE_ANONYMOUS, constants.ROLE_KATSOMO) roles
+            visibility.push(constants.STATUS_PUBLISHED);
+        } else {
+            visibility.push(constants.STATUS_PRIVATE);
+        }
+
+        const moodleAclInstructor = series.acl.filter(role => role.includes(constants.MOODLE_ACL_INSTRUCTOR));
+        const moodleAclLearner = series.acl.filter(role => role.includes(constants.MOODLE_ACL_LEARNER));
+
+        if (moodleAclInstructor && moodleAclLearner && moodleAclInstructor.length > 0 && moodleAclLearner.length > 0) {
+            visibility.push(constants.STATUS_MOODLE);
+        }
+        series.visibility =  [...new Set(visibility)]
+    };
+
     const updateSeriesDetails = async () => {
         const seriesId = inputs.identifier;
         const updatedSeries = {...inputs}; // values from the form
         generateAclList(updatedSeries, props.moodleNumbers);
         generateContributorsList(updatedSeries, props.iamGroups, props.persons);
+        setVisibilityForSeries(updatedSeries);
         // call unitube-proxy api
         try {
             await actionUpdateSerieDetails(seriesId, updatedSeries);
@@ -182,6 +205,7 @@ const SerieDetailsForm = (props) => {
                     <div className="series-bg">
                         <div className="form-group row">
                             <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                            <input id="eventsCount" type="hidden" value={inputs.eventsCount || ''} />
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
@@ -320,7 +344,7 @@ const SerieDetailsForm = (props) => {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <div className="col-sm-10 offset-sm-9">
+                            <div className="col-sm-2">
                                 <button type="submit" className="btn btn-primary">{translate('save')}</button>
                             </div>
                         </div>

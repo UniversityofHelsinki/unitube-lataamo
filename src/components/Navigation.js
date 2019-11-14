@@ -11,11 +11,11 @@ function Navigation (props) {
                     <li className={props.route === 'inbox' ? 'main-nav-item open' : 'main-nav-item'} >
                         <Link to="/" className="menuitem" ><Translate value="inbox" /> <span hidden={props.videos<=0} className="videos-count">{props.videos}</span></Link>
                     </li>
-                    <li className={props.route === 'events' ? 'main-nav-item open' : 'main-nav-item'} >
-                        <Link to="/events" className="menuitem"  ><Translate value="videos" /></Link>
-                    </li>
                     <li className={props.route === 'series' ? 'main-nav-item open' : 'main-nav-item'}>
                         <Link to="/series" className="menuitem" ><Translate value="series" /></Link>
+                    </li>
+                    <li className={props.route === 'events' ? 'main-nav-item open' : 'main-nav-item'} >
+                        <Link to="/events" className="menuitem"  ><Translate value="videos" /></Link>
                     </li>
                 </ul>
             </nav>
