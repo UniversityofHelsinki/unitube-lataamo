@@ -103,7 +103,7 @@ const VideoDetailsForm = (props) => {
                                     <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
                                 </div>
 
-                                {inboxSeries(props.video.series)}
+                                {inboxSeries(props.video.series.title)}
 
                                 <div className="form-group row">
                                     <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
