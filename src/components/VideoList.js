@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideoUrl } from '../actions/videosAction';
-import { fetchEvent, fetchEvents } from '../actions/eventsAction';
+import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
 import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -43,6 +43,7 @@ const VideoList = (props) => {
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
+        props.onDeselectRow();
         const interval = setInterval(() => {
             props.onFetchEvents(false);
         }, 60000);
@@ -182,7 +183,7 @@ const VideoList = (props) => {
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm/>
+                    <VideoDetailsForm inbox="false"/>
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
@@ -205,13 +206,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchEvents: (refresh, inbox) => dispatch(fetchEvents(refresh, inbox)),
+    onFetchEvents: (refresh) => dispatch(fetchEvents(refresh)),
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
         dispatch(fetchSeries(false));
     },
-    onRouteChange: (route) =>  dispatch(routeAction(route))
+    onRouteChange: (route) =>  dispatch(routeAction(route)),
+    onDeselectRow : () => {
+        dispatch(deselectRow());
+        dispatch(deselectEvent());
+    }
 });
 
 

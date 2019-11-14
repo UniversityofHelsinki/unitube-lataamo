@@ -70,8 +70,13 @@ export const fetchEvents = (refresh) => {
 };
 
 // update the eventlist in state (called on video information update)
-export const updateEventList = () => {
-   return async dispatch => {
+export const updateEventList = (inbox) => {
+    if(inbox==="true"){
+        return async dispatch => {
+            dispatch(fetchInboxEvents(false));
+        };
+    }
+    return async dispatch => {
         dispatch(fetchEvents(false));
     };
 };
@@ -96,6 +101,18 @@ export const actionUpdateEventDetails = async (id, updatedEvent) => {
     }
 };
 
+export const deselectRow = () => {
+  return async dispatch => {
+      dispatch(apiDeselectRow());
+  }
+};
+
+export const deselectEvent = () => {
+  return async dispatch => {
+      dispatch(apiDeselectEvent());
+  }
+};
+
 export const apiGetEventSuccessCall = (data) => ({
     type: 'SUCCESS_API_GET_EVENT',
     payload: data
@@ -115,5 +132,15 @@ export const apiGetEventsSuccessCall = data => ({
 export const apiGetInboxEventsSuccessCall = data => ({
     type: 'SUCCESS_API_GET_INBOX_EVENTS',
     payload: data,
+    loading: false
+});
+
+export const apiDeselectEvent = () =>({
+    type: 'DESELECT_EVENT',
+    loading: false
+});
+
+export const apiDeselectRow = () => ({
+    type: 'DESELECT_ROW',
     loading: false
 });

@@ -32,6 +32,14 @@ const eventsReducer = (state = initialState, action) => {
                 ...state,
                 event: action.payload
             };
+        case 'DESELECT_EVENT':
+            return {
+                ...state,
+                event: {
+                    title : '',
+                    description: ''
+                }
+            };
         default:
             return state;
     }

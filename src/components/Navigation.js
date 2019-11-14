@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
 import { connect } from 'react-redux';
+import {fetchInboxEvents} from "../actions/eventsAction";
 
 function Navigation (props) {
+
+/*    useEffect(() => {
+        props.onFetchEvents(true);
+    });*/
+
     return(
         <div className="navigation-row">
             <nav id="navigation">
@@ -29,4 +35,9 @@ const mapStateToProps = state => ({
     videos: state.er.inboxVideos.length
 });
 
-export default connect(mapStateToProps, null)(Navigation);
+const mapDispatchToProps = dispatch => ({
+    //onFetchEvents: (refresh) => dispatch(fetchInboxEvents(refresh))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

@@ -5,6 +5,7 @@ import {actionUpdateEventDetails, updateEventList} from '../actions/eventsAction
 import Video from './Video';
 
 const VideoDetailsForm = (props) => {
+    console.log("***************" + props.inbox);
 
     const translations =  props.i18n.translations[props.i18n.locale];
 
@@ -25,7 +26,7 @@ const VideoDetailsForm = (props) => {
             await actionUpdateEventDetails(eventId, updatedEvent);
             setSuccessMessage('JUST A PLACE HOLDER TEXT');
             // update the eventlist to redux state
-            props.onEventDetailsEdit();
+            props.onEventDetailsEdit(props.inbox);
             setHideIfEventUpdate(true);
         } catch (err) {
             setErrorMessage('JUST A PLACE HOLDER TEXT');
@@ -37,7 +38,7 @@ const VideoDetailsForm = (props) => {
         setSuccessMessage(null);
         setErrorMessage(null);
         setHideIfEventUpdate(false);
-    }, [props.video, props.series]);
+    }, [props.video, props.series, props.inbox]);
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -177,7 +178,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onEventDetailsEdit: () => dispatch(updateEventList())
+    onEventDetailsEdit: (inbox) => dispatch(updateEventList(inbox))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);
