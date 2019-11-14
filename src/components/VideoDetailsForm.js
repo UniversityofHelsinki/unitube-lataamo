@@ -5,7 +5,6 @@ import {actionUpdateEventDetails, updateEventList} from '../actions/eventsAction
 import Video from './Video';
 
 const VideoDetailsForm = (props) => {
-    console.log("***************" + props.inbox);
 
     const translations =  props.i18n.translations[props.i18n.locale];
 

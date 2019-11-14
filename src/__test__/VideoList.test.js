@@ -129,7 +129,7 @@ describe('<VideoList />', () => {
     });
 
     it('initially should show loading bar', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(4);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).not.toBe(null);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).toEqual({
             'loading': true,
@@ -138,7 +138,7 @@ describe('<VideoList />', () => {
     });
 
     it('Should pass actions updated values ', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(4);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).not.toBe(null);
         store.dispatch(apiGetEventsSuccessCall(videos));
         expect(await getAction(store, 'SUCCESS_API_GET_EVENTS')).not.toBe(null);
@@ -150,7 +150,7 @@ describe('<VideoList />', () => {
     });
 
     it('Should return error values ', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(4);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({
