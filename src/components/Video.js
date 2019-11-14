@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 const Video = (props) => {
 
@@ -32,10 +32,10 @@ const Video = (props) => {
                                 <label className="events-title col-sm-10 col-form-label">{translate('video_info')}</label>
                             </div>
                             <div className="form-group row">
-                                Videon laatu: {video.quality}
+                                {translate('video_resolution')}: {video.resolution}
                             </div>
                             <div className="form-group row">
-                                Videon kesto: {video.duration}
+                                {translate('video_duration')}: {video.duration}
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ const translationsObject = {
         video_title: 'Video title',
         video_description : 'Video Description',
         video_duration: 'Duration of video',
+        video_resolution: 'Video resolution',
         video_id : 'Video identifier',
         redirecting: 'Redirecting to login page...',
         series_id: 'series id',
@@ -74,12 +75,13 @@ const translationsObject = {
         series_publication_status: 'Series publication',
         video_info: 'Video info'
     },
-fi: {
+    fi: {
         videos: 'Tallenteeni',
         series: 'Sarjani',
         search: 'Etsi',
         video_title: 'Tallenteen nimi',
         video_duration: 'Tallenteen kesto',
+        video_resolution: 'Tallenteen resoluutio',
         video_id : 'Tallenteen tunniste',
         redirecting: 'Ohjataan kirjautumissivulle...',
         series_id: 'Sarjan tunniste',
@@ -160,6 +162,7 @@ fi: {
         video_file: '???video_file???',
         video_title: '???video_title???',
         video_duration: '???video_duration???',
+        video_resolution: '???video_resolution???',
         video_description : '???video_description???',
         video_id : '???video_id???',
         redirecting: '???redirecting???',
