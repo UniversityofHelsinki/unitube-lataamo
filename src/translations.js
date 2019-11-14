@@ -6,6 +6,7 @@ const translationsObject = {
         video_title: 'Video title',
         video_description : 'Video Description',
         video_duration: 'Duration of video',
+        video_resolution: 'Video resolution',
         video_id : 'Video identifier',
         redirecting: 'Redirecting to login page...',
         series_id: 'series id',
@@ -72,6 +73,7 @@ const translationsObject = {
         video: 'Video',
         events_count: 'Videos count',
         series_publication_status: 'Series publication',
+        video_info: 'Video info',
         events_link_series: '???events_link_series???'
     },
     fi: {
@@ -80,6 +82,7 @@ const translationsObject = {
         search: 'Etsi',
         video_title: 'Tallenteen nimi',
         video_duration: 'Tallenteen kesto',
+        video_resolution: 'Tallenteen resoluutio',
         video_id : 'Tallenteen tunniste',
         redirecting: 'Ohjataan kirjautumissivulle...',
         series_id: 'Sarjan tunniste',
@@ -146,6 +149,7 @@ const translationsObject = {
         video_preview: 'Videon esikatselu',
         video_file_title: 'Videon tallennus',
         video: 'Video',
+        video_info: 'Videotiedosto',
         events_link_series: 'Video liitettävä sarjaan jotta julkaistuu'
     },
 
@@ -160,6 +164,7 @@ const translationsObject = {
         video_file: '???video_file???',
         video_title: '???video_title???',
         video_duration: '???video_duration???',
+        video_resolution: '???video_resolution???',
         video_description : '???video_description???',
         video_id : '???video_id???',
         redirecting: '???redirecting???',
@@ -219,6 +224,7 @@ const translationsObject = {
         video_preview: '???video_preview???',
         video_file_title: '???video_file_title???',
         video: '???video???',
+        video_info: '???video_info???',
         events_link_series: '???events_link_series???'
     }
 };
