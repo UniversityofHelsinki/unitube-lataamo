@@ -73,7 +73,8 @@ const translationsObject = {
         video: 'Video',
         events_count: 'Videos count',
         series_publication_status: 'Series publication',
-        video_info: 'Video info'
+        video_info: 'Video info',
+        events_link_series: '???events_link_series???'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -148,7 +149,8 @@ const translationsObject = {
         video_preview: 'Videon esikatselu',
         video_file_title: 'Videon tallennus',
         video: 'Video',
-        video_info: 'Videotiedosto'
+        video_info: 'Videotiedosto',
+        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu'
     },
 
     sv: {
@@ -222,7 +224,8 @@ const translationsObject = {
         video_preview: '???video_preview???',
         video_file_title: '???video_file_title???',
         video: '???video???',
-        video_info: '???video_info???'
+        video_info: '???video_info???',
+        events_link_series: '???events_link_series???'
     }
 };
 
