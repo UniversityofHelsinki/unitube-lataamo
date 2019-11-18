@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideoUrl } from '../actions/videosAction';
 import { fetchEvent, fetchInboxEvents } from '../actions/eventsAction';
-import {fetchSeries, fetchSeriesDropDownList} from '../actions/seriesAction';
+import { fetchSeriesDropDownList } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
