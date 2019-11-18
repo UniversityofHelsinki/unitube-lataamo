@@ -2,6 +2,7 @@
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
 const PERSON_API_PATH = '/api/persons/';
+const SERIES_DROP_DOWN_PATH = '/api/getUserSeriesDropDownList';
 
 export const personQuery = async (query) => {
     try {
@@ -79,6 +80,24 @@ export const fetchSerie = (row) => {
                 dispatch(apiFailureCall('Unable to fetch data'));
             }
         } catch (err) {
+            dispatch(apiFailureCall('Unable to fetch data'));
+        }
+    };
+};
+
+export const fetchSeriesDropDownList = () => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(`${VIDEO_SERVER_API}${SERIES_DROP_DOWN_PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetSeriesDropDownListSuccessCall(responseJSON));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
+            }
+        } catch(err) {
             dispatch(apiFailureCall('Unable to fetch data'));
         }
     };
@@ -235,6 +254,12 @@ export const clearPostSeriesSuccessCall = () => ({
 export const clearPostSeriesFailureCall = () => ({
     type: 'CLEAR_API_POST_SERIES_FAILURE_CALL',
     payload: null
+});
+
+export const apiGetSeriesDropDownListSuccessCall = data => ({
+    type: 'SUCCESS_API_GET_SERIES_DROP_DOWN_LIST',
+    payload: data,
+    loading: false
 });
 
 export const apiGetSeriesSuccessCall = data => ({
