@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {IconContext} from 'react-icons';
-import {IoIosSave} from "react-icons/io";
+import {FiCopy} from "react-icons/fi";
 import {connect} from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
@@ -31,6 +31,11 @@ const SerieDetailsForm = (props) => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [disableFormIfInbox, setDisableFormIfInbox] = useState(false);
     const [hideFormIfInbox, setHideFormIfInbox] = useState(false);
+    const [hovered, setHovered] = useState(false);
+
+    const toggleHover = () => {
+        setHovered(!hovered);
+    };
 
     const addToContributorsList = (list, contributorsList) => {
         if (list && list.length > 0) {
@@ -212,9 +217,9 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
                             <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
                             <div className="col-sm-3">
-                                <IconContext.Provider value={{ size: "2em"}}>
+                                <IconContext.Provider value={{ size: "1.5em"}}>
                                     <div>
-                                        <IoIosSave onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</IoIosSave>
+                                        <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                     </div>
                                 </IconContext.Provider>
                             </div>
