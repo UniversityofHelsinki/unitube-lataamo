@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchVideoUrl } from '../actions/videosAction';
+import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
 import { fetchEvent, fetchEvents } from '../actions/eventsAction';
 import { fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -24,6 +24,21 @@ const VideoList = (props) => {
 
     const translate = (key) => {
         return translations ? translations[key] : '';
+    };
+
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf("/") + 1);
+    };
+
+    const handleSubmit = async (event) => {
+        if (event) {
+            event.preventDefault();
+            const data = { 'mediaUrl':  event.target.mediaUrl.value };
+            const fileName = getFileName(event.target.mediaUrl.value);
+            //console.log(fileName);
+            //console.log(event.target.mediaUrl.value);
+            await downloadVideo(data, fileName);
+        }
     };
 
     // the only translated property is the visibility value
@@ -56,6 +71,21 @@ const VideoList = (props) => {
                 {
                     row.visibility.map((acl, index) =>
                         <p key={ index }> { acl } </p>
+                    )
+                }
+            </div>
+        );
+    };
+
+    const mediaFormatter = (cell, row) => {
+        return (
+            <div>
+                {
+                    row.media.map((media, index) =>
+                        <form key={index} onSubmit={handleSubmit}>
+                            <input type="hidden" name="mediaUrl" value={media} />
+                            <button>download video</button>
+                        </form>
                     )
                 }
             </div>
@@ -97,6 +127,10 @@ const VideoList = (props) => {
         text: translate('publication_status'),
         formatter: statusFormatter,
         sort: true
+    }, {
+        dataField: 'media',
+        text: 'download_media_file',
+        formatter: mediaFormatter,
     }];
 
     const defaultSorted = [{

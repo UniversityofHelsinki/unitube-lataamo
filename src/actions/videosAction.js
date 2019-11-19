@@ -6,9 +6,47 @@ import {
     fileUploadSuccessActionMessage
 } from './fileUploadAction';
 
+
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
+
+const DOWNLOAD_PATH = '/api/download';
+
+export const downloadVideo = async (data, fileName) => {
+
+    const queryString = (data = {}) => {
+        return Object.entries(data)
+            .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+            .join('&');
+    };
+
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        transformRequest: queryString
+    };
+
+    try {
+        let response = await axios.post(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, data, config);
+        if (response.status === 200) {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            console.log(response.headers);
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 //fetch video url
 export const fetchVideoUrl = (row) => {
