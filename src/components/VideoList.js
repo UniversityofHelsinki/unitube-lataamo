@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
-import { fetchEvent, fetchEvents } from '../actions/eventsAction';
-import { fetchSeries } from '../actions/seriesAction';
+import {fetchEvent, fetchEvents} from '../actions/eventsAction';
+import {fetchSeries} from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
+import {Translate} from 'react-redux-i18n';
+import {Link} from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_INSTANTIATED } from '../utils/constants';
+import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from "../actions/routeAction";
+import {FiDownload} from "react-icons/fi";
 
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
-
     const translations = props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
@@ -35,8 +35,6 @@ const VideoList = (props) => {
             event.preventDefault();
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
-            //console.log(fileName);
-            //console.log(event.target.mediaUrl.value);
             await downloadVideo(data, fileName);
         }
     };
@@ -84,7 +82,7 @@ const VideoList = (props) => {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <button>download video</button>
+                            <button><FiDownload></FiDownload></button>
                         </form>
                     )
                 }
@@ -208,10 +206,10 @@ const VideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                    noDataIndication="Table is Empty" bordered={ false }
+                                                    rowStyle={ rowStyle }
+                                                    hover/>
                                 </div>
                             )
                         }
