@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
+import {Button} from 'react-bootstrap';
 import {fetchEvent, fetchEvents} from '../actions/eventsAction';
 import {fetchSeries} from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -77,12 +78,12 @@ const VideoList = (props) => {
 
     const mediaFormatter = (cell, row) => {
         return (
-            <div>
+            <div className="form-container">
                 {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <button><FiDownload></FiDownload></button>
+                            <Button variant="link"><FiDownload></FiDownload></Button>
                         </form>
                     )
                 }
@@ -127,7 +128,7 @@ const VideoList = (props) => {
         sort: true
     }, {
         dataField: 'media',
-        text: 'download_media_file',
+        text: '',
         formatter: mediaFormatter,
     }];
 

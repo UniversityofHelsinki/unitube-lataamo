@@ -22,7 +22,7 @@ export const downloadVideo = async (data, fileName) => {
             .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
             .join('&');
     };
-    
+
     const config = {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
