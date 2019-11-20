@@ -1,23 +1,21 @@
-import React, { useEffect }  from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
-import routeAction from '../actions/routeAction';
 import { connect } from 'react-redux';
 
 function Navigation (props) {
-    useEffect(() => {
-        props.setInitialRoute('home');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
     return(
         <div className="navigation-row">
             <nav id="navigation">
                 <ul id="mainmenu">
-                    <li className={props.route === 'home' ? 'main-nav-item open' : 'main-nav-item'} >
-                        <Link to="/" className="menuitem" onClick={() => props.onRouteChange( 'home')} ><Translate value="videos" /></Link>
+                    <li className={props.route === 'inbox' ? 'main-nav-item open' : 'main-nav-item'} >
+                        <Link to="/" className="menuitem" ><Translate value="inbox" /> <span hidden={props.videos<=0} className="videos-count">{props.videos}</span></Link>
                     </li>
                     <li className={props.route === 'series' ? 'main-nav-item open' : 'main-nav-item'}>
-                        <Link to="/series" className="menuitem" onClick={() => props.onRouteChange( 'series')}><Translate value="series" /></Link>
+                        <Link to="/series" className="menuitem" ><Translate value="series" /></Link>
+                    </li>
+                    <li className={props.route === 'events' ? 'main-nav-item open' : 'main-nav-item'} >
+                        <Link to="/events" className="menuitem"  ><Translate value="videos" /></Link>
                     </li>
                 </ul>
             </nav>
@@ -27,14 +25,8 @@ function Navigation (props) {
 }
 
 const mapStateToProps = state => ({
-    route: state.rr.route
+    route: state.rr.route,
+    videos: state.er.inboxVideos.length
 });
 
-const mapDispatchToProps = dispatch => ({
-    setInitialRoute: (route) => dispatch(routeAction(route)),
-    onRouteChange: (route) => {
-        dispatch(routeAction(route));
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, null)(Navigation);

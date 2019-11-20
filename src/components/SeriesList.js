@@ -15,6 +15,7 @@ import SerieDetailsForm from './SerieDetailsForm';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
+import routeAction from "../actions/routeAction";
 
 
 const { SearchBar } = Search;
@@ -30,6 +31,7 @@ const SeriesList = (props) => {
     };
 
     useEffect(() => {
+        props.onRouteChange(props.route);
         const interval = setInterval(() => {
             props.onClearPostSeriesSuccessMessage();
         }, 5000);
@@ -37,6 +39,27 @@ const SeriesList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const translatedSeries = () => {
+        return props.series.map(series => {
+            return {
+                ...series,
+                visibility: series.visibility.map(visibilityKey => translate(visibilityKey))
+            };
+        });
+    };
+
+
+    const statusFormatter = (cell, row) => {
+        return (
+            <div>
+                {
+                    row.visibility.map((acl, index) =>
+                        <p key={ index }> { acl } </p>
+                    )
+                }
+            </div>
+        );
+    };
 
     const contributorsFormatter = (cell, row) => {
         return (
@@ -52,8 +75,9 @@ const SeriesList = (props) => {
 
     const columns = [{
         dataField: 'identifier',
-        text: translate('serie_id'),
-        sort: true
+        text: translate('series_id'),
+        sort: true,
+        hidden: true
     }, {
         dataField: 'title',
         text: translate('serie_title'),
@@ -63,6 +87,14 @@ const SeriesList = (props) => {
         text: translate('serie_contributors'),
         sort: true,
         formatter: contributorsFormatter
+    }, {
+        dataField: 'eventsCount',
+        text: translate('events_count'),
+        sort: true
+    },{
+        dataField: 'visibility',
+        text: translate('series_publication_status'),
+        formatter: statusFormatter
     }];
 
     const defaultSorted = [{
@@ -86,6 +118,16 @@ const SeriesList = (props) => {
     const rowStyle = (row) => {
         const style = {};
         return style;
+    };
+
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
     };
 
     useEffect(() => {
@@ -114,7 +156,7 @@ const SeriesList = (props) => {
                 <ToolkitProvider
                     bootstrap4
                     keyField="identifier"
-                    data={ props.series }
+                    data={ translatedSeries() }
                     columns={ columns }
                     search
                     defaultSorted={ defaultSorted }>
@@ -125,7 +167,7 @@ const SeriesList = (props) => {
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <hr/>
                                 <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                    pagination={ paginationFactory() } rowStyle={ rowStyle } hover/>
+                                    pagination={ paginationFactory(options) } rowStyle={ rowStyle } hover/>
                             </div>
                         )
                     }
@@ -159,7 +201,8 @@ const mapDispatchToProps = dispatch => ({
     },
     emptyMoodleNumber: () => dispatch(emptyMoodleNumber()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
-    onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage())
+    onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage()),
+    onRouteChange: (route) =>  dispatch(routeAction(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesList);

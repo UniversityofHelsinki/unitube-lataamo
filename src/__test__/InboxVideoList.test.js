@@ -7,7 +7,7 @@ import { apiGetEventsSuccessCall } from '../actions/eventsAction';
 import getAction from './utils/getAction';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import VideoList from '../components/VideoList';
+import InboxVideoList from '../components/InboxVideoList';
 
 const mockStore = configureStore([thunk]);
 
@@ -100,9 +100,9 @@ const translations = {
 
 const msg = 'Unable to fetch data';
 
-describe('<VideoList />', () => {
+describe('<InboxVideoList />', () => {
     const initialState = {
-        er: { event: {}, videos: videos, loading: false  },
+        er: { event: {}, inboxVideos: videos, loading: false  },
         ser: { series: [] },
         vr: { error: ''},
         sr: { apiError: ''},
@@ -118,14 +118,14 @@ describe('<VideoList />', () => {
         store = mockStore(initialState);
         wrapper = mount(<Provider store={store}>
             <Router>
-                <VideoList/>
+                <InboxVideoList/>
             </Router>
         </Provider>);
     });
 
     it('Should render the component with mock store', () => {
         expect(wrapper).not.toBe(null);
-        expect(wrapper.contains(<VideoList/>)).toEqual(true);
+        expect(wrapper.contains(<InboxVideoList/>)).toEqual(true);
     });
 
     it('initially should show loading bar', async () => {

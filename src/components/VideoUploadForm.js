@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Alert, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
-import { fetchSeries } from '../actions/seriesAction';
-import { actionUploadVideo } from '../actions/videosAction';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {fetchSeries} from '../actions/seriesAction';
+import {actionUploadVideo} from '../actions/videosAction';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage,
     fileUploadProgressAction
 } from '../actions/fileUploadAction';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
+import routeAction from "../actions/routeAction";
 
 const VideoUploadForm = (props) => {
 
@@ -16,6 +17,7 @@ const VideoUploadForm = (props) => {
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
     useEffect(() => {
+        props.onRouteChange(props.route);
         props.onFetchSeries();
         props.onSuccessMessageClick();
         props.onFailureMessageClick();
@@ -75,18 +77,23 @@ const VideoUploadForm = (props) => {
                 </Alert>
                 : (<></>)
             }
+
+            <h2>{translate('video_file_title')}</h2>
+
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Video file</label>
-                    <div className="col-sm-8">
-                        <input onChange={handleFileInputChange} id="video_input_file" type="file" className="form-control" name="video_file" required/>
-                    </div>
-                    <div className="col-sm-2">
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
+                <div className="events-bg">
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
+                        <div className="col-sm-8">
+                            <input onChange={handleFileInputChange} id="video_input_file" type="file" className="form-control" name="video_file" required/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                             </span>
-                        </OverlayTrigger>
+                            </OverlayTrigger>
+                        </div>
                     </div>
                 </div>
 
@@ -120,6 +127,7 @@ const mapDispatchToProps = dispatch => ({
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
     onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
     onResetProgressbar: () => dispatch(fileUploadProgressAction(0)),
+    onRouteChange: (route) =>  dispatch(routeAction(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoUploadForm);
