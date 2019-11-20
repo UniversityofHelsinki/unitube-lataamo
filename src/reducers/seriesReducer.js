@@ -23,6 +23,11 @@ const seriesReducer = (state = initialState, action) => {
                 series: action.payload,
                 loading: action.loading
             };
+        case 'SUCCESS_API_GET_SERIES_DROP_DOWN_LIST' :
+            return {
+                ...state,
+                seriesDropDown: action.payload
+            };
         case 'GET_SERIES_REQUEST':
             return {
                 ...state,
