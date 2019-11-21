@@ -35,9 +35,13 @@ export const downloadVideo = async (data, fileName) => {
         let response = await axios.post(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, data, config);
         if (response.status === 200) {
             fileDownload(response.data, fileName);
+            return response;
+        } else {
+            throw new Error(response.status);
         }
     } catch (error) {
         console.log("ERROR" , error);
+        return error;
     }
 };
 

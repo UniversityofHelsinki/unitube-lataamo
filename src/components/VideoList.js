@@ -16,6 +16,7 @@ import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING
 import Alert from 'react-bootstrap/Alert';
 import routeAction from "../actions/routeAction";
 import {FiDownload} from "react-icons/fi";
+import {FaSpinner} from "react-icons/fa";
 
 const { SearchBar } = Search;
 
@@ -33,12 +34,19 @@ const VideoList = (props) => {
 
     const handleSubmit = async (event) => {
         if (event) {
+            event.persist();
             event.preventDefault();
+            event.target.downloadButton.disabled = true;
+            console.log(event.target.downloadIndicator);
+            event.target.downloadIndicator.removeAttribute("hidden");
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             await downloadVideo(data, fileName);
+            event.target.downloadButton.disabled = false;
+            event.target.downloadIndicator.setAttribute("hidden", true);
         }
     };
+
 
     // the only translated property is the visibility value
     const translatedVideos = () => {
@@ -83,7 +91,8 @@ const VideoList = (props) => {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <Button variant="link"><FiDownload></FiDownload></Button>
+                            <Button name="downloadButton" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
                         </form>
                     )
                 }
