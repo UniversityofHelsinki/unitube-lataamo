@@ -186,7 +186,7 @@ const VideoDetailsForm = (props) => {
 
 const mapStateToProps = state => ({
     video : state.er.event,
-    series : state.ser.series,
+    series : state.ser.seriesDropDown,
     videos : state.er.videos,
     i18n: state.i18n
 });
