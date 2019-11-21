@@ -23,6 +23,7 @@ const { SearchBar } = Search;
 const VideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
+    const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -37,11 +38,15 @@ const VideoList = (props) => {
             event.persist();
             event.preventDefault();
             event.target.downloadButton.disabled = true;
-            console.log(event.target.downloadIndicator);
             event.target.downloadIndicator.removeAttribute("hidden");
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
-            await downloadVideo(data, fileName);
+            try {
+                await downloadVideo(data, fileName);
+            } catch (error) {
+                console.log("ERROR HAPPPENED" , error);
+                setVideoDownloadErrorMessage("Error downloading video");
+            }
             event.target.downloadButton.disabled = false;
             event.target.downloadIndicator.setAttribute("hidden", true);
         }
@@ -203,6 +208,15 @@ const VideoList = (props) => {
             </div>
             { !props.loading && !errorMessage ?
                 <div className="table-responsive">
+
+                    {videoDownloadErrorMessage ?
+                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                            <p>
+                                {videoDownloadErrorMessage}
+                            </p>
+                        </Alert> : ''
+                    }
+
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"
@@ -253,7 +267,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchEvent(row));
         dispatch(fetchSeries());
     },
-    onRouteChange: (route) =>  dispatch(routeAction(route))
+    onRouteChange: (route) =>  dispatch(routeAction(route)),
 });
 
 

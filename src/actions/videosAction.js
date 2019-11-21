@@ -40,8 +40,7 @@ export const downloadVideo = async (data, fileName) => {
             throw new Error(response.status);
         }
     } catch (error) {
-        console.log("ERROR" , error);
-        return error;
+        throw new Error(error);
     }
 };
 
