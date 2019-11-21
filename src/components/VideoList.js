@@ -44,7 +44,7 @@ const VideoList = (props) => {
             try {
                 await downloadVideo(data, fileName);
             } catch (error) {
-                setVideoDownloadErrorMessage("Error downloading video");
+                setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
             event.target.downloadButton.disabled = false;
             event.target.downloadIndicator.setAttribute("hidden", true);

@@ -74,7 +74,8 @@ const translationsObject = {
         events_count: 'Videos count',
         series_publication_status: 'Series publication',
         video_info: 'Video info',
-        events_link_series: '???events_link_series???'
+        events_link_series: '???events_link_series???',
+        error_on_video_download: 'Error on video download'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -150,7 +151,8 @@ const translationsObject = {
         video_file_title: 'Videon tallennus',
         video: 'Video',
         video_info: 'Videotiedosto',
-        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu'
+        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu',
+        error_on_video_download: 'Virhe videon latauksessa'
     },
 
     sv: {
@@ -225,7 +227,8 @@ const translationsObject = {
         video_file_title: '???video_file_title???',
         video: '???video???',
         video_info: '???video_info???',
-        events_link_series: '???events_link_series???'
+        events_link_series: '???events_link_series???',
+        error_on_video_download: '???error_on_video_download???'
     }
 };
 
