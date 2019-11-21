@@ -19,7 +19,8 @@ const videos = [
         'creator': 'xyz_kuvaaja',
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
-        'series': 'sarja1'
+        'series': 'sarja1',
+        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
     },
     {
         'identifier': 'e4ff3ffe-e32a-42f2-8967-20b44cdc20e1',
@@ -28,7 +29,9 @@ const videos = [
         'creator': 'xyz_kuvaaja',
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
-        'series': 'sarja2'
+        'series': 'sarja2',
+        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
+
     },
     {
         'identifier': '4a6dc481-be36-4d3a-a813-bf415374b83d',
@@ -37,7 +40,8 @@ const videos = [
         'creator': 'xyz_kuvaaja',
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
-        'series': 'sarja3'
+        'series': 'sarja3',
+        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
     },
     {
         'identifier': 'eb68f711-04f9-4b58-b6c8-582a77d7b8a5',
@@ -46,7 +50,8 @@ const videos = [
         'creator': 'xzz_kuvaaja',
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
-        'series': 'sarja1'
+        'series': 'sarja1',
+        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
     },
     {
         'identifier': 'e269af0d-3c68-457d-90b5-08da5b531152',
@@ -55,7 +60,8 @@ const videos = [
         'creator': 'xyx_kuvaaja',
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
-        'series': 'sarja1'
+        'series': 'sarja1',
+        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
     }
 ];
 
