@@ -78,7 +78,9 @@ const translationsObject = {
         updated_event_details: '???updated_event_details???',
         failed_to_update_event_details: '???failed_to_update_event_details???',
         updated_series_details: '???updated_series_details???',
-        failed_to_update_series_details: '???failed_to_update_series_details???'
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: 'Error on video download',
+        download_video: 'Download video file'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -158,7 +160,9 @@ const translationsObject = {
         updated_event_details: '???updated_event_details???',
         failed_to_update_event_details: '???failed_to_update_event_details???',
         updated_series_details: '???updated_series_details???',
-        failed_to_update_series_details: '???failed_to_update_series_details???'
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: 'Virhe videon latauksessa',
+        download_video: 'Lataa videotiedosto'
     },
 
     sv: {
@@ -237,7 +241,9 @@ const translationsObject = {
         updated_event_details: '???updated_event_details???',
         failed_to_update_event_details: '???failed_to_update_event_details???',
         updated_series_details: '???updated_series_details???',
-        failed_to_update_series_details: '???failed_to_update_series_details???'
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: '???error_on_video_download???',
+        download_video: '???download_video???'
     }
 };
 
