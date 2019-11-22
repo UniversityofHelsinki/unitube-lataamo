@@ -74,7 +74,11 @@ const translationsObject = {
         events_count: 'Videos count',
         series_publication_status: 'Series publication',
         video_info: 'Video info',
-        events_link_series: '???events_link_series???'
+        events_link_series: '???events_link_series???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -150,7 +154,11 @@ const translationsObject = {
         video_file_title: 'Videon tallennus',
         video: 'Video',
         video_info: 'Videotiedosto',
-        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu'
+        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???'
     },
 
     sv: {
@@ -225,7 +233,11 @@ const translationsObject = {
         video_file_title: '???video_file_title???',
         video: '???video???',
         video_info: '???video_info???',
-        events_link_series: '???events_link_series???'
+        events_link_series: '???events_link_series???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???'
     }
 };
 
