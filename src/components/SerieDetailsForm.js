@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {IconContext} from 'react-icons';
-import {FiCopy} from "react-icons/fi";
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { IconContext } from 'react-icons';
+import { FiCopy } from 'react-icons/fi';
+import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
     actionUpdateSerieDetails,
@@ -10,13 +10,13 @@ import {
     emptyMoodleNumberCall,
     updateSerieList
 } from '../actions/seriesAction';
-import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import SelectedMoodleNumbers from "./SelectedMoodleNumbers";
-import IAMGroupAutoSuggest from "./IAMGroupAutoSuggest";
-import IAMGroupList from "./IamGroupList";
-import PersonListAutoSuggest from "./PersonListAutoSuggest";
-import PersonList from "./PersonList";
-import * as constants from "../utils/constants";
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import SelectedMoodleNumbers from './SelectedMoodleNumbers';
+import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
+import IAMGroupList from './IamGroupList';
+import PersonListAutoSuggest from './PersonListAutoSuggest';
+import PersonList from './PersonList';
+import * as constants from '../utils/constants';
 
 const SerieDetailsForm = (props) => {
 
@@ -71,24 +71,24 @@ const SerieDetailsForm = (props) => {
         if (moodleAclInstructor && moodleAclLearner && moodleAclInstructor.length > 0 && moodleAclLearner.length > 0) {
             visibility.push(constants.STATUS_MOODLE);
         }
-        series.visibility =  [...new Set(visibility)]
+        series.visibility =  [...new Set(visibility)];
     };
 
     const updateSeriesDetails = async () => {
         const seriesId = inputs.identifier;
-        const updatedSeries = {...inputs}; // values from the form
+        const updatedSeries = { ...inputs }; // values from the form
         generateAclList(updatedSeries, props.moodleNumbers);
         generateContributorsList(updatedSeries, props.iamGroups, props.persons);
         setVisibilityForSeries(updatedSeries);
         // call unitube-proxy api
         try {
             await actionUpdateSerieDetails(seriesId, updatedSeries);
-            setSuccessMessage('JUST A PLACE HOLDER TEXT');
+            setSuccessMessage(translate('updated_series_details'));
             // update the serieslist to redux state
             props.onSerieDetailsEdit(props.series.map(
                 series => series.identifier !== seriesId ? series : updatedSeries));
         } catch (err) {
-            setErrorMessage('JUST A PLACE HOLDER TEXT');
+            setErrorMessage(translate('failed_to_update_series_details'));
         }
     };
 
@@ -96,7 +96,7 @@ const SerieDetailsForm = (props) => {
 
         const disableInboxSeries = () => {
             if(props.serie.title){
-                if(props.serie.title===("inbox " + props.user.eppn)) {
+                if(props.serie.title===('inbox ' + props.user.eppn)) {
                     setDisableFormIfInbox(true);
                     setHideFormIfInbox(true);
                 }else{
@@ -172,14 +172,14 @@ const SerieDetailsForm = (props) => {
     const copyTextToClipboard = (event) => {
         event.preventDefault();
         event.persist();
-        let copySeriesId = document.getElementById("seriesId").innerText;
+        let copySeriesId = document.getElementById('seriesId').innerText;
         let seriesId = document.createElement('input');
         document.body.appendChild(seriesId);
         seriesId.value = copySeriesId;
         seriesId.select();
         //for mobile devices
         seriesId.setSelectionRange(0,99999);
-        document.execCommand("copy");
+        document.execCommand('copy');
         seriesId.remove();
         setSuccessMessage(translate('copied_to_clipboard'));
     };
@@ -217,7 +217,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
                             <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
                             <div className="col-sm-3">
-                                <IconContext.Provider value={{ size: "1.5em"}}>
+                                <IconContext.Provider value={{ size: '1.5em' }}>
                                     <div>
                                         <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                     </div>
@@ -229,7 +229,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
                                 <input type="text" name="title" className="form-control" value={ inputs.title }
-                                       onChange={ handleInputChange } placeholder="Title" maxLength="150" disabled={disableFormIfInbox} required/>
+                                    onChange={ handleInputChange } placeholder="Title" maxLength="150" disabled={disableFormIfInbox} required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger
@@ -245,8 +245,8 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
                                 <textarea name="description" className="form-control" value={ inputs.description }
-                                          onChange={ handleInputChange } placeholder="Description" maxLength="1500" disabled={disableFormIfInbox}
-                                          required/>
+                                    onChange={ handleInputChange } placeholder="Description" maxLength="1500" disabled={disableFormIfInbox}
+                                    required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger overlay={ <Tooltip
@@ -265,9 +265,9 @@ const SerieDetailsForm = (props) => {
                                 <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
                                 <div className="col-sm-1 info-box-margin">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
                                     </OverlayTrigger>
                                 </div>
                             </div>
