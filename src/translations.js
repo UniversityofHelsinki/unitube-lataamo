@@ -75,6 +75,10 @@ const translationsObject = {
         series_publication_status: 'Series publication',
         video_info: 'Video info',
         events_link_series: '???events_link_series???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
         error_on_video_download: 'Error on video download',
         download_video: 'Download video file'
     },
@@ -153,6 +157,10 @@ const translationsObject = {
         video: 'Video',
         video_info: 'Videotiedosto',
         events_link_series: 'Video liitettävä sarjaan jotta julkaistuu',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
         error_on_video_download: 'Virhe videon latauksessa',
         download_video: 'Lataa videotiedosto'
     },
@@ -230,6 +238,10 @@ const translationsObject = {
         video: '???video???',
         video_info: '???video_info???',
         events_link_series: '???events_link_series???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
         error_on_video_download: '???error_on_video_download???',
         download_video: '???download_video???'
     }

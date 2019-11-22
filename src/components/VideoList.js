@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { fetchEvent, fetchEvents } from '../actions/eventsAction';
+import {fetchSeriesDropDownList} from '../actions/seriesAction';
 import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
 import {Button} from 'react-bootstrap';
-import {fetchEvent, fetchEvents} from '../actions/eventsAction';
-import {fetchSeries} from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import {Translate} from 'react-redux-i18n';
-import {Link} from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
+import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
@@ -266,7 +266,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
-        dispatch(fetchSeries());
+        dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),
 });
