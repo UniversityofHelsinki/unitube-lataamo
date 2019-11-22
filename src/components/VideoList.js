@@ -38,6 +38,7 @@ const VideoList = (props) => {
             event.persist();
             event.preventDefault();
             event.target.downloadButton.disabled = true;
+            event.target.downloadButton.setAttribute('disabled', true);
             event.target.downloadIndicator.removeAttribute("hidden");
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
@@ -47,6 +48,7 @@ const VideoList = (props) => {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
             event.target.downloadButton.disabled = false;
+            event.target.downloadButton.removeAttribute('disabled');
             event.target.downloadIndicator.setAttribute("hidden", true);
         }
     };
