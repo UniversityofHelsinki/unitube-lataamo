@@ -143,7 +143,7 @@ const VideoList = (props) => {
         sort: true
     }, {
         dataField: 'media',
-        text: '',
+        text: translate('download_video'),
         formatter: mediaFormatter,
     }];
 

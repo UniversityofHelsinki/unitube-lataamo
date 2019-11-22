@@ -75,7 +75,8 @@ const translations = {
         processing_state: 'Processing state',
         publication_status: 'Publication Status',
         created: 'Created',
-        series_title: 'Series'
+        series_title: 'Series',
+        download_video: 'Download video'
     },
     fi: {
         video_id: 'videon id',
@@ -87,7 +88,8 @@ const translations = {
         processing_state: 'Tallennuksen tila',
         publication_status: 'Tallenteen julkisuus',
         created: 'Luotu',
-        series_title: 'Sarja'
+        series_title: 'Sarja',
+        download_video: 'Lataa video'
     },
     sv: {
         video_id: 'video id',
@@ -99,7 +101,8 @@ const translations = {
         processing_state: 'processing_state',
         publication_status: 'publicitet av inspelningen',
         created: 'Skapad',
-        series_title: 'Serie'
+        series_title: 'Serie',
+        download_video: 'Ladda ner videon'
     }
 };
 
