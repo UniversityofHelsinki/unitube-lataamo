@@ -63,6 +63,12 @@ const VideoDetailsForm = (props) => {
         });
     };
 
+    const replaceCharacter = (replaceStr) => {
+        if (replaceStr) {
+            return replaceStr.replace(/-/g, "_");
+        }
+    }
+
     const inboxSeries = (seriesName) => {
         if (seriesName && seriesName.toLowerCase().includes('inbox')) {
             return (
@@ -164,6 +170,12 @@ const VideoDetailsForm = (props) => {
                                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                                             </span>
                                         </OverlayTrigger>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <div className="col-sm-2"></div>
+                                    <div className="col-sm-2">
+                                        {translate(replaceCharacter(inputs.license))}
                                     </div>
                                 </div>
                             </div>
