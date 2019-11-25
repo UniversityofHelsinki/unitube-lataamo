@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
 import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
-import { fetchEvent, fetchEvents } from '../actions/eventsAction';
 import {Button} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
