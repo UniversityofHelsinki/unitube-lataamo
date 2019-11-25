@@ -76,7 +76,13 @@ const translationsObject = {
         series_publication_status: 'Series publication',
         video_info: 'Video info',
         events_link_series: '???events_link_series???',
-        video_id_copied_to_clipboard: '???video_id_copied_to_clipboard???'
+        video_id_copied_to_clipboard: '???video_id_copied_to_clipboard???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: 'Error on video download',
+        download_video: 'Download video file'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -154,7 +160,13 @@ const translationsObject = {
         video: 'Video',
         video_info: 'Videotiedosto',
         events_link_series: 'Video liitettävä sarjaan jotta julkaistuu',
-        video_id_copied_to_clipboard: 'Videon tunniste kopioitu leikepöydälle'
+        video_id_copied_to_clipboard: 'Videon tunniste kopioitu leikepöydälle',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: 'Virhe videon latauksessa',
+        download_video: 'Lataa videotiedosto'
     },
 
     sv: {
@@ -231,7 +243,13 @@ const translationsObject = {
         video: '???video???',
         video_info: '???video_info???',
         events_link_series: '???events_link_series???',
-        video_id_copied_to_clipboard: '???video_id_copied_to_clipboard???'
+        video_id_copied_to_clipboard: '???video_id_copied_to_clipboard???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: '???error_on_video_download???',
+        download_video: '???download_video???'
     }
 };
 

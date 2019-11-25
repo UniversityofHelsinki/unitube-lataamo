@@ -23,12 +23,12 @@ const VideoDetailsForm = (props) => {
         // call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
-            setSuccessMessage('JUST A PLACE HOLDER TEXT');
+            setSuccessMessage(translate('updated_event_details'));
             // update the eventlist to redux state
             props.onEventDetailsEdit();
             setHideIfEventUpdate(true);
         } catch (err) {
-            setErrorMessage('JUST A PLACE HOLDER TEXT');
+            setErrorMessage(translate('failed_to_update_event_details'));
         }
     };
 
@@ -186,7 +186,7 @@ const VideoDetailsForm = (props) => {
 
 const mapStateToProps = state => ({
     video : state.er.event,
-    series : state.ser.series,
+    series : state.ser.seriesDropDown,
     videos : state.er.videos,
     i18n: state.i18n
 });
