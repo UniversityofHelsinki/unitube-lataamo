@@ -53,6 +53,13 @@ const Footer = () => {
                                         </a>
                                     </strong>
                                 </p>
+                                <p>
+                                    <strong>
+                                        <a href="https://flamma.helsinki.fi/fi/group/yliopisto/yhteystiedot" >
+                                            <Translate value="hy_terms_of_use" />
+                                        </a>
+                                    </strong>
+                                </p>
                             </div>
                         </div>
                     </div>
