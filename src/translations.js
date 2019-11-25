@@ -75,7 +75,8 @@ const translationsObject = {
         events_count: 'Videos count',
         series_publication_status: 'Series publication',
         video_info: 'Video info',
-        events_link_series: '???events_link_series???'
+        events_link_series: '???events_link_series???',
+        video_id_copied_to_clipboard: '???video_id_copied_to_clipboard???'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -152,7 +153,8 @@ const translationsObject = {
         video_file_title: 'Videon tallennus',
         video: 'Video',
         video_info: 'Videotiedosto',
-        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu'
+        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu',
+        video_id_copied_to_clipboard: 'Videon tunniste kopioitu leikepöydälle'
     },
 
     sv: {
@@ -228,7 +230,8 @@ const translationsObject = {
         video_file_title: '???video_file_title???',
         video: '???video???',
         video_info: '???video_info???',
-        events_link_series: '???events_link_series???'
+        events_link_series: '???events_link_series???',
+        video_id_copied_to_clipboard: '???video_id_copied_to_clipboard???'
     }
 };
 

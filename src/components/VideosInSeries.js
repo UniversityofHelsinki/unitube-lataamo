@@ -1,9 +1,9 @@
-import React , {useEffect, useState} from 'react';
+import React , { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {FiCopy} from "react-icons/fi";
+import { FiCopy } from 'react-icons/fi';
 import { Badge } from 'react-bootstrap';
-import { IconContext } from "react-icons";
-import Alert from "react-bootstrap/Alert";
+import { IconContext } from 'react-icons';
+import Alert from 'react-bootstrap/Alert';
 
 const VideoInSeries = (props) => {
 
@@ -33,9 +33,9 @@ const VideoInSeries = (props) => {
         eventId.select();
         //for mobile devices
         eventId.setSelectionRange(0,99999);
-        document.execCommand("copy");
+        document.execCommand('copy');
         eventId.remove();
-        setSuccessMessage(translate('copied_to_clipboard'));
+        setSuccessMessage(translate('video_id_copied_to_clipboard'));
     };
 
     const drawSelections = () => {
@@ -50,10 +50,10 @@ const VideoInSeries = (props) => {
                             { selection.title }
                         </Badge>
                         <div className="col-sm-3">
-                            <IconContext.Provider value={{ size: "1.5em"}}>
+                            <IconContext.Provider value={{ size: '1.5em' }}>
                                 <div>
                                     <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover}
-                                            onClick={(event) => { copyTextToClipboard(selection.id, event)}} >{translate('copy_to_clipboard')}
+                                        onClick={(event) => { copyTextToClipboard(selection.id, event);}} >{translate('copy_to_clipboard')}
                                     </FiCopy>
                                 </div>
                             </IconContext.Provider>
@@ -66,7 +66,7 @@ const VideoInSeries = (props) => {
 
     return (
         <div>
-             { successMessage !== null ?
+            { successMessage !== null ?
                 <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
                     <p>
                         { successMessage }
