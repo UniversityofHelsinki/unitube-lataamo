@@ -1,7 +1,14 @@
 import React from 'react';
 import { Translate } from 'react-redux-i18n';
+import { connect } from "react-redux";
 
-const Footer = () => {
+const Footer = (props) => {
+
+    const translations =  props.i18n.translations[props.i18n.locale];
+
+    const translate = (key) => {
+        return translations ? translations[key] : '';
+    };
 
     return (
         <footer className="footer">
@@ -55,7 +62,7 @@ const Footer = () => {
                                 </p>
                                 <p>
                                     <strong>
-                                        <a href="https://flamma.helsinki.fi/fi/group/yliopisto/yhteystiedot" >
+                                        <a href={translate('hy_terms_of_use_link')}>
                                             <Translate value="hy_terms_of_use" />
                                         </a>
                                     </strong>
@@ -77,4 +84,9 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+
+const mapStateToProps = state => ({
+    i18n: state.i18n
+});
+
+export default connect(mapStateToProps)(Footer);
