@@ -105,7 +105,7 @@ const VideoUploadForm = (props) => {
 
                 <div className="form-group row">
                     <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>Tallenna</button>
+                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('save') }</button>
                     </div>
                 </div>
             </form>
