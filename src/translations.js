@@ -6,6 +6,7 @@ const translationsObject = {
         video_title: 'Video title',
         video_description : 'Video Description',
         video_duration: 'Duration of video',
+        video_resolution: 'Video resolution',
         video_id : 'Video identifier',
         redirecting: 'Redirecting to login page...',
         series_id: 'series id',
@@ -71,14 +72,23 @@ const translationsObject = {
         video_file_title: 'Save video file',
         video: 'Video',
         events_count: 'Videos count',
-        series_publication_status: 'Series publication'
+        series_publication_status: 'Series publication',
+        video_info: 'Video info',
+        events_link_series: '???events_link_series???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: 'Error on video download',
+        download_video: 'Download video file'
     },
-fi: {
+    fi: {
         videos: 'Tallenteeni',
         series: 'Sarjani',
         search: 'Etsi',
         video_title: 'Tallenteen nimi',
         video_duration: 'Tallenteen kesto',
+        video_resolution: 'Tallenteen resoluutio',
         video_id : 'Tallenteen tunniste',
         redirecting: 'Ohjataan kirjautumissivulle...',
         series_id: 'Sarjan tunniste',
@@ -144,7 +154,15 @@ fi: {
         events_basic_info: 'Videon perustiedot',
         video_preview: 'Videon esikatselu',
         video_file_title: 'Videon tallennus',
-        video: 'Video'
+        video: 'Video',
+        video_info: 'Videotiedosto',
+        events_link_series: 'Video liitettävä sarjaan jotta julkaistuu',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: 'Virhe videon latauksessa',
+        download_video: 'Lataa videotiedosto'
     },
 
     sv: {
@@ -158,6 +176,7 @@ fi: {
         video_file: '???video_file???',
         video_title: '???video_title???',
         video_duration: '???video_duration???',
+        video_resolution: '???video_resolution???',
         video_description : '???video_description???',
         video_id : '???video_id???',
         redirecting: '???redirecting???',
@@ -216,7 +235,15 @@ fi: {
         events_basic_info: '???events_basic_info???',
         video_preview: '???video_preview???',
         video_file_title: '???video_file_title???',
-        video: '???video???'
+        video: '???video???',
+        video_info: '???video_info???',
+        events_link_series: '???events_link_series???',
+        updated_event_details: '???updated_event_details???',
+        failed_to_update_event_details: '???failed_to_update_event_details???',
+        updated_series_details: '???updated_series_details???',
+        failed_to_update_series_details: '???failed_to_update_series_details???',
+        error_on_video_download: '???error_on_video_download???',
+        download_video: '???download_video???'
     }
 };
 

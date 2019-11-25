@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchVideoUrl } from '../actions/videosAction';
+import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
 import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
-import { fetchSeries } from '../actions/seriesAction';
+import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
+import { fetchEvent, fetchEvents } from '../actions/eventsAction';
+import {Button} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -11,20 +13,47 @@ import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_INSTANTIATED } from '../utils/constants';
+import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from "../actions/routeAction";
+import {FiDownload} from "react-icons/fi";
+import {FaSpinner} from "react-icons/fa";
 
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
-
     const translations = props.i18n.translations[props.i18n.locale];
+    const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
 
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
+
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf("/") + 1);
+    };
+
+    const handleSubmit = async (event) => {
+        if (event) {
+            event.persist();
+            event.preventDefault();
+            event.target.downloadButton.disabled = true;
+            event.target.downloadButton.setAttribute('disabled', true);
+            event.target.downloadIndicator.removeAttribute("hidden");
+            const data = { 'mediaUrl':  event.target.mediaUrl.value };
+            const fileName = getFileName(event.target.mediaUrl.value);
+            try {
+                await downloadVideo(data, fileName);
+            } catch (error) {
+                setVideoDownloadErrorMessage(translate('error_on_video_download'));
+            }
+            event.target.downloadButton.disabled = false;
+            event.target.downloadButton.removeAttribute('disabled');
+            event.target.downloadIndicator.setAttribute("hidden", true);
+        }
+    };
+
 
     // the only translated property is the visibility value
     const translatedVideos = () => {
@@ -57,6 +86,22 @@ const VideoList = (props) => {
                 {
                     row.visibility.map((acl, index) =>
                         <p key={ index }> { acl } </p>
+                    )
+                }
+            </div>
+        );
+    };
+
+    const mediaFormatter = (cell, row) => {
+        return (
+            <div className="form-container">
+                {
+                    row.media.map((media, index) =>
+                        <form key={index} onSubmit={handleSubmit}>
+                            <input type="hidden" name="mediaUrl" value={media} />
+                            <Button name="downloadButton" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
+                        </form>
                     )
                 }
             </div>
@@ -98,6 +143,10 @@ const VideoList = (props) => {
         text: translate('publication_status'),
         formatter: statusFormatter,
         sort: true
+    }, {
+        dataField: 'media',
+        text: translate('download_video'),
+        formatter: mediaFormatter,
     }];
 
     const defaultSorted = [{
@@ -162,6 +211,15 @@ const VideoList = (props) => {
             </div>
             { !props.loading && !errorMessage ?
                 <div className="table-responsive">
+
+                    {videoDownloadErrorMessage ?
+                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                            <p>
+                                {videoDownloadErrorMessage}
+                            </p>
+                        </Alert> : ''
+                    }
+
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"
@@ -173,12 +231,11 @@ const VideoList = (props) => {
                                 <div>
                                     <br/>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                    <hr/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                    noDataIndication="Table is Empty" bordered={ false }
+                                                    rowStyle={ rowStyle }
+                                                    hover/>
                                 </div>
                             )
                         }
@@ -211,6 +268,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
         dispatch(fetchSeries(false));
+        dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),
     onDeselectRow : () => {
