@@ -16,7 +16,9 @@ import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
 import PersonListAutoSuggest from './PersonListAutoSuggest';
 import PersonList from './PersonList';
+import VideosInSeries from './VideosInSeries';
 import * as constants from '../utils/constants';
+
 
 const SerieDetailsForm = (props) => {
 
@@ -95,11 +97,11 @@ const SerieDetailsForm = (props) => {
     useEffect(() => {
 
         const disableInboxSeries = () => {
-            if(props.serie.title){
-                if(props.serie.title===('inbox ' + props.user.eppn)) {
+            if (props.serie.title) {
+                if (props.serie.title === ('inbox ' + props.user.eppn)) {
                     setDisableFormIfInbox(true);
                     setHideFormIfInbox(true);
-                }else{
+                } else {
                     setDisableFormIfInbox(false);
                     setHideFormIfInbox(false);
                 }
@@ -345,6 +347,19 @@ const SerieDetailsForm = (props) => {
                                 <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
                                 <div className="col-sm-7">
                                     <SelectedMoodleNumbers/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="series-bg">
+                            <div className="form-group row">
+                                <label className="series-title col-sm-11 col-form-label">{translate('series_included_videos')}</label>
+                            </div>
+                            <div className="series-bg">
+
+                                <div className="form-group row">
+                                    <div className="col-sm-7">
+                                        <VideosInSeries />
+                                    </div>
                                 </div>
                             </div>
                         </div>
