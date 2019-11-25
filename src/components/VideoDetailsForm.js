@@ -172,11 +172,11 @@ const VideoDetailsForm = (props) => {
                                         </OverlayTrigger>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <div className="col-sm-2"></div>
-                                <div className="col-sm-2">
-                                    {translate(replaceCharacter(inputs.license))}
+                                <div className="form-group row">
+                                    <div className="col-sm-2"></div>
+                                    <div className="col-sm-2">
+                                        {translate(replaceCharacter(inputs.license))}
+                                    </div>
                                 </div>
                             </div>
                             <div className="form-group row">
