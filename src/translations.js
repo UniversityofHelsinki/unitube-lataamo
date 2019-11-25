@@ -82,7 +82,15 @@ const translationsObject = {
         updated_series_details: '???updated_series_details???',
         failed_to_update_series_details: '???failed_to_update_series_details???',
         error_on_video_download: 'Error on video download',
-        download_video: 'Download video file'
+        download_video: 'Download video file',
+        ALLRIGHTS: '??ALLRIGHTS???',
+        CC_BY: '???CC-BY???',
+        CC_BY_SA: '???CC-BY-SA???',
+        CC_BY_ND: '???CC-BY-ND???',
+        CC_BY_NC: '???CC-BY-NC???',
+        CC_BY_NC_SA: '???CC-BY-NC-SA???',
+        CC_BY_NC_ND: '???CC-BY-NC-ND???',
+        CC0: '???CC0???'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -166,7 +174,15 @@ const translationsObject = {
         updated_series_details: '???updated_series_details???',
         failed_to_update_series_details: '???failed_to_update_series_details???',
         error_on_video_download: 'Virhe videon latauksessa',
-        download_video: 'Lataa videotiedosto'
+        download_video: 'Lataa videotiedosto',
+        ALLRIGHTS: '??ALLRIGHTS???',
+        CC_BY: '???CC-BY???',
+        CC_BY_SA: '???CC-BY-SA???',
+        CC_BY_ND: '???CC-BY-ND???',
+        CC_BY_NC: '???CC-BY-NC???',
+        CC_BY_NC_SA: '???CC-BY-NC-SA???',
+        CC_BY_NC_ND: '???CC-BY-NC-ND???',
+        CC0: '???CC0???'
     },
 
     sv: {
@@ -249,7 +265,15 @@ const translationsObject = {
         updated_series_details: '???updated_series_details???',
         failed_to_update_series_details: '???failed_to_update_series_details???',
         error_on_video_download: '???error_on_video_download???',
-        download_video: '???download_video???'
+        download_video: '???download_video???',
+        ALLRIGHTS: '??ALLRIGHTS???',
+        CC_BY: '???CC-BY???',
+        CC_BY_SA: '???CC-BY-SA???',
+        CC_BY_ND: '???CC-BY-ND???',
+        CC_BY_NC: '???CC-BY-NC???',
+        CC_BY_NC_SA: '???CC-BY-NC-SA???',
+        CC_BY_NC_ND: '???CC-BY-NC-ND???',
+        CC0: '???CC0???'
     }
 };
 
