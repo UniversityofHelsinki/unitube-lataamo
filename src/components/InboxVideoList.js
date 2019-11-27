@@ -114,7 +114,7 @@ const InboxVideoList = (props) => {
     };
 
     const dateFormatter = (cell) => {
-        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
+        return moment(cell).format('DD.MM.YYYY HH:mm:ss');
     };
 
     const columns = [{
