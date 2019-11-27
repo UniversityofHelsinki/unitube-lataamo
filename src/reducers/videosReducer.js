@@ -12,10 +12,10 @@ const videosReducer = (state = initialState, action) => {
             videoFiles: action.payload,
             selectedRowId: action.selectedRowId
         };
-        case 'DESELECT_ROW':
-            return {
-                selectedRowId: ''
-            };
+    case 'DESELECT_ROW':
+        return {
+            selectedRowId: ''
+        };
     default:
         return state;
     }

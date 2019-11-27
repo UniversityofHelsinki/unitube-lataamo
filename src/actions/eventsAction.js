@@ -71,7 +71,7 @@ export const fetchEvents = (refresh) => {
 
 // update the eventlist in state (called on video information update)
 export const updateEventList = (inbox) => {
-    if(inbox==="true"){
+    if(inbox==='true'){
         return async dispatch => {
             dispatch(fetchInboxEvents(false));
         };
@@ -102,15 +102,15 @@ export const actionUpdateEventDetails = async (id, updatedEvent) => {
 };
 
 export const deselectRow = () => {
-  return async dispatch => {
-      dispatch(apiDeselectRow());
-  }
+    return async dispatch => {
+        dispatch(apiDeselectRow());
+    };
 };
 
 export const deselectEvent = () => {
-  return async dispatch => {
-      dispatch(apiDeselectEvent());
-  }
+    return async dispatch => {
+        dispatch(apiDeselectEvent());
+    };
 };
 
 export const apiGetEventSuccessCall = (data) => ({
@@ -135,7 +135,7 @@ export const apiGetInboxEventsSuccessCall = data => ({
     loading: false
 });
 
-export const apiDeselectEvent = () =>({
+export const apiDeselectEvent = () => ({
     type: 'DESELECT_EVENT',
     loading: false
 });
