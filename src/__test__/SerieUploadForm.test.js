@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme/build';
+import {mount} from 'enzyme/build';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import getAction from './utils/getAction';
@@ -10,7 +10,7 @@ import SeriesUploadForm from '../components/SeriesUploadForm';
 import {
     addIamGroup,
     addMoodleNumberCall, addPerson,
-    apiFailureCall, removeIamGroup,
+    apiFailureCall, apiPostSeries403FailureCall, apiPostSeriesFailureCall, apiPostSeriesSuccessCall, removeIamGroup,
     removeMoodleNumberCall, removePerson
 } from '../actions/seriesAction';
 
@@ -66,6 +66,36 @@ describe('<SerieUploadForm />', () => {
     it('initially should fire route change action', async () => {
         expect(store.getActions().length).toBe(1);
         expect(await getAction(store, 'routeChange')).toEqual({"payload": undefined, "type": "routeChange"})
+    });
+
+    it('Should get success message when posting new series', async () =>{
+        expect(store.getActions().length).toBe(1);
+        store.dispatch(apiPostSeriesSuccessCall());
+        expect(await getAction(store, 'SUCCESS_API_POST_SERIES')).not.toBe(null);
+        expect(await getAction(store, 'SUCCESS_API_POST_SERIES')).toEqual({
+            'type': 'SUCCESS_API_POST_SERIES',
+            'payload': 'api_post_series_successful'
+        });
+    });
+
+    it('Should get failure message when posting new series', async () =>{
+        expect(store.getActions().length).toBe(1);
+        store.dispatch(apiPostSeriesFailureCall());
+        expect(await getAction(store, 'FAILURE_API_POST_SERIES')).not.toBe(null);
+        expect(await getAction(store, 'FAILURE_API_POST_SERIES')).toEqual({
+            'type': 'FAILURE_API_POST_SERIES',
+            'payload': 'api_post_series_failed'
+        });
+    });
+
+    it('Should get failure message when posting new series', async () =>{
+        expect(store.getActions().length).toBe(1);
+        store.dispatch(apiPostSeries403FailureCall());
+        expect(await getAction(store, 'STATUS_403_API_CALL')).not.toBe(null);
+        expect(await getAction(store, 'STATUS_403_API_CALL')).toEqual({
+            'type': 'STATUS_403_API_CALL',
+            'payload': 'api_post_series_failed_series_inbox_exists_already'
+        });
     });
 
     it('when user adds new moodle course fire action and return correct state', async () => {

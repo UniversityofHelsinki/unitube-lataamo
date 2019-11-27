@@ -20,7 +20,7 @@ const videos = [
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
         'series': 'sarja1',
-        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
+        'media':['http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4']
     },
     {
         'identifier': 'e4ff3ffe-e32a-42f2-8967-20b44cdc20e1',
@@ -30,7 +30,7 @@ const videos = [
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
         'series': 'sarja2',
-        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
+        'media':['http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4']
 
     },
     {
@@ -41,7 +41,7 @@ const videos = [
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
         'series': 'sarja3',
-        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
+        'media':['http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4']
     },
     {
         'identifier': 'eb68f711-04f9-4b58-b6c8-582a77d7b8a5',
@@ -51,7 +51,7 @@ const videos = [
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
         'series': 'sarja1',
-        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
+        'media':['http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4']
     },
     {
         'identifier': 'e269af0d-3c68-457d-90b5-08da5b531152',
@@ -61,7 +61,7 @@ const videos = [
         'visibility': [],
         'created': '2019-05-09T07:34:13Z',
         'series': 'sarja1',
-        "media":["http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4"]
+        'media':['http://opencast:8080/assets/assets/57f48f86-446e-41dd-a08f-a1c3889a625a/e732475c-e583-4abd-a94c-75605ab7f42a/5/fruits_on_table.mp4']
     }
 ];
 
@@ -113,8 +113,8 @@ describe('<VideoList />', () => {
     const initialState = {
         er: { event: {}, videos: videos, loading: false  },
         ser: { series: [] },
-        vr: { error: ''},
-        sr: { apiError: ''},
+        vr: { error: '' },
+        sr: { apiError: '' },
         i18n: {
             translations: translations,
             locale: 'fi'
@@ -138,7 +138,7 @@ describe('<VideoList />', () => {
     });
 
     it('initially should show loading bar', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(4);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).not.toBe(null);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).toEqual({
             'loading': true,
@@ -147,7 +147,7 @@ describe('<VideoList />', () => {
     });
 
     it('Should pass actions updated values ', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(4);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).not.toBe(null);
         store.dispatch(apiGetEventsSuccessCall(videos));
         expect(await getAction(store, 'SUCCESS_API_GET_EVENTS')).not.toBe(null);
@@ -159,7 +159,7 @@ describe('<VideoList />', () => {
     });
 
     it('Should return error values ', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(4);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({

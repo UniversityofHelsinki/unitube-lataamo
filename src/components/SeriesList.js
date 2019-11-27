@@ -15,7 +15,7 @@ import SerieDetailsForm from './SerieDetailsForm';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
-import routeAction from "../actions/routeAction";
+import routeAction from '../actions/routeAction';
 
 
 const { SearchBar } = Search;
@@ -195,7 +195,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries()),
+    onFetchSeries: () => dispatch(fetchSeries(true)),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },
