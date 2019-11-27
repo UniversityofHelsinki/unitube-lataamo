@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
-import { fetchEvent, fetchInboxEvents } from '../actions/eventsAction';
-import { fetchSeriesDropDownList } from '../actions/seriesAction';
+import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
+import { fetchEvent, fetchInboxEvents, deselectRow, deselectEvent } from '../actions/eventsAction';
+import { fetchSeriesDropDownList, fetchSeries } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -13,10 +13,10 @@ import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_INSTANTIATED } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
-import routeAction from "../actions/routeAction";
-import {Button} from "react-bootstrap";
-import {FiDownload} from "react-icons/fi";
-import {FaSpinner} from "react-icons/fa";
+import routeAction from '../actions/routeAction';
+import { Button } from 'react-bootstrap';
+import { FiDownload } from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -30,7 +30,7 @@ const InboxVideoList = (props) => {
     };
 
     const getFileName = (url) => {
-        return url.substring(url.lastIndexOf("/") + 1);
+        return url.substring(url.lastIndexOf('/') + 1);
     };
 
     const handleSubmit = async (event) => {
@@ -38,7 +38,7 @@ const InboxVideoList = (props) => {
             event.persist();
             event.preventDefault();
             event.target.downloadButton.disabled = true;
-            event.target.downloadIndicator.removeAttribute("hidden");
+            event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
@@ -47,7 +47,7 @@ const InboxVideoList = (props) => {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
             event.target.downloadButton.disabled = false;
-            event.target.downloadIndicator.setAttribute("hidden", true);
+            event.target.downloadIndicator.setAttribute('hidden', true);
         }
     };
 
@@ -93,6 +93,7 @@ const InboxVideoList = (props) => {
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
+        props.onDeselectRow();
         const interval = setInterval(() => {
             props.onFetchEvents(false);
         }, 60000);
@@ -226,15 +227,15 @@ const InboxVideoList = (props) => {
                                     <br/>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                    noDataIndication="Table is Empty" bordered={ false }
-                                                    rowStyle={ rowStyle }
-                                                    hover/>
+                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                        noDataIndication="Table is Empty" bordered={ false }
+                                        rowStyle={ rowStyle }
+                                        hover/>
                                 </div>
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm/>
+                    <VideoDetailsForm inbox="true" />
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
@@ -261,9 +262,14 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
+        dispatch(fetchSeries(false));
         dispatch(fetchSeriesDropDownList());
     },
-    onRouteChange: (route) =>  dispatch(routeAction(route))
+    onRouteChange: (route) =>  dispatch(routeAction(route)),
+    onDeselectRow : () => {
+        dispatch(deselectRow());
+        dispatch(deselectEvent());
+    }
 });
 
 

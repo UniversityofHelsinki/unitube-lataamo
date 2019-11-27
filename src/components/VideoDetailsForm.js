@@ -25,7 +25,7 @@ const VideoDetailsForm = (props) => {
             await actionUpdateEventDetails(eventId, updatedEvent);
             setSuccessMessage(translate('updated_event_details'));
             // update the eventlist to redux state
-            props.onEventDetailsEdit();
+            props.onEventDetailsEdit(props.inbox);
             setHideIfEventUpdate(true);
         } catch (err) {
             setErrorMessage(translate('failed_to_update_event_details'));
@@ -37,7 +37,7 @@ const VideoDetailsForm = (props) => {
         setSuccessMessage(null);
         setErrorMessage(null);
         setHideIfEventUpdate(false);
-    }, [props.video, props.series]);
+    }, [props.video, props.series, props.inbox]);
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -204,7 +204,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onEventDetailsEdit: () => dispatch(updateEventList())
+    onEventDetailsEdit: (inbox) => dispatch(updateEventList(inbox))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);

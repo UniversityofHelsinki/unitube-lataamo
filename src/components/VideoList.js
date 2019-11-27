@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchEvent, fetchEvents } from '../actions/eventsAction';
-import {fetchSeriesDropDownList} from '../actions/seriesAction';
-import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
-import {Button} from 'react-bootstrap';
+import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
+import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
+import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
+import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -12,11 +12,11 @@ import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
+import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
-import routeAction from "../actions/routeAction";
-import {FiDownload} from "react-icons/fi";
-import {FaSpinner} from "react-icons/fa";
+import routeAction from '../actions/routeAction';
+import { FiDownload } from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -30,7 +30,7 @@ const VideoList = (props) => {
     };
 
     const getFileName = (url) => {
-        return url.substring(url.lastIndexOf("/") + 1);
+        return url.substring(url.lastIndexOf('/') + 1);
     };
 
     const handleSubmit = async (event) => {
@@ -39,7 +39,7 @@ const VideoList = (props) => {
             event.preventDefault();
             event.target.downloadButton.disabled = true;
             event.target.downloadButton.setAttribute('disabled', true);
-            event.target.downloadIndicator.removeAttribute("hidden");
+            event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
@@ -49,7 +49,7 @@ const VideoList = (props) => {
             }
             event.target.downloadButton.disabled = false;
             event.target.downloadButton.removeAttribute('disabled');
-            event.target.downloadIndicator.setAttribute("hidden", true);
+            event.target.downloadIndicator.setAttribute('hidden', true);
         }
     };
 
@@ -71,6 +71,7 @@ const VideoList = (props) => {
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
+        props.onDeselectRow();
         const interval = setInterval(() => {
             props.onFetchEvents(false);
         }, 60000);
@@ -230,15 +231,15 @@ const VideoList = (props) => {
                                     <br/>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                    noDataIndication="Table is Empty" bordered={ false }
-                                                    rowStyle={ rowStyle }
-                                                    hover/>
+                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                        noDataIndication="Table is Empty" bordered={ false }
+                                        rowStyle={ rowStyle }
+                                        hover/>
                                 </div>
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm/>
+                    <VideoDetailsForm inbox="false"/>
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
@@ -261,13 +262,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchEvents: (refresh, inbox) => dispatch(fetchEvents(refresh, inbox)),
+    onFetchEvents: (refresh) => dispatch(fetchEvents(refresh)),
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
+        dispatch(fetchSeries(false));
         dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),
+    onDeselectRow : () => {
+        dispatch(deselectRow());
+        dispatch(deselectEvent());
+    }
 });
 
 
