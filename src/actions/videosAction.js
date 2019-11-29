@@ -79,15 +79,15 @@ export const actionUploadVideo = (newVideo) => {
             });
 
             if (response.status === 200) {
-                const responseMessage = await response.data.message;
-                dispatch(fileUploadSuccessActionMessage(responseMessage));
+                //const responseMessage = await response.data.message;
+                dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
             } else {
                 const responseMessage = await response.data.message;
                 dispatch(fileUploadFailedActionMessage(responseMessage));
                 dispatch(fileUploadProgressAction( 0));
             }
         } catch (error) {
-            dispatch(fileUploadFailedActionMessage(JSON.stringify(error)));
+            dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
             dispatch(fileUploadProgressAction( 0));
         }
     };

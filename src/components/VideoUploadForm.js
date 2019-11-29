@@ -67,13 +67,13 @@ const VideoUploadForm = (props) => {
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
             {props.fur.updateSuccessMessage !== null ?
                 <Alert variant="success" onClose={() => {props.onSuccessMessageClick(); props.onResetProgressbar();}} dismissible>
-                    <p>{props.fur.updateSuccessMessage}</p>
+                    <p>{translate(props.fur.updateSuccessMessage)}</p>
                 </Alert>
                 : (<></>)
             }
             {props.fur.updateFailedMessage !== null ?
                 <Alert variant="danger" onClose={() => props.onFailureMessageClick() } dismissible>
-                    <p>{props.fur.updateFailedMessage}</p>
+                    <p>{translate(props.fur.updateFailedMessage)}</p>
                 </Alert>
                 : (<></>)
             }
