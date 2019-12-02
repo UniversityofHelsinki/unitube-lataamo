@@ -2,6 +2,7 @@
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
 const PERSON_API_PATH = '/api/persons/';
+const SERIES_DROP_DOWN_PATH = '/api/getUserSeriesDropDownList';
 
 export const personQuery = async (query) => {
     try {
@@ -84,7 +85,25 @@ export const fetchSerie = (row) => {
     };
 };
 
-export const fetchSeries = () => {
+export const fetchSeriesDropDownList = () => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(`${VIDEO_SERVER_API}${SERIES_DROP_DOWN_PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetSeriesDropDownListSuccessCall(responseJSON));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
+            }
+        } catch(err) {
+            dispatch(apiFailureCall('Unable to fetch data'));
+        }
+    };
+};
+
+export const fetchSeries = (isSeriesList) => {
 
     // server from .env variable
     const PATH = '/api/userSeries';
@@ -95,7 +114,12 @@ export const fetchSeries = () => {
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
-                dispatch(apiGetSeriesSuccessCall(responseJSON));
+                if(isSeriesList){
+                    const seriesListWithoutInbox = responseJSON.filter(series => !series.title.toLowerCase().includes('inbox'));
+                    dispatch(apiGetSeriesSuccessCall(seriesListWithoutInbox));
+                }else{
+                    dispatch(apiGetSeriesSuccessCall(responseJSON));
+                }
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
@@ -235,6 +259,12 @@ export const clearPostSeriesSuccessCall = () => ({
 export const clearPostSeriesFailureCall = () => ({
     type: 'CLEAR_API_POST_SERIES_FAILURE_CALL',
     payload: null
+});
+
+export const apiGetSeriesDropDownListSuccessCall = data => ({
+    type: 'SUCCESS_API_GET_SERIES_DROP_DOWN_LIST',
+    payload: data,
+    loading: false
 });
 
 export const apiGetSeriesSuccessCall = data => ({
