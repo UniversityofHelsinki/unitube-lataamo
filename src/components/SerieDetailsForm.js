@@ -109,6 +109,7 @@ const SerieDetailsForm = (props) => {
         };
 
         disableInboxSeries();
+        console.log(props.serie);
         setInputs(props.serie);
         setSuccessMessage(null);
         setErrorMessage(null);

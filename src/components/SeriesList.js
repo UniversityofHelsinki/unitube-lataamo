@@ -103,22 +103,17 @@ const SeriesList = (props) => {
     }];
 
     const expandRow = {
-        parentClassName: 'parent-expand-foo',
         renderer: row => (
-            <SerieDetailsForm/>
+            <div>
+                <SerieDetailsForm/>
+            </div>
         ),
         onlyOneExpanding: true,
-        onExpand: (row, isExpand, rowIndex) => {
-            let trElements = document.getElementsByTagName("tr");
-            for (let row = 1; row < trElements.length; row++) {
-                if (row === rowIndex + 1 && isExpand) {
-                    trElements[row].style.backgroundColor = "#8cbdff";
-                } else {
-                    trElements[row].style.backgroundColor = "";
-                }
+        onExpand: (row, isExpand, rowIndex, e) => {
+            if (isExpand) {
+                props.onSelectSerie(row);
             }
-            props.onSelectSerie(row);
-        },
+        }
     };
 
     const options = {
@@ -167,7 +162,7 @@ const SeriesList = (props) => {
                                 <br/>
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <BootstrapTable { ...props.baseProps }  expandRow={ expandRow }
-                                    pagination={ paginationFactory(options) } />
+                                    pagination={ paginationFactory(options) } hover />
                             </div>
                         )
                     }
