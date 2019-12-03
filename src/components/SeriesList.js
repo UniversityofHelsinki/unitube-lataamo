@@ -103,12 +103,13 @@ const SeriesList = (props) => {
     }];
 
     const expandRow = {
+        parentClassName: 'parent-expand',
         renderer: row => (
             <SerieDetailsForm/>
         ),
         onlyOneExpanding: true,
         onExpand: (row, isExpand, rowIndex, e) => {
-            if (isExpand) {
+            if(isExpand) {
                 props.onSelectSerie(row);
             }
         }
