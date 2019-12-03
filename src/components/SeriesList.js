@@ -102,22 +102,23 @@ const SeriesList = (props) => {
         order: 'desc'
     }];
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        selected: [props.selectedRowId],
-        onSelect: (row) => {
+    const expandRow = {
+        parentClassName: 'parent-expand-foo',
+        renderer: row => (
+            <SerieDetailsForm/>
+        ),
+        onlyOneExpanding: true,
+        onExpand: (row, isExpand, rowIndex) => {
+            let trElements = document.getElementsByTagName("tr");
+            for (let row = 1; row < trElements.length; row++) {
+                if (row === rowIndex + 1 && isExpand) {
+                    trElements[row].style.backgroundColor = "#8cbdff";
+                } else {
+                    trElements[row].style.backgroundColor = "";
+                }
+            }
             props.onSelectSerie(row);
-        }
-    };
-
-    // eslint-disable-next-line no-unused-vars
-    const rowStyle = (row) => {
-        const style = {};
-        return style;
+        },
     };
 
     const options = {
@@ -165,9 +166,8 @@ const SeriesList = (props) => {
                             <div>
                                 <br/>
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                <hr/>
-                                <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                    pagination={ paginationFactory(options) } rowStyle={ rowStyle } hover/>
+                                <BootstrapTable { ...props.baseProps }  expandRow={ expandRow }
+                                    pagination={ paginationFactory(options) } />
                             </div>
                         )
                     }
@@ -180,7 +180,6 @@ const SeriesList = (props) => {
                     </Alert>
                     : <Loader loading={ translate('loading') }/>
             }
-            <SerieDetailsForm/>
         </div>
     );
 };
