@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import {
-    fetchSerie,
-    fetchSeries,
     clearPostSeriesSuccessMessage,
+    emptyIamGroupsCall,
     emptyMoodleNumber,
-    emptyIamGroupsCall
+    fetchSerie,
+    fetchSeries
 } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 import Loader from './Loader';
 import SerieDetailsForm from './SerieDetailsForm';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-redux-i18n';
+import {Link} from 'react-router-dom';
+import {Translate} from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 
@@ -104,9 +104,7 @@ const SeriesList = (props) => {
 
     const expandRow = {
         renderer: row => (
-            <div>
-                <SerieDetailsForm/>
-            </div>
+            <SerieDetailsForm/>
         ),
         onlyOneExpanding: true,
         onExpand: (row, isExpand, rowIndex, e) => {
@@ -162,7 +160,7 @@ const SeriesList = (props) => {
                                 <br/>
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <BootstrapTable { ...props.baseProps }  expandRow={ expandRow }
-                                    pagination={ paginationFactory(options) } hover />
+                                                pagination={ paginationFactory(options) } hover />
                             </div>
                         )
                     }
