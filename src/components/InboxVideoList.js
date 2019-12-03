@@ -175,16 +175,16 @@ const InboxVideoList = (props) => {
         return nonSelectableArray;
     };
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        nonSelectable: nonSelectableRows(),
-        selected: [props.selectedRowId],
-        onSelect: (row) => {
-            props.onSelectEvent(row);
+    const expandRow = {
+        parentClassName: 'parent-expand',
+        renderer: row => (
+            <VideoDetailsForm inbox="true"/>
+        ),
+        onlyOneExpanding: true,
+        onExpand: (row, isExpand, rowIndex, e) => {
+            if(isExpand) {
+                props.onSelectEvent(row);
+            }
         }
     };
 
@@ -226,7 +226,7 @@ const InboxVideoList = (props) => {
                                 <div>
                                     <br/>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                    <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
+                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                         noDataIndication="Table is Empty" bordered={ false }
                                         rowStyle={ rowStyle }
@@ -235,7 +235,6 @@ const InboxVideoList = (props) => {
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm inbox="true" />
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
