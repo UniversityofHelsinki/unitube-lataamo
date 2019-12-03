@@ -96,7 +96,10 @@ const translationsObject = {
         CC_BY_NC_SA: '???CC-BY-NC-SA???',
         CC_BY_NC_ND: '???CC-BY-NC-ND???',
         CC0: '???CC0???',
-        upload: 'Upload'
+        upload: 'Upload',
+        delete_event: 'Delete video',
+        failed_to_delete_event: 'Failed to delete event',
+        succeeded_to_delete_event: 'Video was successfully deleted. You can still restore it though etc'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -194,7 +197,10 @@ const translationsObject = {
         CC_BY_NC_SA: '???CC-BY-NC-SA???',
         CC_BY_NC_ND: '???CC-BY-NC-ND???',
         CC0: '???CC0???',
-        upload: 'Lataa'
+        upload: 'Lataa',
+        delete_event: 'Poista video',
+        failed_to_delete_event: 'Videon poistaminen epäonnistui',
+        succeeded_to_delete_event: 'Videon poistaminen onnistui. Voit vielä palauttaa sen jne'
     },
 
     sv: {
@@ -291,7 +297,10 @@ const translationsObject = {
         CC_BY_NC_SA: '???CC-BY-NC-SA???',
         CC_BY_NC_ND: '???CC-BY-NC-ND???',
         CC0: '???CC0???',
-        upload: '???upload???'
+        upload: '???upload???',
+        delete_event: '???delete_event???',
+        failed_to_delete_event: '???failed_to_delete_event???',
+        succeeded_to_delete_event: '???succeeded_to_delete_event???'
     }
 };
 

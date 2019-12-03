@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import { actionUpdateEventDetails, updateEventList, actionMoveEventToTrashSeries } from '../actions/eventsAction';
 import Video from './Video';
 
 const VideoDetailsForm = (props) => {
@@ -16,6 +16,19 @@ const VideoDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [hideIfEventUpdate, setHideIfEventUpdate] = useState(false);
+
+    const moveEventToTrashSeries = async() => {
+        const eventId = inputs.identifier;
+        const deletedEvent = { ...inputs }; // values from the form
+        try {
+            await actionMoveEventToTrashSeries(eventId, deletedEvent);
+            setSuccessMessage(translate('succeeded_to_delete_event'));
+            props.onEventDetailsEdit(props.inbox);
+            setHideIfEventUpdate(true);
+        } catch (err) {
+            setErrorMessage(translate('failed_to_delete_event'));
+        }
+    };
 
     const updateEventDetails = async() => {
         const eventId = inputs.identifier;
@@ -38,6 +51,13 @@ const VideoDetailsForm = (props) => {
         setErrorMessage(null);
         setHideIfEventUpdate(false);
     }, [props.video, props.series, props.inbox]);
+
+    const deleteEvent = async (event) => {
+        if (event) {
+            event.preventDefault();
+            await moveEventToTrashSeries();
+        }
+    };
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -180,8 +200,11 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <div className="col-sm-2">
-                                    <button type="submit" className="btn btn-primary">{translate('save')}</button>
+                                <div className="col-sm-11">
+                                    <button type="button" className="btn delete-button button-position" onClick={deleteEvent}>{translate('delete_event')}</button>
+                                </div>
+                                <div className="col-sm-1">
+                                    <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
                                 </div>
                             </div>
                         </form>

@@ -4,6 +4,7 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
+const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -89,6 +90,26 @@ export const actionUpdateEventDetails = async (id, updatedEvent) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(updatedEvent)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENT_PATH}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(deletedEvent)
         });
         if(response.status === 200) {
             let responseJSON = await response.json();

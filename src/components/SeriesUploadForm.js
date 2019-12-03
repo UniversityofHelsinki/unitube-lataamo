@@ -262,8 +262,8 @@ const SeriesUploadForm = (props) => {
                 </div>
 
                 <div className="form-group row">
-                    <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary">{translate('save')}</button>
+                    <div className="col-sm-12">
+                        <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
                     </div>
                 </div>
             </form>
