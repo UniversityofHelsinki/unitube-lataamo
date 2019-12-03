@@ -95,7 +95,10 @@ const translationsObject = {
         CC_BY_NC: '???CC-BY-NC???',
         CC_BY_NC_SA: '???CC-BY-NC-SA???',
         CC_BY_NC_ND: '???CC-BY-NC-ND???',
-        CC0: '???CC0???'
+        CC0: '???CC0???',
+        download_in_process: 'Wait...',
+        percentage_complete: '% downloaded.',
+        upload: 'Upload',
     },
     fi: {
         videos: 'Tallenteeni',
@@ -192,7 +195,10 @@ const translationsObject = {
         CC_BY_NC: '???CC-BY-NC???',
         CC_BY_NC_SA: '???CC-BY-NC-SA???',
         CC_BY_NC_ND: '???CC-BY-NC-ND???',
-        CC0: '???CC0???'
+        CC0: '???CC0???',
+        download_in_process: 'Odota...',
+        percentage_complete: '% ladattu.',
+        upload: 'Lataa'
     },
 
     sv: {
@@ -288,7 +294,10 @@ const translationsObject = {
         CC_BY_NC: '???CC-BY-NC???',
         CC_BY_NC_SA: '???CC-BY-NC-SA???',
         CC_BY_NC_ND: '???CC-BY-NC-ND???',
-        CC0: '???CC0???'
+        CC0: '???CC0???',
+        download_in_process: '???download_in_process???',
+        percentage_complete: '???percentage_complete???',
+        upload: '???upload???'
     }
 };
 
