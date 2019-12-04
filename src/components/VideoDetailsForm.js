@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
 import Video from './Video';
+import constants from '../utils/constants';
 
 const VideoDetailsForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -15,23 +16,52 @@ const VideoDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [disabledInputs, setDisabledInputs] = useState(false);
+    const [isBeingEdited, setIsBeingEdited] = useState(false);
+
+    const getUpdatedInboxVideos = (eventId, updatedEvent) => {
+        console.log("INBOX VIDEOS");
+        if (props.inboxVideos && props.inboxVideos.length > 0) {
+            return props.inboxVideos.map(event => event.identifier !== eventId ? event : {
+                ...event,
+                title: updatedEvent.title
+            });
+        }
+    };
+
+    const getUpdatedVideos = (eventId, updatedEvent) => {
+        console.log("ALL VIDEOS");
+        if (props.videos && props.videos.length > 0) {
+            return props.videos.map(event => event.identifier !== eventId ? event : {
+                ...event,
+                title: updatedEvent.title
+            });
+        }
+    };
 
     const updateEventDetails = async() => {
+        props.video.processing_state = constants.VIDEO_PROCESSING_INSTANTIATED;
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
-        // call unitube-proxy api
+
+// call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
             setSuccessMessage(translate('updated_event_details'));
             // update the eventlist to redux state
-            props.onEventDetailsEdit(props.inbox);
+            const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
+            console.log(updatedVideos);
+            props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setErrorMessage(translate('failed_to_update_event_details'));
         }
     };
 
     useEffect(() => {
-        setInputs(props.video);
+        let isDisabled  = props.video.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
+        setDisabledInputs(isDisabled);
+        if (!isBeingEdited) {
+            setInputs(props.video);
+        }
         setSuccessMessage(null);
         setErrorMessage(null);
     }, [props.video, props.series, props.inbox]);
@@ -46,6 +76,7 @@ const VideoDetailsForm = (props) => {
 
     const handleInputChange = (event) => {
         event.persist();
+        setIsBeingEdited(true);
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
@@ -65,7 +96,7 @@ const VideoDetailsForm = (props) => {
         if (replaceStr) {
             return replaceStr.replace(/-/g, "_");
         }
-    }
+    };
 
     const inboxSeries = (seriesName) => {
         if (seriesName && seriesName.toLowerCase().includes('inbox')) {
@@ -196,11 +227,12 @@ const mapStateToProps = state => ({
     video : state.er.event,
     series : state.ser.seriesDropDown,
     videos : state.er.videos,
+    inboxVideos : state.er.inboxVideos,
     i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
-    onEventDetailsEdit: (inbox) => dispatch(updateEventList(inbox))
+    onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);

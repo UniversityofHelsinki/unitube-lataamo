@@ -64,18 +64,23 @@ const VideoList = (props) => {
         });
     };
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            props.onFetchEvents(false);
+            if (props.selectedRowId) {
+                props.onSelectEvent({identifier: props.selectedRowId});
+            }
+        }, 10000);
+        return () => clearInterval(interval);
+    }, [props.selectedRowId]);
+
 
     useEffect(() => {
-        props.onRouteChange(props.route);
         props.onFetchEvents(true);
+        props.onRouteChange(props.route);
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
-        props.onDeselectRow();
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-        }, 60000);
-        return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
