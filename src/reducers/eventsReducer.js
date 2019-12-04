@@ -2,6 +2,7 @@
 const initialState = {
     videos: [],
     inboxVideos: [],
+    trashVideos: [],
     event: {
         title : '',
         description: ''
@@ -20,6 +21,12 @@ const eventsReducer = (state = initialState, action) => {
         return {
             ...state,
             inboxVideos: action.payload,
+            loading: action.loading
+        };
+    case 'SUCCESS_API_GET_TRASH_EVENTS':
+        return {
+            ...state,
+            trashVideos: action.payload,
             loading: action.loading
         };
     case 'GET_EVENTS_REQUEST':

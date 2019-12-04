@@ -99,7 +99,11 @@ const translationsObject = {
         upload: 'Upload',
         delete_event: 'Delete video',
         failed_to_delete_event: 'Failed to delete event',
-        succeeded_to_delete_event: 'Video was successfully deleted. You can still restore it though etc'
+        succeeded_to_delete_event: 'Video was successfully deleted. You can still restore it though etc',
+        trash: 'Deleted videos',
+        trash_info: 'Here are deleted videos. You can still return them',
+        empty_video_list: 'You have no videos',
+        empty_series_list: 'You have no series'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -200,7 +204,11 @@ const translationsObject = {
         upload: 'Lataa',
         delete_event: 'Poista video',
         failed_to_delete_event: 'Videon poistaminen epäonnistui',
-        succeeded_to_delete_event: 'Videon poistaminen onnistui. Voit vielä palauttaa sen jne'
+        succeeded_to_delete_event: 'Videon poistaminen onnistui. Voit vielä palauttaa sen jne',
+        trash: 'Poistamasi videot',
+        trash_info: 'Täällä ovat videot jotka olet poistanut. Voit vielä palauttaa',
+        empty_video_list: 'Sinulla ei ole videoita',
+        empty_series_list: 'Sinulla ei ole sarjoja'
     },
 
     sv: {
@@ -300,7 +308,11 @@ const translationsObject = {
         upload: '???upload???',
         delete_event: '???delete_event???',
         failed_to_delete_event: '???failed_to_delete_event???',
-        succeeded_to_delete_event: '???succeeded_to_delete_event???'
+        succeeded_to_delete_event: '???succeeded_to_delete_event???',
+        trash: '???trash???',
+        trash_info: '???trash_info???',
+        empty_video_list: '???empty_video_list???',
+        empty_series_list: '???empty_series_list???'
     }
 };
 

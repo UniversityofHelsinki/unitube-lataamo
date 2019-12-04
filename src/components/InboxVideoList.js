@@ -228,7 +228,7 @@ const InboxVideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
+                                        noDataIndication={ translate('empty_video_list') } bordered={ false }
                                         rowStyle={ rowStyle }
                                         hover/>
                                 </div>

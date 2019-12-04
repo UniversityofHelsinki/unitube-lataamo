@@ -167,7 +167,7 @@ const SeriesList = (props) => {
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
                                 <hr/>
                                 <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                    pagination={ paginationFactory(options) } rowStyle={ rowStyle } hover/>
+                                    pagination={ paginationFactory(options) } noDataIndication={ translate('empty_series_list') } rowStyle={ rowStyle } hover/>
                             </div>
                         )
                     }
