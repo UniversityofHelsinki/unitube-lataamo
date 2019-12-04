@@ -5,7 +5,6 @@ import {actionUpdateEventDetails, updateEventList} from '../actions/eventsAction
 import Video from './Video';
 
 const VideoDetailsForm = (props) => {
-
     const translations =  props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
@@ -15,6 +14,7 @@ const VideoDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.video);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [disabledInputs, setDisabledInputs] = useState(false);
 
     const updateEventDetails = async() => {
         const eventId = inputs.identifier;
@@ -39,6 +39,7 @@ const VideoDetailsForm = (props) => {
     const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
+            setDisabledInputs(true);
             await updateEventDetails();
         }
     };
@@ -112,7 +113,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
-                                    <select required className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
+                                    <select disabled={disabledInputs} required className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
                                         {drawSelectionValues()}
                                     </select>
                                 </div>
@@ -127,7 +128,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
-                                    <input type="text" name="title" className="form-control" onChange={handleInputChange}
+                                    <input disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
                                            placeholder="Title" value={inputs.title} maxLength="150" required/>
                                 </div>
                                 <div className="col-sm-2">
@@ -141,7 +142,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
-                                        <textarea name="description" className="form-control" value={inputs.description}
+                                        <textarea disabled={disabledInputs} name="description" className="form-control" value={inputs.description}
                                                   onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
@@ -155,7 +156,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
-                                    <select required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
+                                    <select disabled={disabledInputs} required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
                                         <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                         {drawLicenseSelectionValues()}
                                     </select>
@@ -177,7 +178,7 @@ const VideoDetailsForm = (props) => {
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-2">
-                                <button type="submit" className="btn btn-primary">{translate('save')}</button>
+                                <button disabled={disabledInputs} type="submit" className="btn btn-primary">{translate('save')}</button>
                             </div>
                         </div>
                     </form>
