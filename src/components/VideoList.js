@@ -179,7 +179,8 @@ const VideoList = (props) => {
             if(isExpand) {
                 props.onSelectEvent(row);
             }
-        }
+        },
+        nonExpandable: nonSelectableRows()
     };
 
 
