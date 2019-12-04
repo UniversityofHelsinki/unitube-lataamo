@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
 import Video from './Video';
 
 const VideoDetailsForm = (props) => {
@@ -15,7 +15,6 @@ const VideoDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.video);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-    const [hideIfEventUpdate, setHideIfEventUpdate] = useState(false);
 
     const updateEventDetails = async() => {
         const eventId = inputs.identifier;
@@ -26,7 +25,6 @@ const VideoDetailsForm = (props) => {
             setSuccessMessage(translate('updated_event_details'));
             // update the eventlist to redux state
             props.onEventDetailsEdit(props.inbox);
-            setHideIfEventUpdate(true);
         } catch (err) {
             setErrorMessage(translate('failed_to_update_event_details'));
         }
@@ -36,7 +34,6 @@ const VideoDetailsForm = (props) => {
         setInputs(props.video);
         setSuccessMessage(null);
         setErrorMessage(null);
-        setHideIfEventUpdate(false);
     }, [props.video, props.series, props.inbox]);
 
     const handleSubmit = async (event) => {
@@ -100,97 +97,95 @@ const VideoDetailsForm = (props) => {
                 </Alert>
                 : (<></>)
             }
-            <div hidden={hideIfEventUpdate}>
-                <Video/>
-                {props.video && props.video.identifier !== undefined
-                    ?
-                    <div>
-                        <form onSubmit={handleSubmit} className="was-validated">
-                            <div className="events-bg">
-                                <div className="form-group row">
-                                    <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
-                                </div>
+            <Video/>
+            {props.video && props.video.identifier !== undefined
+                ?
+                <div>
+                    <form onSubmit={handleSubmit} className="was-validated">
+                        <div className="events-bg">
+                            <div className="form-group row">
+                                <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
+                            </div>
 
-                                {inboxSeries(props.video.series.title)}
+                            {inboxSeries(props.video.series.title)}
 
-                                <div className="form-group row">
-                                    <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
-                                    <div className="col-sm-8">
-                                        <select required className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
-                                            {drawSelectionValues()}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
+                            <div className="form-group row">
+                                <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
+                                <div className="col-sm-8">
+                                    <select required className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
+                                        {drawSelectionValues()}
+                                    </select>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
                                             <span className="d-inline-block">
                                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                                             </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
-                                    <div className="col-sm-8">
-                                        <input type="text" name="title" className="form-control" onChange={handleInputChange}
-                                            placeholder="Title" value={inputs.title} maxLength="150" required/>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
-                                    <div className="col-sm-8">
-                                        <textarea name="description" className="form-control" value={inputs.description}
-                                            onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
-                                    <div className="col-sm-8">
-                                        <select required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
-                                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
-                                            {drawLicenseSelectionValues()}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <div className="col-sm-2"></div>
-                                    <div className="col-sm-2">
-                                        {translate(replaceCharacter(inputs.license))}
-                                    </div>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
                             <div className="form-group row">
+                                <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
+                                <div className="col-sm-8">
+                                    <input type="text" name="title" className="form-control" onChange={handleInputChange}
+                                           placeholder="Title" value={inputs.title} maxLength="150" required/>
+                                </div>
                                 <div className="col-sm-2">
-                                    <button type="submit" className="btn btn-primary">{translate('save')}</button>
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
+                                            <span className="d-inline-block">
+                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            </span>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    : (
-                        <div></div>
-                    )
-                }
-            </div>
+                            <div className="form-group row">
+                                <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
+                                <div className="col-sm-8">
+                                        <textarea name="description" className="form-control" value={inputs.description}
+                                                  onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
+                                            <span className="d-inline-block">
+                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
+                                <div className="col-sm-8">
+                                    <select required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
+                                        <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                        {drawLicenseSelectionValues()}
+                                    </select>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
+                                            <span className="d-inline-block">
+                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <div className="col-sm-2"></div>
+                                <div className="col-sm-2">
+                                    {translate(replaceCharacter(inputs.license))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <div className="col-sm-2">
+                                <button type="submit" className="btn btn-primary">{translate('save')}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                : (
+                    <div></div>
+                )
+            }
         </div>
     );
 };

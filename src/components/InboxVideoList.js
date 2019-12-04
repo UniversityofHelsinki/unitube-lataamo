@@ -185,7 +185,8 @@ const InboxVideoList = (props) => {
             if(isExpand) {
                 props.onSelectEvent(row);
             }
-        }
+        },
+        nonExpandable: nonSelectableRows()
     };
 
 
