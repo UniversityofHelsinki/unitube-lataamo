@@ -59,8 +59,6 @@ const VideoDetailsForm = (props) => {
         if (!isBeingEdited) {
             setInputs(props.video);
         }
-        setSuccessMessage(null);
-        setErrorMessage(null);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
 
