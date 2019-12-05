@@ -6,7 +6,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
 import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
