@@ -103,7 +103,9 @@ const translationsObject = {
         trash: 'Deleted videos',
         trash_info: 'Here are deleted videos. You can still return them',
         empty_video_list: 'You have no videos',
-        empty_series_list: 'You have no series'
+        empty_series_list: 'You have no series',
+        error_failed_to_save_series_inbox_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
+        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -208,8 +210,10 @@ const translationsObject = {
         trash: 'Poistamasi videot',
         trash_info: 'Täällä ovat videot jotka olet poistanut. Voit vielä palauttaa',
         empty_video_list: 'Sinulla ei ole videoita',
-        empty_series_list: 'Sinulla ei ole sarjoja'
-    },
+        empty_series_list: 'Sinulla ei ole sarjoja',
+        error_failed_to_save_series_inbox_not_allowed: '--- ei saa luoda inbox sarjaa, se on jo olemassa ---',
+        error_failed_to_save_series_trash_not_allowed: '--- ei saa luoda trash sarjaa, se on jo olemassa ---'
+},
 
     sv: {
         searchForPersons: '???searchForPersons???',
@@ -312,7 +316,9 @@ const translationsObject = {
         trash: '???trash???',
         trash_info: '???trash_info???',
         empty_video_list: '???empty_video_list???',
-        empty_series_list: '???empty_series_list???'
+        empty_series_list: '???empty_series_list???',
+        error_failed_to_save_series_inbox_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
+        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???'
     }
 };
 

@@ -119,14 +119,14 @@ const SeriesUploadForm = (props) => {
         event.preventDefault();
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
-
+    let seriesPostFailureMessage = props.seriesPostFailureMessage;
     return(
         <div>
             {props.seriesPostFailureMessage !== null ?
                 <Alert variant="danger">
-                    <p>
-                        {props.seriesPostFailureMessage}
-                    </p>
+                    <span>
+                        {translate( seriesPostFailureMessage)}
+                    </span>
                 </Alert>
                 : (<></>)
             }
