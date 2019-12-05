@@ -19,7 +19,6 @@ const VideoDetailsForm = (props) => {
     const [isBeingEdited, setIsBeingEdited] = useState(false);
 
     const getUpdatedInboxVideos = (eventId, updatedEvent) => {
-        console.log("INBOX VIDEOS");
         if (props.inboxVideos && props.inboxVideos.length > 0) {
             return props.inboxVideos.map(event => event.identifier !== eventId ? event : {
                 ...event,
@@ -29,7 +28,6 @@ const VideoDetailsForm = (props) => {
     };
 
     const getUpdatedVideos = (eventId, updatedEvent) => {
-        console.log("ALL VIDEOS");
         if (props.videos && props.videos.length > 0) {
             return props.videos.map(event => event.identifier !== eventId ? event : {
                 ...event,
@@ -49,7 +47,6 @@ const VideoDetailsForm = (props) => {
             setSuccessMessage(translate('updated_event_details'));
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
-            console.log(updatedVideos);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setErrorMessage(translate('failed_to_update_event_details'));
@@ -64,6 +61,7 @@ const VideoDetailsForm = (props) => {
         }
         setSuccessMessage(null);
         setErrorMessage(null);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
 
     const handleSubmit = async (event) => {
