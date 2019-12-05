@@ -22,7 +22,8 @@ const VideoDetailsForm = (props) => {
         if (props.inboxVideos && props.inboxVideos.length > 0) {
             return props.inboxVideos.map(event => event.identifier !== eventId ? event : {
                 ...event,
-                title: updatedEvent.title
+                title: updatedEvent.title,
+                processing_state : constants.VIDEO_PROCESSING_INSTANTIATED
             });
         }
     };
@@ -31,7 +32,8 @@ const VideoDetailsForm = (props) => {
         if (props.videos && props.videos.length > 0) {
             return props.videos.map(event => event.identifier !== eventId ? event : {
                 ...event,
-                title: updatedEvent.title
+                title: updatedEvent.title,
+                processing_state : constants.VIDEO_PROCESSING_INSTANTIATED
             });
         }
     };
