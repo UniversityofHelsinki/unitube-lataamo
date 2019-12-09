@@ -219,7 +219,8 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            { !props.loading && !errorMessage ?
+            { props.loading && props.videos && props.videos.length === 0 ? <Loader loading={ translate('loading') }/> : ''}
+            { !errorMessage ?
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
@@ -257,7 +258,7 @@ const VideoList = (props) => {
                             { errorMessage }
                         </p>
                     </Alert>
-                    : <Loader loading={ translate('loading') }/>
+                    : ''
             }
         </div>
     );

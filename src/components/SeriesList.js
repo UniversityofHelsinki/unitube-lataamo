@@ -134,6 +134,7 @@ const SeriesList = (props) => {
     }, [props.apiError]);
     return (
         <div>
+            {props.loading && props.series && props.series.length === 0 ? <Loader loading={ translate('loading') }/> : ''}
             {props.seriesPostSuccessMessage !== null ?
                 <Alert variant="success">
                     <p>
@@ -147,7 +148,7 @@ const SeriesList = (props) => {
                     <Translate value="add_series"/>
                 </Link>
             </div>
-            { !props.loading && !errorMessage ?
+            { !errorMessage ?
                 <ToolkitProvider
                     bootstrap4
                     keyField="identifier"
@@ -172,7 +173,7 @@ const SeriesList = (props) => {
                             { errorMessage }
                         </p>
                     </Alert>
-                    : <Loader loading={ translate('loading') }/>
+                    : ''
             }
         </div>
     );
