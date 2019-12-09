@@ -4,28 +4,25 @@ import { fileUploadProgressAction } from '../actions/fileUploadAction';
 
 const FileUploadProgressbar = (props) => {
 
+    const translations =  props.i18n.translations[props.i18n.locale];
+    const translate = (key) => {
+        return translations ? translations[key] : '';
+    };
     useEffect(() => {
         props.onRemoveProgressBar(); // reset progress when component loads
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    return (
-        <div>
-            <Filler percentage={props.percentage} />
-        </div>
-    );
-};
-
-const Filler = (props) => {
     return (
         <div className="progress-bar" style={{ width: `${props.percentage}%` }} >
-            <span>{ props.percentage }% Complete</span>
+            <span hidden={props.percentage===100}>{ props.percentage } { translate('percentage_complete') } { translate('download_in_process') } </span>
+            <span hidden={props.percentage<100}>{ props.percentage }{ translate('percentage_complete') } </span>
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    percentage : state.fur.percentage
+    percentage : state.fur.percentage,
+    i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
