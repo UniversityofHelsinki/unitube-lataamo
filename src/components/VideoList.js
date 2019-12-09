@@ -17,6 +17,7 @@ import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSpinner } from 'react-icons/fa';
+import constants from '../utils/constants';
 
 const { SearchBar } = Search;
 
@@ -64,18 +65,27 @@ const VideoList = (props) => {
         });
     };
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            props.onFetchEvents(false);
+            if (props.selectedRowId && props.videos) {
+                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
+                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
+                    props.onSelectEvent({identifier: props.selectedRowId});
+                }
+            }
+        }, 10000);
+        return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.selectedRowId, props.videos]);
+
 
     useEffect(() => {
-        props.onRouteChange(props.route);
         props.onFetchEvents(true);
+        props.onRouteChange(props.route);
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
-        props.onDeselectRow();
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-        }, 60000);
-        return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
@@ -169,17 +179,18 @@ const VideoList = (props) => {
         return nonSelectableArray;
     };
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        nonSelectable: nonSelectableRows(),
-        selected: [props.selectedRowId],
-        onSelect: (row) => {
-            props.onSelectEvent(row);
-        }
+    const expandRow = {
+        parentClassName: 'parent-expand',
+        renderer: row => (
+            <VideoDetailsForm inbox="false"/>
+        ),
+        onlyOneExpanding: true,
+        onExpand: (row, isExpand, rowIndex, e) => {
+            if(isExpand) {
+                props.onSelectEvent(row);
+            }
+        },
+        nonExpandable: nonSelectableRows()
     };
 
 
@@ -230,7 +241,7 @@ const VideoList = (props) => {
                                 <div>
                                     <br/>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                    <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
+                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                         noDataIndication="Table is Empty" bordered={ false }
                                         rowStyle={ rowStyle }
@@ -239,7 +250,6 @@ const VideoList = (props) => {
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm inbox="false"/>
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >

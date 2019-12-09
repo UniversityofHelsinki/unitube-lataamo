@@ -70,14 +70,14 @@ export const fetchEvents = (refresh) => {
 };
 
 // update the eventlist in state (called on video information update)
-export const updateEventList = (inbox) => {
+export const updateEventList = (inbox, updatedVideos) => {
     if(inbox==='true'){
         return async dispatch => {
-            dispatch(fetchInboxEvents(false));
+            dispatch(apiGetInboxEventsSuccessCall(updatedVideos));
         };
     }
     return async dispatch => {
-        dispatch(fetchEvents(false));
+        dispatch(apiGetEventsSuccessCall(updatedVideos));
     };
 };
 
