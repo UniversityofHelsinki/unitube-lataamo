@@ -79,6 +79,7 @@ const VideoDetailsForm = (props) => {
     const deleteEvent = async (event) => {
         if (event) {
             event.preventDefault();
+            setDisabledInputs(true);
             await moveEventToTrashSeries();
         }
     };
