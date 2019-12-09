@@ -17,6 +17,7 @@ import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSpinner } from 'react-icons/fa';
+import constants from '../utils/constants';
 
 const { SearchBar } = Search;
 
@@ -67,13 +68,16 @@ const VideoList = (props) => {
     useEffect(() => {
         const interval = setInterval(() => {
             props.onFetchEvents(false);
-            if (props.selectedRowId) {
-                props.onSelectEvent({identifier: props.selectedRowId});
+            if (props.selectedRowId && props.videos) {
+                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
+                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
+                    props.onSelectEvent({identifier: props.selectedRowId});
+                }
             }
-        }, 60000);
+        }, 10000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.selectedRowId]);
+    }, [props.selectedRowId, props.videos]);
 
 
     useEffect(() => {

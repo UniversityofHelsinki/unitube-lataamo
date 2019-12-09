@@ -11,7 +11,7 @@ import moment from 'moment';
 import {Translate} from 'react-redux-i18n';
 import {Link} from 'react-router-dom';
 import Loader from './Loader';
-import {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
+import constants, {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import {Button} from 'react-bootstrap';
@@ -90,13 +90,16 @@ const InboxVideoList = (props) => {
     useEffect(() => {
         const interval = setInterval(() => {
             props.onFetchEvents(false);
-            if (props.selectedRowId) {
-                props.onSelectEvent({identifier: props.selectedRowId});
+            if (props.selectedRowId && props.videos) {
+                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
+                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
+                    props.onSelectEvent({identifier: props.selectedRowId});
+                }
             }
-        }, 60000);
+        }, 10000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.selectedRowId]);
+    }, [props.selectedRowId, props.videos]);
 
     useEffect(() => {
         props.onFetchEvents(true);
