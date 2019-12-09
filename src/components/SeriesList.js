@@ -148,7 +148,7 @@ const SeriesList = (props) => {
                     <Translate value="add_series"/>
                 </Link>
             </div>
-            { !props.loading && !errorMessage ?
+            { !errorMessage ?
                 <ToolkitProvider
                     bootstrap4
                     keyField="identifier"
