@@ -22,6 +22,7 @@ import constants from '../utils/constants';
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
+    console.log(props.videos);
     const [errorMessage, setErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
@@ -219,6 +220,7 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
+            { props.loading && props.videos && props.videos.length === 0 ? <Loader loading={ translate('loading') }/> : ''}
             { !props.loading && !errorMessage ?
                 <div className="table-responsive">
 
@@ -257,7 +259,7 @@ const VideoList = (props) => {
                             { errorMessage }
                         </p>
                     </Alert>
-                    : <Loader loading={ translate('loading') }/>
+                    : ''
             }
         </div>
     );
