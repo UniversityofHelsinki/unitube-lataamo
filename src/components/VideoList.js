@@ -22,7 +22,6 @@ import constants from '../utils/constants';
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
-    console.log(props.videos);
     const [errorMessage, setErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
