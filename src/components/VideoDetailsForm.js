@@ -44,8 +44,8 @@ const VideoDetailsForm = (props) => {
         try {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
             setSuccessMessage(translate('succeeded_to_delete_event'));
-            props.onEventDetailsEdit(props.inbox);
-            setHideIfEventUpdate(true);
+            const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
+            props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setErrorMessage(translate('failed_to_delete_event'));
         }
@@ -239,7 +239,6 @@ const VideoDetailsForm = (props) => {
                     )
                 }
             </div>
-        </div>
     );
 };
 
