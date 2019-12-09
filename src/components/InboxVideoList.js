@@ -96,7 +96,7 @@ const InboxVideoList = (props) => {
                     props.onSelectEvent({identifier: props.selectedRowId});
                 }
             }
-        }, 10000);
+        }, 60000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedRowId, props.videos]);
