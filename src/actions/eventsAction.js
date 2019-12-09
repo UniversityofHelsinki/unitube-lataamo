@@ -4,6 +4,8 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
+const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
+const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -39,6 +41,25 @@ export const fetchInboxEvents = (refresh) => {
             if(response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetInboxEventsSuccessCall(responseJSON));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
+            }
+        } catch(err) {
+            dispatch(apiFailureCall('Unable to fetch data'));
+        }
+    };
+};
+
+export const fetchTrashEvents = (refresh) => {
+    return async (dispatch) => {
+        try {
+            eventsRequestCall(dispatch, refresh);
+            let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENTS_PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetTrashEventsSuccessCall(responseJSON));
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
@@ -101,6 +122,26 @@ export const actionUpdateEventDetails = async (id, updatedEvent) => {
     }
 };
 
+export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENT_PATH}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(deletedEvent)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const deselectRow = () => {
     return async dispatch => {
         dispatch(apiDeselectRow());
@@ -131,6 +172,12 @@ export const apiGetEventsSuccessCall = data => ({
 
 export const apiGetInboxEventsSuccessCall = data => ({
     type: 'SUCCESS_API_GET_INBOX_EVENTS',
+    payload: data,
+    loading: false
+});
+
+export const apiGetTrashEventsSuccessCall = data => ({
+    type: 'SUCCESS_API_GET_TRASH_EVENTS',
     payload: data,
     loading: false
 });

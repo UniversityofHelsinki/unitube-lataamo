@@ -12,6 +12,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
 import InboxVideoList from "./components/InboxVideoList";
+import TrashVideoList from "./components/TrashVideoList";
 
 const App = (props) => {
 
@@ -36,6 +37,7 @@ const App = (props) => {
                             <Route exact path='/series' render={(props) => <SeriesList {...props} route={'series'} />}/>
                             <Route exact path='/uploadVideo' render={(props) => <VideoUploadForm {...props} route={'uploadVideo'} />} />
                             <Route exact path='/uploadSeries' component={SeriesUploadForm}/>
+                            <Route exact path='/trash' render={(props) => <TrashVideoList {...props} route={'trash'}  />}/>
                         </Switch>
                     </div>
                     <Footer/>
