@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import {
-    fetchSerie,
-    fetchSeries,
     clearPostSeriesSuccessMessage,
+    emptyIamGroupsCall,
     emptyMoodleNumber,
-    emptyIamGroupsCall
+    fetchSerie,
+    fetchSeries
 } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 import Loader from './Loader';
 import SerieDetailsForm from './SerieDetailsForm';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-redux-i18n';
+import {Link} from 'react-router-dom';
+import {Translate} from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 
@@ -102,22 +102,17 @@ const SeriesList = (props) => {
         order: 'desc'
     }];
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        selected: [props.selectedRowId],
-        onSelect: (row) => {
-            props.onSelectSerie(row);
+    const expandRow = {
+        parentClassName: 'parent-expand',
+        renderer: row => (
+            <SerieDetailsForm/>
+        ),
+        onlyOneExpanding: true,
+        onExpand: (row, isExpand, rowIndex, e) => {
+            if(isExpand) {
+                props.onSelectSerie(row);
+            }
         }
-    };
-
-    // eslint-disable-next-line no-unused-vars
-    const rowStyle = (row) => {
-        const style = {};
-        return style;
     };
 
     const options = {
@@ -165,9 +160,8 @@ const SeriesList = (props) => {
                             <div>
                                 <br/>
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                <hr/>
-                                <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                    pagination={ paginationFactory(options) } rowStyle={ rowStyle } hover/>
+                                <BootstrapTable { ...props.baseProps }  expandRow={ expandRow }
+                                                pagination={ paginationFactory(options) } hover />
                             </div>
                         )
                     }
@@ -180,7 +174,6 @@ const SeriesList = (props) => {
                     </Alert>
                     : <Loader loading={ translate('loading') }/>
             }
-            <SerieDetailsForm/>
         </div>
     );
 };

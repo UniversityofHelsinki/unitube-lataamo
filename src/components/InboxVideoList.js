@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
-import { fetchEvent, fetchInboxEvents, deselectRow, deselectEvent } from '../actions/eventsAction';
-import { fetchSeriesDropDownList, fetchSeries } from '../actions/seriesAction';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
+import {deselectEvent, deselectRow, fetchEvent, fetchInboxEvents} from '../actions/eventsAction';
+import {fetchSeries, fetchSeriesDropDownList} from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
+import {Translate} from 'react-redux-i18n';
+import {Link} from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_RUNNING, VIDEO_PROCESSING_INSTANTIATED } from '../utils/constants';
+import constants, {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import { Button } from 'react-bootstrap';
-import { FiDownload } from 'react-icons/fi';
-import { FaSpinner } from 'react-icons/fa';
+import {Button} from 'react-bootstrap';
+import {FiDownload} from 'react-icons/fi';
+import {FaSpinner} from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -88,16 +88,25 @@ const InboxVideoList = (props) => {
     };
 
     useEffect(() => {
-        props.onRouteChange(props.route);
+        const interval = setInterval(() => {
+            props.onFetchEvents(false);
+            if (props.selectedRowId && props.videos) {
+                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
+                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
+                    props.onSelectEvent({identifier: props.selectedRowId});
+                }
+            }
+        }, 10000);
+        return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.selectedRowId, props.videos]);
+
+    useEffect(() => {
         props.onFetchEvents(true);
+        props.onRouteChange(props.route);
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
-        props.onDeselectRow();
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-        }, 60000);
-        return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
@@ -175,17 +184,18 @@ const InboxVideoList = (props) => {
         return nonSelectableArray;
     };
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        nonSelectable: nonSelectableRows(),
-        selected: [props.selectedRowId],
-        onSelect: (row) => {
-            props.onSelectEvent(row);
-        }
+    const expandRow = {
+        parentClassName: 'parent-expand',
+        renderer: row => (
+            <VideoDetailsForm inbox="true"/>
+        ),
+        onlyOneExpanding: true,
+        onExpand: (row, isExpand, rowIndex, e) => {
+            if(isExpand) {
+                props.onSelectEvent(row);
+            }
+        },
+        nonExpandable: nonSelectableRows()
     };
 
 
@@ -226,7 +236,7 @@ const InboxVideoList = (props) => {
                                 <div>
                                     <br/>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                    <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
+                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                         noDataIndication="Table is Empty" bordered={ false }
                                         rowStyle={ rowStyle }
@@ -235,7 +245,6 @@ const InboxVideoList = (props) => {
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm inbox="true" />
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
