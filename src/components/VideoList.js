@@ -40,9 +40,7 @@ const VideoList = (props) => {
             event.preventDefault();
             let elements = document.getElementsByClassName("disable-enable-buttons");
             let array = [ ...elements ];
-            array.map((element) => {
-                element.setAttribute('disabled', 'disabled');
-            })
+            array.map(element => element.setAttribute('disabled', 'disabled'));
             event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
@@ -53,9 +51,7 @@ const VideoList = (props) => {
             }
             elements = document.getElementsByClassName("disable-enable-buttons");
             array = [ ...elements ];
-            array.map((element) => {
-                element.removeAttribute('disabled');
-            })
+            array.map(element => element.removeAttribute('disabled'));
             event.target.downloadIndicator.setAttribute('hidden', true);
         }
     };
