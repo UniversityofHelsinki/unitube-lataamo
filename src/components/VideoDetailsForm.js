@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { actionUpdateEventDetails, updateEventList, actionMoveEventToTrashSeries } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
 
@@ -38,12 +38,24 @@ const VideoDetailsForm = (props) => {
         }
     };
 
+    const moveEventToTrashSeries = async() => {
+        const eventId = inputs.identifier;
+        const deletedEvent = { ...inputs }; // values from the form
+        try {
+            await actionMoveEventToTrashSeries(eventId, deletedEvent);
+            setSuccessMessage(translate('succeeded_to_delete_event'));
+            const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
+            props.onEventDetailsEdit(props.inbox, updatedVideos);
+        } catch (err) {
+            setErrorMessage(translate('failed_to_delete_event'));
+        }
+    };
+
     const updateEventDetails = async() => {
         props.video.processing_state = constants.VIDEO_PROCESSING_INSTANTIATED;
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
-
-// call unitube-proxy api
+        // call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
             setSuccessMessage(translate('updated_event_details'));
@@ -63,6 +75,14 @@ const VideoDetailsForm = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
+
+    const deleteEvent = async (event) => {
+        if (event) {
+            event.preventDefault();
+            setDisabledInputs(true);
+            await moveEventToTrashSeries();
+        }
+    };
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -195,28 +215,31 @@ const VideoDetailsForm = (props) => {
                                             <span className="d-inline-block">
                                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                                             </span>
-                                    </OverlayTrigger>
+                                        </OverlayTrigger>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <div className="col-sm-2"></div>
+                                    <div className="col-sm-2">
+                                        {translate(replaceCharacter(inputs.license))}
+                                    </div>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <div className="col-sm-2"></div>
-                                <div className="col-sm-2">
-                                    {translate(replaceCharacter(inputs.license))}
+                                <div className="col-sm-11">
+                                    <button disabled={disabledInputs} type="button" className="btn delete-button button-position" onClick={deleteEvent}>{translate('delete_event')}</button>
+                                </div>
+                                <div className="col-sm-1">
+                                    <button disabled={disabledInputs} type="submit" className="btn btn-primary button-position">{translate('save')}</button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="form-group row">
-                            <div className="col-sm-2">
-                                <button disabled={disabledInputs} type="submit" className="btn btn-primary">{translate('save')}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                : (
-                    <div></div>
-                )
-            }
-        </div>
+                        </form>
+                    </div>
+                    : (
+                        <div></div>
+                    )
+                }
+            </div>
     );
 };
 
