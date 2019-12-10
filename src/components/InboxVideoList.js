@@ -240,7 +240,7 @@ const InboxVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
+                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_events')  }/>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                         noDataIndication={ translate('empty_video_list') } bordered={ false }

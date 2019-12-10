@@ -164,7 +164,7 @@ const TrashVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
+                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
                                                     pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                                     noDataIndication={ translate('empty_video_list') } bordered={ false }

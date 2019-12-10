@@ -160,7 +160,7 @@ const SeriesList = (props) => {
                         props => (
                             <div>
                                 <br/>
-                                <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
+                                <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
                                 <BootstrapTable { ...props.baseProps }  expandRow={ expandRow }
                                                 pagination={ paginationFactory(options) } hover />
                             </div>
