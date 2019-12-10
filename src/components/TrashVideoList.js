@@ -32,7 +32,11 @@ const TrashVideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
-            event.target.downloadButton.disabled = true;
+            let elements = document.getElementsByClassName("disable-enable-buttons");
+            let array = [ ...elements ];
+            array.map((element) => {
+                element.setAttribute('disabled', 'disabled');
+            })
             event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
@@ -41,7 +45,11 @@ const TrashVideoList = (props) => {
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            event.target.downloadButton.disabled = false;
+            elements = document.getElementsByClassName("disable-enable-buttons");
+            array = [ ...elements ];
+            array.map((element) => {
+                element.removeAttribute('disabled');
+            })
             event.target.downloadIndicator.setAttribute('hidden', true);
         }
     };
@@ -53,7 +61,7 @@ const TrashVideoList = (props) => {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <Button name="downloadButton" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
                             <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
                         </form>
                     )
