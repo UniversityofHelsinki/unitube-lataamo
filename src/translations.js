@@ -3,6 +3,9 @@ const translationsObject = {
         videos: 'Videos',
         series: 'Series',
         search: 'Search',
+        search_series: 'Search for series',
+        search_events: 'Search for video or videos',
+        search_deleted_videos: 'Search for deleted videos',
         video_title: 'Video title',
         video_description : 'Video Description',
         video_duration: 'Duration of video',
@@ -99,11 +102,23 @@ const translationsObject = {
         download_in_process: 'Wait...',
         percentage_complete: '% downloaded.',
         upload: 'Upload',
+        delete_event: 'Delete video',
+        failed_to_delete_event: 'Failed to delete event',
+        succeeded_to_delete_event: 'Video was successfully deleted. You can still restore it though etc',
+        trash: 'Deleted videos',
+        trash_info: 'Here are deleted videos. You can still return them',
+        empty_video_list: 'You have no videos',
+        empty_series_list: 'You have no series',
+        error_failed_to_save_series_inbox_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
+        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???'
     },
     fi: {
         videos: 'Tallenteeni',
         series: 'Sarjani',
         search: 'Etsi',
+        search_series: 'Etsi sarjaa/sarjoja',
+        search_events: 'Etsi videoa/videoita',
+        search_deleted_videos: 'Etsi poistettuja videoita',
         video_title: 'Tallenteen nimi',
         video_duration: 'Tallenteen kesto',
         video_resolution: 'Tallenteen resoluutio',
@@ -198,8 +213,17 @@ const translationsObject = {
         CC0: '???CC0???',
         download_in_process: 'Odota...',
         percentage_complete: '% ladattu.',
-        upload: 'Lataa'
-    },
+        upload: 'Lataa',
+        delete_event: 'Poista video',
+        failed_to_delete_event: 'Videon poistaminen epäonnistui',
+        succeeded_to_delete_event: 'Videon poistaminen onnistui. Voit vielä palauttaa sen jne',
+        trash: 'Poistamasi videot',
+        trash_info: 'Täällä ovat videot jotka olet poistanut. Voit vielä palauttaa',
+        empty_video_list: 'Sinulla ei ole videoita',
+        empty_series_list: 'Sinulla ei ole sarjoja',
+        error_failed_to_save_series_inbox_not_allowed: '--- ei saa luoda inbox sarjaa, se on jo olemassa ---',
+        error_failed_to_save_series_trash_not_allowed: '--- ei saa luoda trash sarjaa, se on jo olemassa ---'
+},
 
     sv: {
         searchForPersons: '???searchForPersons???',
@@ -209,6 +233,9 @@ const translationsObject = {
         videos: '???videos???',
         series: '???series???',
         search: '???search???',
+        search_events: '???search_events???',
+        search_series: '???search_series???',
+        search_deleted_videos: '???search_deleted_videos???',
         video_file: '???video_file???',
         video_title: '???video_title???',
         video_duration: '???video_duration???',
@@ -297,7 +324,16 @@ const translationsObject = {
         CC0: '???CC0???',
         download_in_process: '???download_in_process???',
         percentage_complete: '???percentage_complete???',
-        upload: '???upload???'
+        upload: '???upload???',
+        delete_event: '???delete_event???',
+        failed_to_delete_event: '???failed_to_delete_event???',
+        succeeded_to_delete_event: '???succeeded_to_delete_event???',
+        trash: '???trash???',
+        trash_info: '???trash_info???',
+        empty_video_list: '???empty_video_list???',
+        empty_series_list: '???empty_series_list???',
+        error_failed_to_save_series_inbox_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
+        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???'
     }
 };
 

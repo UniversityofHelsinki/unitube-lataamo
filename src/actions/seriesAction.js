@@ -232,6 +232,9 @@ export const actionUploadSeries = (newSeries) => {
                 dispatch(apiPostSeriesSuccessCall());
             } else if(response.status === 403){
                 dispatch(apiPostSeries403FailureCall());
+            } else if(response.status === 500){
+                let resp = await response.json();
+                dispatch(apiPostSeries500FailureCall(resp.message));
             } else {
                 dispatch(apiPostSeriesFailureCall());
             }
@@ -289,4 +292,9 @@ export const apiFailureCall = msg => ({
 export const apiPostSeries403FailureCall = () => ({
     type: 'STATUS_403_API_CALL',
     payload: 'api_post_series_failed_series_inbox_exists_already'
+});
+
+export const apiPostSeries500FailureCall = (message) => ({
+    type: 'STATUS_500_API_CALL',
+    payload: message
 });
