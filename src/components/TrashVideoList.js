@@ -32,7 +32,6 @@ const TrashVideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
-            //event.target.downloadButton.disabled = true;
             let elements = document.getElementsByClassName("disable-enable-buttons");
             let array = [ ...elements ];
             array.map((element) => {
@@ -46,7 +45,6 @@ const TrashVideoList = (props) => {
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            //event.target.downloadButton.disabled = false;
             elements = document.getElementsByClassName("disable-enable-buttons");
             array = [ ...elements ];
             array.map((element) => {
