@@ -101,5 +101,13 @@ code {
   }
 }
 
+.react-bootstrap-table th[data-row-selection] {
+  width:50px !important;
+}
+
+.parent-expand {
+  background-color: #8cbdff;
+}
+
 
 

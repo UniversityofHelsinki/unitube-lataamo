@@ -4,6 +4,8 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
+const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
+const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -50,6 +52,25 @@ export const fetchInboxEvents = (refresh) => {
     };
 };
 
+export const fetchTrashEvents = (refresh) => {
+    return async (dispatch) => {
+        try {
+            eventsRequestCall(dispatch, refresh);
+            let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENTS_PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetTrashEventsSuccessCall(responseJSON));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('Unable to fetch data'));
+            }
+        } catch(err) {
+            dispatch(apiFailureCall('Unable to fetch data'));
+        }
+    };
+};
+
 export const fetchEvents = (refresh) => {
     return async (dispatch) => {
         try {
@@ -70,9 +91,14 @@ export const fetchEvents = (refresh) => {
 };
 
 // update the eventlist in state (called on video information update)
-export const updateEventList = () => {
-   return async dispatch => {
-        dispatch(fetchEvents(false));
+export const updateEventList = (inbox, updatedVideos) => {
+    if(inbox==='true'){
+        return async dispatch => {
+            dispatch(apiGetInboxEventsSuccessCall(updatedVideos));
+        };
+    }
+    return async dispatch => {
+        dispatch(apiGetEventsSuccessCall(updatedVideos));
     };
 };
 
@@ -96,6 +122,38 @@ export const actionUpdateEventDetails = async (id, updatedEvent) => {
     }
 };
 
+export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENT_PATH}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(deletedEvent)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const deselectRow = () => {
+    return async dispatch => {
+        dispatch(apiDeselectRow());
+    };
+};
+
+export const deselectEvent = () => {
+    return async dispatch => {
+        dispatch(apiDeselectEvent());
+    };
+};
+
 export const apiGetEventSuccessCall = (data) => ({
     type: 'SUCCESS_API_GET_EVENT',
     payload: data
@@ -115,5 +173,21 @@ export const apiGetEventsSuccessCall = data => ({
 export const apiGetInboxEventsSuccessCall = data => ({
     type: 'SUCCESS_API_GET_INBOX_EVENTS',
     payload: data,
+    loading: false
+});
+
+export const apiGetTrashEventsSuccessCall = data => ({
+    type: 'SUCCESS_API_GET_TRASH_EVENTS',
+    payload: data,
+    loading: false
+});
+
+export const apiDeselectEvent = () => ({
+    type: 'DESELECT_EVENT',
+    loading: false
+});
+
+export const apiDeselectRow = () => ({
+    type: 'DESELECT_ROW',
     loading: false
 });

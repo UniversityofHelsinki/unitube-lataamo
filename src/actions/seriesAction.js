@@ -103,7 +103,7 @@ export const fetchSeriesDropDownList = () => {
     };
 };
 
-export const fetchSeries = () => {
+export const fetchSeries = (isSeriesList) => {
 
     // server from .env variable
     const PATH = '/api/userSeries';
@@ -114,7 +114,12 @@ export const fetchSeries = () => {
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
-                dispatch(apiGetSeriesSuccessCall(responseJSON));
+                if(isSeriesList){
+                    const seriesListWithoutInbox = responseJSON.filter(series => !series.title.toLowerCase().includes('inbox'));
+                    dispatch(apiGetSeriesSuccessCall(seriesListWithoutInbox));
+                }else{
+                    dispatch(apiGetSeriesSuccessCall(responseJSON));
+                }
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
@@ -227,6 +232,9 @@ export const actionUploadSeries = (newSeries) => {
                 dispatch(apiPostSeriesSuccessCall());
             } else if(response.status === 403){
                 dispatch(apiPostSeries403FailureCall());
+            } else if(response.status === 500){
+                let resp = await response.json();
+                dispatch(apiPostSeries500FailureCall(resp.message));
             } else {
                 dispatch(apiPostSeriesFailureCall());
             }
@@ -284,4 +292,9 @@ export const apiFailureCall = msg => ({
 export const apiPostSeries403FailureCall = () => ({
     type: 'STATUS_403_API_CALL',
     payload: 'api_post_series_failed_series_inbox_exists_already'
+});
+
+export const apiPostSeries500FailureCall = (message) => ({
+    type: 'STATUS_500_API_CALL',
+    payload: message
 });

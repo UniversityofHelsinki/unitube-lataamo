@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {fetchSeries} from '../actions/seriesAction';
-import {actionUploadVideo} from '../actions/videosAction';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { fetchSeries } from '../actions/seriesAction';
+import { actionUploadVideo } from '../actions/videosAction';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage,
     fileUploadProgressAction
 } from '../actions/fileUploadAction';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
-import routeAction from "../actions/routeAction";
+import routeAction from '../actions/routeAction';
 
 const VideoUploadForm = (props) => {
 
@@ -67,13 +67,13 @@ const VideoUploadForm = (props) => {
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
             {props.fur.updateSuccessMessage !== null ?
                 <Alert variant="success" onClose={() => {props.onSuccessMessageClick(); props.onResetProgressbar();}} dismissible>
-                    <p>{props.fur.updateSuccessMessage}</p>
+                    <p>{translate(props.fur.updateSuccessMessage)}</p>
                 </Alert>
                 : (<></>)
             }
             {props.fur.updateFailedMessage !== null ?
                 <Alert variant="danger" onClose={() => props.onFailureMessageClick() } dismissible>
-                    <p>{props.fur.updateFailedMessage}</p>
+                    <p>{translate(props.fur.updateFailedMessage)}</p>
                 </Alert>
                 : (<></>)
             }
@@ -89,9 +89,9 @@ const VideoUploadForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ const VideoUploadForm = (props) => {
 
                 <div className="form-group row">
                     <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>Tallenna</button>
+                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('upload') }</button>
                     </div>
                 </div>
             </form>
@@ -122,7 +122,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries()),
+    onFetchSeries: () => dispatch(fetchSeries(false)),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
     onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),

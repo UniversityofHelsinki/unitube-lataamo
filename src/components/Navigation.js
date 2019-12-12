@@ -9,13 +9,16 @@ function Navigation (props) {
             <nav id="navigation">
                 <ul id="mainmenu">
                     <li className={props.route === 'inbox' ? 'main-nav-item open' : 'main-nav-item'} >
-                        <Link to="/" className="menuitem" ><Translate value="inbox" /> <span hidden={props.videos<=0} className="videos-count">{props.videos}</span></Link>
+                        <Link to="/" className="menuitem" ><Translate value="inbox" /> <span hidden={props.videos<=0} className="videos-count">{props.videos >= 100 ? '99+' : props.videos}</span></Link>
                     </li>
                     <li className={props.route === 'series' ? 'main-nav-item open' : 'main-nav-item'}>
                         <Link to="/series" className="menuitem" ><Translate value="series" /></Link>
                     </li>
                     <li className={props.route === 'events' ? 'main-nav-item open' : 'main-nav-item'} >
                         <Link to="/events" className="menuitem"  ><Translate value="videos" /></Link>
+                    </li>
+                    <li className={props.route === 'trash' ? 'main-nav-item open' : 'main-nav-item'} >
+                        <Link to="/trash" className="menuitem"  ><Translate value="trash" /></Link>
                     </li>
                 </ul>
             </nav>
@@ -29,4 +32,4 @@ const mapStateToProps = state => ({
     videos: state.er.inboxVideos.length
 });
 
-export default connect(mapStateToProps, null)(Navigation);
+export default connect(mapStateToProps)(Navigation);
