@@ -164,6 +164,7 @@ const TrashVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
+                                    <h5 className='info-text-margin'>{ translate('search_events_info') } </h5>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
                                     <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
                                                     pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }

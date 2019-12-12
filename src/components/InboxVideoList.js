@@ -240,7 +240,8 @@ const InboxVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_events')  }/>
+                                    <h5 className='info-text-margin'>{ translate('search_events_info') } </h5>
+                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                         noDataIndication={ translate('empty_video_list') } bordered={ false }
