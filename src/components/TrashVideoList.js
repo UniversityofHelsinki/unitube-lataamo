@@ -123,27 +123,16 @@ const TrashVideoList = (props) => {
         order: 'desc'
     }];
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        selected: [props.selectedRowId]
-    };
-
-
-    const rowStyle = (row) => {
-        const style = {};
-        return style;
-    };
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+    );
 
     return (
         <div>
             <div className="margintop">
                 <h2>{translate('trash_info')}</h2>
             </div>
-            { !props.loading && !errorMessage ?
+            { !errorMessage ?
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
@@ -164,12 +153,11 @@ const TrashVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
+                                    <label className='info-text'>{ translate('search_events_info') } </label>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
-                                    <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
+                                    <BootstrapTable { ...props.baseProps }
                                                     pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                    noDataIndication={ translate('empty_video_list') } bordered={ false }
-                                                    rowStyle={ rowStyle }
-                                                    hover/>
+                                                    noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
                                 </div>
                             )
                         }

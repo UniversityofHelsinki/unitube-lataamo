@@ -67,6 +67,10 @@ const VideoList = (props) => {
         });
     };
 
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+    );
+
     useEffect(() => {
         const interval = setInterval(() => {
             props.onFetchEvents(false);
@@ -221,7 +225,6 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            { props.loading && props.videos && props.videos.length === 0 ? <Loader loading={ translate('loading') }/> : ''}
             { !errorMessage ?
                 <div className="table-responsive">
 
@@ -243,10 +246,11 @@ const VideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
+                                    <label className='info-text'>{ translate('search_events_info') } </label>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={ translate('empty_video_list') } bordered={ false }
+                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
                                         rowStyle={ rowStyle }
                                         hover/>
                                 </div>
