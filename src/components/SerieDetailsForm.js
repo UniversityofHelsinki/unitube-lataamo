@@ -275,14 +275,20 @@ const SerieDetailsForm = (props) => {
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
-                                <div className="col-sm-7">
+                                <label className="col-sm-4 col-form-label">{translate('add_person')}</label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <div className="col-sm-9">
                                     <PersonListAutoSuggest/>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
                                 <div className="col-sm-7">
                                     <PersonList/>
                                 </div>
@@ -290,13 +296,19 @@ const SerieDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
-                                <div className="col-sm-7">
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <div className="col-sm-9">
                                     <IAMGroupAutoSuggest/>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
                                 <div className="col-sm-7">
                                     <IAMGroupList/>
                                 </div>
@@ -328,7 +340,10 @@ const SerieDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
-                                <div className="col-sm-4">
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <div className="col-sm-6">
                                     <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
                                 </div>
                                 <div className="col-sm-3">
@@ -345,6 +360,9 @@ const SerieDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
                                 <div className="col-sm-7">
                                     <SelectedMoodleNumbers/>
                                 </div>
