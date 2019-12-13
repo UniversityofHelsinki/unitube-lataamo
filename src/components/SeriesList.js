@@ -168,9 +168,9 @@ const SeriesList = (props) => {
                                 <div className="form-group has-search">
                                     <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
+                                </div>
                                     <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
                                                     pagination={ paginationFactory(options) } hover />
-                                </div>
                             </div>
                         )
                     }
