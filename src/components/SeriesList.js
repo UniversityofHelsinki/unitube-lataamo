@@ -48,6 +48,10 @@ const SeriesList = (props) => {
         });
     };
 
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.series && props.series.length === 0 ? translate('empty_series_list') : ''
+    );
+
 
     const statusFormatter = (cell, row) => {
         return (
@@ -134,7 +138,6 @@ const SeriesList = (props) => {
     }, [props.apiError]);
     return (
         <div>
-            {props.loading && props.series && props.series.length === 0 ? <Loader loading={ translate('loading') }/> : ''}
             {props.seriesPostSuccessMessage !== null ?
                 <Alert variant="success">
                     <p>
@@ -162,7 +165,7 @@ const SeriesList = (props) => {
                                 <br/>
                                 <label className='info-text'>{ translate('search_series_info') } </label>
                                 <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
-                                <BootstrapTable { ...props.baseProps }  expandRow={ expandRow }
+                                <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
                                                 pagination={ paginationFactory(options) } hover />
                             </div>
                         )

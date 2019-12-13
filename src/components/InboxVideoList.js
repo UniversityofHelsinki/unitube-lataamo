@@ -202,6 +202,10 @@ const InboxVideoList = (props) => {
         nonExpandable: nonSelectableRows()
     };
 
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+    );
+
 
     const rowStyle = (row) => {
         const style = {};
@@ -218,7 +222,6 @@ const InboxVideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            { props.loading && props.videos && props.videos.length === 0 ? <Loader loading={ translate('loading') }/> : ''}
             { !errorMessage ?
                 <div className="table-responsive">
 
@@ -244,7 +247,7 @@ const InboxVideoList = (props) => {
                                     <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={ translate('empty_video_list') } bordered={ false }
+                                        noDataIndication={ () => <NoDataIndication /> } bordered={ false }
                                         rowStyle={ rowStyle }
                                         hover/>
                                 </div>

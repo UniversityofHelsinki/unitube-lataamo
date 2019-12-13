@@ -1,10 +1,13 @@
 import React from 'react';
 
-const Loader = (props) => {
+const Loader = () => {
     return (
         <div>
-            <div className="loader" />
-            <p>{props.loading}</p>
+            <div className="spinner">
+                <div className="bounce1"></div>
+                <div className="bounce2"></div>
+                <div className="bounce3"></div>
+            </div>
         </div>
     );
 };
