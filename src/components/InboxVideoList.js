@@ -11,12 +11,16 @@ import moment from 'moment';
 import {Translate} from 'react-redux-i18n';
 import {Link} from 'react-router-dom';
 import Loader from './Loader';
-import constants, {VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING} from '../utils/constants';
+import constants, {
+    VIDEO_PROCESSING_FAILED,
+    VIDEO_PROCESSING_INSTANTIATED,
+    VIDEO_PROCESSING_RUNNING
+} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import {Button} from 'react-bootstrap';
 import {FiDownload} from 'react-icons/fi';
-import {FaSpinner} from 'react-icons/fa';
+import {FaSearch, FaSpinner} from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -244,12 +248,15 @@ const InboxVideoList = (props) => {
                                 <div>
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
-                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={ () => <NoDataIndication /> } bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
+                                        <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
+                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                        noDataIndication={ () => <NoDataIndication /> } bordered={ false }
+                                                        rowStyle={ rowStyle }
+                                                        hover/>
+                                    </div>
                                 </div>
                             )
                         }
