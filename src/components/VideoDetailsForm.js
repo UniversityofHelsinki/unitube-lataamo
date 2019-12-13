@@ -226,11 +226,9 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <div className="col-sm-11">
-                                    <button disabled={disabledInputs} type="button" className="btn delete-button button-position" onClick={deleteEvent}>{translate('delete_event')}</button>
-                                </div>
-                                <div className="col-sm-1">
-                                    <button disabled={disabledInputs} type="submit" className="btn btn-primary button-position">{translate('save')}</button>
+                                <div className="col-sm-12">
+                                    <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={deleteEvent}>{translate('delete_event')}</button>
+                                    <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
                                 </div>
                             </div>
                         </form>
