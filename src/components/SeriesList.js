@@ -16,6 +16,7 @@ import {Link} from 'react-router-dom';
 import {Translate} from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
+import {FaSearch} from 'react-icons/fa';
 
 
 const { SearchBar } = Search;
@@ -164,9 +165,12 @@ const SeriesList = (props) => {
                             <div>
                                 <br/>
                                 <label className='info-text'>{ translate('search_series_info') } </label>
-                                <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
-                                <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
-                                                pagination={ paginationFactory(options) } hover />
+                                <div className="form-group has-search">
+                                    <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
+                                    <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
+                                                    pagination={ paginationFactory(options) } hover />
+                                </div>
                             </div>
                         )
                     }

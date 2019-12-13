@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { downloadVideo} from '../actions/videosAction';
-import { fetchTrashEvents } from '../actions/eventsAction';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {downloadVideo} from '../actions/videosAction';
+import {fetchTrashEvents} from '../actions/eventsAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import moment from 'moment';
 import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import { Button } from 'react-bootstrap';
-import { FiDownload } from 'react-icons/fi';
-import { FaSpinner } from 'react-icons/fa';
+import {Button} from 'react-bootstrap';
+import {FiDownload} from 'react-icons/fi';
+import {FaSearch, FaSpinner} from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -104,9 +104,9 @@ const TrashVideoList = (props) => {
     };
 
     const columns = [{dataField: 'title',
-            text: translate('video_title'),
-            sort: true
-        }, {
+        text: translate('video_title'),
+        sort: true
+    }, {
         dataField: 'created',
         text: translate('created'),
         type: 'date',
@@ -154,10 +154,13 @@ const TrashVideoList = (props) => {
                                 <div>
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
-                                    <BootstrapTable { ...props.baseProps }
-                                                    pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                    noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
+                                        <BootstrapTable { ...props.baseProps }
+                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                        noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
+                                    </div>
                                 </div>
                             )
                         }

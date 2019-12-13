@@ -16,7 +16,7 @@ import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSIN
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
-import { FaSpinner } from 'react-icons/fa';
+import { FaSpinner, FaSearch } from 'react-icons/fa';
 import constants from '../utils/constants';
 
 const { SearchBar } = Search;
@@ -247,12 +247,15 @@ const VideoList = (props) => {
                                 <div>
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
-                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
+                                        <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
+                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
+                                                        rowStyle={ rowStyle }
+                                                        hover/>
+                                    </div>
                                 </div>
                             )
                         }
