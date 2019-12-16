@@ -251,12 +251,12 @@ const InboxVideoList = (props) => {
                                     <div className="form-group has-search">
                                         <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
+                                    </div>
                                         <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                                         noDataIndication={ () => <NoDataIndication /> } bordered={ false }
                                                         rowStyle={ rowStyle }
                                                         hover/>
-                                    </div>
                                 </div>
                             )
                         }

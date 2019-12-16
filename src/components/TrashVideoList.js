@@ -157,10 +157,10 @@ const TrashVideoList = (props) => {
                                     <div className="form-group has-search">
                                         <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
+                                    </div>
                                         <BootstrapTable { ...props.baseProps }
                                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
                                                         noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
-                                    </div>
                                 </div>
                             )
                         }
