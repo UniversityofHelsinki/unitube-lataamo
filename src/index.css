@@ -29,24 +29,6 @@ code {
   text-align: right;
 }
 
-.progress-bar {
-  left: 0;
-  border-radius: 10px;
-  background-color: #0da1d4;
-  background-image: linear-gradient(90deg, #0da1d4 0%, #1dd07e 100%);
-  display: block;
-  transition: width 0.3s ease-in;
-}
-
-.close {
-  position: relative;
-  color: red;
-  top: -10px;
-  right: -10px;
-  opacity: 1;
-  cursor: pointer;
-}
-
 .badge {
   font-size: 15px;
   font-weight: normal;
@@ -74,32 +56,6 @@ code {
   vertical-align: middle;
 }
 
-.icon-spin {
-  -webkit-animation: icon-spin 2s infinite linear;
-  animation: icon-spin 2s infinite linear;
+.react-bootstrap-table th[data-row-selection] {
+  width:50px !important;
 }
-
-@-webkit-keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-
-@keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-
-
-

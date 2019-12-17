@@ -77,6 +77,11 @@ const seriesReducer = (state = initialState, action) => {
               ...state,
               seriesPostFailureMessage: action.payload
             };
+        case 'STATUS_500_API_CALL':
+            return {
+                ...state,
+                seriesPostFailureMessage: action.payload
+            };
         case 'CLEAR_API_POST_SERIES_FAILURE_CALL':
             return {
                 ...state,

@@ -16,7 +16,8 @@ import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSIN
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
-import { FaSpinner } from 'react-icons/fa';
+import { FaSpinner, FaSearch } from 'react-icons/fa';
+import constants from '../utils/constants';
 
 const { SearchBar } = Search;
 
@@ -37,8 +38,9 @@ const VideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
-            event.target.downloadButton.disabled = true;
-            event.target.downloadButton.setAttribute('disabled', true);
+            let elements = document.getElementsByClassName("disable-enable-buttons");
+            let array = [ ...elements ];
+            array.map(element => element.setAttribute('disabled', 'disabled'));
             event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
@@ -47,8 +49,9 @@ const VideoList = (props) => {
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            event.target.downloadButton.disabled = false;
-            event.target.downloadButton.removeAttribute('disabled');
+            elements = document.getElementsByClassName("disable-enable-buttons");
+            array = [ ...elements ];
+            array.map(element => element.removeAttribute('disabled'));
             event.target.downloadIndicator.setAttribute('hidden', true);
         }
     };
@@ -64,18 +67,31 @@ const VideoList = (props) => {
         });
     };
 
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+    );
 
     useEffect(() => {
-        props.onRouteChange(props.route);
+        const interval = setInterval(() => {
+            props.onFetchEvents(false);
+            if (props.selectedRowId && props.videos) {
+                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
+                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
+                    props.onSelectEvent({identifier: props.selectedRowId});
+                }
+            }
+        }, 60000);
+        return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.selectedRowId, props.videos]);
+
+
+    useEffect(() => {
         props.onFetchEvents(true);
+        props.onRouteChange(props.route);
         if (props.apiError) {
             setErrorMessage(props.apiError);
         }
-        props.onDeselectRow();
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-        }, 60000);
-        return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
@@ -98,7 +114,7 @@ const VideoList = (props) => {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <Button name="downloadButton" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
                             <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
                         </form>
                     )
@@ -169,17 +185,18 @@ const VideoList = (props) => {
         return nonSelectableArray;
     };
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: true,
-        clickToEdit: true,
-        hideSelectColumn: true,
-        bgColor: '#8cbdff',
-        nonSelectable: nonSelectableRows(),
-        selected: [props.selectedRowId],
-        onSelect: (row) => {
-            props.onSelectEvent(row);
-        }
+    const expandRow = {
+        parentClassName: 'parent-expand',
+        renderer: row => (
+            <VideoDetailsForm inbox="false"/>
+        ),
+        onlyOneExpanding: true,
+        onExpand: (row, isExpand, rowIndex, e) => {
+            if(isExpand) {
+                props.onSelectEvent(row);
+            }
+        },
+        nonExpandable: nonSelectableRows()
     };
 
 
@@ -208,7 +225,7 @@ const VideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
-            { !props.loading && !errorMessage ?
+            { !errorMessage ?
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
@@ -229,17 +246,20 @@ const VideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search') }/>
-                                    <BootstrapTable { ...props.baseProps } selectRow={ selectRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication="Table is Empty" bordered={ false }
-                                        rowStyle={ rowStyle }
-                                        hover/>
+                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
+                                    </div>
+                                        <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
+                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
+                                                        rowStyle={ rowStyle }
+                                                        hover/>
                                 </div>
                             )
                         }
                     </ToolkitProvider>
-                    <VideoDetailsForm inbox="false"/>
                 </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
@@ -247,7 +267,7 @@ const VideoList = (props) => {
                             { errorMessage }
                         </p>
                     </Alert>
-                    : <Loader loading={ translate('loading') }/>
+                    : ''
             }
         </div>
     );

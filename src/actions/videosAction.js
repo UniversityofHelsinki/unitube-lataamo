@@ -74,13 +74,15 @@ export const actionUploadVideo = (newVideo) => {
                     'content-type': 'multipart/form-data'
                 },
                 onUploadProgress: ProgressEvent => {
-                    dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total)));
+                    dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total-20)));
                 }
             });
 
             if (response.status === 200) {
                 //const responseMessage = await response.data.message;
+                dispatch(fileUploadProgressAction(90));
                 dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
+                dispatch(fileUploadProgressAction(100));
             } else {
                 const responseMessage = await response.data.message;
                 dispatch(fileUploadFailedActionMessage(responseMessage));

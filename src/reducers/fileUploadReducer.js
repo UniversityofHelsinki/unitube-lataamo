@@ -26,7 +26,7 @@ const fileUploadReducer = (state = initialState, action) => {
             ...state,
             updateSuccessMessage: action.payload
         };
-    case 'EMPTY_PROGRESS_FAILURE_MESSAGE':
+    case 'EMPTY_PROGRESS_ERROR_MESSAGE':
         return {
             ...state,
             updateFailedMessage: action.payload
