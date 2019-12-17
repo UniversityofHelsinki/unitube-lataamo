@@ -19,6 +19,7 @@ const VideoDetailsForm = (props) => {
     const [disabledInputs, setDisabledInputs] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const getUpdatedInboxVideos = (eventId, updatedEvent) => {
         if (props.inboxVideos && props.inboxVideos.length > 0) {
@@ -45,8 +46,7 @@ const VideoDetailsForm = (props) => {
         const deletedEvent = { ...inputs }; // values from the form
         try {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
-
-            setSuccessMessage('succeeded_to_delete_event');
+            setShowSuccessAlert(true);
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
@@ -61,7 +61,7 @@ const VideoDetailsForm = (props) => {
         // call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
-            setSuccessMessage('updated_event_details');
+            setSuccessMessage(translate('updated_event_details'));
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
@@ -152,11 +152,11 @@ const VideoDetailsForm = (props) => {
             }
 
             <SweetAlert
-                show={successMessage !== null}
+                show={showSuccessAlert}
                 success
-                onConfirm={() => setSuccessMessage(null)}
+                onConfirm={() => setShowSuccessAlert(false)}
             >
-                {translate(successMessage)}
+                {translate('succeeded_to_delete_event')}
             </SweetAlert>
 
             <SweetAlert
@@ -254,6 +254,14 @@ const VideoDetailsForm = (props) => {
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-12">
+                                {successMessage !== null ?
+                                    <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                                        <p>
+                                            {successMessage}
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
                                 <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={showSweetAlert}>{translate('delete_event')}</button>
                                 <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
                             </div>
