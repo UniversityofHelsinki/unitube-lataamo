@@ -127,6 +127,18 @@ const VideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
+    const stateFormatter = (cell) => {
+        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+            return translate('event_succeeded_state');
+        } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
+            return translate('event_running_and_instantiated_state');
+        }else if (cell === VIDEO_PROCESSING_FAILED){
+            return translate('event_failed_state');
+        }else{
+            return translate('event_succeeded_state');
+        }
+    };
+
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
@@ -148,7 +160,8 @@ const VideoList = (props) => {
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
-        sort: true
+        sort: true,
+        formatter: stateFormatter
     }, {
         dataField: 'series',
         text: translate('series_title'),
