@@ -4,6 +4,8 @@ import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { actionUpdateEventDetails, updateEventList, actionMoveEventToTrashSeries } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
+import { IconContext } from "react-icons";
+import { FiCopy } from 'react-icons/fi';
 
 const VideoDetailsForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -17,6 +19,26 @@ const VideoDetailsForm = (props) => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [disabledInputs, setDisabledInputs] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
+    const [hovered, setHovered] = useState(false);
+
+    const toggleHover = () => {
+        setHovered(!hovered);
+    };
+
+    const copyTextToClipboard = (event) => {
+        event.preventDefault();
+        event.persist();
+        let copyEventId = document.getElementById('eventId').innerText;
+        let eventId = document.createElement('input');
+        document.body.appendChild(eventId);
+        eventId.value = copyEventId;
+        eventId.select();
+        //for mobile devices
+        eventId.setSelectionRange(0,99999);
+        document.execCommand('copy');
+        eventId.remove();
+        setSuccessMessage(translate('video_id_copied_to_clipboard'));
+    };
 
     const getUpdatedInboxVideos = (eventId, updatedEvent) => {
         if (props.inboxVideos && props.inboxVideos.length > 0) {
@@ -158,7 +180,17 @@ const VideoDetailsForm = (props) => {
                             </div>
 
                             {inboxSeries(props.video.series.title)}
-
+                            <div className="form-group row">
+                                <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')}</label>
+                                <label id="eventId" className="col-sm-3 col-form-label">{props.video.identifier}</label>
+                                <div className="col-sm-3">
+                                    <IconContext.Provider value={{ size: '1.5em' }}>
+                                        <div>
+                                            <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
+                                        </div>
+                                    </IconContext.Provider>
+                                </div>
+                            </div>
                             <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
