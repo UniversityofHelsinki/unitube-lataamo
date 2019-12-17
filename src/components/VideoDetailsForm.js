@@ -99,7 +99,9 @@ const VideoDetailsForm = (props) => {
     };
 
     const drawSelectionValues = () => {
-        return props.series.map((series) => {
+        let series = [...props.series];
+        series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
+        return series.map((series) => {
             return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title}</option>;
         });
     };
