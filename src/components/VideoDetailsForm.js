@@ -142,14 +142,6 @@ const VideoDetailsForm = (props) => {
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
-            {successMessage !== null ?
-                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
-                    <p>
-                        {successMessage}
-                    </p>
-                </Alert>
-                : (<></>)
-            }
             {errorMessage !== null ?
                 <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
                     <p>
