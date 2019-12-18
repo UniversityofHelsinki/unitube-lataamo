@@ -68,6 +68,7 @@ export const fetchVideoUrl = (row) => {
 
 export const actionUploadVideo = (newVideo) => {
     return async (dispatch) => {
+        initVideoUploadProcessInformation(dispatch);
         try {
             let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
@@ -95,7 +96,11 @@ export const actionUploadVideo = (newVideo) => {
     };
 };
 
-
+const initVideoUploadProcessInformation = (dispatch) => {
+    dispatch(fileUploadSuccessActionMessage(null));
+    dispatch(fileUploadFailedActionMessage(null));
+    dispatch(fileUploadProgressAction(0));
+};
 
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     type: 'SUCCESS_API_GET_VIDEO',
