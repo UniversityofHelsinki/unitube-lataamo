@@ -4,7 +4,10 @@ import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
-import SweetAlert from 'react-bootstrap-sweetalert';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const SweetAlert = withReactContent(Swal);
 
 const VideoDetailsForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -18,8 +21,6 @@ const VideoDetailsForm = (props) => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [disabledInputs, setDisabledInputs] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const getUpdatedInboxVideos = (eventId, updatedEvent) => {
         if (props.inboxVideos && props.inboxVideos.length > 0) {
@@ -46,7 +47,7 @@ const VideoDetailsForm = (props) => {
         const deletedEvent = { ...inputs }; // values from the form
         try {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
-            setShowSuccessAlert(true);
+            showSuccessMessage();
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
@@ -82,17 +83,8 @@ const VideoDetailsForm = (props) => {
 
 
     const deleteEvent = async () => {
-        setShowAlert(false);
         setDisabledInputs(true);
         await moveEventToTrashSeries();
-    };
-
-    const cancelEvent = () => {
-        setShowAlert(false);
-    };
-
-    const showSweetAlert = () => {
-        setShowAlert(true);
     };
 
     const handleSubmit = async (event) => {
@@ -139,6 +131,36 @@ const VideoDetailsForm = (props) => {
         }
     };
 
+    const createAlert = async () => {
+            const result = await SweetAlert.fire({
+                title: translate('confirm_delete_event'),
+                text: translate('event_deletion_info_text'),
+                icon: 'warning',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d33',
+                confirmButtonText: translate('delete_event'),
+                cancelButtonText: translate('close_alert')
+            });
+            return result;
+    };
+
+    const showSuccessMessage = () => {
+        SweetAlert.fire({
+            title: translate('succeeded_to_delete_event'),
+            text: translate('succeeded_to_delete_event'),
+            icon: 'success'
+        });
+    };
+
+    const showAlert = async () => {
+        const result = await createAlert();
+        if (result.value && result.value === true) {
+            await deleteEvent();
+        }
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -150,29 +172,6 @@ const VideoDetailsForm = (props) => {
                 </Alert>
                 : (<></>)
             }
-
-            <SweetAlert
-                show={showSuccessAlert}
-                success
-                onConfirm={() => setShowSuccessAlert(false)}
-            >
-                {translate('succeeded_to_delete_event')}
-            </SweetAlert>
-
-            <SweetAlert
-                show={showAlert}
-                warning
-                showCancel
-                cancelBtnText={translate('close_alert')}
-                confirmBtnText={translate('delete_event')}
-                confirmBtnBsStyle="danger"
-                title={translate('confirm_delete_event')}
-                onConfirm={deleteEvent}
-                onCancel={cancelEvent}
-                focusCancelBtn
-            >
-                {translate('event_deletion_info_text')}
-            </SweetAlert>
 
             <Video/>
             {props.video && props.video.identifier !== undefined
@@ -262,7 +261,7 @@ const VideoDetailsForm = (props) => {
                                     </Alert>
                                     : (<></>)
                                 }
-                                <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={showSweetAlert}>{translate('delete_event')}</button>
+                                <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={showAlert}>{translate('delete_event')}</button>
                                 <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
                             </div>
                         </div>
