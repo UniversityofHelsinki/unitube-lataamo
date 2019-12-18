@@ -128,7 +128,7 @@ const VideoDetailsForm = (props) => {
 
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-            return <option key={license} id={license} value={license}>{license}</option>;
+            return <option key={license} id={license} value={license}>{translate(replaceCharacter(license))}</option>;
         });
     };
 
@@ -249,15 +249,21 @@ const VideoDetailsForm = (props) => {
                                             </span>
                                         </OverlayTrigger>
                                     </div>
-                                </div>
-                                <div className="form-group row">
-                                    <div className="col-sm-2"></div>
-                                    <div className="col-sm-2">
-                                        {translate(replaceCharacter(inputs.license))}
-                                    </div>
+                            </div>
+                            <div className="form-group row">
+                                <div className="col-sm-2"></div>
+                                <div className="col-sm-2">
+                                    <a href={translate('licence_link')}>{translate('licence_link_text')}</a>
                                 </div>
                             </div>
                             <div className="form-group row">
+                                <div className="col-sm-2"></div>
+                                <div className="col-sm-8">
+                                    <p className="licence-long-info">{translate(replaceCharacter(inputs.license) + '_long_info')}</p>
+                                </div>
+                            </div>
+                            </div>
+                           <div className="form-group row">
                                 <div className="col-sm-12">
                                     <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={deleteEvent}>{translate('delete_event')}</button>
                                     <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
