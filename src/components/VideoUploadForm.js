@@ -85,7 +85,7 @@ const VideoUploadForm = (props) => {
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                         <div className="col-sm-8">
-                            <input onChange={handleFileInputChange} id="video_input_file" type="file" className="form-control" name="video_file" required/>
+                            <input onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
