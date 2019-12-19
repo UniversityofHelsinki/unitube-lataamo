@@ -10,11 +10,13 @@ import {
 } from '../actions/fileUploadAction';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 import routeAction from '../actions/routeAction';
+import Constants from '../utils/constants';
 
 const VideoUploadForm = (props) => {
 
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+    const [validationMessage, setValidationMessage] = useState(null);
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -41,19 +43,33 @@ const VideoUploadForm = (props) => {
 
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
 
+    const validateVideoFileLength = (selectedVideoFile) => {
+        if (selectedVideoFile && selectedVideoFile.size > Constants.FILE_SIZE_LIMIT) {
+            setValidationMessage("input_file_size_exceeded");
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.persist();
         event.preventDefault();
-        setSubmitButtonDisabled(true);
-        await uploadVideo();
-        clearVideoFileSelection();
-        setSubmitButtonDisabled(false);
+            setSubmitButtonDisabled(true);
+            await uploadVideo();
+            clearVideoFileSelection();
+            setSubmitButtonDisabled(false);
     };
 
     const handleFileInputChange = (event) => {
-        setSubmitButtonDisabled(false);
         event.persist();
-        setVideoFile(event.target.files[0]);
+        const videoFile = event.target.files[0];
+        if (validateVideoFileLength(videoFile)) {
+            setVideoFile(videoFile);
+            setSubmitButtonDisabled(false);
+        } else {
+            clearVideoFileSelection();
+        }
     };
 
     const clearVideoFileSelection = () => {
@@ -74,6 +90,12 @@ const VideoUploadForm = (props) => {
             {props.fur.updateFailedMessage !== null ?
                 <Alert variant="danger" onClose={() => props.onFailureMessageClick() } dismissible>
                     <p>{translate(props.fur.updateFailedMessage)}</p>
+                </Alert>
+                : (<></>)
+            }
+            {validationMessage !== null ?
+                <Alert variant="danger" onClose={() => setValidationMessage(null) } dismissible>
+                    <p>{translate(validationMessage)}</p>
                 </Alert>
                 : (<></>)
             }

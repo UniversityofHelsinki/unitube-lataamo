@@ -113,7 +113,8 @@ const translationsObject = {
         empty_video_list: 'You have no videos',
         empty_series_list: 'You have no series',
         error_failed_to_save_series_inbox_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
-        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???'
+        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
+        input_file_size_exceeded: '???input_file_size_exceeded???'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -229,7 +230,8 @@ const translationsObject = {
         empty_video_list: 'Sinulla ei ole videoita',
         empty_series_list: 'Sinulla ei ole sarjoja',
         error_failed_to_save_series_inbox_not_allowed: '--- ei saa luoda inbox sarjaa, se on jo olemassa ---',
-        error_failed_to_save_series_trash_not_allowed: '--- ei saa luoda trash sarjaa, se on jo olemassa ---'
+        error_failed_to_save_series_trash_not_allowed: '--- ei saa luoda trash sarjaa, se on jo olemassa ---',
+        input_file_size_exceeded: '???input_file_size_exceeded???'
 },
 
     sv: {
@@ -343,7 +345,8 @@ const translationsObject = {
         empty_video_list: '???empty_video_list???',
         empty_series_list: '???empty_series_list???',
         error_failed_to_save_series_inbox_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
-        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???'
+        error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
+        input_file_size_exceeded: '???input_file_size_exceeded???'
     }
 };
 
