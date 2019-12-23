@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionUpdateEventDetails, updateEventList, actionMoveEventToTrashSeries } from '../actions/eventsAction';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
 import { IconContext } from "react-icons";
 import { FiCopy } from 'react-icons/fi';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const SweetAlert = withReactContent(Swal);
 
 const VideoDetailsForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -65,7 +69,7 @@ const VideoDetailsForm = (props) => {
         const deletedEvent = { ...inputs }; // values from the form
         try {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
-            setSuccessMessage(translate('succeeded_to_delete_event'));
+            showSuccessMessage();
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
@@ -98,12 +102,9 @@ const VideoDetailsForm = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
 
-    const deleteEvent = async (event) => {
-        if (event) {
-            event.preventDefault();
-            setDisabledInputs(true);
-            await moveEventToTrashSeries();
-        }
+    const deleteEvent = async () => {
+        setDisabledInputs(true);
+        await moveEventToTrashSeries();
     };
 
     const handleSubmit = async (event) => {
@@ -150,17 +151,39 @@ const VideoDetailsForm = (props) => {
         }
     };
 
+    const createAlert = async () => {
+            const result = await SweetAlert.fire({
+                title: translate('confirm_delete_event'),
+                text: translate('event_deletion_info_text'),
+                icon: 'warning',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d33',
+                confirmButtonText: translate('delete_event'),
+                cancelButtonText: translate('close_alert')
+            });
+            return result;
+    };
+
+    const showSuccessMessage = () => {
+        SweetAlert.fire({
+            title: translate('succeeded_to_delete_event'),
+            text: translate('succeeded_to_delete_event'),
+            icon: 'success'
+        });
+    };
+
+    const showAlert = async () => {
+        const result = await createAlert();
+        if (result.value && result.value === true) {
+            await deleteEvent();
+        }
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
-            {successMessage !== null ?
-                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
-                    <p>
-                        {successMessage}
-                    </p>
-                </Alert>
-                : (<></>)
-            }
             {errorMessage !== null ?
                 <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
                     <p>
@@ -247,29 +270,37 @@ const VideoDetailsForm = (props) => {
                                             <span className="d-inline-block">
                                                 <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                                             </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <div className="col-sm-2"></div>
-                                    <div className="col-sm-2">
-                                        {translate(replaceCharacter(inputs.license))}
-                                    </div>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <div className="col-sm-12">
-                                    <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={deleteEvent}>{translate('delete_event')}</button>
-                                    <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
+                                <div className="col-sm-2"></div>
+                                <div className="col-sm-2">
+                                    {translate(replaceCharacter(inputs.license))}
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    : (
-                        <div></div>
-                    )
-                }
-            </div>
+                        </div>
+                        <div className="form-group row">
+                            <div className="col-sm-12">
+                                {successMessage !== null ?
+                                    <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                                        <p>
+                                            {successMessage}
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={showAlert}>{translate('delete_event')}</button>
+                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                : (
+                    <div></div>
+                )
+            }
+        </div>
     );
 };
 
