@@ -116,7 +116,8 @@ const translationsObject = {
         error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
-        event_deletion_info_text: '???event_deletion_info_text???'
+        event_deletion_info_text: '???event_deletion_info_text???',
+        logout: 'Logout'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -235,7 +236,8 @@ const translationsObject = {
         error_failed_to_save_series_trash_not_allowed: '--- ei saa luoda trash sarjaa, se on jo olemassa ---',
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
-        event_deletion_info_text: '???event_deletion_info_text???'
+        event_deletion_info_text: '???event_deletion_info_text???',
+        logout: 'Kirjaudu ulos'
 },
 
     sv: {
@@ -352,7 +354,8 @@ const translationsObject = {
         error_failed_to_save_series_trash_not_allowed: '??? error_failed_to_save_series_inbox_not_allowed ???',
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
-        event_deletion_info_text: '???event_deletion_info_text???'
+        event_deletion_info_text: '???event_deletion_info_text???',
+        logout: 'Logga ut'
     }
 };
 
