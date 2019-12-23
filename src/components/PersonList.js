@@ -1,7 +1,8 @@
 import React from 'react';
-import { removePerson } from '../actions/seriesAction';
-import { connect } from 'react-redux';
-import { Badge } from 'react-bootstrap';
+import {removePerson} from '../actions/seriesAction';
+import {connect} from 'react-redux';
+import {Badge} from 'react-bootstrap';
+import {GoPerson} from "react-icons/go";
 
 const PersonList = (props) => {
 
@@ -19,20 +20,24 @@ const PersonList = (props) => {
             return props.persons.map((selection, index) => {
                 return (
                     <div key={ index } className="form-check-inline">
-                        <Badge variant='primary'>
+                        <span className="border">
+                        <Badge variant='light'>
+                            <GoPerson />
+                            <span className="pl-2">
                             { selection }
-                            { lastAdministrator !== true
-                                ?
-                                <span className='close' onClick={ (event) => {
-                                    event.isDefaultPrevented();
-                                    props.onPersonRemove(selection)
-                                } } aria-hidden='true'>&times;</span>
-                                : (
-                                    <div></div>
-                                )
-                            }
-
+                                { lastAdministrator !== true
+                                    ?
+                                    <span className='close' onClick={ (event) => {
+                                        event.isDefaultPrevented();
+                                        props.onPersonRemove(selection)
+                                    } } aria-hidden='true'>&times;</span>
+                                    : (
+                                        <div></div>
+                                    )
+                                }
+                            </span>
                         </Badge>
+                        </span>
                     </div>
                 );
             });
