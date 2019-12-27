@@ -36,7 +36,6 @@ const PersonListAutoSuggest = (props) => {
 
     const addToSelection = (selection) => {
         if (selection) {
-            console.log(selection.userName);
             props.onPersonAdd(selection.userName);
         }
         clearTypeAheadSelection();
