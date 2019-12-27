@@ -131,7 +131,7 @@ const VideoDetailsForm = (props) => {
 
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-            return <option key={license} id={license} value={license}>{license}</option>;
+            return <option key={license} id={license} value={license}>{translate(replaceCharacter(license))}</option>;
         });
     };
 
@@ -278,7 +278,13 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <div className="col-sm-2"></div>
                                 <div className="col-sm-2">
-                                    {translate(replaceCharacter(inputs.license))}
+                                    <a href={translate('licence_link')}>{translate('licence_link_text')}</a>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <div className="col-sm-2"></div>
+                                <div className="col-sm-8">
+                                    <p className="licence-long-info">{translate(replaceCharacter(inputs.license) + '_long_info')}</p>
                                 </div>
                             </div>
                         </div>
