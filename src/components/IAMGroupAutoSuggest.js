@@ -52,7 +52,7 @@ const IAMGroupAutoSuggest = (props) => {
                 id="iam-group-typeahead"
                 ref={(ref) => iamGroupTypeAhead = ref}
                 isLoading={isLoading}
-                minLength={3}
+                minLength={4}
                 labelKey={(option) => labelKey(option)}
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
