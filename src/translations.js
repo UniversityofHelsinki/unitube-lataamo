@@ -127,7 +127,11 @@ const translationsObject = {
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
-        logout: 'Logout'
+        logout: 'Logout',
+        event_running_and_instantiated_state: 'Processing video',
+        event_failed_state: 'Processing failed',
+        event_succeeded_state: 'Processing succeeded'
+
     },
     fi: {
         videos: 'Tallenteeni',
@@ -257,7 +261,10 @@ const translationsObject = {
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
-        logout: 'Kirjaudu ulos'
+        logout: 'Kirjaudu ulos',
+        event_running_and_instantiated_state: 'Videoa käsitellään',
+        event_failed_state: 'Käsittely epäonnistui',
+        event_succeeded_state: 'Käsittely onnistui'
 },
 
     sv: {
@@ -385,7 +392,10 @@ const translationsObject = {
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
-        logout: 'Logga ut'
+        logout: 'Logga ut',
+        event_running_and_instantiated_state: '???event_running_and_instantiated_state???',
+        event_failed_state: '???event_failed_state???',
+        event_succeeded_state: '???event_succeeded_state???'
     }
 };
 
