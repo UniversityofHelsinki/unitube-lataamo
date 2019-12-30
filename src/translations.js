@@ -128,7 +128,8 @@ const translationsObject = {
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
         logout: 'Logout',
-        input_file_size_exceeded: '???input_file_size_exceeded???'
+        input_file_size_exceeded: '???input_file_size_exceeded???',
+        error_failed_to_upload_video_wrong_file_type: 'Wrong file type'
     },
     fi: {
         videos: 'Tallenteeni',
@@ -259,7 +260,8 @@ const translationsObject = {
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
         logout: 'Kirjaudu ulos',
-        input_file_size_exceeded: '???input_file_size_exceeded???'
+        input_file_size_exceeded: '???input_file_size_exceeded???',
+        error_failed_to_upload_video_wrong_file_type: 'Väärä tiedostotyyppi'
 },
 
     sv: {
@@ -388,7 +390,8 @@ const translationsObject = {
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
         logout: 'Logga ut',
-        input_file_size_exceeded: '???input_file_size_exceeded???'
+        input_file_size_exceeded: '???input_file_size_exceeded???',
+        error_failed_to_upload_video_wrong_file_type: 'error_failed_to_upload_video_wrong_file_type'
     }
 };
 
