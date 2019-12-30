@@ -153,28 +153,30 @@ const SeriesList = (props) => {
                 </Link>
             </div>
             { !errorMessage ?
-                <ToolkitProvider
-                    bootstrap4
-                    keyField="identifier"
-                    data={ translatedSeries() }
-                    columns={ columns }
-                    search
-                    defaultSorted={ defaultSorted }>
-                    {
-                        props => (
-                            <div>
-                                <br/>
-                                <label className='info-text'>{ translate('search_series_info') } </label>
-                                <div className="form-group has-search">
-                                    <span className="fa fa-search form-control-feedback"><FaSearch /></span>
-                                    <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
+                <div className="table-responsive">
+                    <ToolkitProvider
+                        bootstrap4
+                        keyField="identifier"
+                        data={ translatedSeries() }
+                        columns={ columns }
+                        search
+                        defaultSorted={ defaultSorted }>
+                        {
+                            props => (
+                                <div>
+                                    <br/>
+                                    <label className='info-text'>{ translate('search_series_info') } </label>
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
+                                    </div>
+                                        <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
+                                                        pagination={ paginationFactory(options) } hover />
                                 </div>
-                                    <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
-                                                    pagination={ paginationFactory(options) } hover />
-                            </div>
-                        )
-                    }
-                </ToolkitProvider>
+                            )
+                        }
+                    </ToolkitProvider>
+                </div>
                 : errorMessage !== null ?
                     <Alert variant="danger" onClose={ () => setErrorMessage(null) } >
                         <p>
