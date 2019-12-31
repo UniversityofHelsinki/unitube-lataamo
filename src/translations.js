@@ -127,7 +127,6 @@ const translationsObject = {
         confirm_delete_event: '???confirm_deletion???',
         close_alert: '???close_alert???',
         event_deletion_info_text: '???event_deletion_info_text???',
-        logout: 'Logout',
         event_running_and_instantiated_state: 'Processing video',
         event_failed_state: 'Processing failed',
         event_succeeded_state: 'Processing succeeded',
@@ -265,7 +264,7 @@ const translationsObject = {
         event_deletion_info_text: '???event_deletion_info_text???',
         logout: 'Kirjaudu ulos',
         input_file_size_exceeded: '???input_file_size_exceeded???',
-        error_failed_to_upload_video_wrong_file_type: 'Väärä tiedostotyyppi'
+        error_failed_to_upload_video_wrong_file_type: 'Väärä tiedostotyyppi',
         event_running_and_instantiated_state: 'Videoa käsitellään',
         event_failed_state: 'Käsittely epäonnistui',
         event_succeeded_state: 'Käsittely onnistui'
@@ -398,7 +397,7 @@ const translationsObject = {
         event_deletion_info_text: '???event_deletion_info_text???',
         logout: 'Logga ut',
         input_file_size_exceeded: '???input_file_size_exceeded???',
-        error_failed_to_upload_video_wrong_file_type: 'error_failed_to_upload_video_wrong_file_type'
+        error_failed_to_upload_video_wrong_file_type: 'error_failed_to_upload_video_wrong_file_type',
         event_running_and_instantiated_state: '???event_running_and_instantiated_state???',
         event_failed_state: '???event_failed_state???',
         event_succeeded_state: '???event_succeeded_state???'
