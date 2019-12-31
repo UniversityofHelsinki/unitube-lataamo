@@ -242,14 +242,13 @@ const InboxVideoList = (props) => {
             { !errorMessage ?
                 <div className="table-responsive">
 
-                    {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                   {videoDownloadErrorMessage ?
+                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>
                         </Alert> : ''
                     }
-
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"
