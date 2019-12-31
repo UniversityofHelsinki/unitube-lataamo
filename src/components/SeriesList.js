@@ -4,6 +4,7 @@ import {
     clearPostSeriesSuccessMessage,
     emptyIamGroupsCall,
     emptyMoodleNumber,
+    emptyPersons,
     fetchSerie,
     fetchSeries
 } from '../actions/seriesAction';
@@ -148,7 +149,7 @@ const SeriesList = (props) => {
                 : (<></>)
             }
             <div className="margintop">
-                <Link to="/uploadSeries" onClick={() => {props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
+                <Link to="/uploadSeries" onClick={() => {props.emptyPersons(); props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage();}} className="btn btn-primary">
                     <Translate value="add_series"/>
                 </Link>
             </div>
@@ -203,6 +204,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },
+    emptyPersons: () => dispatch(emptyPersons()),
     emptyMoodleNumber: () => dispatch(emptyMoodleNumber()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage()),
