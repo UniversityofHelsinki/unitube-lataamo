@@ -15,6 +15,9 @@ const PersonList = (props) => {
     };
 
     const drawSelections = () => {
+
+        addLoggedUserAsAdministrator(props);
+
         if (props.persons && props.persons.length > 0) {
             lastAdministrator = lastAdministratorLeft();
             return props.persons.map((selection, index) => {
@@ -51,8 +54,14 @@ const PersonList = (props) => {
     );
 };
 
+const addLoggedUserAsAdministrator = (props) => {
+    if (props.persons && props.persons.length === 0 && (props.iamGroups && props.iamGroups.length === 0)) {
+        props.persons.push(props.user.eppn);
+    }
+}
 
 const mapStateToProps = state => ({
+    user : state.ur.user,
     persons: state.ser.persons,
     iamGroups: state.ser.iamGroups
 });
