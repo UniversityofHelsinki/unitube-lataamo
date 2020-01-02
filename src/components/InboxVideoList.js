@@ -118,6 +118,13 @@ const InboxVideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
+    useEffect(()=>{
+       const interval = setInterval( () => {
+           setVideoDownloadErrorMessage(null);
+       }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const statusFormatter = (cell, row) => {
         return (
             <div>
@@ -242,14 +249,13 @@ const InboxVideoList = (props) => {
             { !errorMessage ?
                 <div className="table-responsive">
 
-                    {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                   {videoDownloadErrorMessage ?
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>
                         </Alert> : ''
                     }
-
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"

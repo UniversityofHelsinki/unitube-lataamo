@@ -99,6 +99,13 @@ const TrashVideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
+    useEffect(()=>{
+        const interval = setInterval( () => {
+            setVideoDownloadErrorMessage(null);
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const dateFormatter = (cell) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
@@ -136,7 +143,7 @@ const TrashVideoList = (props) => {
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>

@@ -122,17 +122,7 @@ const SeriesUploadForm = (props) => {
     let seriesPostFailureMessage = props.seriesPostFailureMessage;
     return(
         <div>
-            {props.seriesPostFailureMessage !== null ?
-                <Alert variant="danger">
-                    <span>
-                        {translate( seriesPostFailureMessage)}
-                    </span>
-                </Alert>
-                : (<></>)
-            }
-
             <h2>{translate('series_creation_form')}</h2>
-
             <form onSubmit={handleSubmit}>
                 <div className="series-bg">
                     <div className="form-group row">
@@ -263,6 +253,14 @@ const SeriesUploadForm = (props) => {
 
                 <div className="form-group row">
                     <div className="col-sm-12">
+                        {props.seriesPostFailureMessage !== null ?
+                            <Alert variant="danger">
+                    <span>
+                        {translate( seriesPostFailureMessage)}
+                    </span>
+                            </Alert>
+                            : (<></>)
+                        }
                         <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
                     </div>
                 </div>
