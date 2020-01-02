@@ -188,24 +188,6 @@ const SerieDetailsForm = (props) => {
 
     return (
         <div>
-            {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
-            { successMessage !== null ?
-                <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
-                    <p>
-                        { successMessage }
-                    </p>
-                </Alert>
-                : (<></>)
-            }
-            { errorMessage !== null ?
-                <Alert variant="danger" onClose={ () => setErrorMessage(null) } dismissible>
-                    <p>
-                        { errorMessage }
-                    </p>
-                </Alert>
-                : (<></>)
-            }
-
             { props.serie && props.serie.identifier !== undefined
                 ?
                 <form onSubmit={ handleSubmit } className="was-validated" >
@@ -381,6 +363,23 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-12">
+                                {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
+                                { successMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
+                                        <p>
+                                            { successMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                { errorMessage !== null ?
+                                    <Alert variant="danger" onClose={ () => setErrorMessage(null) } dismissible>
+                                        <p>
+                                            { errorMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
                                 <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
                             </div>
                         </div>

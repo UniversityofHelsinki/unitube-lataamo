@@ -95,6 +95,13 @@ const VideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
+    useEffect(()=>{
+        const interval = setInterval( () => {
+            setVideoDownloadErrorMessage(null);
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const statusFormatter = (cell, row) => {
         return (
             <div>
@@ -242,7 +249,7 @@ const VideoList = (props) => {
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>
