@@ -268,7 +268,7 @@ const translationsObject = {
         event_running_and_instantiated_state: 'Videoa käsitellään',
         event_failed_state: 'Käsittely epäonnistui',
         event_succeeded_state: 'Käsittely onnistui'
-},
+    },
 
     sv: {
         searchForPersons: '???searchForPersons???',

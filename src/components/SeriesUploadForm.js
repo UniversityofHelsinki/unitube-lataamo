@@ -7,8 +7,8 @@ import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
 import PersonListAutoSuggest from './PersonListAutoSuggest';
 import PersonList from './PersonList';
-import * as constants from "../utils/constants";
-import routeAction from "../actions/routeAction";
+import * as constants from '../utils/constants';
+import routeAction from '../actions/routeAction';
 
 const SeriesUploadForm = (props) => {
 
@@ -136,9 +136,9 @@ const SeriesUploadForm = (props) => {
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_title_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>
@@ -150,9 +150,9 @@ const SeriesUploadForm = (props) => {
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
-                            <span className="d-inline-block">
-                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                            </span>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>
@@ -163,9 +163,9 @@ const SeriesUploadForm = (props) => {
                             <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
                             <div className="col-sm-1 info-box-margin">
                                 <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                </span>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                    </span>
                                 </OverlayTrigger>
                             </div>
                         </div>
@@ -255,9 +255,9 @@ const SeriesUploadForm = (props) => {
                     <div className="col-sm-12">
                         {props.seriesPostFailureMessage !== null ?
                             <Alert variant="danger">
-                    <span>
-                        {translate( seriesPostFailureMessage)}
-                    </span>
+                                <span>
+                                    {translate( seriesPostFailureMessage)}
+                                </span>
                             </Alert>
                             : (<></>)
                         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme/build';
+import { mount } from 'enzyme/build';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import getAction from './utils/getAction';
@@ -65,10 +65,10 @@ describe('<SerieUploadForm />', () => {
 
     it('initially should fire route change action', async () => {
         expect(store.getActions().length).toBe(1);
-        expect(await getAction(store, 'routeChange')).toEqual({"payload": undefined, "type": "routeChange"})
+        expect(await getAction(store, 'routeChange')).toEqual({ 'payload': undefined, 'type': 'routeChange' });
     });
 
-    it('Should get success message when posting new series', async () =>{
+    it('Should get success message when posting new series', async () => {
         expect(store.getActions().length).toBe(1);
         store.dispatch(apiPostSeriesSuccessCall());
         expect(await getAction(store, 'SUCCESS_API_POST_SERIES')).not.toBe(null);
@@ -78,7 +78,7 @@ describe('<SerieUploadForm />', () => {
         });
     });
 
-    it('Should get failure message when posting new series', async () =>{
+    it('Should get failure message when posting new series', async () => {
         expect(store.getActions().length).toBe(1);
         store.dispatch(apiPostSeriesFailureCall());
         expect(await getAction(store, 'FAILURE_API_POST_SERIES')).not.toBe(null);
@@ -88,7 +88,7 @@ describe('<SerieUploadForm />', () => {
         });
     });
 
-    it('Should get failure message when posting new series', async () =>{
+    it('Should get failure message when posting new series', async () => {
         expect(store.getActions().length).toBe(1);
         store.dispatch(apiPostSeries403FailureCall());
         expect(await getAction(store, 'STATUS_403_API_CALL')).not.toBe(null);
@@ -111,7 +111,7 @@ describe('<SerieUploadForm />', () => {
             'selectedRowId': '',
             'serie': {
                 'description': '',
-                'moodleNumber': "",
+                'moodleNumber': '',
                 'moodleNumbers': [],
                 'title': '',
                 'published': '' },
@@ -158,7 +158,7 @@ describe('<SerieUploadForm />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": "", 'moodleNumber': '', 'moodleNumbers': []},'series': [], 'iamGroups': [iamGroup1], 'persons': [],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'iamGroups': [iamGroup1], 'persons': [],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_IAM_GROUP'))).toEqual(expectedState);
@@ -198,7 +198,7 @@ describe('<SerieUploadForm />', () => {
             'type': 'ADD_PERSON',
             'payload': person1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": "", 'moodleNumber': '', 'moodleNumbers': []},'series': [], 'iamGroups': [], 'persons': [person1],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
@@ -212,10 +212,10 @@ describe('<SerieUploadForm />', () => {
             'type': 'ADD_PERSON',
             'payload': person2
         });
-        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1, person2],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1, person2],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(initialState, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
@@ -243,10 +243,10 @@ describe('<SerieUploadForm />', () => {
             'type': 'ADD_PERSON',
             'payload': person1
         });
-        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(initialState, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);

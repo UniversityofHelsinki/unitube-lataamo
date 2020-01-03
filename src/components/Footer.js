@@ -1,6 +1,6 @@
 import React from 'react';
 import { Translate } from 'react-redux-i18n';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const Footer = (props) => {
 
