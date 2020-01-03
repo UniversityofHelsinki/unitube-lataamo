@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {downloadVideo} from '../actions/videosAction';
-import {fetchTrashEvents} from '../actions/eventsAction';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { downloadVideo } from '../actions/videosAction';
+import { fetchTrashEvents } from '../actions/eventsAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import moment from 'moment';
 import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import {Button} from 'react-bootstrap';
-import {FiDownload} from 'react-icons/fi';
-import {FaSearch, FaSpinner} from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
+import { FiDownload } from 'react-icons/fi';
+import { FaSearch, FaSpinner } from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -32,7 +32,7 @@ const TrashVideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
-            let elements = document.getElementsByClassName("disable-enable-buttons");
+            let elements = document.getElementsByClassName('disable-enable-buttons');
             let array = [ ...elements ];
             array.map(element => element.setAttribute('disabled', 'disabled'));
             event.target.downloadIndicator.removeAttribute('hidden');
@@ -43,7 +43,7 @@ const TrashVideoList = (props) => {
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            elements = document.getElementsByClassName("disable-enable-buttons");
+            elements = document.getElementsByClassName('disable-enable-buttons');
             array = [ ...elements ];
             array.map(element => element.removeAttribute('disabled'));
             event.target.downloadIndicator.setAttribute('hidden', true);
@@ -99,7 +99,7 @@ const TrashVideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const interval = setInterval( () => {
             setVideoDownloadErrorMessage(null);
         }, 60000);
@@ -110,7 +110,7 @@ const TrashVideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
-    const columns = [{dataField: 'title',
+    const columns = [{ dataField: 'title',
         text: translate('video_title'),
         sort: true
     }, {
@@ -165,9 +165,9 @@ const TrashVideoList = (props) => {
                                         <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
                                     </div>
-                                        <BootstrapTable { ...props.baseProps }
-                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                        noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
+                                    <BootstrapTable { ...props.baseProps }
+                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                        noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
                                 </div>
                             )
                         }

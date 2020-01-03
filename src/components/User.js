@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IconContext } from "react-icons";
+import { IconContext } from 'react-icons';
 import { FaUserAlt } from 'react-icons/fa';
 import { Translate } from 'react-redux-i18n';
 
@@ -9,7 +9,7 @@ const User = (props) => {
 
     return (
         <React.Fragment>
-            <IconContext.Provider value={{ color: "grey", className: "global-class-name" }}>
+            <IconContext.Provider value={{ color: 'grey', className: 'global-class-name' }}>
                 <FaUserAlt /> <span>{loggedUser.displayName} | </span>
                 <a href="/Shibboleth.sso/Logout"><Translate value="logout" /></a>
             </IconContext.Provider>

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
-import { IconContext } from "react-icons";
+import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -137,7 +137,7 @@ const VideoDetailsForm = (props) => {
 
     const replaceCharacter = (replaceStr) => {
         if (replaceStr) {
-            return replaceStr.replace(/-/g, "_");
+            return replaceStr.replace(/-/g, '_');
         }
     };
 
@@ -154,18 +154,18 @@ const VideoDetailsForm = (props) => {
     };
 
     const createAlert = async () => {
-            const result = await SweetAlert.fire({
-                title: translate('confirm_delete_event'),
-                text: translate('event_deletion_info_text'),
-                icon: 'warning',
-                showCancelButton: true,
-                showConfirmButton: true,
-                cancelButtonColor: '#3085d6',
-                confirmButtonColor: '#d33',
-                confirmButtonText: translate('delete_event'),
-                cancelButtonText: translate('close_alert')
-            });
-            return result;
+        const result = await SweetAlert.fire({
+            title: translate('confirm_delete_event'),
+            text: translate('event_deletion_info_text'),
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#d33',
+            confirmButtonText: translate('delete_event'),
+            cancelButtonText: translate('close_alert')
+        });
+        return result;
     };
 
     const showSuccessMessage = () => {
@@ -216,9 +216,9 @@ const VideoDetailsForm = (props) => {
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
                                     </OverlayTrigger>
                                 </div>
                             </div>
@@ -226,27 +226,27 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
                                     <input disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
-                                           placeholder="Title" value={inputs.title} maxLength="150" required/>
+                                        placeholder="Title" value={inputs.title} maxLength="150" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
                                     </OverlayTrigger>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
-                                        <textarea disabled={disabledInputs} name="description" className="form-control" value={inputs.description}
-                                                  onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
+                                    <textarea disabled={disabledInputs} name="description" className="form-control" value={inputs.description}
+                                        onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
                                     </OverlayTrigger>
                                 </div>
                             </div>
@@ -260,9 +260,9 @@ const VideoDetailsForm = (props) => {
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
-                                            </span>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
                                     </OverlayTrigger>
                                 </div>
                             </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {removeMoodleNumber} from '../actions/seriesAction';
-import {Badge} from 'react-bootstrap';
-import { FaBookReader } from "react-icons/fa";
+import { connect } from 'react-redux';
+import { removeMoodleNumber } from '../actions/seriesAction';
+import { Badge } from 'react-bootstrap';
+import { FaBookReader } from 'react-icons/fa';
 
 const SelectedMoodleNumbers = (props) => {
 
@@ -17,10 +17,10 @@ const SelectedMoodleNumbers = (props) => {
                     <span className="border">
                         <Badge variant='light'>
                             <FaBookReader/>
-                             <span className="pl-2">
+                            <span className="pl-2">
                                 { moodleNumber }
                                 <span className='close' onClick={() => removeNumber(moodleNumber)} aria-hidden='true'>&times;</span>
-                             </span>
+                            </span>
                         </Badge>
                     </span>
                 </div>
