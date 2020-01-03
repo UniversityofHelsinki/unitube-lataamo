@@ -1,8 +1,8 @@
 import React from 'react';
-import {removePerson} from '../actions/seriesAction';
-import {connect} from 'react-redux';
-import {Badge} from 'react-bootstrap';
-import {GoPerson} from "react-icons/go";
+import { removePerson } from '../actions/seriesAction';
+import { connect } from 'react-redux';
+import { Badge } from 'react-bootstrap';
+import { GoPerson } from 'react-icons/go';
 
 const PersonList = (props) => {
 
@@ -21,22 +21,22 @@ const PersonList = (props) => {
                 return (
                     <div key={ index } className="form-check-inline">
                         <span className="border">
-                        <Badge variant='light'>
-                            <GoPerson />
-                            <span className="pl-2">
-                            { selection }
-                                { lastAdministrator !== true
-                                    ?
-                                    <span className='close' onClick={ (event) => {
-                                        event.isDefaultPrevented();
-                                        props.onPersonRemove(selection)
-                                    } } aria-hidden='true'>&times;</span>
-                                    : (
-                                        <div></div>
-                                    )
-                                }
-                            </span>
-                        </Badge>
+                            <Badge variant='light'>
+                                <GoPerson />
+                                <span className="pl-2">
+                                    { selection }
+                                    { lastAdministrator !== true
+                                        ?
+                                        <span className='close' onClick={ (event) => {
+                                            event.isDefaultPrevented();
+                                            props.onPersonRemove(selection);
+                                        } } aria-hidden='true'>&times;</span>
+                                        : (
+                                            <div></div>
+                                        )
+                                    }
+                                </span>
+                            </Badge>
                         </span>
                     </div>
                 );

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import {
     clearPostSeriesSuccessMessage,
     emptyIamGroupsCall,
@@ -9,14 +9,14 @@ import {
 } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import Loader from './Loader';
 import SerieDetailsForm from './SerieDetailsForm';
-import {Link} from 'react-router-dom';
-import {Translate} from 'react-redux-i18n';
+import { Link } from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import {FaSearch} from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 
 const { SearchBar } = Search;
@@ -170,8 +170,8 @@ const SeriesList = (props) => {
                                         <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
                                     </div>
-                                        <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
-                                                        pagination={ paginationFactory(options) } hover />
+                                    <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
+                                        pagination={ paginationFactory(options) } hover />
                                 </div>
                             )
                         }
