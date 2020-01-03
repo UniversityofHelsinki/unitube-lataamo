@@ -118,6 +118,13 @@ const InboxVideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
+    useEffect(()=>{
+       const interval = setInterval( () => {
+           setVideoDownloadErrorMessage(null);
+       }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const statusFormatter = (cell, row) => {
         return (
             <div>
@@ -132,6 +139,18 @@ const InboxVideoList = (props) => {
 
     const dateFormatter = (cell) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
+    };
+
+    const stateFormatter = (cell) => {
+        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+          return translate('event_succeeded_state');
+        } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
+            return translate('event_running_and_instantiated_state');
+        }else if (cell === VIDEO_PROCESSING_FAILED){
+            return translate('event_failed_state');
+        }else{
+            return translate('event_succeeded_state');
+        }
     };
 
     const columns = [{
@@ -155,7 +174,8 @@ const InboxVideoList = (props) => {
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
-        sort: true
+        sort: true,
+        formatter: stateFormatter
     }, {
         dataField: 'series',
         text: translate('series_title'),
@@ -229,14 +249,13 @@ const InboxVideoList = (props) => {
             { !errorMessage ?
                 <div className="table-responsive">
 
-                    {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                   {videoDownloadErrorMessage ?
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>
                         </Alert> : ''
                     }
-
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"

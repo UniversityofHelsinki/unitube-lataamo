@@ -95,6 +95,13 @@ const VideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
+    useEffect(()=>{
+        const interval = setInterval( () => {
+            setVideoDownloadErrorMessage(null);
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const statusFormatter = (cell, row) => {
         return (
             <div>
@@ -127,6 +134,18 @@ const VideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
+    const stateFormatter = (cell) => {
+        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+            return translate('event_succeeded_state');
+        } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
+            return translate('event_running_and_instantiated_state');
+        }else if (cell === VIDEO_PROCESSING_FAILED){
+            return translate('event_failed_state');
+        }else{
+            return translate('event_succeeded_state');
+        }
+    };
+
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
@@ -148,7 +167,8 @@ const VideoList = (props) => {
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
-        sort: true
+        sort: true,
+        formatter: stateFormatter
     }, {
         dataField: 'series',
         text: translate('series_title'),
@@ -229,7 +249,7 @@ const VideoList = (props) => {
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>

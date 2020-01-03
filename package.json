@@ -8,24 +8,26 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "jquery": "^3.4.1",
-    "js-file-download": "^0.4.8",
+    "js-file-download": "^0.4.9",
     "moment": "^2.24.0",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
-    "react-bootstrap-table-next": "^3.3.2",
+    "react-bootstrap-table-next": "^3.3.3",
     "react-bootstrap-table2-paginator": "^2.1.0",
-    "react-bootstrap-table2-toolkit": "^2.1.0",
+    "react-bootstrap-table2-toolkit": "^2.1.1",
     "react-bootstrap-typeahead": "^3.4.7",
     "react-dom": "^16.12.0",
     "react-icons": "^3.8.0",
     "react-redux": "^6.0.1",
     "react-redux-i18n": "^1.9.3",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.3.0",
     "react-test-renderer": "^16.12.0",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sweetalert2": "^9.5.3",
+    "sweetalert2-react-content": "^2.0.2"
   },
   "scripts": {
     "start": "cross-env PORT=8000 react-scripts start",
@@ -50,6 +52,6 @@
     "eslint-plugin-react": "7.13.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "json-server": "^0.14.2",
-    "redux-mock-store": "^1.5.3"
+    "redux-mock-store": "^1.5.4"
   }
 }

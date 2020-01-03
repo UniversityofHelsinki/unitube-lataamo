@@ -68,6 +68,7 @@ export const fetchVideoUrl = (row) => {
 
 export const actionUploadVideo = (newVideo) => {
     return async (dispatch) => {
+        initVideoUploadProcessInformation(dispatch);
         try {
             let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
@@ -89,13 +90,23 @@ export const actionUploadVideo = (newVideo) => {
                 dispatch(fileUploadProgressAction( 0));
             }
         } catch (error) {
-            dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
-            dispatch(fileUploadProgressAction( 0));
+            if(error.response.status===415){
+                const errorResponseMessage = await error.response.data.message;
+                dispatch(fileUploadFailedActionMessage(errorResponseMessage));
+                dispatch(fileUploadProgressAction( 0));
+            }else{
+                dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
+                dispatch(fileUploadProgressAction( 0));
+            }
         }
     };
 };
 
-
+const initVideoUploadProcessInformation = (dispatch) => {
+    dispatch(fileUploadSuccessActionMessage(null));
+    dispatch(fileUploadFailedActionMessage(null));
+    dispatch(fileUploadProgressAction(0));
+};
 
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({
     type: 'SUCCESS_API_GET_VIDEO',

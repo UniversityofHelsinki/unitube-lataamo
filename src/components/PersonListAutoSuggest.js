@@ -36,7 +36,6 @@ const PersonListAutoSuggest = (props) => {
 
     const addToSelection = (selection) => {
         if (selection) {
-            console.log(selection.userName);
             props.onPersonAdd(selection.userName);
         }
         clearTypeAheadSelection();
@@ -53,7 +52,7 @@ const PersonListAutoSuggest = (props) => {
                 id="iam-group-typeahead"
                 ref={(ref) => personListTypeAhead = ref}
                 isLoading={isLoading}
-                minLength={3}
+                minLength={4}
                 labelKey={(option) => labelKey(option)}
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
