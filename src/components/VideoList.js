@@ -139,10 +139,8 @@ const VideoList = (props) => {
             return translate('event_succeeded_state');
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return translate('event_running_and_instantiated_state');
-        }else if (cell === VIDEO_PROCESSING_FAILED){
+        }else {
             return translate('event_failed_state');
-        }else{
-            return translate('event_succeeded_state');
         }
     };
 
