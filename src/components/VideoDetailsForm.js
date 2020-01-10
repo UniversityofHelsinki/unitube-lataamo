@@ -300,7 +300,7 @@ const VideoDetailsForm = (props) => {
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-2">Videon upotuskoodi</label>
-                                <div id='embeddedVideo' className="col-sm-8 embeddedVideo">
+                                <div id='embeddedVideo' className="col-sm-7 embeddedVideo">
                                     {embedVideo()}
                                 </div>
                                 <div className="col-sm-1">
@@ -309,6 +309,13 @@ const VideoDetailsForm = (props) => {
                                             <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyEmbeddedEventToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                         </div>
                                     </IconContext.Provider>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('embedded_video_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
                         </div>
