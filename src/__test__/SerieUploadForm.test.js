@@ -41,6 +41,7 @@ describe('<SerieUploadForm />', () => {
     const initialState =  {
         ser: { error: '', series: series, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
         sr: { apiError: '' },
+        ur : { user: { eppn: '', preferredLanguage: '' }},
         i18n : {
             translations: translations,
             locale: 'fi'
