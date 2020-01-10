@@ -90,8 +90,14 @@ export const actionUploadVideo = (newVideo) => {
                 dispatch(fileUploadProgressAction( 0));
             }
         } catch (error) {
-            dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
-            dispatch(fileUploadProgressAction( 0));
+            if(error.response.status===415){
+                const errorResponseMessage = await error.response.data.message;
+                dispatch(fileUploadFailedActionMessage(errorResponseMessage));
+                dispatch(fileUploadProgressAction( 0));
+            }else{
+                dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
+                dispatch(fileUploadProgressAction( 0));
+            }
         }
     };
 };

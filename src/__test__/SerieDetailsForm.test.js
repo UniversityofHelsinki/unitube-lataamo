@@ -40,12 +40,12 @@ const msg = 'Unable to fetch data';
 describe('<SerieList />', () => {
     const initialState =  {
         ser: { error: '', series: series, serie: {
-                title : '',
-                description: '',
-                published: '',
-            }, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
+            title : '',
+            description: '',
+            published: '',
+        }, loading: false, moodleNumbers: [], iamGroups: [], persons: [] },
         sr: { apiError: '' },
-        ur : { user: { eppn: '', preferredLanguage: '' }},
+        ur : { user: { eppn: '', preferredLanguage: '' } },
         i18n : {
             translations: translations,
             locale: 'fi'
@@ -85,7 +85,7 @@ describe('<SerieList />', () => {
             'selectedRowId': '',
             'serie': {
                 'description': '',
-                'moodleNumber': "",
+                'moodleNumber': '',
                 'moodleNumbers': [],
                 'title': '',
                 'published': '' },
@@ -133,7 +133,7 @@ describe('<SerieList />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": "", 'moodleNumber': '', 'moodleNumbers': []},'series': [], 'iamGroups': [iamGroup1], 'persons': [],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'iamGroups': [iamGroup1], 'persons': [],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_IAM_GROUP'))).toEqual(expectedState);
@@ -173,7 +173,7 @@ describe('<SerieList />', () => {
             'type': 'ADD_PERSON',
             'payload': person1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": "", 'moodleNumber': '', 'moodleNumbers': []},'series': [], 'iamGroups': [], 'persons': [person1],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
@@ -187,10 +187,10 @@ describe('<SerieList />', () => {
             'type': 'ADD_PERSON',
             'payload': person2
         });
-        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1, person2],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1, person2],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(initialState, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);
@@ -218,10 +218,10 @@ describe('<SerieList />', () => {
             'type': 'ADD_PERSON',
             'payload': person1
         });
-        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+        const initialState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  "published": ""},'series': [], 'iamGroups': [], 'persons': [person1],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '' },'series': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(initialState, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);

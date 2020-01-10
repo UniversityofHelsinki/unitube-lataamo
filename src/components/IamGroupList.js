@@ -2,6 +2,7 @@ import React from 'react';
 import { removeIamGroup } from '../actions/seriesAction';
 import { connect } from 'react-redux';
 import { Badge } from 'react-bootstrap';
+import { GoOrganization } from 'react-icons/go';
 
 const IAMGroupList = (props) => {
 
@@ -19,17 +20,22 @@ const IAMGroupList = (props) => {
             return props.iamGroups.map((selection, index) => {
                 return (
                     <div key={ index } className="form-check-inline">
-                            <Badge variant='primary'>
-                                { selection }
-                                { lastAdministrator !== true
-                                    ?
-                                    <span className='close' onClick={ () => props.onIamGroupRemove(selection) }
-                                          aria-hidden='true'>&times;</span>
-                                    : (
-                                        <div></div>
-                                    )
-                                }
+                        <span className="border">
+                            <Badge variant='light'>
+                                <GoOrganization/>
+                                <span className="pl-2">
+                                    { selection }
+                                    { lastAdministrator !== true
+                                        ?
+                                        <span className='close' onClick={ () => props.onIamGroupRemove(selection) }
+                                            aria-hidden='true'>&times;</span>
+                                        : (
+                                            <div></div>
+                                        )
+                                    }
+                                </span>
                             </Badge>
+                        </span>
                     </div>
                 );
             });

@@ -10,11 +10,13 @@ import {
 } from '../actions/fileUploadAction';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 import routeAction from '../actions/routeAction';
+import Constants from '../utils/constants';
 
 const VideoUploadForm = (props) => {
 
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+    const [validationMessage, setValidationMessage] = useState(null);
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -41,6 +43,15 @@ const VideoUploadForm = (props) => {
 
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
 
+    const validateVideoFileLength = (selectedVideoFile) => {
+        if (selectedVideoFile && selectedVideoFile.size > Constants.FILE_SIZE_LIMIT) {
+            setValidationMessage('input_file_size_exceeded');
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.persist();
         event.preventDefault();
@@ -51,9 +62,14 @@ const VideoUploadForm = (props) => {
     };
 
     const handleFileInputChange = (event) => {
-        setSubmitButtonDisabled(false);
         event.persist();
-        setVideoFile(event.target.files[0]);
+        const videoFile = event.target.files[0];
+        if (validateVideoFileLength(videoFile)) {
+            setVideoFile(videoFile);
+            setSubmitButtonDisabled(false);
+        } else {
+            clearVideoFileSelection();
+        }
     };
 
     const clearVideoFileSelection = () => {
@@ -77,6 +93,12 @@ const VideoUploadForm = (props) => {
                 </Alert>
                 : (<></>)
             }
+            {validationMessage !== null ?
+                <Alert variant="danger" onClose={() => setValidationMessage(null) } dismissible>
+                    <p>{translate(validationMessage)}</p>
+                </Alert>
+                : (<></>)
+            }
 
             <h2>{translate('video_file_title')}</h2>
 
@@ -85,7 +107,7 @@ const VideoUploadForm = (props) => {
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                         <div className="col-sm-8">
-                            <input onChange={handleFileInputChange} id="video_input_file" type="file" className="form-control" name="video_file" required/>
+                            <input onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>

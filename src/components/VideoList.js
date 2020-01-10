@@ -38,7 +38,7 @@ const VideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
-            let elements = document.getElementsByClassName("disable-enable-buttons");
+            let elements = document.getElementsByClassName('disable-enable-buttons');
             let array = [ ...elements ];
             array.map(element => element.setAttribute('disabled', 'disabled'));
             event.target.downloadIndicator.removeAttribute('hidden');
@@ -49,7 +49,7 @@ const VideoList = (props) => {
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            elements = document.getElementsByClassName("disable-enable-buttons");
+            elements = document.getElementsByClassName('disable-enable-buttons');
             array = [ ...elements ];
             array.map(element => element.removeAttribute('disabled'));
             event.target.downloadIndicator.setAttribute('hidden', true);
@@ -77,7 +77,7 @@ const VideoList = (props) => {
             if (props.selectedRowId && props.videos) {
                 let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
                 if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
-                    props.onSelectEvent({identifier: props.selectedRowId});
+                    props.onSelectEvent({ identifier: props.selectedRowId });
                 }
             }
         }, 60000);
@@ -94,6 +94,13 @@ const VideoList = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
+
+    useEffect(() => {
+        const interval = setInterval( () => {
+            setVideoDownloadErrorMessage(null);
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
 
     const statusFormatter = (cell, row) => {
         return (
@@ -127,6 +134,16 @@ const VideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
+    const stateFormatter = (cell) => {
+        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+            return translate('event_succeeded_state');
+        } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
+            return translate('event_running_and_instantiated_state');
+        }else {
+            return translate('event_failed_state');
+        }
+    };
+
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
@@ -148,7 +165,8 @@ const VideoList = (props) => {
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
-        sort: true
+        sort: true,
+        formatter: stateFormatter
     }, {
         dataField: 'series',
         text: translate('series_title'),
@@ -229,7 +247,7 @@ const VideoList = (props) => {
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>
@@ -251,11 +269,11 @@ const VideoList = (props) => {
                                         <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     </div>
-                                        <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
-                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
-                                                        rowStyle={ rowStyle }
-                                                        hover/>
+                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
+                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
+                                        rowStyle={ rowStyle }
+                                        hover/>
                                 </div>
                             )
                         }

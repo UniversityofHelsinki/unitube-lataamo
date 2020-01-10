@@ -4,6 +4,7 @@ import { FiCopy } from 'react-icons/fi';
 import { Badge } from 'react-bootstrap';
 import { IconContext } from 'react-icons';
 import Alert from 'react-bootstrap/Alert';
+import { FaFilm } from 'react-icons/fa';
 
 const VideoInSeries = (props) => {
 
@@ -43,21 +44,21 @@ const VideoInSeries = (props) => {
             return props.series.eventColumns.map((selection, index) => {
                 return (
                     <div key={ index } className="form-check-inline">
-
-
-
-                        <Badge variant='primary'>
-                            { selection.title }
-                        </Badge>
-                        <div className="col-sm-3">
-                            <IconContext.Provider value={{ size: '1.5em' }}>
-                                <div>
-                                    <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover}
-                                        onClick={(event) => { copyTextToClipboard(selection.id, event);}} >{translate('copy_to_clipboard')}
-                                    </FiCopy>
-                                </div>
-                            </IconContext.Provider>
-                        </div>
+                        <span className="border">
+                            <Badge variant='light'>
+                                <FaFilm/>
+                                <span className="pl-2">
+                                    { selection.title }
+                                </span>
+                                <span className="pl-2">
+                                    <IconContext.Provider value={{ size: '1.5em' }}>
+                                        <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover}
+                                            onClick={(event) => { copyTextToClipboard(selection.id, event);}} >{translate('copy_to_clipboard')}
+                                        </FiCopy>
+                                    </IconContext.Provider>
+                                </span>
+                            </Badge>
+                        </span>
                     </div>
                 );
             });

@@ -11,8 +11,8 @@ import LoginRedirect from './components/LoginRedirect';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
-import InboxVideoList from "./components/InboxVideoList";
-import TrashVideoList from "./components/TrashVideoList";
+import InboxVideoList from './components/InboxVideoList';
+import TrashVideoList from './components/TrashVideoList';
 
 const App = (props) => {
 

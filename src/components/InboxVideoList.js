@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {downloadVideo, fetchVideoUrl} from '../actions/videosAction';
-import {deselectEvent, deselectRow, fetchEvent, fetchInboxEvents} from '../actions/eventsAction';
-import {fetchSeries, fetchSeriesDropDownList} from '../actions/seriesAction';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
+import { deselectEvent, deselectRow, fetchEvent, fetchInboxEvents } from '../actions/eventsAction';
+import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import {Translate} from 'react-redux-i18n';
-import {Link} from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
+import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import constants, {
     VIDEO_PROCESSING_FAILED,
@@ -18,9 +18,9 @@ import constants, {
 } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import {Button} from 'react-bootstrap';
-import {FiDownload} from 'react-icons/fi';
-import {FaSearch, FaSpinner} from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
+import { FiDownload } from 'react-icons/fi';
+import { FaSearch, FaSpinner } from 'react-icons/fa';
 
 const { SearchBar } = Search;
 
@@ -42,7 +42,7 @@ const InboxVideoList = (props) => {
             event.persist();
             event.preventDefault();
             event.target.downloadIndicator.removeAttribute('hidden');
-            let elements = document.getElementsByClassName("disable-enable-buttons");
+            let elements = document.getElementsByClassName('disable-enable-buttons');
             let array = [ ...elements ];
             array.map(element => element.setAttribute('disabled', 'disabled'));
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
@@ -52,7 +52,7 @@ const InboxVideoList = (props) => {
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            elements = document.getElementsByClassName("disable-enable-buttons");
+            elements = document.getElementsByClassName('disable-enable-buttons');
             array = [ ...elements ];
             array.map(element => element.removeAttribute('disabled'));
             event.target.downloadIndicator.setAttribute('hidden', true);
@@ -101,7 +101,7 @@ const InboxVideoList = (props) => {
             if (props.selectedRowId && props.videos) {
                 let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
                 if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
-                    props.onSelectEvent({identifier: props.selectedRowId});
+                    props.onSelectEvent({ identifier: props.selectedRowId });
                 }
             }
         }, 60000);
@@ -118,6 +118,13 @@ const InboxVideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
+    useEffect(() => {
+        const interval = setInterval( () => {
+            setVideoDownloadErrorMessage(null);
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const statusFormatter = (cell, row) => {
         return (
             <div>
@@ -132,6 +139,16 @@ const InboxVideoList = (props) => {
 
     const dateFormatter = (cell) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
+    };
+
+    const stateFormatter = (cell) => {
+        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+            return translate('event_succeeded_state');
+        } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
+            return translate('event_running_and_instantiated_state');
+        }else {
+            return translate('event_failed_state');
+        }
     };
 
     const columns = [{
@@ -155,7 +172,8 @@ const InboxVideoList = (props) => {
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
-        sort: true
+        sort: true,
+        formatter: stateFormatter
     }, {
         dataField: 'series',
         text: translate('series_title'),
@@ -230,13 +248,12 @@ const InboxVideoList = (props) => {
                 <div className="table-responsive">
 
                     {videoDownloadErrorMessage ?
-                        <Alert variant="danger" onClose={() => setVideoDownloadErrorMessage(null)}>
+                        <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
                                 {videoDownloadErrorMessage}
                             </p>
                         </Alert> : ''
                     }
-
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"
@@ -252,11 +269,11 @@ const InboxVideoList = (props) => {
                                         <span className="fa fa-search form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     </div>
-                                        <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
-                                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                                        noDataIndication={ () => <NoDataIndication /> } bordered={ false }
-                                                        rowStyle={ rowStyle }
-                                                        hover/>
+                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
+                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
+                                        noDataIndication={ () => <NoDataIndication /> } bordered={ false }
+                                        rowStyle={ rowStyle }
+                                        hover/>
                                 </div>
                             )
                         }
