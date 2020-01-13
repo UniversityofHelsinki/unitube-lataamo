@@ -59,6 +59,8 @@ const PersonListAutoSuggest = (props) => {
                 onChange={selected => addToSelection(selected[0])}
                 options={persons}
                 placeholder={translate('searchForPersons')}
+                promptText={translate('person_searching_info')}
+                searchText={translate('searching')}
             />
         </div>
     );
