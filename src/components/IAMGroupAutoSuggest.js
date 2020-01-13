@@ -54,6 +54,7 @@ const IAMGroupAutoSuggest = (props) => {
                 isLoading={isLoading}
                 minLength={4}
                 labelKey={(option) => labelKey(option)}
+                emptyLabel={translate('noIamGroupsFound')}
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
                 options={iamGroups}

@@ -217,7 +217,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -231,7 +231,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -245,7 +245,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -261,7 +261,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
