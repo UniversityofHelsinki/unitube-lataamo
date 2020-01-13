@@ -299,7 +299,7 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-2">Videon upotuskoodi</label>
+                                <label className="col-sm-2">{translate('embedded_video_title')}</label>
                                 <div id='embeddedVideo' className="col-sm-7 embeddedVideo">
                                     {embedVideo()}
                                 </div>
