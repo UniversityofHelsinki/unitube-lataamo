@@ -1,5 +1,6 @@
 const translationsObject = {
     en: {
+        lataamo_title: 'Unitube - Uploader',
         videos: 'Videos',
         series: 'Series',
         search: 'Search',
@@ -135,6 +136,7 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type'
     },
     fi: {
+        lataamo_title: 'Unitube - Lataamo',
         videos: 'Tallenteeni',
         series: 'Sarjani',
         search: 'Etsi',
@@ -271,6 +273,7 @@ const translationsObject = {
     },
 
     sv: {
+        lataamo_title: '???lataamo_title???',
         searchForPersons: '???searchForPersons???',
         add_person: '???add_person???',
         add_persons_info: '???add_persons_info???',
