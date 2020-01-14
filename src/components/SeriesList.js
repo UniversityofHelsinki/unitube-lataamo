@@ -200,7 +200,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries(true)),
+    onFetchSeries: () => dispatch(fetchSeries()),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },
