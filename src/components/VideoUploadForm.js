@@ -144,7 +144,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries(false)),
+    onFetchSeries: () => dispatch(fetchSeries()),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
     onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
