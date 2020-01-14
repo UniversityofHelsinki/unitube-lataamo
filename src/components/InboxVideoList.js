@@ -12,7 +12,6 @@ import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import constants, {
-    VIDEO_PROCESSING_FAILED,
     VIDEO_PROCESSING_INSTANTIATED,
     VIDEO_PROCESSING_RUNNING
 } from '../utils/constants';
@@ -195,9 +194,7 @@ const InboxVideoList = (props) => {
     }];
 
     const eventNotSelectable = (processingState) => {
-        return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
-            processingState === VIDEO_PROCESSING_FAILED ||
-            processingState === VIDEO_PROCESSING_INSTANTIATED));
+        return (processingState && (processingState !== constants.VIDEO_PROCESSING_SUCCEEDED));
     };
 
     const nonSelectableRows = () => {
