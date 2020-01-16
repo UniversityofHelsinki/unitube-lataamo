@@ -19,7 +19,6 @@ compile:
   tags:
     - ohtu-build-2
   script:
-    - npm rebuild node-sass
     - npm install
 # ------------------------------ test stage ------------------------------
 
