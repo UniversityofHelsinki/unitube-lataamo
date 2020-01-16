@@ -73,14 +73,14 @@ export const fetchSerie = (row) => {
                 let responseJSON = await response.json();
                 dispatch(apiGetSerieSuccessCall(responseJSON, row.identifier));
             } else if (response.status === 404) {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('not_found_error'));
             } else if (response.status === 401) {
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch (err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
@@ -95,10 +95,10 @@ export const fetchSeriesDropDownList = () => {
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
@@ -118,10 +118,10 @@ export const fetchSeries = () => {
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };

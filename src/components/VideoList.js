@@ -90,7 +90,7 @@ const VideoList = (props) => {
         props.onFetchEvents(true);
         props.onRouteChange(props.route);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
