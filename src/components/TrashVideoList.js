@@ -114,7 +114,7 @@ const TrashVideoList = (props) => {
                     <form  onSubmit={returnVideoSubmit}>
                         <input type="hidden" name="identifier" value={row.identifier} />
                         <Button name="returnButton" className="btn btn-primary" type="submit">{translate('return_video')}</Button>
-                        <select name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                        <select required name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
                             <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                             { drawSelectionValues() }
                         </select>
