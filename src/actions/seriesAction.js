@@ -73,14 +73,14 @@ export const fetchSerie = (row) => {
                 let responseJSON = await response.json();
                 dispatch(apiGetSerieSuccessCall(responseJSON, row.identifier));
             } else if (response.status === 404) {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('not_found_error'));
             } else if (response.status === 401) {
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch (err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
@@ -95,15 +95,15 @@ export const fetchSeriesDropDownList = () => {
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
 
-export const fetchSeries = (isSeriesList) => {
+export const fetchSeries = () => {
 
     // server from .env variable
     const PATH = '/api/userSeries';
@@ -114,19 +114,14 @@ export const fetchSeries = (isSeriesList) => {
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
-                if(isSeriesList){
-                    const seriesListWithoutInbox = responseJSON.filter(series => !series.title.toLowerCase().includes('inbox'));
-                    dispatch(apiGetSeriesSuccessCall(seriesListWithoutInbox));
-                }else{
-                    dispatch(apiGetSeriesSuccessCall(responseJSON));
-                }
+                dispatch(apiGetSeriesSuccessCall(responseJSON));
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };

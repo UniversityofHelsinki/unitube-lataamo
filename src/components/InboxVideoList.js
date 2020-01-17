@@ -113,7 +113,7 @@ const InboxVideoList = (props) => {
         props.onFetchEvents(true);
         props.onRouteChange(props.route);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
@@ -304,7 +304,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
-        dispatch(fetchSeries(false));
+        dispatch(fetchSeries());
         dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),

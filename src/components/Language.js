@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLocale } from 'react-redux-i18n';
+import { Translate } from 'react-redux-i18n';
 import languageChangeAction from '../actions/languageChangeAction';
 
 const Language = (props) => {
@@ -18,13 +19,13 @@ const Language = (props) => {
     return (
         <React.Fragment>
             <button className={props.user.preferredLanguage === 'fi' ? 'hidden' : 'lang-opt'}>
-                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange( 'fi')}>Suomi</Link>
+                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange( 'fi')}><Translate value="finnish" /></Link>
             </button>
             <button className={props.user.preferredLanguage === 'sv' ? 'hidden' : 'lang-opt'}>
-                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange('sv')}>Svenska</Link>
+                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange('sv')}><Translate value="swedish" /></Link>
             </button>
             <button className={props.user.preferredLanguage === 'en' ? 'hidden' : 'lang-opt'} >
-                <Link to="#"  className='lang-opt' onClick={() => props.onLanguageChange( 'en')}>English</Link>
+                <Link to="#"  className='lang-opt' onClick={() => props.onLanguageChange( 'en')}><Translate value="english" /></Link>
             </button>
         </React.Fragment>
     );

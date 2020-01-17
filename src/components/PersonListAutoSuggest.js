@@ -53,11 +53,14 @@ const PersonListAutoSuggest = (props) => {
                 ref={(ref) => personListTypeAhead = ref}
                 isLoading={isLoading}
                 minLength={4}
+                emptyLabel={translate('noPersonsFound')}
                 labelKey={(option) => labelKey(option)}
                 onSearch={handleSearch}
                 onChange={selected => addToSelection(selected[0])}
                 options={persons}
                 placeholder={translate('searchForPersons')}
+                promptText={translate('person_searching_info')}
+                searchText={translate('searching')}
             />
         </div>
     );
