@@ -9,23 +9,20 @@ import moment from 'moment';
 import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 import { fetchSeries } from '../actions/seriesAction';
-import constants from '../utils/constants';
 
 const { SearchBar } = Search;
 
 const TrashVideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
-
-    const [inputs, setInputs] = useState(null);
-    const [isBeingEdited, setIsBeingEdited] = useState(false);
-    const [selectedSeries, setSelectedSeries] = useState('voi');
-
     const translations = props.i18n.translations[props.i18n.locale];
+
+    let [inputs, setInputs] = useState('');
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -74,27 +71,38 @@ const TrashVideoList = (props) => {
     };
 
     const updateEventDetails = async() => {
-        //props.video.processing_state = constants.VIDEO_PROCESSING_INSTANTIATED;
-        console.log('s:', selectedSeries);
-        console.log('is:' + isBeingEdited);
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
         // call unitube-proxy api
         try {
-            // await actionUpdateEventDetails(eventId, updatedEvent);
-            // setSuccessMessage(translate('updated_event_details'));
-            // update the eventlist to redux state
+            await actionUpdateEventDetails(eventId, updatedEvent);
+            setSuccessMessage(translate('event_returned'));
+            props.onFetchEvents(false);
+            //update the eventlist to redux state
             //const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
             //props.onEventDetailsEdit(props.inbox, updatedVideos);
+            setSuccessMessage(translate('event_returned'));
         } catch (err) {
             setErrorMessage(translate('failed_to_update_event_details'));
         }
     };
 
+    const selectVideo = (identifier) => {
+        let video = null;
+        props.videos.map(elem => {
+            if (elem.identifier === identifier) {
+                video = elem;
+                return;
+            }
+        });
+        return video;
+    };
+
     const returnVideoSubmit = async (event) => {
         if (event) {
+            inputs = selectVideo(event.target.identifier.value);
+            inputs.isPartOf = event.target.isPartOf.value;
             event.preventDefault();
-            // setDisabledInputs(true);
             await updateEventDetails();
         }
     };
@@ -103,11 +111,15 @@ const TrashVideoList = (props) => {
         return (
             <div className="form-container">
                 {
-                    row.media.map((media, index) =>
-                        <form key={index} onSubmit={returnVideoSubmit}>
-                            <Button name="returnButton" className="btn btn-primary" type="submit">{translate('return_video')}</Button>
-                        </form>
-                    )
+                    <form  onSubmit={returnVideoSubmit}>
+                        <input type="hidden" name="identifier" value={row.identifier} />
+                        <Button name="returnButton" className="btn btn-primary" type="submit">{translate('return_video')}</Button>
+                        <select name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                            { drawSelectionValues() }
+                        </select>
+                    </form>
+                    //)
                 }
             </div>
         );
@@ -115,7 +127,6 @@ const TrashVideoList = (props) => {
 
     const drawSelectionValues = () => {
         let series = [...props.series];
-        //console.log('series:', series);
         series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
         return series.map((series) => {
             return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title}</option>;
@@ -124,24 +135,7 @@ const TrashVideoList = (props) => {
 
     const handleInputChange = (event) => {
         event.persist();
-        setIsBeingEdited(true);
-        setSelectedSeries('moi');
-        console.log('sel:' + selectedSeries);
-        console.log('is:' + isBeingEdited);
-        //setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
-    };
-
-    const series = () => {
-        return (
-            <div className="form-group row">
-                <div className="col-sm-8">
-                    <select onChange={handleInputChange}>
-                        { drawSelectionValues() }
-                    </select>
-
-                </div>
-            </div>
-        );
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
     // the only translated property is the visibility value
@@ -165,8 +159,6 @@ const TrashVideoList = (props) => {
     };
 
     useEffect(() => {
-        console.log('sel:' + selectedSeries);
-        console.log('is:' + isBeingEdited);
         props.onRouteChange(props.route);
         props.onFetchEvents(true);
         if (props.apiError) {
@@ -175,19 +167,15 @@ const TrashVideoList = (props) => {
         const interval = setInterval(() => {
             props.onFetchEvents(false);
         }, 60000);
-        // if (!isBeingEdited) {
-        //     setInputs(props.videos[0]);
-        // }
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.apiError, props.route, selectedSeries]);
+    }, [props.apiError, props.route]);
 
     useEffect(() => {
         const interval = setInterval( () => {
             setVideoDownloadErrorMessage(null);
         }, 60000);
         return () => clearInterval(interval);
-    }, [selectedSeries]);
+    }, []);
 
     const dateFormatter = (cell) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
@@ -207,14 +195,17 @@ const TrashVideoList = (props) => {
         text: translate('download_video'),
         formatter: mediaFormatter,
     }, {
-        dataField: 'returnvideoField',
+        dataField: 'identifier',
         text: translate('return_video'),
         formatter: returnVideo,
-    }, {
-        dataField: 'seriesField',
-        text: translate('series'),
-        formatter: series,
-    }];
+        //width: '380'
+         style: {
+             fontSize: '10px',
+             //width: '60'
+
+        }
+    }
+    ];
 
     const defaultSorted = [{
         dataField: 'title',
@@ -230,6 +221,14 @@ const TrashVideoList = (props) => {
             <div className="margintop">
                 <h2>{translate('trash_info')}</h2>
             </div>
+            { successMessage ?
+                <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
+                    <p>
+                        { successMessage }
+                    </p>
+                </Alert>
+                : <></>
+            }
             { !errorMessage ?
                 <div className="table-responsive">
 
@@ -292,6 +291,5 @@ const mapDispatchToProps = dispatch => ({
     },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashVideoList);

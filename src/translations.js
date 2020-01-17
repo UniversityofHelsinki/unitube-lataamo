@@ -134,7 +134,7 @@ const translationsObject = {
         logout: 'Logout',
         input_file_size_exceeded: '???input_file_size_exceeded???',
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
-        return_video: '???Palauta???',
+        return_video: '???Palauta tallenne???',
     },
     fi: {
         lataamo_title: 'Unitube - Lataamo',
@@ -271,7 +271,8 @@ const translationsObject = {
         event_running_and_instantiated_state: 'Videoa käsitellään',
         event_failed_state: 'Käsittely epäonnistui',
         event_succeeded_state: 'Käsittely onnistui',
-        return_video: 'Palauta',
+        return_video: 'Palauta tallenne',
+        event_returned: '???Tallenne palautettu???'
     },
 
     sv: {
@@ -406,7 +407,8 @@ const translationsObject = {
         event_running_and_instantiated_state: '???event_running_and_instantiated_state???',
         event_failed_state: '???event_failed_state???',
         event_succeeded_state: '???event_succeeded_state???',
-        return_video: '???Palauta???',
+        return_video: '???Palauta tallenne???',
+        event_returned: '???Tallenne palautettu???'
     }
 };
 
