@@ -134,7 +134,7 @@ const SeriesList = (props) => {
     useEffect(() => {
         props.onFetchSeries();
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError]);
