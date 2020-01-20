@@ -26,7 +26,7 @@ const Header = () => {
                 <div className="main-header">
                     <div className="header-left left">
                         <div className="site-title">
-                            <div className="logo"> LATAAMO </div>
+                            <div className="logo"><Translate value="lataamo_title" /></div>
                         </div>
                     </div>
                     <div className="clear"></div>

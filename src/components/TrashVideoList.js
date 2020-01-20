@@ -90,7 +90,7 @@ const TrashVideoList = (props) => {
         props.onRouteChange(props.route);
         props.onFetchEvents(true);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         const interval = setInterval(() => {
             props.onFetchEvents(false);

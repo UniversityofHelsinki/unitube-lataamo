@@ -12,7 +12,7 @@ import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
+import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
@@ -90,7 +90,7 @@ const VideoList = (props) => {
         props.onFetchEvents(true);
         props.onRouteChange(props.route);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
@@ -188,9 +188,7 @@ const VideoList = (props) => {
     }];
 
     const eventNotSelectable = (processingState) => {
-        return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
-            processingState === VIDEO_PROCESSING_FAILED ||
-            processingState === VIDEO_PROCESSING_INSTANTIATED));
+        return (processingState && (processingState !== constants.VIDEO_PROCESSING_SUCCEEDED));
     };
 
     const nonSelectableRows = () => {
@@ -304,7 +302,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
-        dispatch(fetchSeries(false));
+        dispatch(fetchSeries());
         dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),

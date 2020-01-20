@@ -15,14 +15,14 @@ export const fetchEvent = (row) => {
                 let responseJSON = await response.json();
                 dispatch(apiGetEventSuccessCall(responseJSON));
             } else if (response.status === 404) {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('not_found_error'));
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
@@ -44,10 +44,10 @@ export const fetchInboxEvents = (refresh) => {
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
@@ -63,10 +63,10 @@ export const fetchTrashEvents = (refresh) => {
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };
@@ -82,10 +82,10 @@ export const fetchEvents = (refresh) => {
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
-                dispatch(apiFailureCall('Unable to fetch data'));
+                dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
-            dispatch(apiFailureCall('Unable to fetch data'));
+            dispatch(apiFailureCall('general_error'));
         }
     };
 };

@@ -134,7 +134,7 @@ const SeriesList = (props) => {
     useEffect(() => {
         props.onFetchSeries();
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError]);
@@ -200,7 +200,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries(true)),
+    onFetchSeries: () => dispatch(fetchSeries()),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },
