@@ -92,7 +92,7 @@ const TrashVideoList = (props) => {
         props.videos.map(elem => {
             if (elem.identifier === identifier) {
                 video = elem;
-                return;
+                return video;
             }
         });
         return video;
@@ -109,17 +109,16 @@ const TrashVideoList = (props) => {
 
     const returnVideo = (cell, row) => {
         return (
-            <div className="form-container">
+            <div>
                 {
-                    <form  onSubmit={returnVideoSubmit}>
+                    <form onSubmit={returnVideoSubmit}>
                         <input type="hidden" name="identifier" value={row.identifier} />
-                        <Button name="returnButton" className="btn btn-primary" type="submit">{translate('return_video')}</Button>
-                        <select required name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
-                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                       <select required className="return return-event-series-list" name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                            <option key="-1" id="NOT_SELECTED" value="">{translate('select_series')}</option>
                             { drawSelectionValues() }
                         </select>
+                        <Button name="returnButton" className="btn btn-primary return return-button" type="submit">{translate('return_video')}</Button>
                     </form>
-                    //)
                 }
             </div>
         );
@@ -191,19 +190,14 @@ const TrashVideoList = (props) => {
         sort: true,
         formatter: dateFormatter
     }, {
+        dataField: 'identifier',
+        text: translate('return_video'),
+        formatter: returnVideo
+    },
+        {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
-    }, {
-        dataField: 'identifier',
-        text: translate('return_video'),
-        formatter: returnVideo,
-        //width: '380'
-         style: {
-             fontSize: '10px',
-             //width: '60'
-
-        }
     }
     ];
 
