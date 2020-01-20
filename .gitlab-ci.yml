@@ -19,8 +19,6 @@ compile:
   tags:
     - ohtu-build-2
   script:
-    - npm cache clean -f
-    - rm -rf node_modules
     - npm install
 # ------------------------------ test stage ------------------------------
 
