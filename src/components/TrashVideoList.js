@@ -113,7 +113,7 @@ const TrashVideoList = (props) => {
                 {
                     <form onSubmit={returnVideoSubmit}>
                         <input type="hidden" name="identifier" value={row.identifier} />
-                       <select required className="return return-event-series-list" name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                        <select required className="return return-event-series-list" name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
                             <option key="-1" id="NOT_SELECTED" value="">{translate('select_series')}</option>
                             { drawSelectionValues() }
                         </select>
@@ -194,7 +194,7 @@ const TrashVideoList = (props) => {
         text: translate('return_video'),
         formatter: returnVideo
     },
-        {
+    {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
