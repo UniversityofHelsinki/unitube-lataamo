@@ -102,7 +102,6 @@ const VideoUploadForm = (props) => {
             }
 
             <h2>{translate('video_file_title')}</h2>
-
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
