@@ -87,7 +87,14 @@ const SeriesList = (props) => {
     }, {
         dataField: 'title',
         text: translate('serie_title'),
-        sort: true
+        sort: true,
+        sortFunc: (a, b, order, dataField, rowA, rowB) => {
+            if (order === 'desc') {
+                return rowA.title.localeCompare(rowB.title);
+            } else {
+                return rowB.title.localeCompare(rowA.title);
+            }
+        }
     }, {
         dataField: 'contributors',
         text: translate('serie_contributors'),
@@ -104,7 +111,7 @@ const SeriesList = (props) => {
     }];
 
     const defaultSorted = [{
-        dataField: 'identifier',
+        dataField: 'title',
         order: 'desc'
     }];
 
@@ -160,8 +167,7 @@ const SeriesList = (props) => {
                         keyField="identifier"
                         data={ translatedSeries() }
                         columns={ columns }
-                        search
-                        defaultSorted={ defaultSorted }>
+                        search>
                         {
                             props => (
                                 <div>
@@ -172,7 +178,7 @@ const SeriesList = (props) => {
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
-                                        pagination={ paginationFactory(options) } hover />
+                                        pagination={ paginationFactory(options) } hover defaultSorted={ defaultSorted }/>
                                 </div>
                             )
                         }
