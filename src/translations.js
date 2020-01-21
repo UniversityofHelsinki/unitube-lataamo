@@ -140,7 +140,8 @@ const translationsObject = {
         event_succeeded_state: 'Processing succeeded',
         logout: 'Logout',
         input_file_size_exceeded: '???input_file_size_exceeded???',
-        error_failed_to_upload_video_wrong_file_type: 'Wrong file type'
+        error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
+        input_file_size_below_two_megabytes: '???input_file_size_below_two_megabytes???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -283,7 +284,8 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Väärä tiedostotyyppi',
         event_running_and_instantiated_state: 'Videoa käsitellään',
         event_failed_state: 'Käsittely epäonnistui',
-        event_succeeded_state: 'Käsittely onnistui'
+        event_succeeded_state: 'Käsittely onnistui',
+        input_file_size_below_two_megabytes: '???input_file_size_below_two_megabytes???'
     },
 
     sv: {
@@ -424,7 +426,8 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'error_failed_to_upload_video_wrong_file_type',
         event_running_and_instantiated_state: '???event_running_and_instantiated_state???',
         event_failed_state: '???event_failed_state???',
-        event_succeeded_state: '???event_succeeded_state???'
+        event_succeeded_state: '???event_succeeded_state???',
+        input_file_size_below_two_megabytes: '???input_file_size_below_two_megabytes???'
     }
 };
 
