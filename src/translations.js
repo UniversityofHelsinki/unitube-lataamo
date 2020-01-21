@@ -87,6 +87,7 @@ const translationsObject = {
         series_creation_form: 'Series creating form',
         copied_to_clipboard: 'Copied to clipboard',
         select : 'Select',
+        select_series : 'Select series',
         license : 'License',
         licenses_info: 'License info text',
         events_basic_info: 'Events basic info',
@@ -140,7 +141,8 @@ const translationsObject = {
         event_succeeded_state: 'Processing succeeded',
         logout: 'Logout',
         input_file_size_exceeded: '???input_file_size_exceeded???',
-        error_failed_to_upload_video_wrong_file_type: 'Wrong file type'
+        error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
+        return_video: '???Palauta tallenne???',
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -230,6 +232,7 @@ const translationsObject = {
         series_creation_form: 'Sarjan luontilomake',
         copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle',
         select : 'Valitse',
+        select_series : 'Valitse sarja',
         license : 'Julkaisulisenssi',
         licenses_info: 'Valitse tallenteen julkaisulle soveltuva lisenssi. Varmista tallenteen tekijänoikeuksien haltijan (jos se on joku muu kuin sinä) lupa julkaisuun valitsemallasi lisenssillä! Kun valitset jonkin lisenssin, ruudulla näkyy lyhyt selite sen käyttötarkoituksesta. Lisää tietoa lisensseistä osoitteessa www.creativecommons.fi!',
         events_count: 'Tallenteiden lukumäärä',
@@ -283,7 +286,9 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Väärä tiedostotyyppi',
         event_running_and_instantiated_state: 'Videoa käsitellään',
         event_failed_state: 'Käsittely epäonnistui',
-        event_succeeded_state: 'Käsittely onnistui'
+        event_succeeded_state: 'Käsittely onnistui',
+        return_video: 'Palauta tallenne',
+        event_returned: '???Tallenne palautettu???'
     },
 
     sv: {
@@ -369,6 +374,7 @@ const translationsObject = {
         iam_group_searching_info:'???iam_group_searching_info???',
         added_iam_groups: '???added_iam_groups???',
         select: '???select???',
+        select_series : '???select_series???',
         license : '???license???',
         licenses_info: '???licenses_info???',
         series_creation_form: '???series_creation_form???',
@@ -424,7 +430,9 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'error_failed_to_upload_video_wrong_file_type',
         event_running_and_instantiated_state: '???event_running_and_instantiated_state???',
         event_failed_state: '???event_failed_state???',
-        event_succeeded_state: '???event_succeeded_state???'
+        event_succeeded_state: '???event_succeeded_state???',
+        return_video: '???Palauta tallenne???',
+        event_returned: '???Tallenne palautettu???'
     }
 };
 
