@@ -89,14 +89,12 @@ const TrashVideoList = (props) => {
     };
 
     const selectVideo = (identifier) => {
-        let video = null;
-        props.videos.map(elem => {
-            if (elem.identifier === identifier) {
-                video = elem;
-                return video;
+        var i;
+        for (i = 0; i <  props.videos.length; i++) {
+            if (props.videos[i].identifier === identifier) {
+                return props.videos[i];
             }
-        });
-        return video;
+        }
     };
 
     const returnVideoSubmit = async (event) => {
@@ -169,6 +167,7 @@ const TrashVideoList = (props) => {
             props.onFetchEvents(false);
         }, 60000);
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
 
     useEffect(() => {
