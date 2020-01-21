@@ -13,6 +13,7 @@ import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 import { fetchSeries } from '../actions/seriesAction';
+import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
 
 const { SearchBar } = Search;
 
@@ -104,6 +105,7 @@ const TrashVideoList = (props) => {
             inputs.isPartOf = event.target.isPartOf.value;
             event.preventDefault();
             await updateEventDetails();
+            setInputs('');
         }
     };
 
@@ -113,11 +115,11 @@ const TrashVideoList = (props) => {
                 {
                     <form onSubmit={returnVideoSubmit}>
                         <input type="hidden" name="identifier" value={row.identifier} />
-                        <select required className="return return-event-series-list" name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
-                            <option key="-1" id="NOT_SELECTED" value="">{translate('select_series')}</option>
+                        <select required disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                             { drawSelectionValues() }
                         </select>
-                        <Button name="returnButton" className="btn btn-primary return return-button" type="submit">{translate('return_video')}</Button>
+                        <Button name="returnButton"  disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} className="btn btn-primary return return-button" type="submit">{translate('return_video')}</Button>
                     </form>
                 }
             </div>
