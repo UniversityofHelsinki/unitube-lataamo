@@ -90,9 +90,9 @@ const SeriesList = (props) => {
         sort: true,
         sortFunc: (a, b, order, dataField, rowA, rowB) => {
             if (order === 'desc') {
-                return rowA.title.localeCompare(rowB.title);
+                return rowA.title.localeCompare(rowB.title, 'fi');
             } else {
-                return rowB.title.localeCompare(rowA.title);
+                return rowB.title.localeCompare(rowA.title, 'fi');
             }
         }
     }, {
