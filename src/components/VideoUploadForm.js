@@ -49,7 +49,7 @@ const VideoUploadForm = (props) => {
             setValidationMessage('input_file_size_exceeded');
             return false;
         } else if (selectedVideoFile && selectedVideoFile.size < Constants.MIN_FILE_SIZE_LIMIT) {
-            setValidationMessage('input_file_size_below_one_megabyte')
+            setValidationMessage('input_file_size_below_two_megabytes')
         } else {
             return true;
         }
