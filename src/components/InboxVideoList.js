@@ -21,6 +21,8 @@ import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 
+const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
+
 const { SearchBar } = Search;
 
 const InboxVideoList = (props) => {
@@ -103,7 +105,7 @@ const InboxVideoList = (props) => {
                     props.onSelectEvent({ identifier: props.selectedRowId });
                 }
             }
-        }, 60000);
+        }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedRowId, props.videos]);
