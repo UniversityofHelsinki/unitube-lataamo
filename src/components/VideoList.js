@@ -25,6 +25,7 @@ const VideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
+    const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -80,7 +81,7 @@ const VideoList = (props) => {
                     props.onSelectEvent({ identifier: props.selectedRowId });
                 }
             }
-        }, 60000);
+        }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedRowId, props.videos]);
