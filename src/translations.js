@@ -98,10 +98,11 @@ const translationsObject = {
         video_info: 'File',
         events_link_series: 'Before you can publish a recording, it must be added to a series',
         video_id_copied_to_clipboard: 'Recording ID copied to clipboard!',
+        select_series : 'Select series',
         embedded_video_copied_to_clipboard: 'Video embedding code copied to the clipboard',
         embedded_video_info: 'Video can be embedded if it is public',
         embedded_video_title: 'Embedding code of video',
-          updated_event_details: 'Recording information updated!',
+        updated_event_details: 'Recording information updated!',
         failed_to_update_event_details: 'Failed to update the information!',
         updated_series_details: 'Series information updated!',
         failed_to_update_series_details: 'Failed to update the information!',
@@ -141,7 +142,9 @@ const translationsObject = {
         logout: 'Log out',
         input_file_size_exceeded: 'The file size is larger than the maximum allowed file size (25 gigabytes)!',
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
-        input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!'
+        input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
+        return_video: 'Palauta tallenne',
+        event_returned: '???Tallenne palautettu???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -231,6 +234,7 @@ const translationsObject = {
         series_creation_form: 'Sarjan luontilomake',
         copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle',
         select : 'Valitse',
+        select_series : 'Valitse sarja',
         license : 'Julkaisulisenssi',
         licenses_info: 'Valitse tallenteen julkaisulle soveltuva lisenssi. Varmista tallenteen tekijänoikeuksien haltijan (jos se on joku muu kuin sinä) lupa julkaisuun valitsemallasi lisenssillä! Kun valitset jonkin lisenssin, ruudulla näkyy lyhyt selite sen käyttötarkoituksesta. Lisää tietoa lisensseistä osoitteessa www.creativecommons.fi!',
         events_count: 'Tallenteiden lukumäärä',
@@ -285,7 +289,9 @@ const translationsObject = {
         event_running_and_instantiated_state: 'Videoa käsitellään',
         event_failed_state: 'Käsittely epäonnistui',
         event_succeeded_state: 'Käsittely onnistui',
-        input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!'
+        input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
+        return_video: 'Palauta tallenne',
+        event_returned: '???Tallenne palautettu???'
     },
 
     sv: {
@@ -427,7 +433,13 @@ const translationsObject = {
         event_running_and_instantiated_state: 'Videon behandlas',
         event_failed_state: 'Behandlingen misslyckades',
         event_succeeded_state: 'Behandlingen lyckades',
-        input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!'
+        input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!',
+        return_video: '???Palauta tallenne???',
+        event_returned: '???Tallenne palautettu???',
+        select_series : 'Välj series',
+        embedded_video_copied_to_clipboard: '???embedded_video_copied_to_clipboard???',
+        embedded_video_info: '???embedded_video_info???',
+        embedded_video_title: '???embedded_video_title???'
     }
 };
 
