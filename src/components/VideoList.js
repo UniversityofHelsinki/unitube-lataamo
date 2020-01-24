@@ -23,6 +23,8 @@ const { SearchBar } = Search;
 
 const VideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
+    // eslint-disable-next-line no-unused-vars
+    let [media, setMedia] = useState({ column: 'media', expanded: '' });
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
     const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
@@ -181,6 +183,16 @@ const VideoList = (props) => {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
+        //näin saadaan estettyä haitarin avautuminen, kun klikataan download tallenne
+        events: {
+            // eslint-disable-next-line no-unused-vars
+            onClick: (e, column, columnIndex, row, rowIndex) => {
+                setMedia( {
+                    column: 'media',
+                    expanded: false //tämä estää haitarin avautumisen
+                });
+            }
+        }
     }];
 
     const defaultSorted = [{
