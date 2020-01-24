@@ -6,6 +6,7 @@ const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
 const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
 const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
+const USER_ARCHIVE_EVENT_PATH = '/api/moveToArchive';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -130,6 +131,26 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(deletedEvent)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const actionMoveEventToArchive = async (id, archiveEvent) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENT_PATH}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(archiveEvent)
         });
         if(response.status === 200) {
             let responseJSON = await response.json();
