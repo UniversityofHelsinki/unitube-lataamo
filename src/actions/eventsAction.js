@@ -145,7 +145,7 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
 
 export const actionMoveEventToArchive = async (id, archiveEvent) => {
     try {
-        let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENT_PATH}/${id}`, {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_ARCHIVE_EVENT_PATH}/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

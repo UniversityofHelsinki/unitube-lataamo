@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionMoveEventToTrashSeries, actionMoveEventToArchive,  actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
 import { IconContext } from 'react-icons';
@@ -80,19 +80,6 @@ const VideoDetailsForm = (props) => {
         const deletedEvent = { ...inputs }; // values from the form
         try {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
-            showSuccessMessage();
-            const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
-            props.onEventDetailsEdit(props.inbox, updatedVideos);
-        } catch (err) {
-            setErrorMessage(translate('failed_to_delete_event'));
-        }
-    };
-
-    const moveEventToArchive = async() => {
-        const eventId = inputs.identifier;
-        const deletedEvent = { ...inputs }; // values from the form
-        try {
-            await actionMoveEventToArchive(eventId, deletedEvent);
             showSuccessMessage();
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
