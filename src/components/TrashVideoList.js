@@ -115,7 +115,7 @@ const TrashVideoList = (props) => {
                 {
                     <form onSubmit={returnVideoSubmit}>
                         <input type="hidden" name="identifier" value={row.identifier} />
-                        <select required disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                        <select required className="return return-event-series-list" disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
                             <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                             { drawSelectionValues() }
                         </select>
