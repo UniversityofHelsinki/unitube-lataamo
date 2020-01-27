@@ -15,6 +15,8 @@ import { FaSearch, FaSpinner } from 'react-icons/fa';
 import { fetchSeries } from '../actions/seriesAction';
 import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
 
+const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
+
 const { SearchBar } = Search;
 
 const TrashVideoList = (props) => {
@@ -71,19 +73,6 @@ const TrashVideoList = (props) => {
         );
     };
 
-    const moveEventToArchive = async() => {
-        const eventId = inputs.identifier;
-        const deletedEvent = { ...inputs }; // values from the form
-        // call unitube-proxy api
-        try {
-            await actionMoveEventToArchive(eventId, deletedEvent);
-            props.onFetchEvents(false);
-            setSuccessMessage(translate('event_archived'));
-        } catch (err) {
-            setErrorMessage(translate('failed_to_archive_event'));
-        }
-    };
-
     const updateEventDetails = async() => {
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
@@ -137,6 +126,19 @@ const TrashVideoList = (props) => {
         );
     };
 
+    const moveEventToArchive = async() => {
+        const eventId = inputs.identifier;
+        const deletedEvent = { ...inputs }; // values from the form
+        // call unitube-proxy api
+        try {
+            await actionMoveEventToArchive(eventId, deletedEvent);
+            props.onFetchEvents(false);
+            setSuccessMessage(translate('event_archived'));
+        } catch (err) {
+            setErrorMessage(translate('failed_to_archive_event'));
+        }
+    };
+
     const drawSelectionValues = () => {
         let series = [...props.series];
         series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
@@ -178,7 +180,7 @@ const TrashVideoList = (props) => {
         }
         const interval = setInterval(() => {
             props.onFetchEvents(false);
-        }, 60000);
+        }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
@@ -299,6 +301,5 @@ const mapDispatchToProps = dispatch => ({
     },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashVideoList);
