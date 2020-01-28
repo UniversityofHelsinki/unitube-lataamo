@@ -79,11 +79,7 @@ const TrashVideoList = (props) => {
         // call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
-            setSuccessMessage(translate('event_returned'));
             props.onFetchEvents(false);
-            //update the eventlist to redux state
-            //const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
-            //props.onEventDetailsEdit(props.inbox, updatedVideos);
             setSuccessMessage(translate('event_returned'));
         } catch (err) {
             setErrorMessage(translate('failed_to_update_event_details'));
@@ -91,7 +87,7 @@ const TrashVideoList = (props) => {
     };
 
     const selectVideo = (identifier) => {
-        var i;
+        let i;
         for (i = 0; i <  props.videos.length; i++) {
             if (props.videos[i].identifier === identifier) {
                 return props.videos[i];
