@@ -278,9 +278,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchEvents: (refresh, inbox) => {
-        dispatch(fetchTrashEvents(refresh, inbox));
-        dispatch(fetchSeries(true));
+    onFetchEvents: (refresh) => {
+        dispatch(fetchTrashEvents(refresh));
+        dispatch(fetchSeries());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });
