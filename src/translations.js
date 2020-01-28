@@ -111,6 +111,8 @@ const translationsObject = {
         success_on_video_upload: 'Recording added to uploader!',
         api_post_series_failed: 'Could not create the series!',
         download_video: 'Download recording',
+        archive_video: '??? Arkistoi tallenne ???',
+        archived_video: '??? Arkistoitu ???',
         UNITUBE_ALLRIGHTS: '"All rights reserved" in the old Uploader',
         CC_BY: 'CC-BY – may be modified and utilised freely; source must be mentioned',
         CC_BY_NC_ND: 'CC BY-NC-ND – may be distributed freely for non-commercial use',
@@ -144,7 +146,8 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
         input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
         return_video: 'Palauta tallenne',
-        event_returned: '???Tallenne palautettu???'
+        event_returned: '???Tallenne palautettu???',
+        event_archived: '???Tallenne arkistoitu???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -258,6 +261,8 @@ const translationsObject = {
         success_on_video_upload: 'Tallenne viety lataamoon!',
         api_post_series_failed: 'Sarjan luonti epäonnistui!',
         download_video: 'Lataa tallenne koneellesi',
+        archive_video: 'Arkistoi tallenne',
+        archived_video: 'Arkistoitu',
         UNITUBE_ALLRIGHTS: 'Vanhan lataamon "kaikki oikeudet pidätetään"',
         CC_BY: 'CC-BY – voi muokata ja hyödyntää vapaasti, lähde mainittava',
         CC_BY_NC_ND: 'CC BY-NC-ND – vapaasti jaettava ei-kaupalliseen käyttöön',
@@ -291,7 +296,8 @@ const translationsObject = {
         event_succeeded_state: 'Käsittely onnistui',
         input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
         return_video: 'Palauta tallenne',
-        event_returned: '???Tallenne palautettu???'
+        event_returned: '???Tallenne palautettu???',
+        event_archived: '???Tallenne arkistoitu???'
     },
 
     sv: {
@@ -402,6 +408,8 @@ const translationsObject = {
         success_on_video_upload: 'Inspelningen exporterades till uppspelning!',
         api_post_series_failed: 'Det gick inte att skapa serien!',
         download_video: 'Ladda ner inspelningen på din dator',
+        archive_video: '??? Arkistoi tallenne ???',
+        archived_video: '??? Arkistoitu ???',
         UNITUBE_ALLRIGHTS: '"Alla rättigheter förbehålles" från den gamla uppladdaren',
         CC_BY: 'CC-BY – får modifieras och utnyttjas fritt, källan ska uppges',
         CC_BY_NC_ND: 'CC BY-NC-ND – får spridas fritt i ickekommersiellt syfte',
@@ -436,6 +444,7 @@ const translationsObject = {
         input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!',
         return_video: '???Palauta tallenne???',
         event_returned: '???Tallenne palautettu???',
+        event_archived: '???Tallenne arkistoitu???',
         select_series : 'Välj series',
         embedded_video_copied_to_clipboard: '???embedded_video_copied_to_clipboard???',
         embedded_video_info: '???embedded_video_info???',

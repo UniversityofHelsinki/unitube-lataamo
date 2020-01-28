@@ -60,7 +60,7 @@ const TrashVideoList = (props) => {
     const mediaFormatter = (cell, row) => {
         return (
             <div className="form-container">
-                {
+                { archivedVideo(row) ? null :
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
@@ -109,17 +109,49 @@ const TrashVideoList = (props) => {
         }
     };
 
+    const archiveVideoSubmit = async (event) => {
+        if (event) {
+            inputs = selectVideo(event.target.identifier.value);
+            event.preventDefault();
+            await moveEventToArchive();
+            setInputs('');
+        }
+    };
+
     const returnVideo = (cell, row) => {
         return (
             <div>
                 {
-                    <form onSubmit={returnVideoSubmit}>
-                        <input type="hidden" name="identifier" value={row.identifier} />
-                        <select required disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
-                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                    <form onSubmit={ returnVideoSubmit }>
+                        <input type="hidden" name="identifier" value={ row.identifier }/>
+                        <select required disabled={ row.processing_state !== VIDEO_PROCESSING_SUCCEEDED || archivedVideo(row) }
+                            name="isPartOf" value={ inputs.isPartOf } onChange={ handleInputChange }>
+                            <option key="-1" id="NOT_SELECTED" value="">{ translate('select') }</option>
                             { drawSelectionValues() }
                         </select>
-                        <Button name="returnButton"  disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} className="btn btn-primary return return-button" type="submit">{translate('return_video')}</Button>
+                        <Button name="returnButton" disabled={ row.processing_state !== VIDEO_PROCESSING_SUCCEEDED || archivedVideo(row) }
+                            className="btn btn-primary return return-button"
+                            type="submit">{ translate('return_video') }</Button>
+                    </form>
+                }
+            </div>
+        );
+    };
+
+    const archivedVideo = (row) => {
+        return (row.publications.length === 0);
+    }
+
+    const archiveVideo = (cell, row) => {
+        return (
+            <div>
+                {
+                    <form onSubmit={ archiveVideoSubmit }>
+                        <input type="hidden" name="identifier" value={ row.identifier }/>
+                        <Button name="returnButton" disabled={ row.processing_state !== VIDEO_PROCESSING_SUCCEEDED  || archivedVideo(row) }
+                            className="btn btn-primary return return-button"
+                            type="submit">{ translate('archive_video') }</Button>
+                        { archivedVideo(row) ? <span className="archived-text" >{ translate('archived_video') }</span> : null }
                     </form>
                 }
             </div>
@@ -209,8 +241,11 @@ const TrashVideoList = (props) => {
         dataField: 'identifier',
         text: translate('return_video'),
         formatter: returnVideo
-    },
-    {
+    }, {
+        dataField: 'archive',
+        text: translate('archive_video'),
+        formatter: archiveVideo
+    }, {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
