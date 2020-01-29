@@ -113,7 +113,7 @@ const VideoDetailsForm = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
 
-    const embedVideo = () =>{
+    const embedVideo = () => {
         let targetElement = document.getElementById('embeddedVideo');
         if(targetElement){
             targetElement.innerText='<iframe ' +
@@ -149,9 +149,17 @@ const VideoDetailsForm = (props) => {
         });
     };
 
+    const disabledLicense = (license) => {
+        if (license === 'UNITUBE-ALLRIGHTS' && props.video.license !== 'UNITUBE-ALLRIGHTS') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-            return <option key={license} id={license} value={license}>{translate(replaceCharacter(license))}</option>;
+            return <option disabled={disabledLicense(license)} key={license} id={license} value={license}>{translate(replaceCharacter(license))}</option>;
         });
     };
 
