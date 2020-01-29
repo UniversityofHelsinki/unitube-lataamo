@@ -87,7 +87,14 @@ const SeriesList = (props) => {
     }, {
         dataField: 'title',
         text: translate('serie_title'),
-        sort: true
+        sort: true,
+        sortFunc: (a, b, order, dataField, rowA, rowB) => {
+            if (order === 'desc') {
+                return rowA.title.localeCompare(rowB.title, 'fi');
+            } else {
+                return rowB.title.localeCompare(rowA.title, 'fi');
+            }
+        }
     }, {
         dataField: 'contributors',
         text: translate('serie_contributors'),
@@ -104,7 +111,7 @@ const SeriesList = (props) => {
     }];
 
     const defaultSorted = [{
-        dataField: 'identifier',
+        dataField: 'title',
         order: 'desc'
     }];
 
@@ -134,7 +141,7 @@ const SeriesList = (props) => {
     useEffect(() => {
         props.onFetchSeries();
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError]);
@@ -160,8 +167,7 @@ const SeriesList = (props) => {
                         keyField="identifier"
                         data={ translatedSeries() }
                         columns={ columns }
-                        search
-                        defaultSorted={ defaultSorted }>
+                        search>
                         {
                             props => (
                                 <div>
@@ -172,7 +178,7 @@ const SeriesList = (props) => {
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
-                                        pagination={ paginationFactory(options) } hover />
+                                        pagination={ paginationFactory(options) } hover defaultSorted={ defaultSorted }/>
                                 </div>
                             )
                         }
@@ -200,7 +206,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchSeries: () => dispatch(fetchSeries(true)),
+    onFetchSeries: () => dispatch(fetchSeries()),
     onSelectSerie: (row) => {
         dispatch(fetchSerie(row));
     },

@@ -12,7 +12,6 @@ import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import constants, {
-    VIDEO_PROCESSING_FAILED,
     VIDEO_PROCESSING_INSTANTIATED,
     VIDEO_PROCESSING_RUNNING
 } from '../utils/constants';
@@ -21,6 +20,8 @@ import routeAction from '../actions/routeAction';
 import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
+
+const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 const { SearchBar } = Search;
 
@@ -104,7 +105,7 @@ const InboxVideoList = (props) => {
                     props.onSelectEvent({ identifier: props.selectedRowId });
                 }
             }
-        }, 60000);
+        }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedRowId, props.videos]);
@@ -113,7 +114,7 @@ const InboxVideoList = (props) => {
         props.onFetchEvents(true);
         props.onRouteChange(props.route);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
@@ -195,9 +196,7 @@ const InboxVideoList = (props) => {
     }];
 
     const eventNotSelectable = (processingState) => {
-        return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
-            processingState === VIDEO_PROCESSING_FAILED ||
-            processingState === VIDEO_PROCESSING_INSTANTIATED));
+        return (processingState && (processingState !== constants.VIDEO_PROCESSING_SUCCEEDED));
     };
 
     const nonSelectableRows = () => {
@@ -304,7 +303,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
-        dispatch(fetchSeries(false));
+        dispatch(fetchSeries());
         dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),

@@ -12,7 +12,7 @@ import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_FAILED, VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
+import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
@@ -23,8 +23,11 @@ const { SearchBar } = Search;
 
 const VideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
+    // eslint-disable-next-line no-unused-vars
+    let [media, setMedia] = useState({ column: 'media', expanded: '' });
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
+    const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -80,7 +83,7 @@ const VideoList = (props) => {
                     props.onSelectEvent({ identifier: props.selectedRowId });
                 }
             }
-        }, 60000);
+        }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedRowId, props.videos]);
@@ -90,7 +93,7 @@ const VideoList = (props) => {
         props.onFetchEvents(true);
         props.onRouteChange(props.route);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
@@ -180,6 +183,16 @@ const VideoList = (props) => {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
+        //näin saadaan estettyä haitarin avautuminen, kun klikataan download tallenne
+        events: {
+            // eslint-disable-next-line no-unused-vars
+            onClick: (e, column, columnIndex, row, rowIndex) => {
+                setMedia( {
+                    column: 'media',
+                    expanded: false //tämä estää haitarin avautumisen
+                });
+            }
+        }
     }];
 
     const defaultSorted = [{
@@ -188,9 +201,7 @@ const VideoList = (props) => {
     }];
 
     const eventNotSelectable = (processingState) => {
-        return (processingState && (processingState === VIDEO_PROCESSING_RUNNING ||
-            processingState === VIDEO_PROCESSING_FAILED ||
-            processingState === VIDEO_PROCESSING_INSTANTIATED));
+        return (processingState && (processingState !== constants.VIDEO_PROCESSING_SUCCEEDED));
     };
 
     const nonSelectableRows = () => {
@@ -304,7 +315,7 @@ const mapDispatchToProps = dispatch => ({
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
         dispatch(fetchEvent(row));
-        dispatch(fetchSeries(false));
+        dispatch(fetchSeries());
         dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),

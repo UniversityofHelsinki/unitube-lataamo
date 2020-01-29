@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { downloadVideo } from '../actions/videosAction';
-import { fetchTrashEvents } from '../actions/eventsAction';
+import { actionUpdateEventDetails, fetchTrashEvents } from '../actions/eventsAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -12,13 +12,20 @@ import routeAction from '../actions/routeAction';
 import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
+import { fetchSeries } from '../actions/seriesAction';
+import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
+
+const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 const { SearchBar } = Search;
 
 const TrashVideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
+
+    let [inputs, setInputs] = useState('');
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -66,6 +73,68 @@ const TrashVideoList = (props) => {
         );
     };
 
+    const updateEventDetails = async() => {
+        const eventId = inputs.identifier;
+        const updatedEvent = { ...inputs }; // values from the form
+        // call unitube-proxy api
+        try {
+            await actionUpdateEventDetails(eventId, updatedEvent);
+            props.onFetchEvents(false);
+            setSuccessMessage(translate('event_returned'));
+        } catch (err) {
+            setErrorMessage(translate('failed_to_update_event_details'));
+        }
+    };
+
+    const selectVideo = (identifier) => {
+        let i;
+        for (i = 0; i <  props.videos.length; i++) {
+            if (props.videos[i].identifier === identifier) {
+                return props.videos[i];
+            }
+        }
+    };
+
+    const returnVideoSubmit = async (event) => {
+        if (event) {
+            inputs = selectVideo(event.target.identifier.value);
+            inputs.isPartOf = event.target.isPartOf.value;
+            event.preventDefault();
+            await updateEventDetails();
+            setInputs('');
+        }
+    };
+
+    const returnVideo = (cell, row) => {
+        return (
+            <div>
+                {
+                    <form onSubmit={returnVideoSubmit}>
+                        <input type="hidden" name="identifier" value={row.identifier} />
+                        <select required className="return return-event-series-list" disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                            { drawSelectionValues() }
+                        </select>
+                        <Button name="returnButton"  disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} className="btn btn-primary return return-button" type="submit">{translate('return_video')}</Button>
+                    </form>
+                }
+            </div>
+        );
+    };
+
+    const drawSelectionValues = () => {
+        let series = [...props.series];
+        series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
+        return series.map((series) => {
+            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title}</option>;
+        });
+    };
+
+    const handleInputChange = (event) => {
+        event.persist();
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
+    };
+
     // the only translated property is the visibility value
     const translatedVideos = () => {
         return props.videos.map(video => {
@@ -90,11 +159,11 @@ const TrashVideoList = (props) => {
         props.onRouteChange(props.route);
         props.onFetchEvents(true);
         if (props.apiError) {
-            setErrorMessage(props.apiError);
+            setErrorMessage(translate(props.apiError));
         }
         const interval = setInterval(() => {
             props.onFetchEvents(false);
-        }, 60000);
+        }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.apiError, props.route]);
@@ -120,10 +189,16 @@ const TrashVideoList = (props) => {
         sort: true,
         formatter: dateFormatter
     }, {
+        dataField: 'identifier',
+        text: translate('return_video'),
+        formatter: returnVideo
+    },
+    {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
-    }];
+    }
+    ];
 
     const defaultSorted = [{
         dataField: 'title',
@@ -139,6 +214,14 @@ const TrashVideoList = (props) => {
             <div className="margintop">
                 <h2>{translate('trash_info')}</h2>
             </div>
+            { successMessage ?
+                <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
+                    <p>
+                        { successMessage }
+                    </p>
+                </Alert>
+                : <></>
+            }
             { !errorMessage ?
                 <div className="table-responsive">
 
@@ -187,6 +270,7 @@ const TrashVideoList = (props) => {
 
 const mapStateToProps = state => ({
     videos: state.er.trashVideos,
+    series: state.ser.series,
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,
@@ -194,9 +278,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onFetchEvents: (refresh, inbox) => dispatch(fetchTrashEvents(refresh, inbox)),
+    onFetchEvents: (refresh) => {
+        dispatch(fetchTrashEvents(refresh));
+        dispatch(fetchSeries());
+    },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashVideoList);

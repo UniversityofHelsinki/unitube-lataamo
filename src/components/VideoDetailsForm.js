@@ -29,19 +29,30 @@ const VideoDetailsForm = (props) => {
         setHovered(!hovered);
     };
 
-    const copyTextToClipboard = (event) => {
+    const copyEventIdToClipboard = (event) => {
         event.preventDefault();
         event.persist();
-        let copyEventId = document.getElementById('eventId').innerText;
-        let eventId = document.createElement('input');
-        document.body.appendChild(eventId);
-        eventId.value = copyEventId;
-        eventId.select();
-        //for mobile devices
-        eventId.setSelectionRange(0,99999);
-        document.execCommand('copy');
-        eventId.remove();
+        copyTextToClipboard('eventId');
         setSuccessMessage(translate('video_id_copied_to_clipboard'));
+    };
+
+    const copyEmbeddedEventToClipboard = (event) => {
+        event.preventDefault();
+        event.persist();
+        copyTextToClipboard('embeddedVideo');
+        setSuccessMessage(translate('embedded_video_copied_to_clipboard'));
+    };
+
+    const copyTextToClipboard = (id) => {
+        let copyText = document.getElementById(id).innerText;
+        let element = document.createElement('input');
+        document.body.appendChild(element);
+        element.value = copyText;
+        element.select();
+        //for mobile devices
+        element.setSelectionRange(0,99999);
+        document.execCommand('copy');
+        element.remove();
     };
 
     const getUpdatedInboxVideos = (eventId, updatedEvent) => {
@@ -101,6 +112,15 @@ const VideoDetailsForm = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
+
+    const embedVideo = () =>{
+        let targetElement = document.getElementById('embeddedVideo');
+        if(targetElement){
+            targetElement.innerText='<iframe ' +
+                'src="https://webcast.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
+                'scrolling="no" frameBorder="0" marginHeight="0px" marginWidth="0px" width="640"></iframe>';
+        }
+    };
 
     const deleteEvent = async () => {
         setDisabledInputs(true);
@@ -202,7 +222,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-3">
                                     <IconContext.Provider value={{ size: '1.5em' }}>
                                         <div>
-                                            <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
+                                            <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyEventIdToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                         </div>
                                     </IconContext.Provider>
                                 </div>
@@ -217,7 +237,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -231,7 +251,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -240,12 +260,12 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
                                     <textarea disabled={disabledInputs} name="description" className="form-control" value={inputs.description}
-                                        onChange={handleInputChange} placeholder="Description" maxLength="1500" required/>
+                                        onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -261,7 +281,7 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                         </span>
                                     </OverlayTrigger>
                                 </div>
@@ -276,6 +296,26 @@ const VideoDetailsForm = (props) => {
                                 <div className="col-sm-2"></div>
                                 <div className="col-sm-8">
                                     <p className="licence-long-info">{translate(replaceCharacter(inputs.license) + '_long_info')}</p>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2">{translate('embedded_video_title')}</label>
+                                <div id='embeddedVideo' className="col-sm-7 embeddedVideo">
+                                    {embedVideo()}
+                                </div>
+                                <div className="col-sm-1">
+                                    <IconContext.Provider value={{ size: '1.5em' }}>
+                                        <div>
+                                            <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyEmbeddedEventToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
+                                        </div>
+                                    </IconContext.Provider>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('embedded_video_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                        </span>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
                         </div>
