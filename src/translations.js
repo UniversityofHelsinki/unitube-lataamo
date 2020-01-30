@@ -144,7 +144,8 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
         input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
         return_video: 'Restore recording',
-        event_returned: 'Recording restored successfully!'
+        event_returned: 'Recording restored successfully!',
+        select_license: '??? Valitse joku muu ???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -291,7 +292,8 @@ const translationsObject = {
         event_succeeded_state: 'Käsittely onnistui',
         input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
         return_video: 'Palauta tallenne',
-        event_returned: 'Tallenne palautettu onnistuneesti!'
+        event_returned: 'Tallenne palautettu onnistuneesti!',
+        select_license: 'Valitse joku muu'
     },
 
     sv: {
@@ -439,7 +441,8 @@ const translationsObject = {
         select_series : 'Välj series',
         embedded_video_copied_to_clipboard: '???embedded_video_copied_to_clipboard???',
         embedded_video_info: '???embedded_video_info???',
-        embedded_video_title: '???embedded_video_title???'
+        embedded_video_title: '???embedded_video_title???',
+        select_license: '??? Valitse joku muu ???'
     }
 };
 
