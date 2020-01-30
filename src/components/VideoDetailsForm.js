@@ -285,7 +285,7 @@ const VideoDetailsForm = (props) => {
                                         <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                         {drawLicenseSelectionValues()}
                                     </select>
-                                    <span  className={disabledLicense(inputs.license) ? 'bold-value' : 'hide-value'}  >{translate('select_license')}</span>
+                                    <div  className={disabledLicense(inputs.license) ? 'bold-value' : 'hide-value'}  >{translate('select_license')}</div>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
