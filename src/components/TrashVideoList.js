@@ -147,7 +147,7 @@ const TrashVideoList = (props) => {
                         <Button name="returnButton" disabled={ row.processing_state !== VIDEO_PROCESSING_SUCCEEDED  || archivedVideo(row) }
                             className="btn btn-primary return return-button"
                             type="submit">{ translate('archive_video') }</Button>
-                        { archivedVideo(row) ? <span className="archived-text" >{ translate('archived_video') }</span> : null }
+                        { archivedVideo(row) ? <div className="archived-text" >{ translate('archived_video') }</div> : null }
                     </form>
                 }
             </div>
