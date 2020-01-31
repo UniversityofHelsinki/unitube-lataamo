@@ -254,7 +254,7 @@ const TrashVideoList = (props) => {
     }];
 
     const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_trash_video_list') : ''
     );
 
     return (
