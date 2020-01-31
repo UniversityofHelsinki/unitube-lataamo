@@ -146,7 +146,8 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
         input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
         return_video: 'Restore recording',
-        event_returned: 'Recording restored successfully!'
+        event_returned: 'Recording restored successfully!',
+        api_post_series_successful: 'New series created!'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -295,7 +296,8 @@ const translationsObject = {
         event_succeeded_state: 'Käsittely onnistui',
         input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
         return_video: 'Palauta tallenne',
-        event_returned: 'Tallenne palautettu onnistuneesti!'
+        event_returned: 'Tallenne palautettu onnistuneesti!',
+        api_post_series_successful: 'Uusi sarja luotu!'
     },
 
     sv: {
@@ -445,7 +447,8 @@ const translationsObject = {
         select_series : 'Välj serie',
         embedded_video_copied_to_clipboard: 'Den inbäddade videon har kopierats till urklipp',
         embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
-        embedded_video_title: 'Videons inbäddningskod'
+        embedded_video_title: 'Videons inbäddningskod',
+        api_post_series_successful: 'Serien skapat!'
     }
 };
 
