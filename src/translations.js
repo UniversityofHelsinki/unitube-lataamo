@@ -40,7 +40,7 @@ const translationsObject = {
         hy_switchboard: 'Telephone exchange:  +358 (0)2 941 911',
         hy_contact_info_link: 'Contact information',
         hy_terms_of_use: 'Terms of Use',
-        hy_terms_of_use_link: 'hy_terms_of_use_link',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
         series_info: 'To publish a recording, you must add it to one of the series. The visibility and administration rights of the recording are also determined based on the series. You can select a series for which you have administration rights.',
         video_title_info: 'The title of the recording. The title is visible wherever the recording is published.',
         video_description_info: 'Public description of the recording. Is the recording a part of a lecture series, course or module? Is the shooting location worth mentioning? Who are the people featured in the recording?',
@@ -189,7 +189,7 @@ const translationsObject = {
         hy_switchboard: 'Puhelinvaihde:  02941 911',
         hy_contact_info_link: 'Yhteystiedot',
         hy_terms_of_use: 'Käyttöehdot',
-        hy_terms_of_use_link: 'hy_terms_of_use_link',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
         series_info: 'Jotta tallenteen voi julkaista, se pitää liittää johonkin sarjaan. Tallenteiden näkyvyys ja hallintaoikeudet määritellään myös sarjojen kautta. Voit valita jonkin sarjan, johon sinulla on hallintaoikeudet.',
         video_title_info: 'Tallenteen nimi. Nimi näkyy kaikissa niissä paikoissa, joihin tallenne on julkaistu.',
         video_description_info: 'Tallenteen julkinen kuvaus. Onko tallenne osa luentosarjaa, kurssia tai kokonaisuutta? Onko kuvauspaikka maininnan arvoinen? Keitä tallenteella esiintyy?',
@@ -339,7 +339,7 @@ const translationsObject = {
         hy_switchboard: 'Telefonväxel:  02941 911',
         hy_contact_info_link: 'Kontaktuppgifter',
         hy_terms_of_use: 'Användningsvillkor',
-        hy_terms_of_use_link: 'hy_terms_of_use_link',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
         series_info: 'För att inspelningen ska kunna publiceras, måste den anslutas till en serie. Inspelningarnas synlighet och administrationsbehörigheter specificeras också via serierna. Du kan välja en serie som du har administrationsbehörigheter till.',
         video_title_info: 'Inspelningens namn. Namnet visas på alla de platser där inspelningen har publicerats.',
         video_description_info: 'Offentlig beskrivning av inspelningen. Är inspelningen en del av samma föreläsningsserie, kurs eller helhet? Är inspelningsplatsen värd att nämna? Vilka figurerar på inspelningen?',
@@ -440,12 +440,12 @@ const translationsObject = {
         event_failed_state: 'Behandlingen misslyckades',
         event_succeeded_state: 'Behandlingen lyckades',
         input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!',
-        return_video: '???Restore recording???',
-        event_returned: '???Recording restored successfully!???',
-        select_series : 'Välj series',
-        embedded_video_copied_to_clipboard: '???embedded_video_copied_to_clipboard???',
-        embedded_video_info: '???embedded_video_info???',
-        embedded_video_title: '???embedded_video_title???'
+        return_video: 'Återställ videon',
+        event_returned: 'Videon har återställts!',
+        select_series : 'Välj serie',
+        embedded_video_copied_to_clipboard: 'Den inbäddade videon har kopierats till urklipp',
+        embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
+        embedded_video_title: 'Videons inbäddningskod'
     }
 };
 
