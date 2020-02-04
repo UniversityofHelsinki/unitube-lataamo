@@ -40,7 +40,7 @@ const translationsObject = {
         hy_switchboard: 'Telephone exchange:  +358 (0)2 941 911',
         hy_contact_info_link: 'Contact information',
         hy_terms_of_use: 'Terms of Use',
-        hy_terms_of_use_link: 'hy_terms_of_use_link',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
         series_info: 'To publish a recording, you must add it to one of the series. The visibility and administration rights of the recording are also determined based on the series. You can select a series for which you have administration rights.',
         video_title_info: 'The title of the recording. The title is visible wherever the recording is published.',
         video_description_info: 'Public description of the recording. Is the recording a part of a lecture series, course or module? Is the shooting location worth mentioning? Who are the people featured in the recording?',
@@ -130,6 +130,8 @@ const translationsObject = {
         trash: 'Deleted recordings',
         trash_info: 'The recordings you have deleted can be found here for a certain period of time. You can still download the recording to your computer or restore it by clicking “Restore recording”',
         empty_video_list: 'You have no recordings',
+        empty_inbox_video_list: 'You have no recordings in your inbox series',
+        empty_trash_video_list: 'You have no deleted recordings',
         empty_series_list: 'You have no series',
         error_failed_to_save_series_inbox_not_allowed: '--- Unable to create series Inbox because the series already exists ---',
         error_failed_to_save_series_trash_not_allowed: '--- Unable to create series Deleted recordings because the series already exists ---',
@@ -144,7 +146,8 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
         input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
         return_video: 'Restore recording',
-        event_returned: 'Recording restored successfully!'
+        event_returned: 'Recording restored successfully!',
+        api_post_series_successful: 'New series created!'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -187,7 +190,7 @@ const translationsObject = {
         hy_switchboard: 'Puhelinvaihde:  02941 911',
         hy_contact_info_link: 'Yhteystiedot',
         hy_terms_of_use: 'Käyttöehdot',
-        hy_terms_of_use_link: 'hy_terms_of_use_link',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
         series_info: 'Jotta tallenteen voi julkaista, se pitää liittää johonkin sarjaan. Tallenteiden näkyvyys ja hallintaoikeudet määritellään myös sarjojen kautta. Voit valita jonkin sarjan, johon sinulla on hallintaoikeudet.',
         video_title_info: 'Tallenteen nimi. Nimi näkyy kaikissa niissä paikoissa, joihin tallenne on julkaistu.',
         video_description_info: 'Tallenteen julkinen kuvaus. Onko tallenne osa luentosarjaa, kurssia tai kokonaisuutta? Onko kuvauspaikka maininnan arvoinen? Keitä tallenteella esiintyy?',
@@ -277,6 +280,8 @@ const translationsObject = {
         trash: 'Poistamani tallenteet',
         trash_info: 'Poistamasi tallenteet näkyvät täällä määräajan. Voit vielä ladata tallenteen koneellesi tai palauttaa sen valitsemalla "Palauta tallenne".',
         empty_video_list: 'Sinulla ei ole tallenteita',
+        empty_inbox_video_list: 'Inboxissasi ei ole tallenteita',
+        empty_trash_video_list: 'Sinulla ei ole poistettuja tallenteita',
         empty_series_list: 'Sinulla ei ole sarjoja',
         error_failed_to_save_series_inbox_not_allowed: '--- Inbox-sarjaa ei voi luoda, koska se on jo olemassa ---',
         error_failed_to_save_series_trash_not_allowed: '--- Poistettujen tallenteiden sarjaa ei voi luoda, koska se on jo olemassa ---',
@@ -291,7 +296,8 @@ const translationsObject = {
         event_succeeded_state: 'Käsittely onnistui',
         input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
         return_video: 'Palauta tallenne',
-        event_returned: 'Tallenne palautettu onnistuneesti!'
+        event_returned: 'Tallenne palautettu onnistuneesti!',
+        api_post_series_successful: 'Uusi sarja luotu!'
     },
 
     sv: {
@@ -335,7 +341,7 @@ const translationsObject = {
         hy_switchboard: 'Telefonväxel:  02941 911',
         hy_contact_info_link: 'Kontaktuppgifter',
         hy_terms_of_use: 'Användningsvillkor',
-        hy_terms_of_use_link: 'hy_terms_of_use_link',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
         series_info: 'För att inspelningen ska kunna publiceras, måste den anslutas till en serie. Inspelningarnas synlighet och administrationsbehörigheter specificeras också via serierna. Du kan välja en serie som du har administrationsbehörigheter till.',
         video_title_info: 'Inspelningens namn. Namnet visas på alla de platser där inspelningen har publicerats.',
         video_description_info: 'Offentlig beskrivning av inspelningen. Är inspelningen en del av samma föreläsningsserie, kurs eller helhet? Är inspelningsplatsen värd att nämna? Vilka figurerar på inspelningen?',
@@ -421,6 +427,8 @@ const translationsObject = {
         trash: 'Mina raderade inspelningar',
         trash_info: 'Dina raderade inspelningar syns här under en bestämd tid. Du kan ännu lada inspelningen på din dator eller återställa den genom att välja ”Återställ inspelning”',
         empty_video_list: 'Du har inga inspelningar',
+        empty_inbox_video_list: '???empty_inbox_video_list???',
+        empty_trash_video_list: '???empty_trash_video_list???',
         empty_series_list: 'Du har inga serier',
         error_failed_to_save_series_inbox_not_allowed: '--- Inbox-serien kan inte skapas, eftersom den redan finns ---',
         error_failed_to_save_series_trash_not_allowed: '--- Serien med raderade inspelningar kan inte skapas, eftersom den redan finns ---',
@@ -434,12 +442,13 @@ const translationsObject = {
         event_failed_state: 'Behandlingen misslyckades',
         event_succeeded_state: 'Behandlingen lyckades',
         input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!',
-        return_video: '???Restore recording???',
-        event_returned: '???Recording restored successfully!???',
-        select_series : 'Välj series',
-        embedded_video_copied_to_clipboard: '???embedded_video_copied_to_clipboard???',
-        embedded_video_info: '???embedded_video_info???',
-        embedded_video_title: '???embedded_video_title???'
+        return_video: 'Återställ videon',
+        event_returned: 'Videon har återställts!',
+        select_series : 'Välj serie',
+        embedded_video_copied_to_clipboard: 'Den inbäddade videon har kopierats till urklipp',
+        embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
+        embedded_video_title: 'Videons inbäddningskod',
+        api_post_series_successful: 'Serien skapat!'
     }
 };
 

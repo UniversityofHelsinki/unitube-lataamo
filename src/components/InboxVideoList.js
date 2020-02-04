@@ -126,18 +126,6 @@ const InboxVideoList = (props) => {
         return () => clearInterval(interval);
     }, []);
 
-    const statusFormatter = (cell, row) => {
-        return (
-            <div>
-                {
-                    row.visibility.map((acl, index) =>
-                        <p key={ index }> { acl } </p>
-                    )
-                }
-            </div>
-        );
-    };
-
     const dateFormatter = (cell) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
@@ -175,15 +163,6 @@ const InboxVideoList = (props) => {
         text: translate('processing_state'),
         sort: true,
         formatter: stateFormatter
-    }, {
-        dataField: 'series',
-        text: translate('series_title'),
-        sort: true
-    }, {
-        dataField: 'visibility',
-        text: translate('publication_status'),
-        formatter: statusFormatter,
-        sort: true
     }, {
         dataField: 'media',
         text: translate('download_video'),
@@ -224,7 +203,7 @@ const InboxVideoList = (props) => {
     };
 
     const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_inbox_video_list') : ''
     );
 
 
@@ -289,7 +268,6 @@ const InboxVideoList = (props) => {
         </div>
     );
 };
-
 const mapStateToProps = state => ({
     videos: state.er.inboxVideos,
     selectedRowId: state.vr.selectedRowId,

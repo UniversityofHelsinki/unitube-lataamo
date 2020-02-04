@@ -43,7 +43,7 @@ const VideoInSeries = (props) => {
         if (props.series.eventColumns && props.series.eventColumns.length > 0) {
             return props.series.eventColumns.map((selection, index) => {
                 return (
-                    <div key={ index } className="form-check-inline">
+                    <div key={ index } className="form-check-inline video-single">
                         <span className="border">
                             <Badge variant='light'>
                                 <FaFilm/>
