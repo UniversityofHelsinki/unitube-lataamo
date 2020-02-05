@@ -118,7 +118,7 @@ const VideoDetailsForm = (props) => {
         if(targetElement){
             targetElement.innerText='<iframe ' +
                 'src="https://webcast.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
-                'scrolling="no" frameBorder="0" marginHeight="0px" marginWidth="0px" width="640"></iframe>';
+                'scrolling="no" allowfullscreen="true" frameBorder="0" marginHeight="0px" marginWidth="0px" height="320" width="640"></iframe>';
         }
     };
 
@@ -214,7 +214,6 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
                             </div>
-
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
                                 <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')}</label>
