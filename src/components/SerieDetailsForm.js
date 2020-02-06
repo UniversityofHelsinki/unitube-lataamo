@@ -337,7 +337,7 @@ const SerieDetailsForm = (props) => {
                             <div className="series-bg">
 
                                 <div className="form-group row">
-                                    <div className="col-sm-7">
+                                    <div className="col-sm-12 video-list">
                                         <VideosInSeries />
                                     </div>
                                 </div>
