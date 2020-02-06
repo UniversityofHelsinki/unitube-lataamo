@@ -117,7 +117,7 @@ const VideoDetailsForm = (props) => {
         let targetElement = document.getElementById('embeddedVideo');
         if(targetElement){
             targetElement.innerText='<iframe ' +
-                'src="https://webcast.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
+                'src="https://unitube.it.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
                 'scrolling="no" allowfullscreen="true" frameBorder="0" marginHeight="0px" marginWidth="0px" height="320" width="640"></iframe>';
         }
     };
