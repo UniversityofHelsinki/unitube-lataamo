@@ -161,6 +161,8 @@ const VideoDetailsForm = (props) => {
         return props.video.licenses.map((license) => {
             if (inputs.license !== license || inputs.license !==  'UNITUBE-ALLRIGHTS') {
                 return <option disabled={ disabledLicense(license) } key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
+            } else {
+                return null;
             }
         });
     };
