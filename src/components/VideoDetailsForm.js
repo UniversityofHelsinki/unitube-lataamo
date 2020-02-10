@@ -113,12 +113,12 @@ const VideoDetailsForm = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
 
-    const embedVideo = () =>{
+    const embedVideo = () => {
         let targetElement = document.getElementById('embeddedVideo');
         if(targetElement){
             targetElement.innerText='<iframe ' +
-                'src="https://webcast.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
-                'scrolling="no" frameBorder="0" marginHeight="0px" marginWidth="0px" width="640"></iframe>';
+                'src="https://unitube.it.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
+                'scrolling="no" allowfullscreen="true" frameBorder="0" marginHeight="0px" marginWidth="0px" height="320" width="640"></iframe>';
         }
     };
 
@@ -149,9 +149,21 @@ const VideoDetailsForm = (props) => {
         });
     };
 
+    const disabledLicense = (license) => {
+        if (license === 'UNITUBE-ALLRIGHTS') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-            return <option key={license} id={license} value={license}>{translate(replaceCharacter(license))}</option>;
+            if (inputs.license !== license || inputs.license !==  'UNITUBE-ALLRIGHTS') {
+                return <option disabled={ disabledLicense(license) } key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
+            } else {
+                return null;
+            }
         });
     };
 
@@ -214,7 +226,6 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
                             </div>
-
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
                                 <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')}</label>
@@ -273,10 +284,15 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
-                                        <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                    <select disabled={disabledInputs} required className="form-control" name="license"
+                                        value={disabledLicense(inputs.license) ? '' : inputs.license} onChange={handleInputChange}>
+                                        {disabledLicense(inputs.license) ?
+                                            <option key="-1" id="NOT_SELECTED" value="">{ translate(replaceCharacter(inputs.license)) }</option> :
+                                            <option key="-1" id="NOT_SELECTED" value="">{ translate('select') }</option>
+                                        }
                                         {drawLicenseSelectionValues()}
                                     </select>
+                                    <div  className={disabledLicense(inputs.license) ? 'bold-value' : 'hide-value'}  >{translate('select_license')}</div>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>

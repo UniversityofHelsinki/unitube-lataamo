@@ -40,7 +40,7 @@ const translationsObject = {
         hy_switchboard: 'Telephone exchange:  +358 (0)2 941 911',
         hy_contact_info_link: 'Contact information',
         hy_terms_of_use: 'Terms of Use',
-        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/en/it/unitube-service-terms-of-use',
         series_info: 'To publish a recording, you must add it to one of the series. The visibility and administration rights of the recording are also determined based on the series. You can select a series for which you have administration rights.',
         video_title_info: 'The title of the recording. The title is visible wherever the recording is published.',
         video_description_info: 'Public description of the recording. Is the recording a part of a lecture series, course or module? Is the shooting location worth mentioning? Who are the people featured in the recording?',
@@ -56,8 +56,8 @@ const translationsObject = {
         series_description: 'Series description',
         add_series: 'Add new series',
         series_description_info: 'Public description of the series. Are the recordings a part of a single lecture series, course or module? Have they perhaps been shot in the same location? Who are the people in the recordings of the series? Please make sure that the descriptions are clear and consistent!',
-        public_series : 'Publish the series in Unitube',
-        series_visibility_info: 'Check the box if you would like to share and publish the series and its recordings on Unitube for a wider audience. Please note that you must have permission to publish the recording from everybody featured in the recording!',
+        public_series : 'Publish the series in Unitube and enable video embedding',
+        series_visibility_info: 'Check the box if you would like to share and publish the series and its recordings on Unitube for a wider audience. You also need to tick this box if you wish to embed any of the videos in this series for viewing elsewhere, e.g. on pages or in course areas. Please note that you must have permission to publish the recording from everybody featured in the recording!',
         add_moodle_course : 'Add this series to a Moodle course by using its own Moodle ID, i.e. its course code',
         added_moodle_courses: 'The Moodle IDs (course codes) of the courses to which this series has been added:',
         series_moodle_visibility_info: 'If you would like to restrict the visibility of the recordings to a specific Moodle course or make it easier to share the contents of a series on a course, you can connect the series to the course by adding its Moodle ID here. For more information and instructions on how to connect series to Moodle courses, please refer to the University of Helsinki Educational Technology Services instructions!',
@@ -129,8 +129,8 @@ const translationsObject = {
         succeeded_to_delete_event: 'Recording deleted successfully. You can still restore the recording from the Deleted recordings tab. The deleted recordings will be removed from the service automatically after a certain period of time.',
         trash: 'Deleted recordings',
         trash_info: 'The recordings you have deleted can be found here for a certain period of time. You can still download the recording to your computer or restore it by clicking “Restore recording”',
-        empty_video_list: 'You have no recordings',
-        empty_inbox_video_list: 'You have no recordings in your inbox series',
+        empty_video_list: 'You have no recordings in any series',
+        empty_inbox_video_list: 'You have no recordings in your Inbox',
         empty_trash_video_list: 'You have no deleted recordings',
         empty_series_list: 'You have no series',
         error_failed_to_save_series_inbox_not_allowed: '--- Unable to create series Inbox because the series already exists ---',
@@ -146,7 +146,9 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
         input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
         return_video: 'Restore recording',
-        event_returned: 'Recording restored successfully!'
+        select_license: '??? Valitse joku muu ???',
+        event_returned: 'Recording restored successfully!',
+        api_post_series_successful: 'New series created!'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -205,8 +207,8 @@ const translationsObject = {
         series_description: 'Sarjan kuvaus',
         add_series: 'Lisää uusi sarja',
         series_description_info: 'Sarjan julkinen kuvaus. Ovatko sen tallenteet osa samaa luentosarjaa, kurssia tai kokonaisuutta? Onko ne kenties taltioitu samassa paikassa? Keitä sarjan tallenteilla esiintyy? Selkeään ja yhdenmukaiseen kuvaukseen kannattaa panostaa!',
-        public_series : 'Julkaise sarja Unitube-katsomossa',
-        series_visibility_info: 'Lisää rasti ruutuun, jos haluat jakaa ja julkaista sarjan tallenteineen laajemman yleisön nähtäville Unitube-katsomossa. Huomaathan, että sinulla tulee olla tallenteilla esiintyvien suostumus julkaisuun!',
+        public_series : 'Julkaise sarja Unitube-katsomossa ja salli sarjan videoiden upottaminen',
+        series_visibility_info: 'Lisää rasti ruutuun, jos haluat jakaa ja julkaista sarjan tallenteineen laajemman yleisön nähtäville Unitube-katsomossa. Sinun pitää julkaista sarja Unitube-katsomossa myös silloin, jos haluat upottaa sen videoita katsottavaksi esim. muille sivuille tai kursseille. Huomaathan, että sinulla tulee olla tallenteilla esiintyvien suostumus julkaisuun.',
         add_moodle_course : 'Liitä tämä sarja Moodle-kurssiin sen omalla Moodle-ID:llä eli kurssitunnistenumerolla',
         added_moodle_courses: 'Moodle-ID:t eli niiden kurssien tunnisteet, joihin tämä sarja on liitetty:',
         series_moodle_visibility_info: 'Jos haluat rajoittaa tallenteiden näkyvyyden tietylle Moodle-kurssille tai helpottaa sarjan sisällön jakamista tietyllä kurssilla, voit kytkeä sarjan kurssiin liittämällä tähän sen tunnistenumeron (Moodle-ID). Lisää tietoa ja ohjeita sarjojen ja Moodle-kurssien liittämisestä löydät HY:n opetusteknologiapalveluiden ohjeista!',
@@ -278,7 +280,7 @@ const translationsObject = {
         succeeded_to_delete_event: 'Tallenteen poistaminen onnistui. Voit vielä palauttaa sen "Poistamani tallenteet" -välilehdeltä. Poistettujen tallenteiden sisältö häviää lopullisesti palvelusta automaattisesti tietyn ajan kuluttua.',
         trash: 'Poistamani tallenteet',
         trash_info: 'Poistamasi tallenteet näkyvät täällä määräajan. Voit vielä ladata tallenteen koneellesi tai palauttaa sen valitsemalla "Palauta tallenne".',
-        empty_video_list: 'Sinulla ei ole tallenteita',
+        empty_video_list: 'Sinulla ei ole tallenteita sarjoissa',
         empty_inbox_video_list: 'Inboxissasi ei ole tallenteita',
         empty_trash_video_list: 'Sinulla ei ole poistettuja tallenteita',
         empty_series_list: 'Sinulla ei ole sarjoja',
@@ -295,7 +297,9 @@ const translationsObject = {
         event_succeeded_state: 'Käsittely onnistui',
         input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
         return_video: 'Palauta tallenne',
-        event_returned: 'Tallenne palautettu onnistuneesti!'
+        select_license: 'Valitse joku muu',
+        event_returned: 'Tallenne palautettu onnistuneesti!',
+        api_post_series_successful: 'Uusi sarja luotu!'
     },
 
     sv: {
@@ -339,7 +343,7 @@ const translationsObject = {
         hy_switchboard: 'Telefonväxel:  02941 911',
         hy_contact_info_link: 'Kontaktuppgifter',
         hy_terms_of_use: 'Användningsvillkor',
-        hy_terms_of_use_link: 'https://www.helsinki.fi/fi/it/unitube-palvelun-kayttoehdot',
+        hy_terms_of_use_link: 'https://www.helsinki.fi/sv/it/anvandningsvillkor-for-tjansten-unitube',
         series_info: 'För att inspelningen ska kunna publiceras, måste den anslutas till en serie. Inspelningarnas synlighet och administrationsbehörigheter specificeras också via serierna. Du kan välja en serie som du har administrationsbehörigheter till.',
         video_title_info: 'Inspelningens namn. Namnet visas på alla de platser där inspelningen har publicerats.',
         video_description_info: 'Offentlig beskrivning av inspelningen. Är inspelningen en del av samma föreläsningsserie, kurs eller helhet? Är inspelningsplatsen värd att nämna? Vilka figurerar på inspelningen?',
@@ -424,9 +428,9 @@ const translationsObject = {
         succeeded_to_delete_event: 'Inspelningen raderades. Du kan ännu återställa den via fliken ”Mina raderade inspelningar”. Innehållet i raderade inspelningar försvinner slutgiltigt från tjänsten efter en bestämd tid.',
         trash: 'Mina raderade inspelningar',
         trash_info: 'Dina raderade inspelningar syns här under en bestämd tid. Du kan ännu lada inspelningen på din dator eller återställa den genom att välja ”Återställ inspelning”',
-        empty_video_list: 'Du har inga inspelningar',
-        empty_inbox_video_list: '???empty_inbox_video_list???',
-        empty_trash_video_list: '???empty_trash_video_list???',
+        empty_video_list: 'Du har inga inspelningar i serier',
+        empty_inbox_video_list: 'Du har inga inspelningar i din Inbox',
+        empty_trash_video_list: 'Du har inga raderade inspelningar',
         empty_series_list: 'Du har inga serier',
         error_failed_to_save_series_inbox_not_allowed: '--- Inbox-serien kan inte skapas, eftersom den redan finns ---',
         error_failed_to_save_series_trash_not_allowed: '--- Serien med raderade inspelningar kan inte skapas, eftersom den redan finns ---',
@@ -440,12 +444,14 @@ const translationsObject = {
         event_failed_state: 'Behandlingen misslyckades',
         event_succeeded_state: 'Behandlingen lyckades',
         input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!',
+        select_license: '??? Valitse joku muu ???',
         return_video: 'Återställ videon',
         event_returned: 'Videon har återställts!',
         select_series : 'Välj serie',
         embedded_video_copied_to_clipboard: 'Den inbäddade videon har kopierats till urklipp',
         embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
-        embedded_video_title: 'Videons inbäddningskod'
+        embedded_video_title: 'Videons inbäddningskod',
+        api_post_series_successful: 'Serien skapat!'
     }
 };
 

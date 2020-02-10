@@ -150,7 +150,7 @@ const SeriesList = (props) => {
             {props.seriesPostSuccessMessage !== null ?
                 <Alert variant="success">
                     <p>
-                        {props.seriesPostSuccessMessage}
+                        {translate(props.seriesPostSuccessMessage)}
                     </p>
                 </Alert>
                 : (<></>)
