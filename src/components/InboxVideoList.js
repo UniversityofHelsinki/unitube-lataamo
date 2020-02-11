@@ -21,7 +21,7 @@ import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 
-const VIDEO_LIST_POLL_INTERVAL = 60000;
+const VIDEO_LIST_POLL_INTERVAL = 10000;
 
 const { SearchBar } = Search;
 
