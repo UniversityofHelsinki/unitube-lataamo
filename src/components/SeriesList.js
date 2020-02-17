@@ -123,7 +123,7 @@ const SeriesList = (props) => {
         onlyOneExpanding: true,
         onExpand: (row, isExpand, rowIndex, e) => {
             if(isExpand) {
-                props.onSelectSerie(row);
+                props.onSelectSeries(row);
             }
         }
     };
@@ -174,7 +174,7 @@ const SeriesList = (props) => {
                                     <br/>
                                     <label className='info-text'>{ translate('search_series_info') } </label>
                                     <div className="form-group has-search">
-                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
@@ -207,7 +207,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onFetchSeries: () => dispatch(fetchSeries()),
-    onSelectSerie: (row) => {
+    onSelectSeries: (row) => {
         dispatch(fetchSerie(row));
     },
     emptyPersons: () => dispatch(emptyPersons()),
