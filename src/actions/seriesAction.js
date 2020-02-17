@@ -3,6 +3,8 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
 const PERSON_API_PATH = '/api/persons/';
 const SERIES_DROP_DOWN_PATH = '/api/getUserSeriesDropDownList';
+const SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+const IAM_GROUP_PATH = '/api/iamGroups/';
 
 export const personQuery = async (query) => {
     try {
@@ -18,52 +20,6 @@ export const personQuery = async (query) => {
         throw new Error(error);
     }
 };
-
-export const addPerson = (person) => ({
-    type: 'ADD_PERSON',
-    payload: person
-});
-
-export const removePerson = (person) => ({
-    type: 'REMOVE_PERSON',
-    payload: person
-});
-
-export const emptyPersons = () => ({
-    type: 'EMPTY_PERSONS',
-    payload: []
-});
-
-export const addMoodleNumber = (moodleNumber) => {
-    return async (dispatch) => {
-        dispatch(addMoodleNumberCall(moodleNumber));
-    };
-};
-
-export const removeMoodleNumber = (moodleNumber) => {
-    return async (dispatch) => {
-        dispatch(removeMoodleNumberCall(moodleNumber));
-    };
-};
-
-export const emptyMoodleNumber = () => {
-    return async (dispatch) => {
-        dispatch(emptyMoodleNumberCall());
-    };
-};
-
-export const clearPostSeriesSuccessMessage = () => {
-    return async (dispatch) => {
-        dispatch(clearPostSeriesSuccessCall());
-    };
-};
-
-export const clearPostSeriesFailureMessage = () => {
-    return async (dispatch) => {
-        dispatch(clearPostSeriesFailureCall());
-    };
-};
-
 
 export const fetchSerie = (row) => {
     return async (dispatch) => {
@@ -104,10 +60,8 @@ export const fetchSeriesDropDownList = () => {
 };
 
 export const fetchSeries = () => {
-
     // server from .env variable
     const PATH = '/api/userSeries';
-
     return async (dispatch) => {
         try {
             dispatch(apiGetSeriesRequestCall());
@@ -126,29 +80,6 @@ export const fetchSeries = () => {
     };
 };
 
-export const removeMoodleNumberCall = (moodleNumber) => ({
-    type: 'REMOVE_MOODLE_NUMBER',
-    payload: moodleNumber
-});
-
-export const addMoodleNumberCall = (moodleNumber) => ({
-    type: 'ADD_MOODLE_NUMBER',
-    payload: moodleNumber
-});
-
-export const emptyMoodleNumberCall = () => ({
-    type: 'EMPTY_MOODLE_NUMBER',
-    payload: []
-});
-
-export const apiGetSeriesRequestCall = () => ({
-    type: 'GET_SERIES_REQUEST',
-    loading: true
-});
-
-const SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-const IAM_GROUP_PATH = '/api/iamGroups/';
-
 export const iamGroupQuery = async (query) => {
     try {
         let response = await fetch(`${SERVER_API}${IAM_GROUP_PATH}${query}`, {
@@ -163,22 +94,6 @@ export const iamGroupQuery = async (query) => {
         throw new Error(error);
     }
 };
-
-
-export const addIamGroup = (iamGroup) => ({
-    type: 'ADD_IAM_GROUP',
-    payload: iamGroup
-});
-
-export const removeIamGroup = (iamGroup) => ({
-    type: 'REMOVE_IAM_GROUP',
-    payload: iamGroup
-});
-
-export const emptyIamGroupsCall = () => ({
-    type: 'EMPTY_IAM_GROUPS',
-    payload: []
-});
 
 export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     try {
@@ -199,19 +114,6 @@ export const actionUpdateSerieDetails = async (id, updatedSerie) => {
         throw new Error(error);
     }
 };
-
-// update the serielist in state (called on serie information update)
-export const updateSerieList = (updatedList) => {
-    return async dispatch => {
-        dispatch(apiGetSeriesSuccessCall(updatedList));
-    };
-};
-
-export const apiGetSerieSuccessCall = (data, selectedRowId) => ({
-    type: 'SUCCESS_API_GET_SERIE',
-    payload: data,
-    selectedRowId: selectedRowId
-});
 
 export const actionUploadSeries = (newSeries) => {
     return async (dispatch) => {
@@ -238,6 +140,48 @@ export const actionUploadSeries = (newSeries) => {
         }
     };
 };
+
+export const addMoodleNumber = (moodleNumber) => {
+    return async (dispatch) => {
+        dispatch(addMoodleNumberCall(moodleNumber));
+    };
+};
+
+export const removeMoodleNumber = (moodleNumber) => {
+    return async (dispatch) => {
+        dispatch(removeMoodleNumberCall(moodleNumber));
+    };
+};
+
+export const emptyMoodleNumber = () => {
+    return async (dispatch) => {
+        dispatch(emptyMoodleNumberCall());
+    };
+};
+
+export const clearPostSeriesSuccessMessage = () => {
+    return async (dispatch) => {
+        dispatch(clearPostSeriesSuccessCall());
+    };
+};
+
+export const clearPostSeriesFailureMessage = () => {
+    return async (dispatch) => {
+        dispatch(clearPostSeriesFailureCall());
+    };
+};
+
+// update the series list in state (called on series information update)
+export const updateSeriesList = (updatedList) => {
+    return async dispatch => {
+        dispatch(apiGetSeriesSuccessCall(updatedList));
+    };
+};
+
+export const apiGetSeriesRequestCall = () => ({
+    type: 'GET_SERIES_REQUEST',
+    loading: true
+});
 
 export const apiPostSeriesSuccessCall = () => ({
     type: 'SUCCESS_API_POST_SERIES',
@@ -277,7 +221,6 @@ export const api401FailureCall = failureTime => ({
     loading: false
 });
 
-
 export const apiFailureCall = msg => ({
     type: 'FAILURE_API_CALL',
     payload: msg,
@@ -292,4 +235,55 @@ export const apiPostSeries403FailureCall = () => ({
 export const apiPostSeries500FailureCall = (message) => ({
     type: 'STATUS_500_API_CALL',
     payload: message
+});
+
+export const addPerson = (person) => ({
+    type: 'ADD_PERSON',
+    payload: person
+});
+
+export const removePerson = (person) => ({
+    type: 'REMOVE_PERSON',
+    payload: person
+});
+
+export const emptyPersons = () => ({
+    type: 'EMPTY_PERSONS',
+    payload: []
+});
+
+export const apiGetSerieSuccessCall = (data, selectedRowId) => ({
+    type: 'SUCCESS_API_GET_SERIE',
+    payload: data,
+    selectedRowId: selectedRowId
+});
+
+export const addIamGroup = (iamGroup) => ({
+    type: 'ADD_IAM_GROUP',
+    payload: iamGroup
+});
+
+export const removeIamGroup = (iamGroup) => ({
+    type: 'REMOVE_IAM_GROUP',
+    payload: iamGroup
+});
+
+export const emptyIamGroupsCall = () => ({
+    type: 'EMPTY_IAM_GROUPS',
+    payload: []
+});
+
+export const removeMoodleNumberCall = (moodleNumber) => ({
+    type: 'REMOVE_MOODLE_NUMBER',
+    payload: moodleNumber
+});
+
+export const addMoodleNumberCall = (moodleNumber) => ({
+    type: 'ADD_MOODLE_NUMBER',
+    payload: moodleNumber
+});
+
+export const emptyMoodleNumberCall = () => ({
+    type: 'EMPTY_MOODLE_NUMBER',
+    payload: []
 });
