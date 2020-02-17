@@ -27,7 +27,7 @@ const VideoList = (props) => {
     let [media, setMedia] = useState({ column: 'media', expanded: '' });
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
-    const VIDEO_LIST_POLL_INTERVAL = 10000; // 1 hour
+    const VIDEO_LIST_POLL_INTERVAL = 300000; // 5 minutes
 
     const translate = (key) => {
         return translations ? translations[key] : '';
