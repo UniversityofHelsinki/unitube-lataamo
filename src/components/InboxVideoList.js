@@ -34,6 +34,7 @@ const { SearchBar } = Search;
 const InboxVideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [progressMessage, setProgressMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
     const [videoDeleteErrorMessage, setVideoDeleteErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
@@ -106,7 +107,7 @@ const InboxVideoList = (props) => {
     };
 
      useEffect( () => {
-     }, [disabledInputs]);
+     }, [disabledInputs, progressMessage]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -160,10 +161,22 @@ const InboxVideoList = (props) => {
         if(e.target.classList.contains("disabled")){
             return false;
         }
+        setProgressMessage(translate('progress_message_delete_event'));
         setDisabledInputs(true);
+
         let element = document.getElementById(deletedEvent.identifier);
         element.setAttribute('disabled', 'disabled');
+
+        let elements = document.getElementsByClassName('delete-button-list');
+        let array = [...elements];
+        array.map(element => element.setAttribute('disabled', 'disabled'));
+
         await moveEventToTrashSeries(deletedEvent);
+
+        elements = document.getElementsByClassName('delete-button-list');
+        array = [ ...elements ];
+        array.map(element => element.removeAttribute('disabled'));
+        setProgressMessage(null);
     };
 
     const stateFormatter = (cell, row) => {
@@ -176,7 +189,6 @@ const InboxVideoList = (props) => {
                 <div>
                         {translate('event_failed_state')}
                         <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
-
                 </div>
             );
         }
@@ -264,6 +276,14 @@ const InboxVideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
+            {progressMessage !== null ?
+                <Alert variant="warning" onClose={() => setProgressMessage(null)} dismissible>
+                    <p>
+                        {progressMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
             {successMessage !== null ?
                 <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
                     <p>
