@@ -59,8 +59,8 @@ const VideoUploadForm = (props) => {
         event.persist();
         event.preventDefault();
         setSubmitButtonDisabled(true);
-        await uploadVideo();
         clearVideoFileSelection();
+        await uploadVideo();
         setSubmitButtonDisabled(false);
     };
 
