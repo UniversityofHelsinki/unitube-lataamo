@@ -146,6 +146,7 @@ const translationsObject = {
         error_failed_to_upload_video_wrong_file_type: 'Wrong file type',
         input_file_size_below_two_megabytes: 'The file is smaller than the minimum size. Please check that you are trying to upload the correct file!',
         return_video: 'Restore recording',
+        select_license: '??? Valitse joku muu ???',
         event_returned: 'Recording restored successfully!',
         api_post_series_successful: 'New series created!'
     },
@@ -296,6 +297,7 @@ const translationsObject = {
         event_succeeded_state: 'Käsittely onnistui',
         input_file_size_below_two_megabytes: 'Tiedoston koko alittaa minimirajan. Tarkistathan, että olet lataamassa oikeaa tiedostoa!',
         return_video: 'Palauta tallenne',
+        select_license: 'Valitse joku muu',
         event_returned: 'Tallenne palautettu onnistuneesti!',
         api_post_series_successful: 'Uusi sarja luotu!'
     },
@@ -442,6 +444,7 @@ const translationsObject = {
         event_failed_state: 'Behandlingen misslyckades',
         event_succeeded_state: 'Behandlingen lyckades',
         input_file_size_below_two_megabytes: 'Filen är mindre än den minimala filstorleken (2 megabyte). Kontrollera att du har valt den rätta filen!',
+        select_license: '??? Valitse joku muu ???',
         return_video: 'Återställ videon',
         event_returned: 'Videon har återställts!',
         select_series : 'Välj serie',
