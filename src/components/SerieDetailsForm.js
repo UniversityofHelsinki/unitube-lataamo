@@ -57,9 +57,12 @@ const SerieDetailsForm = (props) => {
         const visibility = [];
 
         const roleAnonymous = series.acl.filter(acl => acl.includes(constants.ROLE_ANONYMOUS));
+        const roleKatsomoTuotanto = series.acl.filter(acl => acl.includes(constants.ROLE_KATSOMO_TUOTANTO));
         const roleKatsomo = series.acl.filter(acl => acl.includes(constants.ROLE_KATSOMO));
 
-        if (roleAnonymous && roleAnonymous.length > 0 && roleKatsomo && roleKatsomo.length > 0) { //video has both (constants.ROLE_ANONYMOUS, constants.ROLE_KATSOMO) roles
+        if ((roleAnonymous && roleAnonymous.length > 0) || (roleKatsomoTuotanto && roleKatsomoTuotanto.length > 0) || (roleKatsomo && roleKatsomo.length > 0)) {
+            //video has either (constants.ROLE_ANONYMOUS, constants.ROLE_KATSOMO constants.ROLE_KATSOMO_TUOTANTO) roles
+            //constants.ROLE_KATSOMO is to be deleted in the future
             visibility.push(constants.STATUS_PUBLISHED);
         } else {
             visibility.push(constants.STATUS_PRIVATE);
