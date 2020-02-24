@@ -149,7 +149,10 @@ const translationsObject = {
         return_video: 'Restore recording',
         select_license: '??? Valitse joku muu ???',
         event_returned: 'Recording restored successfully!',
-        api_post_series_successful: 'New series created!'
+        api_post_series_successful: 'New series created!',
+        video_text_track_info: '???video_text_track_info???',
+        video_text_track_label: '???video_text_track_label???',
+        video_text_track: '???video_text_track???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -301,7 +304,10 @@ const translationsObject = {
         return_video: 'Palauta tallenne',
         select_license: 'Valitse joku muu',
         event_returned: 'Tallenne palautettu onnistuneesti!',
-        api_post_series_successful: 'Uusi sarja luotu!'
+        api_post_series_successful: 'Uusi sarja luotu!',
+        video_text_track_info: '???video_text_track_info???',
+        video_text_track_label: '???video_text_track_label???',
+        video_text_track: '???video_text_track???'
     },
 
     sv: {
@@ -454,7 +460,10 @@ const translationsObject = {
         embedded_video_copied_to_clipboard: 'Den inbäddade videon har kopierats till urklipp',
         embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
         embedded_video_title: 'Videons inbäddningskod',
-        api_post_series_successful: 'Serien skapat!'
+        api_post_series_successful: 'Serien skapat!',
+        video_text_track_info: '???video_text_track_info???',
+        video_text_track_label: '???video_text_track_label???',
+        video_text_track: '???video_text_track???'
     }
 };
 
