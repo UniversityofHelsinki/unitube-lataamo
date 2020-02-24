@@ -122,7 +122,7 @@ deploy_dev:
 deploy_test:
   stage: deploy
   environment:
-    name: test
+    name: lataamo-363-cache
     url: https://$LATAAMO_TEST
   only:
     - test
