@@ -20,7 +20,7 @@ const VideoTextTrackForm = (props) => {
 
     const uploadVideoTextFile = async() => {
         const data = new FormData();
-        data.set('videoTextfile', selectedVideoTextFile);
+        data.set('videoTextFile', selectedVideoTextFile);
         const result = await props.onUploadVideoTextFile(data);
         return result;
     };
