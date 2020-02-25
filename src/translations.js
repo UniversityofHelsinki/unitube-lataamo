@@ -152,7 +152,9 @@ const translationsObject = {
         api_post_series_successful: 'New series created!',
         video_text_track_info: '???video_text_track_info???',
         video_text_track_label: '???video_text_track_label???',
-        video_text_track: '???video_text_track???'
+        video_text_track: '???video_text_track???',
+        delete_text_track: '???delete_text_track???',
+        save_text_track: '???save_text_track???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -307,7 +309,9 @@ const translationsObject = {
         api_post_series_successful: 'Uusi sarja luotu!',
         video_text_track_info: '???video_text_track_info???',
         video_text_track_label: '???video_text_track_label???',
-        video_text_track: '???video_text_track???'
+        video_text_track: '???video_text_track???',
+        delete_text_track: '???delete_text_track???',
+        save_text_track: '???save_text_track???'
     },
 
     sv: {
@@ -463,7 +467,9 @@ const translationsObject = {
         api_post_series_successful: 'Serien skapat!',
         video_text_track_info: '???video_text_track_info???',
         video_text_track_label: '???video_text_track_label???',
-        video_text_track: '???video_text_track???'
+        video_text_track: '???video_text_track???',
+        delete_text_track: '???delete_text_track???',
+        save_text_track: '???save_text_track???'
     }
 };
 

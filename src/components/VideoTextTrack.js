@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const VideoTextTrackForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -8,7 +8,7 @@ const VideoTextTrackForm = (props) => {
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
-    
+
     return (
         <div>
             <div className="events-bg">
@@ -31,6 +31,12 @@ const VideoTextTrackForm = (props) => {
                                         </span>
                         </OverlayTrigger>
                     </div>
+                </div>
+            </div>
+            <div className="form-group row">
+                <div className="col-sm-12">
+                    <button  type="button" className="btn delete-button float-right button-position" >{translate('delete_text_track')}</button>
+                    <button  type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
                 </div>
             </div>
         </div>
