@@ -3,7 +3,7 @@ import axios from 'axios';
 import { textFileUploadSuccessActionMessage, textFileUploadFailedActionMessage } from './fileUploadAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
-const VIDEO_TEXT_FILE_PATH = '/api/videoTextFile';
+const VIDEO_TEXT_FILE_PATH = '/api/videoTextTrack';
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
