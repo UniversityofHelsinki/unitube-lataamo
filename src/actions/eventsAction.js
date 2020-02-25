@@ -154,7 +154,6 @@ export const actionUploadVideoTextFile = (newTextFile) => {
                 }
             });
             if (response.status === 200) {
-                console.log(response.data.message);
                 dispatch(textFileUploadSuccessActionMessage(response.data.message));
             } else {
                 const responseMessage = await response.data.message;
