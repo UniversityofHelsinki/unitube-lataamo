@@ -1,6 +1,9 @@
 import { api401FailureCall, apiFailureCall } from './videosAction';
+import axios from 'axios';
+import { textFileUploadSuccessActionMessage, textFileUploadFailedActionMessage } from './fileUploadAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+const VIDEO_TEXT_FILE_PATH = '/api/videoTextFile';
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
@@ -140,6 +143,31 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
     } catch (error) {
         throw new Error(error);
     }
+};
+
+export const actionUploadVideoTextFile = (newTextFile) => {
+    return async (dispatch) => {
+        try {
+            let response = await axios.post(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, newTextFile, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            });
+            if (response.status === 200) {
+                dispatch(textFileUploadSuccessActionMessage('success_on_video_text_file_upload'));
+            } else {
+                const responseMessage = await response.data.message;
+                dispatch(textFileUploadFailedActionMessage(responseMessage));
+            }
+        } catch (error) {
+            if (error.response.status === 415) {
+                const errorResponseMessage = await error.response.data.message;
+                dispatch(textFileUploadFailedActionMessage(errorResponseMessage));
+            } else{
+                dispatch(textFileUploadFailedActionMessage('error_on_video_text_file_upload'));
+            }
+        }
+    };
 };
 
 export const deselectRow = () => {

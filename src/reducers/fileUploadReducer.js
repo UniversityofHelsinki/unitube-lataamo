@@ -31,6 +31,16 @@ const fileUploadReducer = (state = initialState, action) => {
             ...state,
             updateFailedMessage: action.payload
         };
+    case 'TEXT_FILE_UPLOAD_SUCCESS':
+        return {
+            ...state,
+            textFileSuccessMessage: action.payload
+        };
+    case 'TEXT_FILE_UPLOAD_FAILED':
+        return {
+            ...state,
+            textFileFailedMessage: action.payload
+        };
     default:
         return state;
     }
