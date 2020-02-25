@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { actionUploadVideoTextFile } from '../actions/eventsAction';
+import {
+    actionEmptyFileUploadProgressSuccessMessage,
+    textFileUploadSuccessActionMessage
+} from "../actions/fileUploadAction";
 
 const VideoTextTrackForm = (props) => {
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
@@ -11,6 +15,11 @@ const VideoTextTrackForm = (props) => {
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
+
+    useEffect(() => {
+        console.log("HIT");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.fur.textFileSuccessMessage]);// Only re-run the effect if values of arguments changes
 
     const handleSubmit = async (event) => {
         event.persist();
@@ -34,6 +43,13 @@ const VideoTextTrackForm = (props) => {
 
     return (
         <div>
+            {props.fur.textFileSuccessMessage ?
+                <Alert variant="success" onClose={() => {props.onSuccessMessageClick();}} dismissible>
+                    <p>{props.fur.textFileSuccessMessage}</p>
+                </Alert>
+                : (<></>)
+            }
+
             <form id="upload_text_track_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
@@ -65,11 +81,13 @@ const VideoTextTrackForm = (props) => {
 };
 
 const mapStateToProps = state => ({
-    i18n: state.i18n
+    i18n: state.i18n,
+    fur: state.fur
 });
 
 const mapDispatchToProps = dispatch => ({
     onUploadVideoTextFile : (data) => dispatch(actionUploadVideoTextFile(data)),
+    onSuccessMessageClick : () => dispatch(textFileUploadSuccessActionMessage()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoTextTrackForm);

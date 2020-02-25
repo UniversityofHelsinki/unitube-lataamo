@@ -1,7 +1,9 @@
 const initialState = {
     percentage: 0,
     updateSuccessMessage : null,
-    updateFailedMessage: null
+    updateFailedMessage: null,
+    textFileSuccessMessage: null,
+    textFileFailedMessage: null
 };
 
 const fileUploadReducer = (state = initialState, action) => {
