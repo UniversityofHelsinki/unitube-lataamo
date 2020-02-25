@@ -245,7 +245,7 @@ const TrashVideoList = (props) => {
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
                                     <div className="form-group has-search">
-                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }

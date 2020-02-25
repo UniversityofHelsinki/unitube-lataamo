@@ -256,7 +256,6 @@ const VideoList = (props) => {
             </div>
             { !errorMessage ?
                 <div className="table-responsive">
-
                     {videoDownloadErrorMessage ?
                         <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
@@ -277,7 +276,7 @@ const VideoList = (props) => {
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
                                     <div className="form-group has-search">
-                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }

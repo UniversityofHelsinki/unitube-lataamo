@@ -136,6 +136,7 @@ const translationsObject = {
         error_failed_to_save_series_inbox_not_allowed: '--- Unable to create series Inbox because the series already exists ---',
         error_failed_to_save_series_trash_not_allowed: '--- Unable to create series Deleted recordings because the series already exists ---',
         confirm_delete_event: 'Are you sure you want to delete the recordings?',
+        progress_message_delete_event: 'Deleting event in progress. Wait a moment...',
         close_alert: 'Close',
         event_deletion_info_text: 'Recordings can be deleted. All deleted recordings are moved to the “Deleted recordings” tab, where they are stored for a certain period of time. The deleted recordings will be removed from the service automatically after a certain period of time. ',
         event_running_and_instantiated_state: 'Processing video',
@@ -148,7 +149,8 @@ const translationsObject = {
         return_video: 'Restore recording',
         select_license: '??? Valitse joku muu ???',
         event_returned: 'Recording restored successfully!',
-        api_post_series_successful: 'New series created!'
+        api_post_series_successful: 'New series created!',
+        upload_in_progress_wait: '???upload_in_progress_wait???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -287,6 +289,7 @@ const translationsObject = {
         error_failed_to_save_series_inbox_not_allowed: '--- Inbox-sarjaa ei voi luoda, koska se on jo olemassa ---',
         error_failed_to_save_series_trash_not_allowed: '--- Poistettujen tallenteiden sarjaa ei voi luoda, koska se on jo olemassa ---',
         confirm_delete_event: 'Haluatko varmasti poistaa tallenteen?',
+        progress_message_delete_event: 'Tallenteen poisto käynnissä. Odota hetki...',
         close_alert: 'Sulje',
         event_deletion_info_text: 'Voit halutessasi poistaa tallenteen. Poistetut tallenteet siirtyvät määräajaksi "Poistamani tallenteet" -välilehdelle. Poistettujen tallenteiden sisältö häviää lopullisesti palvelusta automaattisesti tietyn ajan kuluttua.',
         logout: 'Kirjaudu ulos',
@@ -299,7 +302,8 @@ const translationsObject = {
         return_video: 'Palauta tallenne',
         select_license: 'Valitse joku muu',
         event_returned: 'Tallenne palautettu onnistuneesti!',
-        api_post_series_successful: 'Uusi sarja luotu!'
+        api_post_series_successful: 'Uusi sarja luotu!',
+        upload_in_progress_wait: '???upload_in_progress_wait???'
     },
 
     sv: {
@@ -435,6 +439,7 @@ const translationsObject = {
         error_failed_to_save_series_inbox_not_allowed: '--- Inbox-serien kan inte skapas, eftersom den redan finns ---',
         error_failed_to_save_series_trash_not_allowed: '--- Serien med raderade inspelningar kan inte skapas, eftersom den redan finns ---',
         confirm_delete_event: 'Är du säker på att du vill radera inspelningen?',
+        progress_message_delete_event: '???progress_message_delete_event???',
         close_alert: 'Stäng',
         event_deletion_info_text: 'Om du vill kan du radera inspelningen. Raderade inspelningar flyttas till fliken ”Mina raderade inspelningar” för en bestämd tid. Innehållet i raderade inspelningar försvinner slutgiltigt från tjänsten efter en bestämd tid. ',
         logout: 'Logga ut',
@@ -451,7 +456,8 @@ const translationsObject = {
         embedded_video_copied_to_clipboard: 'Den inbäddade videon har kopierats till urklipp',
         embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
         embedded_video_title: 'Videons inbäddningskod',
-        api_post_series_successful: 'Serien skapat!'
+        api_post_series_successful: 'Serien skapat!',
+        upload_in_progress_wait: '???upload_in_progress_wait???'
     }
 };
 

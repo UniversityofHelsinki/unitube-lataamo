@@ -8,7 +8,7 @@ import {
     addMoodleNumber,
     emptyIamGroupsCall,
     emptyMoodleNumberCall,
-    updateSerieList
+    updateSeriesList
 } from '../actions/seriesAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
@@ -84,8 +84,8 @@ const SerieDetailsForm = (props) => {
         try {
             await actionUpdateSerieDetails(seriesId, updatedSeries);
             setSuccessMessage(translate('updated_series_details'));
-            // update the serieslist to redux state
-            props.onSerieDetailsEdit(props.series.map(
+            // update the series list to redux state
+            props.onSeriesDetailsEdit(props.series.map(
                 series => series.identifier !== seriesId ? series : updatedSeries));
         } catch (err) {
             setErrorMessage(translate('failed_to_update_series_details'));
@@ -389,7 +389,7 @@ const mapDispatchToProps = dispatch => ({
     onMoodleNumberAdd : (moodleNumber) => dispatch(addMoodleNumber(moodleNumber)),
     onEmptyMoodleNumbers : () => dispatch(emptyMoodleNumberCall()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
-    onSerieDetailsEdit: (freshSerieList) => dispatch(updateSerieList(freshSerieList)),
+    onSeriesDetailsEdit: (freshSeriesList) => dispatch(updateSeriesList(freshSeriesList)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SerieDetailsForm);
