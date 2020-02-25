@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { fetchSeries } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
+import { FaSpinner } from 'react-icons/fa';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage,
@@ -17,6 +18,7 @@ const VideoUploadForm = (props) => {
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
+    const [onProgressVisible, setOnProgressVisible]= useState(null);
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -59,9 +61,11 @@ const VideoUploadForm = (props) => {
         event.persist();
         event.preventDefault();
         setSubmitButtonDisabled(true);
+        setOnProgressVisible(true);
         await uploadVideo();
         clearVideoFileSelection();
         setSubmitButtonDisabled(false);
+        setOnProgressVisible(false);
     };
 
     const handleFileInputChange = (event) => {
@@ -131,6 +135,9 @@ const VideoUploadForm = (props) => {
                 <div className="form-group row">
                     <div className="col-sm-2">
                         <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('upload') }</button>
+                    </div>
+                    <div className="col-sm-4">
+                        <span hidden={!onProgressVisible}>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
                     </div>
                 </div>
             </form>
