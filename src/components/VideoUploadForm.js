@@ -81,8 +81,14 @@ const VideoUploadForm = (props) => {
     };
 
     const clearVideoFileSelection = () => {
-        document.getElementById('upload_video_form').reset();
-        document.getElementById('video_input_file').value = '';
+        var element = document.getElementById('upload_video_form');
+        if (element !== null && element.value === '') {
+            document.getElementById('upload_video_form').reset();
+        }
+        element =  document.getElementById('video_input_file');
+        if (element !== null && element.value === '') {
+            document.getElementById('video_input_file').value = '';
+        }
         setVideoFile('');
     };
 
