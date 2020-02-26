@@ -40,7 +40,8 @@ const VideoUploadForm = (props) => {
         const data = new FormData();
         data.set('videofile', selectedVideoFile);
         // call unitube-proxy api
-        await props.onUploadVideo(data);
+        const result = await props.onUploadVideo(data);
+        return result;
     };
 
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
@@ -62,9 +63,11 @@ const VideoUploadForm = (props) => {
         event.preventDefault();
         setSubmitButtonDisabled(true);
         setOnProgressVisible(true);
-        await uploadVideo();
-        clearVideoFileSelection();
-        setSubmitButtonDisabled(false);
+        const response = await uploadVideo();
+        if (response && response.status) {
+            clearVideoFileSelection();
+            setSubmitButtonDisabled(false);
+        }
         setOnProgressVisible(false);
     };
 
