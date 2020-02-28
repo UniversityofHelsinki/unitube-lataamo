@@ -30,6 +30,7 @@ const VideoTextTrackForm = (props) => {
     const uploadVideoTextFile = async() => {
         const data = new FormData();
         data.set('video_webvtt_file', selectedVideoTextFile);
+        data.set('eventId', props.event.identifier);
         const result = await props.onUploadVideoTextFile(data);
         return result;
     };
@@ -82,7 +83,8 @@ const VideoTextTrackForm = (props) => {
 
 const mapStateToProps = state => ({
     i18n: state.i18n,
-    fur: state.fur
+    fur: state.fur,
+    event: state.er.event
 });
 
 const mapDispatchToProps = dispatch => ({
