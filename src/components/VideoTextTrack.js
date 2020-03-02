@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { actionUploadVideoTextFile } from '../actions/eventsAction';
-import {
-    actionEmptyFileUploadProgressSuccessMessage,
-    textFileUploadSuccessActionMessage
-} from "../actions/fileUploadAction";
+import { textFileUploadSuccessActionMessage, textFileUploadFailedActionMessage } from '../actions/fileUploadAction';
 
 const VideoTextTrackForm = (props) => {
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
@@ -17,7 +14,6 @@ const VideoTextTrackForm = (props) => {
     };
 
     useEffect(() => {
-        console.log("HIT");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.fur.textFileSuccessMessage]);// Only re-run the effect if values of arguments changes
 
@@ -51,6 +47,13 @@ const VideoTextTrackForm = (props) => {
                 : (<></>)
             }
 
+            {props.fur.textFileFailedMessage ?
+                <Alert variant="danger" onClose={() => {props.onFailureMessageClick();}} dismissible>
+                    <p>{props.fur.textFileFailedMessage}</p>
+                </Alert>
+                : (<></>)
+            }
+
             <form id="upload_text_track_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
@@ -59,7 +62,7 @@ const VideoTextTrackForm = (props) => {
                     <div className="form-group row">
                         <label id="textTrack" className="col-sm-2 col-form-label">{translate('video_text_track')}</label>
                         <div className="col-sm-8">
-                            <input id="video_text_track_file" onChange={handleFileInputChange} type="file" accept=".vtt" className="form-control" name="video_webvtt_file" required/>
+                            <input id="video_text_track_file" onChange={handleFileInputChange} type="file"  className="form-control" name="video_webvtt_file" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_text_track_info')}</Tooltip>}>
@@ -90,6 +93,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onUploadVideoTextFile : (data) => dispatch(actionUploadVideoTextFile(data)),
     onSuccessMessageClick : () => dispatch(textFileUploadSuccessActionMessage()),
+    onFailureMessageClick : () => dispatch(textFileUploadFailedActionMessage())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoTextTrackForm);

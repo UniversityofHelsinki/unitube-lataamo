@@ -1,6 +1,6 @@
 import { api401FailureCall, apiFailureCall } from './videosAction';
 import axios from 'axios';
-import { textFileUploadSuccessActionMessage, textFileUploadFailedActionMessage } from './fileUploadAction';
+import { textFileUploadFailedActionMessage, textFileUploadSuccessActionMessage } from './fileUploadAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const VIDEO_TEXT_FILE_PATH = '/api/videoTextTrack';
@@ -145,27 +145,25 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
     }
 };
 
-export const actionUploadVideoTextFile = (newTextFile) => {
+export const actionUploadVideoTextFile = (data) => {
     return async (dispatch) => {
         try {
-            let response = await axios.post(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, newTextFile, {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
+            let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, {
+                method: 'POST',
+                body: data
             });
             if (response.status === 200) {
-                dispatch(textFileUploadSuccessActionMessage(response.data.message));
+                let responseJSON = await response.json();
+                dispatch(textFileUploadSuccessActionMessage(responseJSON.message));
             } else {
-                const responseMessage = await response.data.message;
-                dispatch(textFileUploadFailedActionMessage(responseMessage));
+                console.log("gee");
+                console.log(response);
+                let responseJSON = await response.json();
+                dispatch(textFileUploadFailedActionMessage(responseJSON.message));
             }
         } catch (error) {
-            if (error.response.status === 415) {
-                const errorResponseMessage = await error.response.data.message;
-                dispatch(textFileUploadFailedActionMessage(errorResponseMessage));
-            } else{
-                dispatch(textFileUploadFailedActionMessage('error_on_video_text_file_upload'));
-            }
+            console.log(error);
+            dispatch(textFileUploadFailedActionMessage(error.message));
         }
     };
 };
