@@ -67,14 +67,13 @@ const Footer = (props) => {
                                         </a>
                                     </strong>
                                 </p>
+                                <p>{translate('maintenance_info')}</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-4 section middle-section">
-
                     </div>
                     <div className="col-md-4 section right-section">
-
                     </div>
                 </div>
                 <div className="clear"></div>
