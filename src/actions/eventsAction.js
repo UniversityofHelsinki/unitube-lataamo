@@ -156,13 +156,10 @@ export const actionUploadVideoTextFile = (data) => {
                 let responseJSON = await response.json();
                 dispatch(textFileUploadSuccessActionMessage(responseJSON.message));
             } else {
-                console.log("gee");
-                console.log(response);
                 let responseJSON = await response.json();
                 dispatch(textFileUploadFailedActionMessage(responseJSON.message));
             }
         } catch (error) {
-            console.log(error);
             dispatch(textFileUploadFailedActionMessage(error.message));
         }
     };
