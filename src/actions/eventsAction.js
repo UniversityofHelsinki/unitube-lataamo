@@ -1,6 +1,4 @@
-import { api401FailureCall, apiFailureCall } from './videosAction';
-import axios from 'axios';
-import { textFileUploadFailedActionMessage, textFileUploadSuccessActionMessage } from './fileUploadAction';
+import {api401FailureCall, apiFailureCall} from './videosAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const VIDEO_TEXT_FILE_PATH = '/api/videoTextTrack';
@@ -145,24 +143,21 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
     }
 };
 
-export const actionUploadVideoTextFile = (data) => {
-    return async (dispatch) => {
-        try {
-            let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, {
-                method: 'POST',
-                body: data
-            });
-            if (response.status === 201) {
-                let responseJSON = await response.json();
-                dispatch(textFileUploadSuccessActionMessage(responseJSON.message));
-            } else {
-                let responseJSON = await response.json();
-                dispatch(textFileUploadFailedActionMessage(responseJSON.message));
-            }
-        } catch (error) {
-            dispatch(textFileUploadFailedActionMessage(error.message));
+export const actionUploadVideoTextFile = async (data) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, {
+            method: 'POST',
+            body: data
+        });
+        if (response.status === 201) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
         }
-    };
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
 export const deselectRow = () => {
