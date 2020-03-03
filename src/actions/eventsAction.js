@@ -152,7 +152,7 @@ export const actionUploadVideoTextFile = (data) => {
                 method: 'POST',
                 body: data
             });
-            if (response.status === 200) {
+            if (response.status === 201) {
                 let responseJSON = await response.json();
                 dispatch(textFileUploadSuccessActionMessage(responseJSON.message));
             } else {

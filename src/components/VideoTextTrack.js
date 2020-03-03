@@ -62,7 +62,7 @@ const VideoTextTrackForm = (props) => {
                     <div className="form-group row">
                         <label id="textTrack" className="col-sm-2 col-form-label">{translate('video_text_track')}</label>
                         <div className="col-sm-8">
-                            <input id="video_text_track_file" onChange={handleFileInputChange} type="file"  className="form-control" name="video_webvtt_file" required/>
+                            <input id="video_text_track_file" onChange={handleFileInputChange} type="file" accept=".vtt"  className="form-control" name="video_webvtt_file" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_text_track_info')}</Tooltip>}>
