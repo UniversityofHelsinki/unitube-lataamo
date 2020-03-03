@@ -222,7 +222,7 @@ const VideoDetailsForm = (props) => {
             {props.video && props.video.identifier !== undefined
                 ?
                 <div>
-                    <VideoTextTrackForm />
+                    <VideoTextTrackForm inbox={props.inbox} />
                     <form onSubmit={handleSubmit} className="was-validated">
                         <div className="events-bg">
                             <div className="form-group row">

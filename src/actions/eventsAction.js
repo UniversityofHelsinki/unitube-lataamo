@@ -209,3 +209,14 @@ export const apiDeselectRow = () => ({
     type: 'DESELECT_ROW',
     loading: false
 });
+
+export const setEventProcessingState = data => {
+    return async dispatch => {
+        dispatch(apiEventProcessingState(data));
+    };
+};
+
+export const apiEventProcessingState = data => ({
+    type: 'PROCESSING_STATE_UPDATE',
+    payload: data
+});
