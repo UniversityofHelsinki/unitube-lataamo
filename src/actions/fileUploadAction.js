@@ -22,3 +22,13 @@ export const actionEmptyFileUploadProgressErrorMessage = () => ({
     type: 'EMPTY_PROGRESS_ERROR_MESSAGE',
     payload: null
 });
+
+export const textFileUploadSuccessActionMessage = (data) => ({
+    type: 'TEXT_FILE_UPLOAD_SUCCESS',
+    payload: data
+});
+
+export const textFileUploadFailedActionMessage = (data) => ({
+    type: 'TEXT_FILE_UPLOAD_FAILED',
+    payload: data
+});

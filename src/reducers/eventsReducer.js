@@ -47,6 +47,11 @@ const eventsReducer = (state = initialState, action) => {
                 description: ''
             }
         };
+    case 'PROCESSING_STATE_UPDATE':
+        return {
+            ...state,
+            event: action.payload
+        };
     default:
         return state;
     }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
 import Video from './Video';
@@ -221,6 +222,7 @@ const VideoDetailsForm = (props) => {
             {props.video && props.video.identifier !== undefined
                 ?
                 <div>
+                    <VideoTextTrackForm inbox={props.inbox} />
                     <form onSubmit={handleSubmit} className="was-validated">
                         <div className="events-bg">
                             <div className="form-group row">
