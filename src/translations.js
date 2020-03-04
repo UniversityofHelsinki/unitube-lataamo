@@ -151,7 +151,14 @@ const translationsObject = {
         select_license: '??? Valitse joku muu ???',
         event_returned: 'Recording restored successfully!',
         api_post_series_successful: 'New series created!',
-        upload_in_progress_wait: '???upload_in_progress_wait???'
+        upload_in_progress_wait: '???upload_in_progress_wait???',
+        video_text_track_info: '???video_text_track_info???',
+        video_text_track_label: '???video_text_track_label???',
+        video_text_track: '???video_text_track???',
+        delete_text_track: '???delete_text_track???',
+        save_text_track: '???save_text_track???',
+        save_webvtt_successful : '???save_webvtt_successful???',
+        save_webvtt_failed : '???save_webvtt_failed???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -305,7 +312,14 @@ const translationsObject = {
         select_license: 'Valitse joku muu',
         event_returned: 'Tallenne palautettu onnistuneesti!',
         api_post_series_successful: 'Uusi sarja luotu!',
-        upload_in_progress_wait: '???upload_in_progress_wait???'
+        upload_in_progress_wait: '???upload_in_progress_wait???',
+        video_text_track_info: '???video_text_track_info???',
+        video_text_track_label: '???video_text_track_label???',
+        video_text_track: '???video_text_track???',
+        delete_text_track: '???delete_text_track???',
+        save_text_track: '???save_text_track???',
+        save_webvtt_successful : '???save_webvtt_successful???',
+        save_webvtt_failed : '???save_webvtt_failed???'
     },
 
     sv: {
@@ -460,7 +474,14 @@ const translationsObject = {
         embedded_video_info: 'Inbäddningen av videon fungerar, om videon är offentlig',
         embedded_video_title: 'Videons inbäddningskod',
         api_post_series_successful: 'Serien skapat!',
-        upload_in_progress_wait: '???upload_in_progress_wait???'
+        upload_in_progress_wait: '???upload_in_progress_wait???',
+        video_text_track_info: '???video_text_track_info???',
+        video_text_track_label: '???video_text_track_label???',
+        video_text_track: '???video_text_track???',
+        delete_text_track: '???delete_text_track???',
+        save_text_track: '???save_text_track???',
+        save_webvtt_successful : '???save_webvtt_successful???',
+        save_webvtt_failed : '???save_webvtt_failed???'
     }
 };
 

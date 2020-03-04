@@ -1,7 +1,9 @@
 const initialState = {
     percentage: 0,
     updateSuccessMessage : null,
-    updateFailedMessage: null
+    updateFailedMessage: null,
+    textFileSuccessMessage: null,
+    textFileFailedMessage: null
 };
 
 const fileUploadReducer = (state = initialState, action) => {
@@ -30,6 +32,16 @@ const fileUploadReducer = (state = initialState, action) => {
         return {
             ...state,
             updateFailedMessage: action.payload
+        };
+    case 'TEXT_FILE_UPLOAD_SUCCESS':
+        return {
+            ...state,
+            textFileSuccessMessage: action.payload
+        };
+    case 'TEXT_FILE_UPLOAD_FAILED':
+        return {
+            ...state,
+            textFileFailedMessage: action.payload
         };
     default:
         return state;
