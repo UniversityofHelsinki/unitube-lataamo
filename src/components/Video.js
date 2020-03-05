@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 const Video = (props) => {
 
@@ -7,6 +7,10 @@ const Video = (props) => {
 
     const translate = (key) => {
         return translations ? translations[key] : '';
+    };
+
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf('/') + 1);
     };
 
     const getVideoFiles = () => {
@@ -36,6 +40,9 @@ const Video = (props) => {
                             </div>
                             <div className="form-group row">
                                 {translate('video_duration')}: {video.duration}
+                            </div>
+                            <div className="form-group row">
+                                {translate('added_vtt_file')} : {video.vttFile.url ? getFileName(video.vttFile.url) : ''}
                             </div>
                         </div>
                     </div>

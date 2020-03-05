@@ -107,7 +107,6 @@ const VideoTextTrackForm = (props) => {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-12">
-                        <button  type="button" disabled={disabledInputs} className="btn delete-button float-right button-position" >{translate('delete_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
                     </div>
                 </div>
