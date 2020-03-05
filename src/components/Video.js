@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 const Video = (props) => {
 
@@ -42,7 +42,7 @@ const Video = (props) => {
                                 {translate('video_duration')}: {video.duration}
                             </div>
                             <div className="form-group row">
-                                {translate('added_vtt_file')}: {getFileName(video.vttFile.url)}
+                                {translate('added_vtt_file')} : {video.vttFile.url ? getFileName(video.vttFile.url) : ''}
                             </div>
                         </div>
                     </div>
