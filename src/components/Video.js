@@ -9,6 +9,10 @@ const Video = (props) => {
         return translations ? translations[key] : '';
     };
 
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf('/') + 1);
+    };
+
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
             return (
@@ -36,6 +40,9 @@ const Video = (props) => {
                             </div>
                             <div className="form-group row">
                                 {translate('video_duration')}: {video.duration}
+                            </div>
+                            <div className="form-group row">
+                                {translate('added_vtt_file')}: {getFileName(video.vttFile.url)}
                             </div>
                         </div>
                     </div>
