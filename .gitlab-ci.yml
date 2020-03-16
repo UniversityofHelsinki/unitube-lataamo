@@ -111,7 +111,7 @@ deploy_dev:
     name: development
     url: https://$LATAAMO_DEV
   only:
-    - lataamo-403
+    - master
   variables:
     SERVER: $LATAAMO_DEV
   before_script:
