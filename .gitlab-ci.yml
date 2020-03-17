@@ -39,7 +39,7 @@ build_dev:
   tags:
     - ohtu-build-2
   only:
-    - master
+    - lataamo-403
   script:
     - yes | cp -f -v .env.development .env.production || true
     - npm run build
@@ -111,7 +111,7 @@ deploy_dev:
     name: development
     url: https://$LATAAMO_DEV
   only:
-    - master
+    - lataamo-403
   variables:
     SERVER: $LATAAMO_DEV
   before_script:
