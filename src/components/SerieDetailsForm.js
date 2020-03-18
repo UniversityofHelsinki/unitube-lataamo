@@ -106,7 +106,7 @@ const SerieDetailsForm = (props) => {
         updateSeries.acl = [];
         if (updateSeries.published) {
             aclList.push(updateSeries.published);
-            aclList.push(constants.ROLE_KATSOMO);
+            aclList.push(constants.ROLE_KATSOMO_TUOTANTO);
         }
         if (moodleNumbers && moodleNumbers.length > 0) {
             moodleNumbers.forEach(moodleNumber => {
