@@ -150,21 +150,9 @@ const VideoDetailsForm = (props) => {
         });
     };
 
-    const disabledLicense = (license) => {
-        if (license === 'UNITUBE-ALLRIGHTS') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-            if (inputs.license !== license || inputs.license !==  'UNITUBE-ALLRIGHTS') {
-                return <option disabled={ disabledLicense(license) } key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
-            } else {
-                return null;
-            }
+           return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
         });
     };
 
@@ -286,15 +274,10 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control" name="license"
-                                        value={disabledLicense(inputs.license) ? '' : inputs.license} onChange={handleInputChange}>
-                                        {disabledLicense(inputs.license) ?
-                                            <option key="-1" id="NOT_SELECTED" value="">{ translate(replaceCharacter(inputs.license)) }</option> :
-                                            <option key="-1" id="NOT_SELECTED" value="">{ translate('select') }</option>
-                                        }
+                                    <select disabled={disabledInputs} required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
+                                        <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                         {drawLicenseSelectionValues()}
                                     </select>
-                                    <div  className={disabledLicense(inputs.license) ? 'bold-value' : 'hide-value'}  >{translate('select_license')}</div>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
