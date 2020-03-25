@@ -64,6 +64,7 @@ const VideoUploadForm = (props) => {
         setSubmitButtonDisabled(true);
         setOnProgressVisible(true);
         const response = await uploadVideo();
+        console.log(response);
         if (response && response.status) {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);

@@ -70,6 +70,23 @@ export const fetchVideoUrl = (row) => {
 export const actionUploadVideo = (newVideo) => {
     return async (dispatch) => {
         initVideoUploadProcessInformation(dispatch);
+        const extracted = async (response, jobId) => {
+            return await new Promise(resolve => {
+                const checkUntilConditionIsFalse = setInterval(async () => {
+                    response = await fetch(`${VIDEO_SERVER_API}${MONITOR_JOB_PATH}${jobId}`);
+                    console.log(response.status);
+                    if (response.status === 201) {
+                        //const responseMessage = await response.data.message;
+                        dispatch(fileUploadProgressAction(90));
+                        dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
+                        dispatch(fileUploadProgressAction(100));
+                        resolve(response);
+                        clearInterval(checkUntilConditionIsFalse);
+                    }
+                }, 1000);
+            });
+        };
+
         try {
             let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
@@ -82,21 +99,8 @@ export const actionUploadVideo = (newVideo) => {
 
             if (response.status === 202) {
                 const jobId = response.data.id;
-                const checkUntilConditionIsFalse = setInterval(async() => {
-
-                    response = await fetch(`${VIDEO_SERVER_API}${MONITOR_JOB_PATH}${jobId}`);
-                    console.log(response.status);
-                    if (response.status !== 202) {
-                        clearInterval(checkUntilConditionIsFalse);
-                    }
-                    if (response.status === 201) {
-                        //const responseMessage = await response.data.message;
-                        dispatch(fileUploadProgressAction(90));
-                        dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
-                        dispatch(fileUploadProgressAction(100));
-                        return response;
-                    }
-                }, 1000);
+                const result = extracted(response, jobId);
+                return result;
             }
         } catch (error) {
             if(error.response.status===415){
