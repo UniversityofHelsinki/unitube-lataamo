@@ -12,6 +12,7 @@ import fileDownload from 'js-file-download';
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
+const MONITOR_JOB_PATH = '/api/monitor/';
 
 const DOWNLOAD_PATH = '/api/download';
 
@@ -79,17 +80,23 @@ export const actionUploadVideo = (newVideo) => {
                 }
             });
 
-            if (response.status === 200) {
-                //const responseMessage = await response.data.message;
-                dispatch(fileUploadProgressAction(90));
-                dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
-                dispatch(fileUploadProgressAction(100));
-                return response;
-            } else {
-                const responseMessage = await response.data.message;
-                dispatch(fileUploadFailedActionMessage(responseMessage));
-                dispatch(fileUploadProgressAction( 0));
-                return response;
+            if (response.status === 202) {
+                const jobId = response.data.id;
+                const checkUntilConditionIsFalse = setInterval(async() => {
+
+                    response = await fetch(`${VIDEO_SERVER_API}${MONITOR_JOB_PATH}${jobId}`);
+                    console.log(response.status);
+                    if (response.status !== 202) {
+                        clearInterval(checkUntilConditionIsFalse);
+                    }
+                    if (response.status === 201) {
+                        //const responseMessage = await response.data.message;
+                        dispatch(fileUploadProgressAction(90));
+                        dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
+                        dispatch(fileUploadProgressAction(100));
+                        return response;
+                    }
+                }, 1000);
             }
         } catch (error) {
             if(error.response.status===415){
