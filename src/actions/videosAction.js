@@ -74,14 +74,19 @@ export const actionUploadVideo = (newVideo) => {
             return await new Promise(resolve => {
                 const checkUntilConditionIsFalse = setInterval(async () => {
                     response = await fetch(`${VIDEO_SERVER_API}${MONITOR_JOB_PATH}${jobId}`);
-                    console.log(response.status);
+                    if (response.status !== 202) {
+                        clearInterval(checkUntilConditionIsFalse);
+                    }
                     if (response.status === 201) {
-                        //const responseMessage = await response.data.message;
                         dispatch(fileUploadProgressAction(90));
                         dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
                         dispatch(fileUploadProgressAction(100));
                         resolve(response);
-                        clearInterval(checkUntilConditionIsFalse);
+                    }
+                    if (response.status === 500) {
+                        dispatch(fileUploadSuccessActionMessage('error_on_video_upload'));
+                        dispatch(fileUploadProgressAction(0));
+                        resolve(response);
                     }
                 }, 1000);
             });
