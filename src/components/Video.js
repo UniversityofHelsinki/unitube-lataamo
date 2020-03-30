@@ -42,7 +42,7 @@ const Video = (props) => {
                                 {translate('video_duration')}: {video.duration}
                             </div>
                             <div className="form-group row">
-                                {translate('added_vtt_file')} : {video.vttFile && video.vttFile.url ? getFileName(video.vttFile.url) : ''}
+                                {translate('added_vtt_file')} : {video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt' ? getFileName(video.vttFile.url)  : ''}
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ import constants from '../utils/constants';
 const VideoTextTrackForm = (props) => {
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [videoTextFile, hasVideoTextFile] = useState(false);
     const [successMessage, setSuccessMessage] = useState(null);
     const translations =  props.i18n.translations[props.i18n.locale];
     const [disabledInputs, setDisabledInputs] = useState(false);
@@ -14,6 +15,20 @@ const VideoTextTrackForm = (props) => {
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
+
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf('/') + 1);
+    };
+
+    const getVideoFiles = () => {
+        return props.videoFiles.map(video => {
+            console.log(video);
+            if (video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt') {
+                hasVideoTextFile(true);
+            }
+        });
+    };
+
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -60,6 +75,7 @@ const VideoTextTrackForm = (props) => {
     useEffect(() => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
+        getVideoFiles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);// Only re-run the effect if values of arguments changes
 
@@ -107,6 +123,7 @@ const VideoTextTrackForm = (props) => {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-12">
+                        <button  type="submit" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position">{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
                     </div>
                 </div>
@@ -120,7 +137,8 @@ const mapStateToProps = state => ({
     fur: state.fur,
     event: state.er.event,
     videos : state.er.videos,
-    inboxVideos : state.er.inboxVideos
+    inboxVideos : state.er.inboxVideos,
+    videoFiles : state.vr.videoFiles
 });
 
 const mapDispatchToProps = dispatch => ({
