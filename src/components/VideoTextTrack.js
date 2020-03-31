@@ -4,6 +4,11 @@ import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { actionUploadVideoTextFile, setEventProcessingState, updateEventList } from '../actions/eventsAction';
 import constants from '../utils/constants';
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const SweetAlert = withReactContent(Swal);
+
 const VideoTextTrackForm = (props) => {
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -16,13 +21,27 @@ const VideoTextTrackForm = (props) => {
         return translations ? translations[key] : '';
     };
 
+    const createAlert = async () => {
+        const result = await SweetAlert.fire({
+            title: translate('confirm_delete_vtt_file'),
+            text: translate('vtt_file_deletion_info_text'),
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#d33',
+            confirmButtonText: translate('delete_vtt_file'),
+            cancelButtonText: translate('close_alert')
+        });
+        return result;
+    };
+
     const getFileName = (url) => {
         return url.substring(url.lastIndexOf('/') + 1);
     };
 
     const getVideoFiles = () => {
         return props.videoFiles.map(video => {
-            console.log(video);
             if (video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt') {
                 hasVideoTextFile(true);
             }
