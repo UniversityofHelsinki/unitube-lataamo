@@ -160,7 +160,10 @@ const translationsObject = {
         save_webvtt_successful : 'The subtitle file has been added successfully',
         save_webvtt_failed : 'Failed to add the subtitle file',
         added_vtt_file : 'Subtitle file added to the recording',
-        remove_text_track: '???remove_text_track???'
+        remove_text_track: '???remove_text_track???',
+        confirm_delete_vtt_file: '???confirm_delete_vtt_file???',
+        vtt_file_deletion_info_text : '???vtt_file_deletion_info_text???',
+        delete_vtt_file : '???delete_vtt_file???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -323,7 +326,10 @@ const translationsObject = {
         save_webvtt_successful : 'Tekstitystiedoston lisääminen onnistui!',
         save_webvtt_failed : 'Tekstitystiedoston lisääminen epäonnistui!',
         added_vtt_file : 'Tallenteeseen liitetty tekstitystiedosto',
-        remove_text_track: '???remove_text_track???'
+        remove_text_track: '???remove_text_track???',
+        confirm_delete_vtt_file: '???confirm_delete_vtt_file???',
+        vtt_file_deletion_info_text : '???vtt_file_deletion_info_text???',
+        delete_vtt_file : '???delete_vtt_file???'
     },
 
     sv: {
@@ -487,7 +493,10 @@ const translationsObject = {
         save_webvtt_successful : 'Tillägg av textningsfil lyckades!',
         save_webvtt_failed : 'Tillägg av textningsfil misslyckades!',
         added_vtt_file : 'Textningsfil som lagts till inspelningen',
-        remove_text_track: '???remove_text_track???'
+        remove_text_track: '???remove_text_track???',
+        confirm_delete_vtt_file: '???confirm_delete_vtt_file???',
+        vtt_file_deletion_info_text : '???vtt_file_deletion_info_text???',
+        delete_vtt_file : '???delete_vtt_file???'
     }
 };
 

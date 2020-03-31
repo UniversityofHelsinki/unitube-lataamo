@@ -50,13 +50,10 @@ const VideoTextTrackForm = (props) => {
     const hasVttVideoFile = () => {
         console.log(props.videoFiles);
         props.videoFiles.forEach(videoFile => {
-            console.log(videoFile.vttFile);
-            if (videoFile.vttFile && videoFile.vttFile.url && getFileName(videoFile.vttFile.url) !== 'empty.vtt') {
-                console.log('HAS VIDEO TEXT FILE');
+            if (videoFile.vttFile && videoFile.vttFile.url && getFileName(videoFile.vttFile.url) !== constants.EMPTY_VTT_FILE_NAME) {
                 hasVideoTextFile(true);
             } else {
                 hasVideoTextFile(false);
-                console.log('HAS NOT VIDEO TEXT FILE');
             }
         });
     };
