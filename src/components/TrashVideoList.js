@@ -12,7 +12,7 @@ import routeAction from '../actions/routeAction';
 import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
-import { fetchSeries } from '../actions/seriesAction';
+import {fetchSeriesDropDownList} from '../actions/seriesAction';
 import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
 
 const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
@@ -245,7 +245,7 @@ const TrashVideoList = (props) => {
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
                                     <div className="form-group has-search">
-                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }
@@ -270,7 +270,7 @@ const TrashVideoList = (props) => {
 
 const mapStateToProps = state => ({
     videos: state.er.trashVideos,
-    series: state.ser.series,
+    series : state.ser.seriesDropDown,
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,
@@ -280,7 +280,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onFetchEvents: (refresh) => {
         dispatch(fetchTrashEvents(refresh));
-        dispatch(fetchSeries());
+        dispatch(fetchSeriesDropDownList());
     },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });

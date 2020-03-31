@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { fetchSeries } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
+import { FaSpinner } from 'react-icons/fa';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage,
@@ -17,6 +18,7 @@ const VideoUploadForm = (props) => {
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
+    const [onProgressVisible, setOnProgressVisible]= useState(null);
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -38,7 +40,8 @@ const VideoUploadForm = (props) => {
         const data = new FormData();
         data.set('videofile', selectedVideoFile);
         // call unitube-proxy api
-        await props.onUploadVideo(data);
+        const result = await props.onUploadVideo(data);
+        return result;
     };
 
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
@@ -59,9 +62,14 @@ const VideoUploadForm = (props) => {
         event.persist();
         event.preventDefault();
         setSubmitButtonDisabled(true);
-        await uploadVideo();
-        clearVideoFileSelection();
-        setSubmitButtonDisabled(false);
+        setOnProgressVisible(true);
+        const response = await uploadVideo();
+        console.log(response);
+        if (response && response.status) {
+            clearVideoFileSelection();
+            setSubmitButtonDisabled(false);
+        }
+        setOnProgressVisible(false);
     };
 
     const handleFileInputChange = (event) => {
@@ -77,8 +85,14 @@ const VideoUploadForm = (props) => {
     };
 
     const clearVideoFileSelection = () => {
-        document.getElementById('upload_video_form').reset();
-        document.getElementById('video_input_file').value = '';
+        var element = document.getElementById('upload_video_form');
+        if (element !== null && element.value === '') {
+            document.getElementById('upload_video_form').reset();
+        }
+        element =  document.getElementById('video_input_file');
+        if (element !== null && element.value === '') {
+            document.getElementById('video_input_file').value = '';
+        }
         setVideoFile('');
     };
 
@@ -131,6 +145,9 @@ const VideoUploadForm = (props) => {
                 <div className="form-group row">
                     <div className="col-sm-2">
                         <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('upload') }</button>
+                    </div>
+                    <div className="col-sm-4">
+                        <span hidden={!onProgressVisible}>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
                     </div>
                 </div>
             </form>

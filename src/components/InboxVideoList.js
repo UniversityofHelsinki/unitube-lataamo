@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
-import { deselectEvent, deselectRow, fetchEvent, fetchInboxEvents } from '../actions/eventsAction';
+import {
+    actionMoveEventToTrashSeries,
+    deselectEvent,
+    deselectRow,
+    fetchEvent,
+    fetchInboxEvents, updateEventList
+} from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -27,8 +33,12 @@ const { SearchBar } = Search;
 
 const InboxVideoList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [progressMessage, setProgressMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
+    const [videoDeleteErrorMessage, setVideoDeleteErrorMessage] = useState(null);
     const translations = props.i18n.translations[props.i18n.locale];
+    const [disabledInputs, setDisabledInputs] = useState(false);
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -96,6 +106,9 @@ const InboxVideoList = (props) => {
         }]
     };
 
+     useEffect( () => {
+     }, [disabledInputs, progressMessage]);
+
     useEffect(() => {
         const interval = setInterval(() => {
             props.onFetchEvents(false);
@@ -108,7 +121,7 @@ const InboxVideoList = (props) => {
         }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.selectedRowId, props.videos]);
+    }, [props.selectedRowId, props.videos, disabledInputs]);
 
     useEffect(() => {
         props.onFetchEvents(true);
@@ -117,7 +130,7 @@ const InboxVideoList = (props) => {
             setErrorMessage(translate(props.apiError));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.apiError, props.route]);
+    }, [props.apiError, props.route, disabledInputs]);
 
     useEffect(() => {
         const interval = setInterval( () => {
@@ -130,13 +143,54 @@ const InboxVideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
-    const stateFormatter = (cell) => {
+    const moveEventToTrashSeries = async(deletedEvent) => {
+        const eventId = deletedEvent.identifier;
+         try {
+             await actionMoveEventToTrashSeries(eventId, deletedEvent);
+             await props.onFetchEvents(true);
+             setSuccessMessage(translate('succeeded_to_delete_event'));
+         } catch (err) {
+             setVideoDeleteErrorMessage(translate('failed_to_delete_event'));
+         }
+        setDisabledInputs(false);
+    };
+
+    const deleteEvent = async (e, deletedEvent) => {
+        e.preventDefault();
+        e.persist();
+        if(e.target.classList.contains("disabled")){
+            return false;
+        }
+        setProgressMessage(translate('progress_message_delete_event'));
+        setDisabledInputs(true);
+
+        let element = document.getElementById(deletedEvent.identifier);
+        element.setAttribute('disabled', 'disabled');
+
+        let elements = document.getElementsByClassName('delete-button-list');
+        let array = [...elements];
+        array.map(element => element.setAttribute('disabled', 'disabled'));
+
+        await moveEventToTrashSeries(deletedEvent);
+
+        elements = document.getElementsByClassName('delete-button-list');
+        array = [ ...elements ];
+        array.map(element => element.removeAttribute('disabled'));
+        setProgressMessage(null);
+    };
+
+    const stateFormatter = (cell, row) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return translate('event_succeeded_state');
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return translate('event_running_and_instantiated_state');
         }else {
-            return translate('event_failed_state');
+            return (
+                <div>
+                        {translate('event_failed_state')}
+                        <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
+                </div>
+            );
         }
     };
 
@@ -222,6 +276,29 @@ const InboxVideoList = (props) => {
                     <Translate value="add_video"/>
                 </Link>
             </div>
+            {progressMessage !== null ?
+                <Alert variant="warning" onClose={() => setProgressMessage(null)} dismissible>
+                    <p>
+                        {progressMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            {successMessage !== null ?
+                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                    <p>
+                        {successMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            {videoDeleteErrorMessage ?
+                <Alert className="position-fixed" variant="danger" onClose={() => setVideoDeleteErrorMessage(null)} dismissible>
+                    <p>
+                        {videoDeleteErrorMessage}
+                    </p>
+                </Alert> : ''
+            }
             { !errorMessage ?
                 <div className="table-responsive">
 
@@ -244,7 +321,7 @@ const InboxVideoList = (props) => {
                                     <br/>
                                     <label className='info-text'>{ translate('search_events_info') } </label>
                                     <div className="form-group has-search">
-                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
@@ -288,7 +365,8 @@ const mapDispatchToProps = dispatch => ({
     onDeselectRow : () => {
         dispatch(deselectRow());
         dispatch(deselectEvent());
-    }
+    },
+    onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos))
 });
 
 

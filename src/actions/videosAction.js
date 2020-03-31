@@ -12,6 +12,7 @@ import fileDownload from 'js-file-download';
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
+const MONITOR_JOB_PATH = '/api/monitor/';
 
 const DOWNLOAD_PATH = '/api/download';
 
@@ -69,6 +70,28 @@ export const fetchVideoUrl = (row) => {
 export const actionUploadVideo = (newVideo) => {
     return async (dispatch) => {
         initVideoUploadProcessInformation(dispatch);
+        const extracted = async (response, jobId) => {
+            return await new Promise(resolve => {
+                const checkUntilConditionIsFalse = setInterval(async () => {
+                    response = await fetch(`${VIDEO_SERVER_API}${MONITOR_JOB_PATH}${jobId}`);
+                    if (response.status !== 202) {
+                        clearInterval(checkUntilConditionIsFalse);
+                    }
+                    if (response.status === 201) {
+                        dispatch(fileUploadProgressAction(90));
+                        dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
+                        dispatch(fileUploadProgressAction(100));
+                        resolve(response);
+                    }
+                    if (response.status === 500) {
+                        dispatch(fileUploadSuccessActionMessage('error_on_video_upload'));
+                        dispatch(fileUploadProgressAction(0));
+                        resolve(response);
+                    }
+                }, 1000);
+            });
+        };
+
         try {
             let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
@@ -79,15 +102,10 @@ export const actionUploadVideo = (newVideo) => {
                 }
             });
 
-            if (response.status === 200) {
-                //const responseMessage = await response.data.message;
-                dispatch(fileUploadProgressAction(90));
-                dispatch(fileUploadSuccessActionMessage('success_on_video_upload'));
-                dispatch(fileUploadProgressAction(100));
-            } else {
-                const responseMessage = await response.data.message;
-                dispatch(fileUploadFailedActionMessage(responseMessage));
-                dispatch(fileUploadProgressAction( 0));
+            if (response.status === 202) {
+                const jobId = response.data.id;
+                const result = extracted(response, jobId);
+                return result;
             }
         } catch (error) {
             if(error.response.status===415){

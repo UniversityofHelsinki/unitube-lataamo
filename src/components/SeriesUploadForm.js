@@ -43,7 +43,7 @@ const SeriesUploadForm = (props) => {
         newSeries.acl = [];
         if (newSeries.published) {
             aclList.push(newSeries.published);
-            aclList.push(constants.ROLE_KATSOMO);
+            aclList.push(constants.ROLE_KATSOMO_TUOTANTO);
         }
         if (moodleNumbers && moodleNumbers.length > 0) {
             moodleNumbers.forEach(moodleNumber => {

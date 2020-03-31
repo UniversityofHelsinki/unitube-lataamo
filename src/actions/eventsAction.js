@@ -1,6 +1,7 @@
-import { api401FailureCall, apiFailureCall } from './videosAction';
+import {api401FailureCall, apiFailureCall} from './videosAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
+const VIDEO_TEXT_FILE_PATH = '/api/videoTextTrack';
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
@@ -142,6 +143,23 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
     }
 };
 
+export const actionUploadVideoTextFile = async (data) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, {
+            method: 'POST',
+            body: data
+        });
+        if (response.status === 201) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const deselectRow = () => {
     return async dispatch => {
         dispatch(apiDeselectRow());
@@ -190,4 +208,15 @@ export const apiDeselectEvent = () => ({
 export const apiDeselectRow = () => ({
     type: 'DESELECT_ROW',
     loading: false
+});
+
+export const setEventProcessingState = data => {
+    return async dispatch => {
+        dispatch(apiEventProcessingState(data));
+    };
+};
+
+export const apiEventProcessingState = data => ({
+    type: 'PROCESSING_STATE_UPDATE',
+    payload: data
 });

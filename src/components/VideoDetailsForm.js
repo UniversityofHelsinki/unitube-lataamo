@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
 import Video from './Video';
@@ -113,7 +114,7 @@ const VideoDetailsForm = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.video, props.series, props.inbox]);
 
-    const embedVideo = () =>{
+    const embedVideo = () => {
         let targetElement = document.getElementById('embeddedVideo');
         if(targetElement){
             targetElement.innerText='<iframe ' +
@@ -151,7 +152,7 @@ const VideoDetailsForm = (props) => {
 
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-            return <option key={license} id={license} value={license}>{translate(replaceCharacter(license))}</option>;
+           return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
         });
     };
 
@@ -209,6 +210,7 @@ const VideoDetailsForm = (props) => {
             {props.video && props.video.identifier !== undefined
                 ?
                 <div>
+                    <VideoTextTrackForm inbox={props.inbox} />
                     <form onSubmit={handleSubmit} className="was-validated">
                         <div className="events-bg">
                             <div className="form-group row">
