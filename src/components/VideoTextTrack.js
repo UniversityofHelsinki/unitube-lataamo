@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionUploadVideoTextFile, setEventProcessingState, updateEventList } from '../actions/eventsAction';
+import {
+    actionDeleteVideoTextFile,
+    actionUploadVideoTextFile,
+    setEventProcessingState,
+    updateEventList
+} from '../actions/eventsAction';
 import constants from '../utils/constants';
 
 import Swal from 'sweetalert2';
@@ -39,7 +44,7 @@ const VideoTextTrackForm = (props) => {
     const showAlert = async () => {
         const result = await createAlert();
         if (result.value && result.value === true) {
-            console.log('HIT');
+            await deleteVideoTextFile();
         }
     };
 
@@ -48,7 +53,6 @@ const VideoTextTrackForm = (props) => {
     };
 
     const hasVttVideoFile = () => {
-        console.log(props.videoFiles);
         props.videoFiles.forEach(videoFile => {
             if (videoFile.vttFile && videoFile.vttFile.url && getFileName(videoFile.vttFile.url) !== constants.EMPTY_VTT_FILE_NAME) {
                 hasVideoTextFile(true);
@@ -83,6 +87,18 @@ const VideoTextTrackForm = (props) => {
                 ...event,
                 processing_state : constants.VIDEO_PROCESSING_INSTANTIATED
             });
+        }
+    };
+
+    const deleteVideoTextFile = async () => {
+        try {
+            await actionDeleteVideoTextFile(props.event.identifier);
+            const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(props.event.identifier) : getUpdatedVideos(props.event.identifier);
+            props.onEventDetails(props.inbox, updatedVideos);
+            props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
+            setSuccessMessage(translate('save_webvtt_successful'));
+        } catch (err) {
+            setErrorMessage(translate('save_webvtt_failed'));
         }
     };
 
@@ -152,7 +168,7 @@ const VideoTextTrackForm = (props) => {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-12">
-                        <button  type="submit" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
+                        <button  type="button" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
                     </div>
                 </div>
