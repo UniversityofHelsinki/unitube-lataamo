@@ -163,7 +163,9 @@ const translationsObject = {
         remove_text_track: '???remove_text_track???',
         confirm_delete_vtt_file: '???confirm_delete_vtt_file???',
         vtt_file_deletion_info_text : '???vtt_file_deletion_info_text???',
-        delete_vtt_file : '???delete_vtt_file???'
+        delete_vtt_file : '???delete_vtt_file???',
+        remove_webvtt_successful : '???remove_webvtt_successful???',
+        remove_webvtt_failed : '???remove_webvtt_failed???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -329,7 +331,9 @@ const translationsObject = {
         remove_text_track: '???remove_text_track???',
         confirm_delete_vtt_file: '???confirm_delete_vtt_file???',
         vtt_file_deletion_info_text : '???vtt_file_deletion_info_text???',
-        delete_vtt_file : '???delete_vtt_file???'
+        delete_vtt_file : '???delete_vtt_file???',
+        remove_webvtt_successful : '???remove_webvtt_successful???',
+        remove_webvtt_failed : '???remove_webvtt_failed???'
     },
 
     sv: {
@@ -496,7 +500,9 @@ const translationsObject = {
         remove_text_track: '???remove_text_track???',
         confirm_delete_vtt_file: '???confirm_delete_vtt_file???',
         vtt_file_deletion_info_text : '???vtt_file_deletion_info_text???',
-        delete_vtt_file : '???delete_vtt_file???'
+        delete_vtt_file : '???delete_vtt_file???',
+        remove_webvtt_successful : '???remove_webvtt_successful???',
+        remove_webvtt_failed : '???remove_webvtt_failed???'
     }
 };
 

@@ -92,12 +92,14 @@ const VideoTextTrackForm = (props) => {
 
     const deleteVideoTextFile = async () => {
         try {
+            setDisabledInputs(true);
             await actionDeleteVideoTextFile(props.event.identifier);
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(props.event.identifier) : getUpdatedVideos(props.event.identifier);
             props.onEventDetails(props.inbox, updatedVideos);
             props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
             setSuccessMessage(translate('save_webvtt_successful'));
         } catch (err) {
+            setDisabledInputs(false);
             setErrorMessage(translate('save_webvtt_failed'));
         }
     };
@@ -111,9 +113,10 @@ const VideoTextTrackForm = (props) => {
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(props.event.identifier) : getUpdatedVideos(props.event.identifier);
             props.onEventDetails(props.inbox, updatedVideos);
             props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
-            setSuccessMessage(translate('save_webvtt_successful'));
+            setSuccessMessage(translate('remove_webvtt_successful'));
         } catch (err) {
-            setErrorMessage(translate('save_webvtt_failed'));
+            setDisabledInputs(false);
+            setErrorMessage(translate('remove_webvtt_failed'));
         }
     };
 
