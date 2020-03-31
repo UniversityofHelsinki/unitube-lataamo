@@ -36,14 +36,27 @@ const VideoTextTrackForm = (props) => {
         return result;
     };
 
+    const showAlert = async () => {
+        const result = await createAlert();
+        if (result.value && result.value === true) {
+            console.log('HIT');
+        }
+    };
+
     const getFileName = (url) => {
         return url.substring(url.lastIndexOf('/') + 1);
     };
 
-    const getVideoFiles = () => {
-        return props.videoFiles.map(video => {
-            if (video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt') {
+    const hasVttVideoFile = () => {
+        console.log(props.videoFiles);
+        props.videoFiles.forEach(videoFile => {
+            console.log(videoFile.vttFile);
+            if (videoFile.vttFile && videoFile.vttFile.url && getFileName(videoFile.vttFile.url) !== 'empty.vtt') {
+                console.log('HAS VIDEO TEXT FILE');
                 hasVideoTextFile(true);
+            } else {
+                hasVideoTextFile(false);
+                console.log('HAS NOT VIDEO TEXT FILE');
             }
         });
     };
@@ -94,9 +107,9 @@ const VideoTextTrackForm = (props) => {
     useEffect(() => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
-        getVideoFiles();
+        hasVttVideoFile();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);// Only re-run the effect if values of arguments changes
+    }, [props.videoFiles]);// Only re-run the effect if values of arguments changes
 
     const handleFileInputChange = (event) => {
         event.persist();
@@ -142,7 +155,7 @@ const VideoTextTrackForm = (props) => {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-12">
-                        <button  type="submit" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position">{translate('remove_text_track')}</button>
+                        <button  type="submit" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
                     </div>
                 </div>
