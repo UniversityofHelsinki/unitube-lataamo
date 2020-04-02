@@ -106,7 +106,8 @@ const VideoDetailsForm = (props) => {
     };
 
     useEffect(() => {
-        let isDisabled  = props.video.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
+        let isDisabled  = props.video.processing_state !== undefined && props.video.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
+        console.log('VideoDetailsForm,', isDisabled, props.video.processing_state);
         setDisabledInputs(isDisabled);
         if (!isBeingEdited) {
             setInputs(props.video);
@@ -210,7 +211,7 @@ const VideoDetailsForm = (props) => {
             {props.video && props.video.identifier !== undefined
                 ?
                 <div>
-                    <VideoTextTrackForm inbox={props.inbox} />
+                    <VideoTextTrackForm inbox={props.inbox} disableInput={disabledInputs}/>
                     <form onSubmit={handleSubmit} className="was-validated">
                         <div className="events-bg">
                             <div className="form-group row">

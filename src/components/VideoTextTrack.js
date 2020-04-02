@@ -5,6 +5,9 @@ import { actionUploadVideoTextFile, setEventProcessingState, updateEventList } f
 import constants from '../utils/constants';
 
 const VideoTextTrackForm = (props) => {
+
+    console.log('VideoTextTrackForm: props:', props);
+    console.log('VideoTextTrackForm: props.disableInput:', props.disableInput);
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
@@ -58,8 +61,12 @@ const VideoTextTrackForm = (props) => {
     };
 
     useEffect(() => {
-        let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
-        setDisabledInputs(isDisabled);
+        let isDisabled  = props.event.processing_state !== undefined && props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
+        console.log('useEffect isDisabled:', isDisabled);
+        console.log('useEffect proc state: ', props.event.processing_state);
+        console.log('useEffect props.disableInput', props.disableInput);
+        //setDisabledInputs(isDisabled);
+        setDisabledInputs(props.disableInput);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);// Only re-run the effect if values of arguments changes
 
