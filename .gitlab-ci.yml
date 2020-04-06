@@ -53,7 +53,7 @@ build_test:
   tags:
     - ohtu-build-2
   only:
-    - lataamo-395_node_fetch
+    - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - npm rebuild node-sass
@@ -125,7 +125,7 @@ deploy_test:
     name: test
     url: https://$LATAAMO_TEST
   only:
-    - lataamo-395_node_fetch
+    - test
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
