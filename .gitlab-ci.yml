@@ -122,7 +122,7 @@ deploy_dev:
 deploy_test:
   stage: deploy
   environment:
-    name: test
+    name: lataamo-395_node_fetch
     url: https://$LATAAMO_TEST
   only:
     - test
