@@ -17,25 +17,12 @@ const MONITOR_JOB_PATH = '/api/monitor/';
 const DOWNLOAD_PATH = '/api/download';
 
 export const downloadVideo = async (data, fileName) => {
-
-    const queryString = (data = {}) => {
-        return Object.entries(data)
-            .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-            .join('&');
-    };
-
-    const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        transformRequest: queryString,
-        responseType: 'arraybuffer'
-    };
-
     try {
-        let response = await axios.post(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, data, config);
+        let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
+        const blob = await response.blob();
+
         if (response.status === 200) {
-            fileDownload(response.data, fileName);
+            fileDownload(blob, fileName);
             return response;
         } else {
             throw new Error(response.status);
