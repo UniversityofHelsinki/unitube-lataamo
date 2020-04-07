@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionUploadVideoTextFile, setEventProcessingState, updateEventList } from '../actions/eventsAction';
+import {
+    actionDeleteVideoTextFile,
+    actionUploadVideoTextFile,
+    setEventProcessingState,
+    updateEventList
+} from '../actions/eventsAction';
 import constants from '../utils/constants';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const SweetAlert = withReactContent(Swal);
 
 const VideoTextTrackForm = (props) => {
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [videoTextFile, hasVideoTextFile] = useState(false);
     const [successMessage, setSuccessMessage] = useState(null);
     const translations =  props.i18n.translations[props.i18n.locale];
     const [disabledInputs, setDisabledInputs] = useState(false);
@@ -14,6 +25,43 @@ const VideoTextTrackForm = (props) => {
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
+
+    const createAlert = async () => {
+        const result = await SweetAlert.fire({
+            title: translate('confirm_delete_vtt_file'),
+            text: translate('vtt_file_deletion_info_text'),
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#d33',
+            confirmButtonText: translate('delete_vtt_file'),
+            cancelButtonText: translate('close_alert')
+        });
+        return result;
+    };
+
+    const showAlert = async () => {
+        const result = await createAlert();
+        if (result.value && result.value === true) {
+            await deleteVideoTextFile();
+        }
+    };
+
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf('/') + 1);
+    };
+
+    const hasVttVideoFile = () => {
+        props.videoFiles.forEach(videoFile => {
+            if (videoFile.vttFile && videoFile.vttFile.url && getFileName(videoFile.vttFile.url) !== constants.EMPTY_VTT_FILE_NAME) {
+                hasVideoTextFile(true);
+            } else {
+                hasVideoTextFile(false);
+            }
+        });
+    };
+
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -42,6 +90,20 @@ const VideoTextTrackForm = (props) => {
         }
     };
 
+    const deleteVideoTextFile = async () => {
+        try {
+            setDisabledInputs(true);
+            await actionDeleteVideoTextFile(props.event.identifier);
+            const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(props.event.identifier) : getUpdatedVideos(props.event.identifier);
+            props.onEventDetails(props.inbox, updatedVideos);
+            props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
+            setSuccessMessage(translate('remove_webvtt_successful'));
+        } catch (err) {
+            setDisabledInputs(false);
+            setErrorMessage(translate('remove_webvtt_failed'));
+        }
+    };
+
     const uploadVideoTextFile = async() => {
         const data = new FormData();
         data.set('video_webvtt_file', selectedVideoTextFile);
@@ -53,6 +115,7 @@ const VideoTextTrackForm = (props) => {
             props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
             setSuccessMessage(translate('save_webvtt_successful'));
         } catch (err) {
+            setDisabledInputs(false);
             setErrorMessage(translate('save_webvtt_failed'));
         }
     };
@@ -60,8 +123,9 @@ const VideoTextTrackForm = (props) => {
     useEffect(() => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
+        hasVttVideoFile();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);// Only re-run the effect if values of arguments changes
+    }, [props.videoFiles]);// Only re-run the effect if values of arguments changes
 
     const handleFileInputChange = (event) => {
         event.persist();
@@ -107,6 +171,7 @@ const VideoTextTrackForm = (props) => {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-12">
+                        <button  type="button" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
                     </div>
                 </div>
@@ -120,7 +185,8 @@ const mapStateToProps = state => ({
     fur: state.fur,
     event: state.er.event,
     videos : state.er.videos,
-    inboxVideos : state.er.inboxVideos
+    inboxVideos : state.er.inboxVideos,
+    videoFiles : state.vr.videoFiles
 });
 
 const mapDispatchToProps = dispatch => ({
