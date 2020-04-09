@@ -39,7 +39,7 @@ const Video = (props) => {
                                         <source src={video.url}></source>
                                         {
                                             video.vttFile && video.vttFile.track ?
-                                                <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles" srcLang="en" label="English" default/>
+                                                <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles" srcLang="fi" label="Suomi" default/>
                                                 : ''
                                         }
                                     </video>
