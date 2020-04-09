@@ -1,8 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 const Video = (props) => {
-
     const translations =  props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
@@ -10,7 +9,17 @@ const Video = (props) => {
     };
 
     const getFileName = (url) => {
+        console.log(url);
         return url.substring(url.lastIndexOf('/') + 1);
+    };
+
+    const getTrackObjectUrl = (track) => {
+        console.log('track content:' , track);
+        const trackBlob = new Blob([track], {
+            type:'text/plain;charset=utf-8'
+        });
+        const trackObjectUrl = URL.createObjectURL(trackBlob);
+        return trackObjectUrl;
     };
 
     const getVideoFiles = () => {
@@ -26,7 +35,14 @@ const Video = (props) => {
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
                                     ?
-                                    <video controls src={video.url}/>
+                                    <video controls>
+                                        <source src={video.url}></source>
+                                        {
+                                            video.vttFile && video.vttFile.track ?
+                                                <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles" srcLang="fi" label="Suomi" default/>
+                                                : ''
+                                        }
+                                    </video>
                                     : <div></div>
                                 }
                             </div>
@@ -68,5 +84,6 @@ const mapStateToProps = state => ({
     videoFiles : state.vr.videoFiles,
     i18n: state.i18n
 });
+
 
 export default connect(mapStateToProps, null)(Video);
