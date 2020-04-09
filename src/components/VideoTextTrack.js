@@ -35,7 +35,7 @@ const VideoTextTrackForm = (props) => {
             showConfirmButton: true,
             cancelButtonColor: '#3085d6',
             confirmButtonColor: '#d33',
-            confirmButtonText: translate('delete_vtt_file'),
+            confirmButtonText: translate('remove_text_track'),
             cancelButtonText: translate('close_alert')
         });
         return result;
