@@ -143,6 +143,22 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
     }
 };
 
+export const actionDeleteVideoTextFile = async (eventId) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}/${eventId}`, {
+            method: 'DELETE'
+        });
+        if (response.status === 201) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const actionUploadVideoTextFile = async (data) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_TEXT_FILE_PATH}`, {

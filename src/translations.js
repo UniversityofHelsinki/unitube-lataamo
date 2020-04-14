@@ -159,7 +159,13 @@ const translationsObject = {
         save_text_track: 'Save the subtitle file',
         save_webvtt_successful : 'The subtitle file has been added successfully',
         save_webvtt_failed : 'Failed to add the subtitle file',
-        added_vtt_file : 'Subtitle file added to the recording'
+        added_vtt_file : 'Subtitle file added to the recording',
+        remove_text_track: 'Delete subtitle file',
+        confirm_delete_vtt_file: 'Are you sure you want to delete the subtitle file on this recording?',
+        vtt_file_deletion_info_text : 'This change cannot be undone',
+        delete_vtt_file : 'Confirm deletion',
+        remove_webvtt_successful : 'Subtitle file deleted successfully!',
+        remove_webvtt_failed : 'Failed to delete subtitle file!'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -321,7 +327,13 @@ const translationsObject = {
         save_text_track: 'Tallenna tekstitystiedosto',
         save_webvtt_successful : 'Tekstitystiedoston lisääminen onnistui!',
         save_webvtt_failed : 'Tekstitystiedoston lisääminen epäonnistui!',
-        added_vtt_file : 'Tallenteeseen liitetty tekstitystiedosto'
+        added_vtt_file : 'Tallenteeseen liitetty tekstitystiedosto',
+        remove_text_track: 'Poista tekstitystiedosto',
+        confirm_delete_vtt_file: 'Haluatko varmasti poistaa tallenteelle liitetyn tekstitystiedoston?',
+        vtt_file_deletion_info_text : 'Tätä toimintoa ei voi perua',
+        delete_vtt_file : 'Poista tekstitystiedosto',
+        remove_webvtt_successful : 'Tekstitystiedoston poisto onnistui!',
+        remove_webvtt_failed : 'Tekstitystiedoston poisto epäonnistui!'
     },
 
     sv: {
@@ -484,7 +496,13 @@ const translationsObject = {
         save_text_track: 'Spara en textningsfil',
         save_webvtt_successful : 'Tillägg av textningsfil lyckades!',
         save_webvtt_failed : 'Tillägg av textningsfil misslyckades!',
-        added_vtt_file : 'Textningsfil som lagts till inspelningen'
+        added_vtt_file : 'Textningsfil som lagts till inspelningen',
+        remove_text_track: 'Radera textningsfil',
+        confirm_delete_vtt_file: 'Är du säker på att du vill radera textningsfilen?',
+        vtt_file_deletion_info_text : 'Detta kan inte ångras!',
+        delete_vtt_file : 'Radera textningsfil',
+        remove_webvtt_successful : 'Textningsfilen raderades!',
+        remove_webvtt_failed : 'Det gick inte att radera textningsfilen!'
     }
 };
 
