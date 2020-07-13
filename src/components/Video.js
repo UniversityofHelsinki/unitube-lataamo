@@ -9,12 +9,12 @@ const Video = (props) => {
     };
 
     const getFileName = (url) => {
-        console.log(url);
+        // console.log(url);
         return url.substring(url.lastIndexOf('/') + 1);
     };
 
     const getTrackObjectUrl = (track) => {
-        console.log('track content:' , track);
+        // console.log('track content:' , track);
         const trackBlob = new Blob([track], {
             type:'text/plain;charset=utf-8'
         });
