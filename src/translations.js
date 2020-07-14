@@ -165,7 +165,9 @@ const translationsObject = {
         vtt_file_deletion_info_text : 'This change cannot be undone',
         delete_vtt_file : 'Confirm deletion',
         remove_webvtt_successful : 'Subtitle file deleted successfully!',
-        remove_webvtt_failed : 'Failed to delete subtitle file!'
+        remove_webvtt_failed : 'Failed to delete subtitle file!',
+        text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
+        text_track_upload_help_link_text: 'Instructions for adding text track file'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -333,7 +335,9 @@ const translationsObject = {
         vtt_file_deletion_info_text : 'Tätä toimintoa ei voi perua',
         delete_vtt_file : 'Poista tekstitystiedosto',
         remove_webvtt_successful : 'Tekstitystiedoston poisto onnistui!',
-        remove_webvtt_failed : 'Tekstitystiedoston poisto epäonnistui!'
+        remove_webvtt_failed : 'Tekstitystiedoston poisto epäonnistui!',
+        text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
+        text_track_upload_help_link_text: 'Ohjeita videon tekstittämiseen'
     },
 
     sv: {
@@ -502,7 +506,9 @@ const translationsObject = {
         vtt_file_deletion_info_text : 'Detta kan inte ångras!',
         delete_vtt_file : 'Radera textningsfil',
         remove_webvtt_successful : 'Textningsfilen raderades!',
-        remove_webvtt_failed : 'Det gick inte att radera textningsfilen!'
+        remove_webvtt_failed : 'Det gick inte att radera textningsfilen!',
+        text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
+        text_track_upload_help_link_text: 'Någon hjelp'
     }
 };
 

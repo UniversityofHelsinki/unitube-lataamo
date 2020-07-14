@@ -168,6 +168,12 @@ const VideoTextTrackForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <div className="col-sm-2"></div>
+                        <div className="col-sm-2">
+                            <a href={translate('text_track_upload_help_link')}>{translate('text_track_upload_help_link_text')}</a>
+                        </div>
+                    </div>
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-12">
