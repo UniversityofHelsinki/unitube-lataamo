@@ -106,7 +106,7 @@ const VideoTextTrackForm = (props) => {
 
     const uploadVideoTextFile = async() => {
         const data = new FormData();
-        data.set('video_webvtt_file', selectedVideoTextFile);
+        data.set('video_text_track_file', selectedVideoTextFile);
         data.set('eventId', props.event.identifier);
         try {
             await actionUploadVideoTextFile(data);
@@ -158,7 +158,7 @@ const VideoTextTrackForm = (props) => {
                     <div className="form-group row">
                         <label id="textTrack" className="col-sm-2 col-form-label">{translate('video_text_track')}</label>
                         <div className="col-sm-8">
-                            <input disabled={disabledInputs} id="video_text_track_file" onChange={handleFileInputChange} type="file" accept=".vtt"  className="form-control" name="video_webvtt_file"/>
+                            <input disabled={disabledInputs} id="video_text_track_file" onChange={handleFileInputChange} type="file" accept=".vtt, .srt"  className="form-control" name="video_text_track_file"/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_text_track_info')}</Tooltip>}>
@@ -166,6 +166,12 @@ const VideoTextTrackForm = (props) => {
                                     <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
                             </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <div className="col-sm-2"></div>
+                        <div className="col-sm-2">
+                            <a href={translate('text_track_upload_help_link')}>{translate('text_track_upload_help_link_text')}</a>
                         </div>
                     </div>
                 </div>

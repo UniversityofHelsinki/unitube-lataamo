@@ -152,7 +152,7 @@ const translationsObject = {
         event_returned: 'Recording restored successfully!',
         api_post_series_successful: 'New series created!',
         upload_in_progress_wait: 'Upload in progress, please wait!',
-        video_text_track_info: 'Here you can add a closed captions or subtitle file (.vtt extension) to the recording. Read more about creating subtitle files and adding them to Unitube recordings in the Helpdesk instructions.',
+        video_text_track_info: 'Here you can add a closed captions or subtitle file (.vtt or .srt file) to the recording. Read more about creating subtitle files and adding them to Unitube recordings in the Helpdesk instructions.',
         video_text_track_label: 'Add a subtitle file to the recording',
         video_text_track: 'Select a subtitle file',
         delete_text_track: 'Delete the subtitle file',
@@ -165,7 +165,9 @@ const translationsObject = {
         vtt_file_deletion_info_text : 'This change cannot be undone',
         delete_vtt_file : 'Confirm deletion',
         remove_webvtt_successful : 'Subtitle file deleted successfully!',
-        remove_webvtt_failed : 'Failed to delete subtitle file!'
+        remove_webvtt_failed : 'Failed to delete subtitle file!',
+        text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
+        text_track_upload_help_link_text: 'Instructions for creating caption files on the Helpdesk web site'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -320,7 +322,7 @@ const translationsObject = {
         event_returned: 'Tallenne palautettu onnistuneesti!',
         api_post_series_successful: 'Uusi sarja luotu!',
         upload_in_progress_wait: 'Tallennetta ladataan, odota hetki!',
-        video_text_track_info: 'Lisää tästä tallenteelle .vtt-muotoinen tekstitystiedosto. Lue lisää tekstitystiedostojen luomisesta ja lisäämisestä Unitube-tallenteille Helpdesk-sivuston ohjeista!',
+        video_text_track_info: 'Lisää tästä tallenteelle .vtt-tai .srt-muotoinen tekstitystiedosto. Lue lisää tekstitystiedostojen luomisesta ja lisäämisestä Unitube-tallenteille Helpdesk-sivuston ohjeista!',
         video_text_track_label: 'Tekstitystiedoston lisääminen tallenteelle',
         video_text_track: 'Valitse tekstitystiedosto',
         delete_text_track: 'Poista tekstitystiedosto',
@@ -333,7 +335,9 @@ const translationsObject = {
         vtt_file_deletion_info_text : 'Tätä toimintoa ei voi perua',
         delete_vtt_file : 'Poista tekstitystiedosto',
         remove_webvtt_successful : 'Tekstitystiedoston poisto onnistui!',
-        remove_webvtt_failed : 'Tekstitystiedoston poisto epäonnistui!'
+        remove_webvtt_failed : 'Tekstitystiedoston poisto epäonnistui!',
+        text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
+        text_track_upload_help_link_text: 'Ohjeita videon tekstittämiseen Helpdesk-sivustolla'
     },
 
     sv: {
@@ -489,7 +493,7 @@ const translationsObject = {
         embedded_video_title: 'Videons inbäddningskod',
         api_post_series_successful: 'Serien skapat!',
         upload_in_progress_wait: 'Inspelningen laddas, vänta en stund.',
-        video_text_track_info: 'Här kan du lägga en textningsfil i formatet .vtt till inspelningen. Läs mer i Helpdesk-sidornas anvisningar om att skapa och lägga till textningsfiler till Unitube-inspelningarna.',
+        video_text_track_info: 'Här kan du lägga en textningsfil i formatet .vtt eller .srt till inspelningen. Läs mer i Helpdesk-sidornas anvisningar om att skapa och lägga till textningsfiler till Unitube-inspelningarna.',
         video_text_track_label: 'Att lägga en textningsfil till inspelningen.',
         video_text_track: 'Välj textningsfil',
         delete_text_track: 'Ta bort en textningsfil',
@@ -502,7 +506,9 @@ const translationsObject = {
         vtt_file_deletion_info_text : 'Detta kan inte ångras!',
         delete_vtt_file : 'Radera textningsfil',
         remove_webvtt_successful : 'Textningsfilen raderades!',
-        remove_webvtt_failed : 'Det gick inte att radera textningsfilen!'
+        remove_webvtt_failed : 'Det gick inte att radera textningsfilen!',
+        text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
+        text_track_upload_help_link_text: 'Instruktioner för textning finns på Helpdesk-webbplatsen'
     }
 };
 
