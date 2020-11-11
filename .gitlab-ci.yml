@@ -41,7 +41,7 @@ build_oc_test:
   only:
     - oc-test
   script:
-    - yes | cp -f -v .env.development .env.production || true
+    - yes | cp -f -v .env.oc-test .env.production || true
     - npm run build
   artifacts:
     name: lataamo-build
