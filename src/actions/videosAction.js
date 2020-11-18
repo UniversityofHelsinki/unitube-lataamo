@@ -1,7 +1,5 @@
 // asynchronous action creator
 import axios from 'axios';
-import http from 'http';
-import https from 'https';
 import {
     fileUploadFailedActionMessage,
     fileUploadProgressAction,
@@ -86,8 +84,6 @@ export const actionUploadVideo = (newVideo) => {
                 headers: {
                     'content-type': 'multipart/form-data',
                 },
-                httpAgent: new http.Agent({ keepAlive: true }),
-                httpsAgent: new https.Agent({ keepAlive: true }),
                 onUploadProgress: ProgressEvent => {
                     dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total-20)));
                 }
