@@ -18,7 +18,7 @@ function Navigation (props) {
                         <Link to="/events" className="menuitem"  ><Translate value="videos" /></Link>
                     </li>
                     <li className={props.route === 'trash' ? 'main-nav-item open' : 'main-nav-item'} >
-                        <Link to="/trash" className="menuitem"  ><Translate value="trash" /></Link>
+                        <Link to="/trash" className="menuitem test-trash-menu"  ><Translate value="trash" /></Link>
                     </li>
                 </ul>
             </nav>
