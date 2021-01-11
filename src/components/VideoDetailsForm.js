@@ -184,7 +184,10 @@ const VideoDetailsForm = (props) => {
             cancelButtonColor: '#3085d6',
             confirmButtonColor: '#d33',
             confirmButtonText: translate('delete_event'),
-            cancelButtonText: translate('close_alert')
+            cancelButtonText: translate('close_alert'),
+            customClass: {
+                popup: 'test-delete-event-pop-up'
+            }
         });
         return result;
     };
