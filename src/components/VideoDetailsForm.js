@@ -186,7 +186,9 @@ const VideoDetailsForm = (props) => {
             confirmButtonText: translate('delete_event'),
             cancelButtonText: translate('close_alert'),
             customClass: {
-                popup: 'test-delete-event-pop-up'
+                popup: 'test-delete-event-pop-up',
+                confirmButton: 'test-delete-event-confirm-button',
+                cancelButton: 'test-delete-event-cancel-button',
             }
         });
         return result;
