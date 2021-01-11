@@ -339,7 +339,7 @@ const VideoDetailsForm = (props) => {
                                     </Alert>
                                     : (<></>)
                                 }
-                                <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" onClick={showAlert}>{translate('delete_event')}</button>
+                                <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position test-delete-event-button" onClick={showAlert}>{translate('delete_event')}</button>
                                 <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
                             </div>
                         </div>
