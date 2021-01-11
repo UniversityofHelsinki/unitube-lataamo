@@ -200,7 +200,7 @@ const VideoDetailsForm = (props) => {
             text: translate('succeeded_to_delete_event'),
             icon: 'success',
             customClass: {
-                closeButton: 'test-delete-event-success-close-button',
+                confirmButton: 'test-delete-event-success-confirm-button',
             }
         });
     };
