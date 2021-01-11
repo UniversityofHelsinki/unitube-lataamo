@@ -198,7 +198,10 @@ const VideoDetailsForm = (props) => {
         SweetAlert.fire({
             title: translate('succeeded_to_delete_event'),
             text: translate('succeeded_to_delete_event'),
-            icon: 'success'
+            icon: 'success',
+            customClass: {
+                closeButton: 'test-delete-event-success-close-button',
+            }
         });
     };
 
