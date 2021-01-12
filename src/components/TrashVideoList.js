@@ -250,7 +250,7 @@ const TrashVideoList = (props) => {
                                     </div>
                                     <BootstrapTable { ...props.baseProps }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={() => <NoDataIndication className='test-no-trash-data'/>} bordered={ false } hover />
+                                        noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
                                 </div>
                             )
                         }
