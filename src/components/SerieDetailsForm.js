@@ -311,7 +311,7 @@ const SerieDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <div className="col-sm-9">
-                                    <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
+                                    <input size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
                                     <button type="submit" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
                                 </div>
                                 <div className="col-sm-1">
