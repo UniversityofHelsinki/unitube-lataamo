@@ -239,7 +239,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
+                                    <select disabled={disabledInputs} required className="form-control test-event-is-part-of" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
                                         {drawSelectionValues()}
                                     </select>
                                 </div>
@@ -348,7 +348,7 @@ const VideoDetailsForm = (props) => {
                                     : (<></>)
                                 }
                                 <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position test-delete-event-button" onClick={showAlert}>{translate('delete_event')}</button>
-                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1">{translate('save')}</button>
+                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1 test-submit-event-button">{translate('save')}</button>
                             </div>
                         </div>
                     </form>
