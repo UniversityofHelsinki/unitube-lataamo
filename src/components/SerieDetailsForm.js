@@ -312,7 +312,7 @@ const SerieDetailsForm = (props) => {
                                 <label className="col-sm-2 col-form-label"></label>
                                 <div className="col-sm-9">
                                     <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
-                                    <button type="submit" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
+                                    <button type="submit" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
                                 </div>
                                 <div className="col-sm-1">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
