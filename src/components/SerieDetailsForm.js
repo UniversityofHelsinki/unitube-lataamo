@@ -199,7 +199,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
-                                <input type="text" name="title" className="form-control" value={ inputs.title }
+                                <input type="text" name="title" className="form-control test-series-title" value={ inputs.title }
                                     onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
@@ -215,7 +215,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
-                                <textarea name="description" className="form-control" value={ inputs.description }
+                                <textarea name="description" className="form-control test-series-description" value={ inputs.description }
                                     onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
@@ -291,7 +291,7 @@ const SerieDetailsForm = (props) => {
                                 <div className="col-sm-9">
                                     <div className="form-check-inline">
                                         <label className="form-check-label">
-                                            <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
+                                            <input className="form-check-input test-series-published-checkbox" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
                                             {translate('public_series')}
                                         </label>
                                     </div>
@@ -365,7 +365,7 @@ const SerieDetailsForm = (props) => {
                                     </Alert>
                                     : (<></>)
                                 }
-                                <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
+                                <button type="submit" className="btn btn-primary button-position test-series-submit-button">{translate('save')}</button>
                             </div>
                         </div>
                 </form>
