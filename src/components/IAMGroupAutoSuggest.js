@@ -61,6 +61,7 @@ const IAMGroupAutoSuggest = (props) => {
                 placeholder={translate('searchForIamGroup')}
                 promptText={translate('iam_group_searching_info')}
                 searchText={translate('searching')}
+                className={}
             />
         </div>
     );
