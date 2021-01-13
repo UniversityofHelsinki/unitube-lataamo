@@ -47,7 +47,7 @@ const VideoInSeries = (props) => {
                         <span className="border">
                             <Badge variant='light'>
                                 <FaFilm/>
-                                <span className="pl-2 test-video-in-series-title">
+                                <span className="pl-2 test-video-in-series-title" data-cy="test-video-in-series-title">
                                     { selection.title }
                                 </span>
                                 <span className="pl-2">
