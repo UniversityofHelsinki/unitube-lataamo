@@ -146,7 +146,7 @@ const SeriesUploadForm = (props) => {
                         <label className="col-sm-2 col-form-label"></label>
                         <label className="col-sm-2 col-form-label">{translate('series_description')}</label>
                         <div className="col-sm-7">
-                            <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
+                            <textarea onChange={handleInputChange} type="text" name="description" className="form-control" data-cy="test-series-description" maxLength="1500" required/>
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
