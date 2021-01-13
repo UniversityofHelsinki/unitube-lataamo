@@ -85,7 +85,9 @@ export const actionUploadVideo = (newVideo) => {
                     'content-type': 'multipart/form-data'
                 },
                 onUploadProgress: ProgressEvent => {
-                    dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total-20)));
+                    let actualPercentage = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total);
+                    let displayedPercentage = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total-20);
+                    dispatch(fileUploadProgressAction(displayedPercentage < 0 ? actualPercentage : displayedPercentage));
                 }
             });
 

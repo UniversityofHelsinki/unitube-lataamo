@@ -64,7 +64,6 @@ const VideoUploadForm = (props) => {
         setSubmitButtonDisabled(true);
         setOnProgressVisible(true);
         const response = await uploadVideo();
-        console.log(response);
         if (response && response.status) {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);
@@ -82,6 +81,7 @@ const VideoUploadForm = (props) => {
         } else {
             clearVideoFileSelection();
         }
+        props.onResetProgressbar();
     };
 
     const clearVideoFileSelection = () => {
