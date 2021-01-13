@@ -227,7 +227,7 @@ const VideoDetailsForm = (props) => {
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
                                 <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')}</label>
-                                <label id="eventId" className="col-sm-3 col-form-label">{props.video.identifier}</label>
+                                <label id="eventId" className="col-sm-3 col-form-label" data-cy="test-event-id">{props.video.identifier}</label>
                                 <div className="col-sm-3">
                                     <IconContext.Provider value={{ size: '1.5em' }}>
                                         <div>
@@ -239,7 +239,8 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control test-event-is-part-of" name="isPartOf" value={inputs.isPartOf} onChange={handleInputChange}>
+                                    <select disabled={disabledInputs} required className="form-control test-event-is-part-of" name="isPartOf"
+                                            data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleInputChange}>
                                         {drawSelectionValues()}
                                     </select>
                                 </div>
@@ -255,7 +256,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
                                     <input disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
-                                        placeholder="Title" value={inputs.title} maxLength="150" required/>
+                                           data-cy="test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
@@ -268,7 +269,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
-                                    <textarea disabled={disabledInputs} name="description" className="form-control" value={inputs.description}
+                                    <textarea disabled={disabledInputs} name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
                                         onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
@@ -282,7 +283,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control" name="license" value={inputs.license} onChange={handleInputChange}>
+                                    <select disabled={disabledInputs} required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleInputChange}>
                                         <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                         {drawLicenseSelectionValues()}
                                     </select>
@@ -309,7 +310,7 @@ const VideoDetailsForm = (props) => {
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-2">{translate('embedded_video_title')}</label>
-                                <div id='embeddedVideo' className="col-sm-7 embeddedVideo">
+                                <div id='embeddedVideo' className="col-sm-7 embeddedVideo" data-cy="test-embedded-video">
                                     {embedVideo()}
                                 </div>
                                 <div className="col-sm-1">
@@ -348,7 +349,7 @@ const VideoDetailsForm = (props) => {
                                     : (<></>)
                                 }
                                 <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" data-cy="test-delete-event-button" onClick={showAlert}>{translate('delete_event')}</button>
-                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1 test-submit-event-button">{translate('save')}</button>
+                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1 test-submit-event-button" data-cy="test-save-event-button">{translate('save')}</button>
                             </div>
                         </div>
                     </form>
