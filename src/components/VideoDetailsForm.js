@@ -227,7 +227,7 @@ const VideoDetailsForm = (props) => {
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
                                 <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')}</label>
-                                <label id="eventId" className="col-sm-3 col-form-label">{props.video.identifier}</label>
+                                <label id="eventId" className="col-sm-3 col-form-label" data-cy="test-event-id">{props.video.identifier}</label>
                                 <div className="col-sm-3">
                                     <IconContext.Provider value={{ size: '1.5em' }}>
                                         <div>
@@ -310,7 +310,7 @@ const VideoDetailsForm = (props) => {
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-2">{translate('embedded_video_title')}</label>
-                                <div id='embeddedVideo' className="col-sm-7 embeddedVideo">
+                                <div id='embeddedVideo' className="col-sm-7 embeddedVideo" data-cy="test-embedded-video">
                                     {embedVideo()}
                                 </div>
                                 <div className="col-sm-1">
