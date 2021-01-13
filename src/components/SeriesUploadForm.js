@@ -132,7 +132,7 @@ const SeriesUploadForm = (props) => {
                         <label className="col-sm-2 col-form-label"></label>
                         <label className="col-sm-2 col-form-label">{translate('series_title')}</label>
                         <div className="col-sm-7">
-                            <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
+                            <input onChange={handleInputChange} type="text" name="title" className="form-control" data-cy="test-series-title" maxLength="150" required/>
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_title_info')}</Tooltip>}>
@@ -261,7 +261,7 @@ const SeriesUploadForm = (props) => {
                             </Alert>
                             : (<></>)
                         }
-                        <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
+                        <button type="submit" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
                     </div>
                 </div>
             </form>
