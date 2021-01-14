@@ -349,7 +349,7 @@ const VideoDetailsForm = (props) => {
                                     : (<></>)
                                 }
                                 <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" data-cy="test-delete-event-button" onClick={showAlert}>{translate('delete_event')}</button>
-                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1 test-submit-event-button" data-cy="test-save-event-button">{translate('save')}</button>
+                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1" data-cy="test-save-event-button">{translate('save')}</button>
                             </div>
                         </div>
                     </form>
