@@ -340,7 +340,7 @@ const SerieDetailsForm = (props) => {
                         <div className="series-bg">
 
                             <div className="form-group row">
-                                <div className="col-sm-12 video-list">
+                                <div className="col-sm-12 video-list" data-cy="test-series-video-list">
                                     <VideosInSeries />
                                 </div>
                             </div>
