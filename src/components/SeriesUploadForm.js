@@ -211,7 +211,7 @@ const SeriesUploadForm = (props) => {
                         <div className="col-sm-9">
                             <div className="form-check-inline">
                                 <label className="form-check-label">
-                                    <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" onChange={handleCheckBoxChange} />
+                                    <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" data-cy="test-series-public" onChange={handleCheckBoxChange} />
                                     {translate('public_series')}
                                 </label>
                             </div>
