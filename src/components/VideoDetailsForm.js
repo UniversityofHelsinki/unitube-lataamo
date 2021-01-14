@@ -239,7 +239,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control test-event-is-part-of" name="isPartOf"
+                                    <select disabled={disabledInputs} required className="form-control" name="isPartOf"
                                             data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleInputChange}>
                                         {drawSelectionValues()}
                                     </select>
