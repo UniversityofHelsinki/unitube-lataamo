@@ -39,7 +39,7 @@ build_oc_test:
   tags:
     - ohtu-build-2
   only:
-    - oc-test
+    - oc-test-xxxx
   script:
     - yes | cp -f -v .env.oc-test .env.production || true
     - npm run build
@@ -67,7 +67,7 @@ build_test:
   tags:
     - ohtu-build-2
   only:
-    - test
+    - oc-test
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - npm rebuild node-sass
@@ -122,11 +122,11 @@ deploy_oc_test:
   stage: deploy
   environment:
     name: development
-    url: https://$LATAAMO_TEST
+    url: https://$LATAAMO_OC_TEST
   only:
-    - oc-test
+    - oc-test-xxxxxx
   variables:
-    SERVER: https://$LATAAMO_TEST
+    SERVER: $LATAAMO_OC_TEST
   before_script:
     - echo "====== Deploy to development server ========"
   extends: .deploy_script
@@ -149,7 +149,7 @@ deploy_dev:
 deploy_test:
   stage: deploy
   environment:
-    name: test
+    name: oc-test
     url: https://$LATAAMO_TEST
   only:
     - test
