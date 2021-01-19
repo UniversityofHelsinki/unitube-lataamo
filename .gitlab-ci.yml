@@ -122,11 +122,11 @@ deploy_oc_test:
   stage: deploy
   environment:
     name: development
-    url: https://$LATAAMO_OC_TEST
+    url: https://$LATAAMO_TEST
   only:
     - oc-test
   variables:
-    SERVER: $LATAAMO_OC_TEST
+    SERVER: https://$LATAAMO_TEST
   before_script:
     - echo "====== Deploy to development server ========"
   extends: .deploy_script
