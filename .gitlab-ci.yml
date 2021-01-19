@@ -124,7 +124,7 @@ deploy_oc_test:
     name: development
     url: https://$LATAAMO_OC_TEST
   only:
-    - test
+    - oc-test
   variables:
     SERVER: $LATAAMO_OC_TEST
   before_script:
@@ -149,7 +149,7 @@ deploy_dev:
 deploy_test:
   stage: deploy
   environment:
-    name: oc-test
+    name: test
     url: https://$LATAAMO_TEST
   only:
     - test
