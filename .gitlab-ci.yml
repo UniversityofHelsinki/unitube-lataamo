@@ -67,7 +67,7 @@ build_test:
   tags:
     - ohtu-build-2
   only:
-    - test
+    - oc-test
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - npm rebuild node-sass
