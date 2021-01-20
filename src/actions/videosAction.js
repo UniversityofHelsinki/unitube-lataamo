@@ -13,8 +13,9 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
 const MONITOR_JOB_PATH = '/api/monitor/';
-
 const DOWNLOAD_PATH = '/api/download';
+
+const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
 export const downloadVideo = async (data, fileName) => {
     try {
@@ -86,8 +87,7 @@ export const actionUploadVideo = (newVideo) => {
                 },
                 onUploadProgress: ProgressEvent => {
                     let actualPercentage = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total);
-                    let maximumPercentage = 80;
-                    dispatch(fileUploadProgressAction(actualPercentage > maximumPercentage ? maximumPercentage : actualPercentage));
+                    dispatch(fileUploadProgressAction(actualPercentage > MAXIMUM_UPLOAD_PERCENTAGE ? MAXIMUM_UPLOAD_PERCENTAGE : actualPercentage));
                 }
             });
 
