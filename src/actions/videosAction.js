@@ -86,8 +86,8 @@ export const actionUploadVideo = (newVideo) => {
                 },
                 onUploadProgress: ProgressEvent => {
                     let actualPercentage = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total);
-                    let displayedPercentage = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total-20);
-                    dispatch(fileUploadProgressAction(displayedPercentage < 0 ? actualPercentage : displayedPercentage));
+                    let maximumPercentage = 80;
+                    dispatch(fileUploadProgressAction(actualPercentage > maximumPercentage ? maximumPercentage : actualPercentage));
                 }
             });
 
