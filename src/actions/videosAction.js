@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
     fileUploadFailedActionMessage,
     fileUploadProgressAction,
-    fileUploadSuccessActionMessage
+    fileUploadSuccessActionMessage, timeRemainingProgressAction
 } from './fileUploadAction';
 
 import fileDownload from 'js-file-download';
@@ -56,6 +56,7 @@ export const fetchVideoUrl = (row) => {
 };
 
 export const actionUploadVideo = (newVideo) => {
+    let timeStarted = new Date();
     return async (dispatch) => {
         initVideoUploadProcessInformation(dispatch);
         const extracted = async (response, jobId) => {
@@ -86,8 +87,12 @@ export const actionUploadVideo = (newVideo) => {
                     'content-type': 'multipart/form-data'
                 },
                 onUploadProgress: ProgressEvent => {
-                    let actualPercentage = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total);
+                    let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
+                    let uploadSpeed = ProgressEvent.loaded  / (timeElapsed/1000); // Upload speed in second
+                    let timeRemaining = (ProgressEvent.total - ProgressEvent.loaded) / uploadSpeed / 60; // time remaining in minutes
+                    let actualPercentage = Math.ceil((ProgressEvent.loaded * 100) / ProgressEvent.total);
                     dispatch(fileUploadProgressAction(actualPercentage > MAXIMUM_UPLOAD_PERCENTAGE ? MAXIMUM_UPLOAD_PERCENTAGE : actualPercentage));
+                    dispatch(timeRemainingProgressAction(timeRemaining.toFixed(0)));
                 }
             });
 
@@ -113,6 +118,7 @@ const initVideoUploadProcessInformation = (dispatch) => {
     dispatch(fileUploadSuccessActionMessage(null));
     dispatch(fileUploadFailedActionMessage(null));
     dispatch(fileUploadProgressAction(0));
+    dispatch(timeRemainingProgressAction(0));
 };
 
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({

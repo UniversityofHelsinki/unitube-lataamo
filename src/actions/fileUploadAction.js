@@ -3,6 +3,11 @@ export const fileUploadProgressAction = (data) => ({
     payload: data
 });
 
+export const timeRemainingProgressAction = (data) => ({
+   type: 'UPDATE_TIME_REMAINING',
+   payload: data
+});
+
 export const fileUploadSuccessActionMessage = (data) => ({
     type: 'FILE_UPLOAD_SUCCESS',
     payload: data

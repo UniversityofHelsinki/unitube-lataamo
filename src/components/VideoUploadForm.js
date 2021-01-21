@@ -148,6 +148,7 @@ const VideoUploadForm = (props) => {
                     </div>
                     <div className="col-sm-4">
                         <span hidden={!onProgressVisible}>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
+                        <div hidden={!onProgressVisible}>{props.timeRemaining}  { translate('upload_remaining_in_minutes') } </div>
                     </div>
                 </div>
             </form>
@@ -160,7 +161,8 @@ const mapStateToProps = state => ({
     event : state.er.event,
     series : state.ser.series,
     i18n: state.i18n,
-    fur: state.fur
+    fur: state.fur,
+    timeRemaining: state.fur.timeRemaining,
 });
 
 const mapDispatchToProps = dispatch => ({

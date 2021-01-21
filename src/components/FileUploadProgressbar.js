@@ -14,7 +14,6 @@ const FileUploadProgressbar = (props) => {
     }, []);
     return (
         <div>
-            <p hidden={props.percentage > 0}>{props.percentage}%</p>
             <div className="progress-bar" style={{ width: `${props.percentage}%` }} >
                 <span hidden={props.percentage === 0 || props.percentage >= 80}>{ props.percentage }{ translate('percentage_complete') } </span>
                 <span hidden={props.percentage === 0 || props.percentage < 80 || props.percentage === 100 }>{ props.percentage }{ translate('percentage_complete') } { translate('upload_is_being_processed') } </span>
