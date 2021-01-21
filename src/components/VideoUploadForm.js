@@ -64,7 +64,6 @@ const VideoUploadForm = (props) => {
         setSubmitButtonDisabled(true);
         setOnProgressVisible(true);
         const response = await uploadVideo();
-        console.log(response);
         if (response && response.status) {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);
@@ -82,6 +81,7 @@ const VideoUploadForm = (props) => {
         } else {
             clearVideoFileSelection();
         }
+        props.onResetProgressbar();
     };
 
     const clearVideoFileSelection = () => {
@@ -146,8 +146,10 @@ const VideoUploadForm = (props) => {
                     <div className="col-sm-2">
                         <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('upload') }</button>
                     </div>
-                    <div className="col-sm-4">
-                        <span hidden={!onProgressVisible}>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
+                    <div hidden={!onProgressVisible} className="col-sm-4">
+                        <span>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
+                        <div hidden={props.timeRemaining === 0 || props.percentage >= 80}>{props.timeRemaining}  { translate('upload_estimate_remaining_in_minutes') }</div>
+                        <div hidden={props.percentage < 80}>{ translate('upload_is_being_processed') }</div>
                     </div>
                 </div>
             </form>
@@ -160,7 +162,9 @@ const mapStateToProps = state => ({
     event : state.er.event,
     series : state.ser.series,
     i18n: state.i18n,
-    fur: state.fur
+    fur: state.fur,
+    timeRemaining: state.fur.timeRemaining,
+    percentage : state.fur.percentage
 });
 
 const mapDispatchToProps = dispatch => ({

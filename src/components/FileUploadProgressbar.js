@@ -13,9 +13,12 @@ const FileUploadProgressbar = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <div className="progress-bar" style={{ width: `${props.percentage}%` }} >
-            <span hidden={props.percentage===100}>{ props.percentage } { translate('percentage_complete') } { translate('download_in_process') } </span>
-            <span hidden={props.percentage<100}>{ props.percentage }{ translate('percentage_complete') } </span>
+        <div>
+            <div className="progress-bar" style={{ width: `${props.percentage}%` }} >
+                <span hidden={props.percentage === 0 || props.percentage >= 80}>{ props.percentage }{ translate('percentage_complete') } </span>
+                <span hidden={props.percentage === 0 || props.percentage < 80 || props.percentage === 100 }>{ props.percentage }{ translate('percentage_complete') } { translate('upload_is_being_processed') } </span>
+                <span hidden={props.percentage === 0 || props.percentage < 100}>{props.percentage}% </span>
+            </div>
         </div>
     );
 };
