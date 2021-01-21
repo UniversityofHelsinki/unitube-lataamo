@@ -132,7 +132,7 @@ const SeriesUploadForm = (props) => {
                         <label className="col-sm-2 col-form-label"></label>
                         <label className="col-sm-2 col-form-label">{translate('series_title')}</label>
                         <div className="col-sm-7">
-                            <input onChange={handleInputChange} type="text" name="title" className="form-control" maxLength="150" required/>
+                            <input onChange={handleInputChange} type="text" name="title" className="form-control" data-cy="test-series-title" maxLength="150" required/>
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_title_info')}</Tooltip>}>
@@ -146,7 +146,7 @@ const SeriesUploadForm = (props) => {
                         <label className="col-sm-2 col-form-label"></label>
                         <label className="col-sm-2 col-form-label">{translate('series_description')}</label>
                         <div className="col-sm-7">
-                            <textarea onChange={handleInputChange} type="text" name="description" className="form-control" maxLength="1500" required/>
+                            <textarea onChange={handleInputChange} type="text" name="description" className="form-control" data-cy="test-series-description" maxLength="1500" required/>
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
@@ -211,7 +211,7 @@ const SeriesUploadForm = (props) => {
                         <div className="col-sm-9">
                             <div className="form-check-inline">
                                 <label className="form-check-label">
-                                    <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" onChange={handleCheckBoxChange} />
+                                    <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" data-cy="test-series-public" onChange={handleCheckBoxChange} />
                                     {translate('public_series')}
                                 </label>
                             </div>
@@ -261,7 +261,7 @@ const SeriesUploadForm = (props) => {
                             </Alert>
                             : (<></>)
                         }
-                        <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
+                        <button type="submit" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
                     </div>
                 </div>
             </form>

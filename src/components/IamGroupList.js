@@ -23,7 +23,7 @@ const IAMGroupList = (props) => {
                         <span className="border">
                             <Badge variant='light'>
                                 <GoOrganization/>
-                                <span className="pl-2">
+                                <span className="pl-2 test-iam-group-right">
                                     { selection }
                                     { lastAdministrator !== true
                                         ?
