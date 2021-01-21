@@ -84,7 +84,7 @@ export const actionUploadVideo = (newVideo) => {
         try {
             let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
-                    'content-type': 'multipart/form-data'
+                    'content-type': 'multipart/form-data',
                 },
                 onUploadProgress: ProgressEvent => {
                     let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object

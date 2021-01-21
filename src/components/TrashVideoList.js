@@ -111,11 +111,11 @@ const TrashVideoList = (props) => {
                 {
                     <form onSubmit={returnVideoSubmit}>
                         <input type="hidden" name="identifier" value={row.identifier} />
-                        <select required className="return return-event-series-list" disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange}>
+                        <select required className="return return-event-series-list" disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} name="isPartOf" value={inputs.isPartOf}  onChange={handleInputChange} data-cy="test-return-event-series-list">
                             <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                             { drawSelectionValues() }
                         </select>
-                        <Button name="returnButton"  disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} className="btn btn-primary return return-button" type="submit">{translate('return_video')}</Button>
+                        <Button name="returnButton"  disabled={row.processing_state !== VIDEO_PROCESSING_SUCCEEDED} className="btn btn-primary return return-button" data-cy="test-return-event-button" type="submit">{translate('return_video')}</Button>
                     </form>
                 }
             </div>

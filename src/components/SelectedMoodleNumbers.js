@@ -17,9 +17,9 @@ const SelectedMoodleNumbers = (props) => {
                     <span className="border">
                         <Badge variant='light'>
                             <FaBookReader/>
-                            <span className="pl-2">
+                            <span className="pl-2" data-cy="test-selected-moodle-id" >
                                 { moodleNumber }
-                                <span className='close' onClick={() => removeNumber(moodleNumber)} aria-hidden='true'>&times;</span>
+                                <span className='close' data-cy="test-remove-selected-moodle-id" onClick={() => removeNumber(moodleNumber)} aria-hidden='true'>&times;</span>
                             </span>
                         </Badge>
                     </span>

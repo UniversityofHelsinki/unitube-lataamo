@@ -26,7 +26,7 @@ const PersonList = (props) => {
                         <span className="border">
                             <Badge variant='light'>
                                 <GoPerson />
-                                <span className="pl-2">
+                                <span className="pl-2 test-person-right">
                                     { selection }
                                     { lastAdministrator !== true
                                         ?
