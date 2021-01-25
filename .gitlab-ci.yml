@@ -185,5 +185,6 @@ dependency scanning:
     - npm audit --json | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json
   artifacts:
     when: always
-    reports:
-      dependency_scanning: gl-dependency-scanning.json
+    paths:
+      - gl-dependency-scanning.json
+    expire_in: 1 week
