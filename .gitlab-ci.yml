@@ -178,9 +178,12 @@ deploy_prod:
 
 dependency scanning:
   stage: audit_scan
+  tags:
+    - ohtu-build-2
   allow_failure: true
   script:
     - npm audit --json | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json
   artifacts:
+    when: always
     reports:
       dependency_scanning: gl-dependency-scanning.json
