@@ -180,7 +180,6 @@ dependency scanning:
   stage: audit_scan
   allow_failure: true
   script:
-    - npm ci
     - npm audit --json | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json
   artifacts:
     reports:
