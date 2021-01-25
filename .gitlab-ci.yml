@@ -7,11 +7,11 @@ cache:
     - node_modules
 
 stages:
-  - audit_scan
   - compile
   - test
   - build
   - deploy
+  - audit_scan
 
 # ------------------------------ compile stage ------------------------------
 
@@ -177,7 +177,6 @@ deploy_prod:
 
 
 dependency scanning:
-  image: node:12-alpine
   stage: audit_scan
   allow_failure: true
   script:
