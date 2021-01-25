@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { fetchSeries } from '../actions/seriesAction';
-import { actionUploadVideo } from '../actions/videosAction';
-import { FaSpinner } from 'react-icons/fa';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {fetchSeries} from '../actions/seriesAction';
+import {actionUploadVideo} from '../actions/videosAction';
+import {FaSpinner} from 'react-icons/fa';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage,
@@ -47,12 +47,13 @@ const VideoUploadForm = (props) => {
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
     const browseButtonStatus = () => submitButtonDisabled && selectedVideoFile;
 
-    const validateVideoFileLength = (selectedVideoFile) => {
+    const validateVideoFileLength = (selectedVideoFile, video) => {
         if (selectedVideoFile && selectedVideoFile.size > Constants.MAX_FILE_SIZE_LIMIT) {
             setValidationMessage('input_file_size_exceeded');
             return false;
-        } else if (selectedVideoFile && selectedVideoFile.size < Constants.MIN_FILE_SIZE_LIMIT) {
-            setValidationMessage('input_file_size_below_two_megabytes');
+        } else if (video && video.duration < Constants.MIN_DURATION_IN_SECONDS) {
+            setValidationMessage('video_duration_below_one_second');
+            return false;
         } else {
             return true;
         }
@@ -64,7 +65,6 @@ const VideoUploadForm = (props) => {
         setSubmitButtonDisabled(true);
         setOnProgressVisible(true);
         const response = await uploadVideo();
-        console.log(response);
         if (response && response.status) {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);
@@ -72,11 +72,27 @@ const VideoUploadForm = (props) => {
         setOnProgressVisible(false);
     };
 
-    const handleFileInputChange = (event) => {
+    const loadVideo = file => new Promise((resolve, reject) => {
+        let video = document.createElement('video');
+        video.preload = 'metadata';
+
+        video.onloadedmetadata = function () {
+            resolve(this);
+        }
+
+        video.onerror = function () {
+            setValidationMessage("invalid_video_format");
+        }
+
+        video.src = window.URL.createObjectURL(file);
+    });
+
+    const handleFileInputChange = async (event) => {
         event.persist();
         const videoFile = event.target.files[0];
         setValidationMessage(null);
-        if (validateVideoFileLength(videoFile)) {
+        const video = await loadVideo(videoFile);
+        if (video && validateVideoFileLength(videoFile, video)) {
             setVideoFile(videoFile);
             setSubmitButtonDisabled(false);
         } else {
