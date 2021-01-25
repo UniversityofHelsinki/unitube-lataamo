@@ -7,6 +7,7 @@ cache:
     - node_modules
 
 stages:
+  - audit_scan
   - compile
   - test
   - build
@@ -173,3 +174,15 @@ deploy_prod:
   before_script:
     - echo "====== Deploy to production server ========"
   extends: .deploy_script
+
+
+dependency scanning:
+  image: node:12-alpine
+  stage: audit_scan
+  allow_failure: true
+  script:
+    - npm ci
+    - npm audit --json | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json
+  artifacts:
+    reports:
+      dependency_scanning: gl-dependency-scanning.json
