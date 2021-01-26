@@ -9,8 +9,9 @@ cache:
 stages:
   - compile
   - build
-  - deploy
   - audit_scan
+  - test
+  - deploy
 
 # ------------------------------ compile stage ------------------------------
 
