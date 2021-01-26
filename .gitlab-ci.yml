@@ -184,12 +184,13 @@ dependency scanning:
   before_script:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
+    - npm install -g npm-outdated-html
   script:
-    - echo $(npm audit --parseable) > ${CI_PROJECT_DIR}/result.txt
     - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
-    - cat result.txt
+    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
     - echo "Send Slack Messages"
     - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File' -F channels=C01KV33GE90 -F filename=report.html -H 'Authorization: Bearer xoxb-188970553570-1675106266978-HQpK41sqAK5nKNtK8DFxTC44' https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Audit File' -F channels=C01KV33GE90 -F filename=report.html -H 'Authorization: Bearer xoxb-188970553570-1675106266978-HQpK41sqAK5nKNtK8DFxTC44' https://slack.com/api/files.upload"
 
 
 
