@@ -182,8 +182,7 @@ dependency scanning:
     - ohtu-build-2
   allow_failure: true
   script:
-    - npm install -g npm-audit-html
-    - npm audit --json | npm-audit-html --output report.html
     - echo "Send Slack Messages"
-    - "curl -F file=@report.html -F 'initial_comment=Lataamo Frontend Audit Log' -F channels=C01KV33GE90 -H 'Authorization: Bearer $TOKEN' https://slack.com/api/files.upload"
+    - "curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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"
+
 
