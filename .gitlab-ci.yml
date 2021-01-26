@@ -8,7 +8,6 @@ cache:
 
 stages:
   - compile
-  - test
   - build
   - deploy
   - audit_scan
