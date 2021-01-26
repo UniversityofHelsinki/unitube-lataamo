@@ -184,5 +184,6 @@ dependency scanning:
   script:
     - npm install -g npm-audit-html
     - npm audit --json | npm-audit-html --output report.html
+    - echo "Send Slack Messages"
     - "curl -F file=@report.html -F 'initial_comment=Lataamo Frontend Audit Log' -F channels=C01KV33GE90 -H 'Authorization: Bearer $TOKEN' https://slack.com/api/files.upload"
 
