@@ -189,8 +189,8 @@ dependency scanning:
     - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
     - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
     - echo "Send Slack Messages"
-    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File' -F channels=C01KV33GE90 -F filename=report.html -H 'Authorization: Bearer ${TOKEN}' https://slack.com/api/files.upload"
-    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File' -F channels=C01KV33GE90 -F filename=report.html -H 'Authorization: Bearer ${TOKEN}' https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File' -F channels=C01KV33GE90 -F filename=audit-report.html -H 'Authorization: Bearer ${TOKEN}' https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File' -F channels=C01KV33GE90 -F filename=outdated-report.html -H 'Authorization: Bearer ${TOKEN}' https://slack.com/api/files.upload"
 
 
 
