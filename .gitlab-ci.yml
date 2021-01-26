@@ -31,7 +31,7 @@ test:
     - npm test
   coverage: /All files\s*\|\s*([\d\.]+)/
     ### ToDo: selvitä ajaako Gitlab automaattisesti Jestiä CI-moodissa (ts. ei interaktiivisesti)
-    ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
+  ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
 
 # ------------------------------ build stage ------------------------------
 
@@ -182,9 +182,7 @@ dependency scanning:
     - ohtu-build-2
   allow_failure: true
   script:
-    - npm audit --json | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json
-  artifacts:
-    when: always
-    paths:
-      - gl-dependency-scanning.json
-    expire_in: 1 week
+    - npm install -g npm-audit-html
+    - npm audit --json | npm-audit-html --output report.html
+    - "curl -F file=@report.html -F 'initial_comment=Lataamo Frontend Audit Log' -F channels=C01KV33GE90 -H 'Authorization: Bearer $TOKEN' https://slack.com/api/files.upload"
+
