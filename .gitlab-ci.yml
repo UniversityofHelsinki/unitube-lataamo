@@ -183,7 +183,7 @@ dependency scanning:
   allow_failure: true
   before_script:
     - apk add --no-cache curl
-    - export AUDIT_RESULT =  `npm outdated`
+    - AUDIT_RESULT =  `npm outdated`
   script:
     - echo -e $AUDIT_RESULT > ${CI_PROJECT_DIR}/result.txt
     - echo "Send Slack Messages"
