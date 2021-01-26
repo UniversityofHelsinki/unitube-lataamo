@@ -180,12 +180,13 @@ dependency scanning:
   stage: audit_scan
   tags:
     - ohtu-build-2
+  variables:
+    AUDIT_RESULT: $(npm outdated)
   allow_failure: true
   before_script:
     - apk add --no-cache curl
   script:
-    - AUDIT_RESULT = $(npm outdated)
-    - echo -e AUDIT_RESULT > ${CI_PROJECT_DIR}/result.txt
+    - echo -e $AUDIT_RESULT > ${CI_PROJECT_DIR}/result.txt
     - echo "Send Slack Messages"
 #    - "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Hello, World!\"}' https://hooks.slack.com/services/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"
     - "curl -F file=@${CI_PROJECT_DIR}/result.txt -F 'initial_comment=Example file' -F channels=C01KV33GE90 -H 'Authorization: Bearer xoxb-188970553570-1675106266978-HQpK41sqAK5nKNtK8DFxTC44' https://slack.com/api/files.upload"
