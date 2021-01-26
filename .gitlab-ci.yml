@@ -185,10 +185,10 @@ dependency scanning:
     - apk add --no-cache curl
     - echo "Send Slack Messages"
     - "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Hello, World!\"}' https://hooks.slack.com/services/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"
-    - mkdir reports
-    - chmod 700 reports
-    - npm audit --parseable > /reports/report.txt
-    - "curl -F file=@/reports/report.txt -F 'initial_comment=Example file' -F channels=C01KV33GE90 -H 'Authorization: Bearer xoxb-188970553570-1675106266978-HQpK41sqAK5nKNtK8DFxTC44' https://slack.com/api/files.upload"
+    - mkdir ${CI_PROJECT_DIR}/reports
+    - chmod 700 ${CI_PROJECT_DIR}/reports
+    - npm audit --parseable > ${CI_PROJECT_DIR}/reports/report.txt
+    - "curl -F file=@${CI_PROJECT_DIR}/reports/report.txt -F 'initial_comment=Example file' -F channels=C01KV33GE90 -H 'Authorization: Bearer xoxb-188970553570-1675106266978-HQpK41sqAK5nKNtK8DFxTC44' https://slack.com/api/files.upload"
 
 
 
