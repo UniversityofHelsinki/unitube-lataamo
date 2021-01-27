@@ -140,6 +140,8 @@ deploy_dev:
     url: https://$LATAAMO_DEV
   only:
     - master
+  except:
+    - schedules
   variables:
     SERVER: $LATAAMO_DEV
   before_script:
@@ -181,6 +183,8 @@ dependency scanning:
   tags:
     - ohtu-build-2
   allow_failure: true
+  only:
+    - schedules
   before_script:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
