@@ -168,8 +168,8 @@ const translationsObject = {
         remove_webvtt_failed : 'Failed to delete subtitle file!',
         text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
         text_track_upload_help_link_text: 'Instructions for creating caption files on the Helpdesk web site',
-        upload_is_being_processed: '???upload_is_being_processed???',
-        upload_estimate_remaining_in_minutes: '???upload_estimate_remaining_in_minutes???'
+        upload_is_being_processed: 'The uploaded recording is being processed, please wait!',
+        upload_estimate_remaining_in_minutes: 'minute(s) remaining'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -340,8 +340,8 @@ const translationsObject = {
         remove_webvtt_failed : 'Tekstitystiedoston poisto epäonnistui!',
         text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
         text_track_upload_help_link_text: 'Ohjeita videon tekstittämiseen Helpdesk-sivustolla',
-        upload_is_being_processed: '???upload_is_being_processed???',
-        upload_estimate_remaining_in_minutes: '???upload_estimate_remaining_in_minutes???'
+        upload_is_being_processed: 'Ladattua tallennetta käsitellään, odota hetki!',
+        upload_estimate_remaining_in_minutes: 'minuutti(a) jäljellä'
     },
 
     sv: {
@@ -513,8 +513,8 @@ const translationsObject = {
         remove_webvtt_failed : 'Det gick inte att radera textningsfilen!',
         text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
         text_track_upload_help_link_text: 'Instruktioner för textning finns på Helpdesk-webbplatsen',
-        upload_is_being_processed: '???upload_is_being_processed???',
-        upload_estimate_remaining_in_minutes: '???upload_estimate_remaining_in_minutes???'
+        upload_is_being_processed: 'Inspelningen behandlas, vänta en stund!',
+        upload_estimate_remaining_in_minutes: 'minuter kvar'
     }
 };
 
