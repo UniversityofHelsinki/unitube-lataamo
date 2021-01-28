@@ -8,8 +8,9 @@ cache:
 
 stages:
   - compile
-  - test
   - build
+  - audit_scan
+  - test
   - deploy
 
 # ------------------------------ compile stage ------------------------------
@@ -29,8 +30,8 @@ test:
   script:
     - npm test
   coverage: /All files\s*\|\s*([\d\.]+)/
-    ### ToDo: selvitä ajaako Gitlab automaattisesti Jestiä CI-moodissa (ts. ei interaktiivisesti)
-    ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
+  ### ToDo: selvitä ajaako Gitlab automaattisesti Jestiä CI-moodissa (ts. ei interaktiivisesti)
+  ### vai pitäisikö asettaa käsin Jestille optio --ci (tai --watchAll=false), esim. npm test -- --ci
 
 # ------------------------------ build stage ------------------------------
 
@@ -139,6 +140,8 @@ deploy_dev:
     url: https://$LATAAMO_DEV
   only:
     - master
+  except:
+    - schedules
   variables:
     SERVER: $LATAAMO_DEV
   before_script:
@@ -173,3 +176,25 @@ deploy_prod:
   before_script:
     - echo "====== Deploy to production server ========"
   extends: .deploy_script
+
+
+dependency scanning:
+  stage: audit_scan
+  tags:
+    - ohtu-build-2
+  allow_failure: true
+  only:
+    - schedules
+  before_script:
+    - apk add --no-cache curl
+    - npm install -g npm-audit-html
+    - npm install -g npm-outdated-html
+  script:
+    - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
+    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
+    - echo "Send Slack Messages"
+    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File ' -F channels=C01KV33GE90 -F filename=audit-report.html -F filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File ' -F channels=C01KV33GE90 -F filename=outdated-report.html  filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+
+
+
