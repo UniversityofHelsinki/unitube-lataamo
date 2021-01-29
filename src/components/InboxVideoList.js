@@ -111,6 +111,11 @@ const InboxVideoList = (props) => {
      }, [disabledInputs, progressMessage, ]);
 
     useEffect( () => {
+        if (props.downloadPercentage > 0 && props.downloadPercentage < 100) {
+            let elements = document.getElementsByClassName('disable-enable-buttons');
+            let array = [ ...elements ];
+            array.map(element => element.setAttribute('disabled', 'disabled'));
+        }
     }, [props.downloadPercentage]);
 
     useEffect(() => {

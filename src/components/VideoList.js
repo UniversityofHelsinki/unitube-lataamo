@@ -89,6 +89,13 @@ const VideoList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedRowId, props.videos]);
 
+    useEffect( () => {
+        if (props.downloadPercentage > 0 && props.downloadPercentage < 100) {
+            let elements = document.getElementsByClassName('disable-enable-buttons');
+            let array = [ ...elements ];
+            array.map(element => element.setAttribute('disabled', 'disabled'));
+        }
+    }, [props.downloadPercentage]);
 
     useEffect(() => {
         props.onFetchEvents(true);
@@ -308,7 +315,8 @@ const mapStateToProps = state => ({
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,
-    apiError: state.sr.apiError
+    apiError: state.sr.apiError,
+    downloadPercentage : state.fdr.percentage
 });
 
 const mapDispatchToProps = dispatch => ({
