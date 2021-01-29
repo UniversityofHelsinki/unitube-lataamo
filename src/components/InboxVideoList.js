@@ -49,7 +49,7 @@ const InboxVideoList = (props) => {
         return url.substring(url.lastIndexOf('/') + 1);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         if (event) {
             event.persist();
             event.preventDefault();
@@ -60,7 +60,7 @@ const InboxVideoList = (props) => {
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
-                props.onDownloadProgress(data, fileName);
+                await props.onDownloadProgress(data, fileName);
                 elements = document.getElementsByClassName('disable-enable-buttons');
                 array = [ ...elements ];
                 array.map(element => element.removeAttribute('disabled'));
