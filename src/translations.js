@@ -171,7 +171,8 @@ const translationsObject = {
         upload_is_being_processed: 'The uploaded recording is being processed, please wait!',
         upload_estimate_remaining_in_minutes: 'minute(s) remaining',
         download_is_in_progress: '???download_is_in_progress???',
-        download_estimate_remaining_in_minutes: "minute(s) remaining"
+        download_estimate_remaining_in_minutes: "minute(s) remaining",
+        download_vtt_file: "???download_vtt_file???"
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -345,7 +346,8 @@ const translationsObject = {
         upload_is_being_processed: 'Ladattua tallennetta käsitellään, odota hetki!',
         upload_estimate_remaining_in_minutes: 'minuutti(a) jäljellä',
         download_is_in_progress: '???download_is_in_progress???',
-        download_estimate_remaining_in_minutes: "minuutti(a) jäljellä"
+        download_estimate_remaining_in_minutes: "minuutti(a) jäljellä",
+        download_vtt_file: "???download_vtt_file???"
     },
 
     sv: {
@@ -521,6 +523,7 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minuter kvar',
         download_is_in_progress: '???download_is_in_progress???',
         download_estimate_remaining_in_minutes: 'minuter kvar',
+        download_vtt_file: "???download_vtt_file???"
     }
 };
 

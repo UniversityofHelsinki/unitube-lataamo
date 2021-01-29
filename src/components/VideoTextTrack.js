@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {
     actionDeleteVideoTextFile,
     actionUploadVideoTextFile,
     setEventProcessingState,
     updateEventList
 } from '../actions/eventsAction';
-import {downloadFile, downloadVideo} from "../actions/videosAction";
+import {downloadFile} from "../actions/videosAction";
 import constants from '../utils/constants';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import {FiDownload} from "react-icons/fi";
 
 const SweetAlert = withReactContent(Swal);
 
@@ -125,7 +126,7 @@ const VideoTextTrackForm = (props) => {
         event.preventDefault();
         try {
             const fileName = getFileName(props.videoFiles[0].vttFile.url);
-            await props.onDownloadProgress(props.event.identifier, fileName);
+            await downloadFile(props.event.identifier, fileName);
         }
         catch (err) {
             setErrorMessage(translate('download_webvtt_failed'));
@@ -191,7 +192,7 @@ const VideoTextTrackForm = (props) => {
                     <div className="col-sm-12">
                         <button  type="button" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
-                        <button type="submit" onClick={downloadVTTFile}>{translate('download_vtt_file')}</button>
+                        <button type="submit"  disabled={!videoTextFile || disabledInputs} className="btn btn-primary float-right button-position mr-1" onClick={downloadVTTFile}><FiDownload></FiDownload></button>
                     </div>
                 </div>
             </form>
@@ -210,8 +211,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetEventProcessingState: (data) => dispatch(setEventProcessingState(data)),
-    onEventDetails: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
-    onDownloadProgress: (data, filename) => dispatch(downloadFile(data, filename))
+    onEventDetails: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoTextTrackForm);
