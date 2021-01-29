@@ -26,6 +26,10 @@ const FileDownloadProgressbar = (props) => {
         color: 'white',
         fontWeight: 'bold'
     }
+    const translations =  props.i18n.translations[props.i18n.locale];
+    const translate = (key) => {
+        return translations ? translations[key] : '';
+    };
 
     useEffect(() => {
         props.onRemoveProgressBar(); // reset progress when component loads
@@ -38,13 +42,14 @@ const FileDownloadProgressbar = (props) => {
                     <span style={labelStyles}>{`${props.percentage}%`}</span>
                 </div>
             </div>
-            <p hidden={props.percentage === 0 || props.percentage === 100}>Tallenteen lataus käynnissä</p>
+            <p hidden={props.percentage === 0 || props.percentage === 100}>{ translate('download_is_in_progress') } </p>
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    percentage : state.fdr.percentage
+    percentage : state.fdr.percentage,
+    i18n: state.i18n
 });
 
 const mapDispatchToProps = dispatch => ({
