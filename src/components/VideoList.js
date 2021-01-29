@@ -18,6 +18,7 @@ import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSpinner, FaSearch } from 'react-icons/fa';
 import constants from '../utils/constants';
+import FileDownloadProgressBar from "./FileDownloadProgressBar";
 
 const { SearchBar } = Search;
 
@@ -48,7 +49,7 @@ const VideoList = (props) => {
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
-                await downloadVideo(data, fileName);
+                await props.onDownloadProgress(data, fileName);
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
@@ -256,6 +257,7 @@ const VideoList = (props) => {
             </div>
             { !errorMessage ?
                 <div className="table-responsive">
+                    <FileDownloadProgressBar />
                     {videoDownloadErrorMessage ?
                         <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
@@ -321,7 +323,8 @@ const mapDispatchToProps = dispatch => ({
     onDeselectRow : () => {
         dispatch(deselectRow());
         dispatch(deselectEvent());
-    }
+    },
+    onDownloadProgress: (data, filename) => dispatch(downloadVideo(data, filename))
 });
 
 
