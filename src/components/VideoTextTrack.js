@@ -7,6 +7,7 @@ import {
     setEventProcessingState,
     updateEventList
 } from '../actions/eventsAction';
+import {downloadFile, downloadVideo} from "../actions/videosAction";
 import constants from '../utils/constants';
 
 import Swal from 'sweetalert2';
@@ -120,6 +121,17 @@ const VideoTextTrackForm = (props) => {
         }
     };
 
+    const downloadVTTFile = async(event) => {
+        event.preventDefault();
+        try {
+            const fileName = getFileName(props.videoFiles[0].vttFile.url);
+            await props.onDownloadProgress(props.event.identifier, fileName);
+        }
+        catch (err) {
+            setErrorMessage(translate('download_webvtt_failed'));
+        }
+    };
+
     useEffect(() => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
@@ -179,6 +191,7 @@ const VideoTextTrackForm = (props) => {
                     <div className="col-sm-12">
                         <button  type="button" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
+                        <button type="submit" onClick={downloadVTTFile}>{translate('download_vtt_file')}</button>
                     </div>
                 </div>
             </form>
@@ -197,7 +210,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetEventProcessingState: (data) => dispatch(setEventProcessingState(data)),
-    onEventDetails: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos))
+    onEventDetails: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
+    onDownloadProgress: (data, filename) => dispatch(downloadFile(data, filename))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoTextTrackForm);

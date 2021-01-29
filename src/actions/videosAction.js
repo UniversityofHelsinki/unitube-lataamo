@@ -20,8 +20,56 @@ const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
 const MONITOR_JOB_PATH = '/api/monitor/';
 const DOWNLOAD_PATH = '/api/download';
+const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
+
+export const downloadFile = (eventId, fileName) => {
+    let timeStarted = new Date();
+
+    return async (dispatch) => {
+        try {
+
+            let response = await fetch(`${VIDEO_SERVER_API}${VTT_DOWNLOAD_PATH}${eventId}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } });
+
+            if (response.status === 200) {
+                const reader = response.body.getReader();
+
+                // Step 2: get total length
+                const contentLength = +response.headers.get('Content-Length');
+
+                // Step 3: read the data
+                let receivedLength = 0; // received that many bytes at the moment
+                let chunks = []; // array of received binary chunks (comprises the body)
+
+
+                while (true) {
+                    const {done, value} = await reader.read();
+                    if (done) {
+                        break;
+                    }
+                    chunks.push(value);
+                    receivedLength += value.length;
+                    let actualPercentage = Math.round((receivedLength * 100) / contentLength);
+                    let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
+                    let uploadSpeed = receivedLength  / (timeElapsed/1000); // Upload speed in second
+                    let timeRemaining = Math.round((contentLength - receivedLength) / uploadSpeed / 60); // time remaining in minutes
+                    dispatch(fileDownloadProgressAction(actualPercentage));
+                    dispatch(fileDownloadTimeRemainingProgressAction(timeRemaining));
+                }
+
+                let blob = new Blob(chunks);
+
+                fileDownload(blob, fileName);
+                return response;
+            } else {
+                throw new Error(response.status);
+            }
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+}
 
 export const downloadVideo = (data, fileName) => {
     let timeStarted = new Date();
