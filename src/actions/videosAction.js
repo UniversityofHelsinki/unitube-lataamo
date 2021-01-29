@@ -3,8 +3,13 @@ import axios from 'axios';
 import {
     fileUploadFailedActionMessage,
     fileUploadProgressAction,
-    fileUploadSuccessActionMessage, timeRemainingProgressAction
+    fileUploadSuccessActionMessage,
+    timeRemainingProgressAction
 } from './fileUploadAction';
+
+import {
+    fileDownloadProgressAction
+} from './fileDownloadAction';
 
 import fileDownload from 'js-file-download';
 
@@ -17,19 +22,44 @@ const DOWNLOAD_PATH = '/api/download';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
-export const downloadVideo = async (data, fileName) => {
-    try {
-        let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
-        const blob = await response.blob();
+export const downloadVideo = (data, fileName) => {
+    return async (dispatch) => {
+        try {
 
-        if (response.status === 200) {
-            fileDownload(blob, fileName);
-            return response;
-        } else {
-            throw new Error(response.status);
+            let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
+
+            if (response.status === 200) {
+                const reader = response.body.getReader();
+
+                // Step 2: get total length
+                const contentLength = +response.headers.get('Content-Length');
+
+                // Step 3: read the data
+                let receivedLength = 0; // received that many bytes at the moment
+                let chunks = []; // array of received binary chunks (comprises the body)
+
+
+                while (true) {
+                    const {done, value} = await reader.read();
+                    if (done) {
+                        break;
+                    }
+                    chunks.push(value);
+                    receivedLength += value.length;
+                    let actualPercentage = Math.round((receivedLength * 100) / contentLength);
+                    dispatch(fileDownloadProgressAction(actualPercentage));
+                }
+
+                let blob = new Blob(chunks);
+
+                fileDownload(blob, fileName);
+                return response;
+            } else {
+                throw new Error(response.status);
+            }
+        } catch (error) {
+            throw new Error(error);
         }
-    } catch (error) {
-        throw new Error(error);
     }
 };
 

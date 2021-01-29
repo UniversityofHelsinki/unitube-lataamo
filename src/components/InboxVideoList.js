@@ -26,6 +26,7 @@ import routeAction from '../actions/routeAction';
 import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
+import FileDownloadProgressBar from "./FileDownloadProgressBar";
 
 const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
@@ -48,7 +49,7 @@ const InboxVideoList = (props) => {
         return url.substring(url.lastIndexOf('/') + 1);
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         if (event) {
             event.persist();
             event.preventDefault();
@@ -59,14 +60,14 @@ const InboxVideoList = (props) => {
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
-                await downloadVideo(data, fileName);
+                props.onDownloadProgress(data, fileName);
+                elements = document.getElementsByClassName('disable-enable-buttons');
+                array = [ ...elements ];
+                array.map(element => element.removeAttribute('disabled'));
+                event.target.downloadIndicator.setAttribute('hidden', true);
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
-            elements = document.getElementsByClassName('disable-enable-buttons');
-            array = [ ...elements ];
-            array.map(element => element.removeAttribute('disabled'));
-            event.target.downloadIndicator.setAttribute('hidden', true);
         }
     };
 
@@ -107,7 +108,10 @@ const InboxVideoList = (props) => {
     };
 
      useEffect( () => {
-     }, [disabledInputs, progressMessage]);
+     }, [disabledInputs, progressMessage, ]);
+
+    useEffect( () => {
+    }, [props.downloadPercentage]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -301,7 +305,7 @@ const InboxVideoList = (props) => {
             }
             { !errorMessage ?
                 <div className="table-responsive">
-
+                    <FileDownloadProgressBar />
                     {videoDownloadErrorMessage ?
                         <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
@@ -350,7 +354,8 @@ const mapStateToProps = state => ({
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,
-    apiError: state.sr.apiError
+    apiError: state.sr.apiError,
+    downloadPercentage : state.fdr.percentage
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -366,7 +371,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(deselectRow());
         dispatch(deselectEvent());
     },
-    onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos))
+    onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
+    onDownloadProgress: (data, filename) => dispatch(downloadVideo(data, filename))
 });
 
 
