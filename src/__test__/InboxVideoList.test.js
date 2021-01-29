@@ -117,7 +117,8 @@ describe('<InboxVideoList />', () => {
         i18n: {
             translations: translations,
             locale: 'fi'
-        }
+        },
+        fdr: {percentage : 0}
     };
     let store;
     let wrapper;
@@ -137,8 +138,9 @@ describe('<InboxVideoList />', () => {
     });
 
     it('initially should show loading bar', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(3);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).not.toBe(null);
+        expect(await getAction(store, 'DOWNLOAD_PROGRESS')).toEqual({"payload": 0, "type": "DOWNLOAD_PROGRESS"});
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).toEqual({
             'loading': true,
             'type': 'GET_EVENTS_REQUEST',
@@ -146,7 +148,7 @@ describe('<InboxVideoList />', () => {
     });
 
     it('Should pass actions updated values ', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(3);
         expect(await getAction(store, 'GET_EVENTS_REQUEST')).not.toBe(null);
         store.dispatch(apiGetEventsSuccessCall(videos));
         expect(await getAction(store, 'SUCCESS_API_GET_EVENTS')).not.toBe(null);
@@ -158,7 +160,7 @@ describe('<InboxVideoList />', () => {
     });
 
     it('Should return error values ', async () => {
-        expect(store.getActions().length).toBe(2);
+        expect(store.getActions().length).toBe(3);
         store.dispatch(apiFailureCall(msg));
         expect(await getAction(store, 'FAILURE_API_CALL')).not.toBe(null);
         expect(await getAction(store, 'FAILURE_API_CALL')).toEqual({
