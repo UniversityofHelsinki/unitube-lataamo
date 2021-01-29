@@ -1,5 +1,6 @@
 const initialState = {
-    percentage: 0
+    percentage: 0,
+    downloadRemainingTime: null
 };
 
 const fileDownloadReducer = (state = initialState, action) => {
@@ -9,6 +10,11 @@ const fileDownloadReducer = (state = initialState, action) => {
                 ...state,
                 percentage: action.payload
             };
+        case 'DOWNLOAD_REMAINING_TIME':
+            return {
+                ...state,
+                downloadRemainingTime: action.payload
+            }
         default:
             return state;
     }

@@ -8,7 +8,8 @@ import {
 } from './fileUploadAction';
 
 import {
-    fileDownloadProgressAction
+    fileDownloadProgressAction,
+    fileDownloadTimeRemainingProgressAction
 } from './fileDownloadAction';
 
 import fileDownload from 'js-file-download';
@@ -23,6 +24,7 @@ const DOWNLOAD_PATH = '/api/download';
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
 export const downloadVideo = (data, fileName) => {
+    let timeStarted = new Date();
     return async (dispatch) => {
         try {
 
@@ -47,7 +49,11 @@ export const downloadVideo = (data, fileName) => {
                     chunks.push(value);
                     receivedLength += value.length;
                     let actualPercentage = Math.round((receivedLength * 100) / contentLength);
+                    let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
+                    let uploadSpeed = receivedLength  / (timeElapsed/1000); // Upload speed in second
+                    let timeRemaining = Math.round((contentLength - receivedLength) / uploadSpeed / 60); // time remaining in minutes
                     dispatch(fileDownloadProgressAction(actualPercentage));
+                    dispatch(fileDownloadTimeRemainingProgressAction(timeRemaining));
                 }
 
                 let blob = new Blob(chunks);

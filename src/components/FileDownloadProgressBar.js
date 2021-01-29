@@ -42,13 +42,14 @@ const FileDownloadProgressbar = (props) => {
                     <span style={labelStyles}>{`${props.percentage}%`}</span>
                 </div>
             </div>
-            <p hidden={props.percentage === 0 || props.percentage === 100}>{ translate('download_is_in_progress') } </p>
+            <p hidden={props.percentage === 0 || props.percentage === 100}>{ translate('download_is_in_progress') } {props.downloadRemainingTime} { translate('download_estimate_remaining_in_minutes') } </p>
         </div>
     );
 };
 
 const mapStateToProps = state => ({
     percentage : state.fdr.percentage,
+    downloadRemainingTime : state.fdr.downloadRemainingTime,
     i18n: state.i18n
 });
 
