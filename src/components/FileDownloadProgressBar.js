@@ -15,7 +15,8 @@ const FileDownloadProgressbar = (props) => {
     const fillerStyles = {
         height: '100%',
         width: `${props.percentage}%`,
-        backgroundColor: '#6a1b9a',
+        backgroundColor: '#0da1d4',
+        backgroundImage: 'linear-gradient(90deg, #0da1d4 0%, #1dd07e 100%)',
         borderRadius: 'inherit',
         textAlign: 'right'
     }
@@ -37,6 +38,7 @@ const FileDownloadProgressbar = (props) => {
                     <span style={labelStyles}>{`${props.percentage}%`}</span>
                 </div>
             </div>
+            <p hidden={props.percentage === 0 || props.percentage === 100}>Tallenteen lataus käynnissä</p>
         </div>
     );
 };
