@@ -7,7 +7,7 @@ import {
     timeRemainingProgressAction
 } from './fileUploadAction';
 
-import {fileDownloadProgressAction, fileDownloadTimeRemainingProgressAction} from './fileDownloadAction';
+import { fileDownloadProgressAction, fileDownloadTimeRemainingProgressAction } from './fileDownloadAction';
 
 import fileDownload from 'js-file-download';
 
@@ -28,22 +28,13 @@ export const downloadFile = async (eventId, fileName) => {
 
         if (response.status === 200) {
             const reader = response.body.getReader();
-
-            // Step 2: get total length
-            const contentLength = +response.headers.get('Content-Length');
-
-            // Step 3: read the data
-            let receivedLength = 0; // received that many bytes at the moment
             let chunks = []; // array of received binary chunks (comprises the body)
-
-
             while (true) {
-                const {done, value} = await reader.read();
+                const { done, value } = await reader.read();
                 if (done) {
                     break;
                 }
                 chunks.push(value);
-                receivedLength += value.length;
             }
 
             let blob = new Blob(chunks);
@@ -56,7 +47,7 @@ export const downloadFile = async (eventId, fileName) => {
     } catch (error) {
         throw new Error(error);
     }
-}
+};
 
 export const downloadVideo = (data, fileName) => {
     let timeStarted = new Date();
@@ -77,7 +68,7 @@ export const downloadVideo = (data, fileName) => {
 
 
                 while (true) {
-                    const {done, value} = await reader.read();
+                    const { done, value } = await reader.read();
                     if (done) {
                         break;
                     }
@@ -101,7 +92,7 @@ export const downloadVideo = (data, fileName) => {
         } catch (error) {
             throw new Error(error);
         }
-    }
+    };
 };
 
 
