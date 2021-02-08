@@ -31,6 +31,7 @@ const SerieDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.serie);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [copiedMessage, setCopiedMessage] = useState(null);
     const [hovered, setHovered] = useState(false);
 
     const toggleHover = () => {
@@ -99,6 +100,7 @@ const SerieDetailsForm = (props) => {
         setInputs(props.serie);
         setSuccessMessage(null);
         setErrorMessage(null);
+        setCopiedMessage(null);
     }, [props.serie, props.user.eppn]);
 
     const generateAclList = (updateSeries, moodleNumbers) => {
@@ -170,7 +172,7 @@ const SerieDetailsForm = (props) => {
         seriesId.setSelectionRange(0,99999);
         document.execCommand('copy');
         seriesId.remove();
-        setSuccessMessage(translate('copied_to_clipboard'));
+        setCopiedMessage(translate('copied_to_clipboard'));
     };
 
     return (
@@ -187,14 +189,25 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
                             <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
-                            <div className="col-sm-3">
+                            <div className="col-sm-1">
                                 <IconContext.Provider value={{ size: '1.5em' }}>
                                     <div>
                                         <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                     </div>
                                 </IconContext.Provider>
                             </div>
+                            <div className="col-sm-4">
+                            { copiedMessage !== null ?
+                                <Alert variant="success" onClose={ () => setCopiedMessage(null) } dismissible>
+                                    <p>
+                                        { copiedMessage }
+                                    </p>
+                                </Alert>
+                                : (<></>)
+                            }
+                            </div>
                         </div>
+
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
