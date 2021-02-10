@@ -91,17 +91,19 @@ const VideoUploadForm = (props) => {
         event.persist();
         const videoFile = event.target.files[0];
         setValidationMessage(null);
-        const video = await loadVideo(videoFile);
-        if (video && validateVideoFileLength(videoFile, video)) {
-            setVideoFile(videoFile);
-            setSubmitButtonDisabled(false);
-        } else {
-            clearVideoFileSelection();
+        if(videoFile){
+            const video = await loadVideo(videoFile);
+            if (video && validateVideoFileLength(videoFile, video)) {
+                setVideoFile(videoFile);
+                setSubmitButtonDisabled(false);
+            } else {
+                clearVideoFileSelection();
+            }
         }
     };
 
     const clearVideoFileSelection = () => {
-        var element = document.getElementById('upload_video_form');
+        let element = document.getElementById('upload_video_form');
         if (element !== null && element.value === '') {
             document.getElementById('upload_video_form').reset();
         }
