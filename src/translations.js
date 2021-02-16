@@ -169,7 +169,9 @@ const translationsObject = {
         text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
         text_track_upload_help_link_text: 'Instructions for creating caption files on the Helpdesk web site',
         upload_is_being_processed: 'The uploaded recording is being processed, please wait!',
-        upload_estimate_remaining_in_minutes: 'minute(s) remaining'
+        upload_estimate_remaining_in_minutes: 'minute(s) remaining',
+        video_duration_below_one_second: '???video_duration_below_one_second???',
+        invalid_video_format: '???invalid_video_format???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -341,7 +343,9 @@ const translationsObject = {
         text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
         text_track_upload_help_link_text: 'Ohjeita videon tekstittämiseen Helpdesk-sivustolla',
         upload_is_being_processed: 'Ladattua tallennetta käsitellään, odota hetki!',
-        upload_estimate_remaining_in_minutes: 'minuutti(a) jäljellä'
+        upload_estimate_remaining_in_minutes: 'minuutti(a) jäljellä',
+        video_duration_below_one_second: '???video_duration_below_one_second???',
+        invalid_video_format: '???invalid_video_format???'
     },
 
     sv: {
@@ -514,7 +518,9 @@ const translationsObject = {
         text_track_upload_help_link:'https://helpdesk.it.helsinki.fi/help/11070',
         text_track_upload_help_link_text: 'Instruktioner för textning finns på Helpdesk-webbplatsen',
         upload_is_being_processed: 'Inspelningen behandlas, vänta en stund!',
-        upload_estimate_remaining_in_minutes: 'minuter kvar'
+        upload_estimate_remaining_in_minutes: 'minuter kvar',
+        video_duration_below_one_second: '???video_duration_below_one_second???',
+        invalid_video_format: '???invalid_video_format???'
     }
 };
 
