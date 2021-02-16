@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {fetchSeries} from '../actions/seriesAction';
-import {actionUploadVideo} from '../actions/videosAction';
-import {FaSpinner} from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { fetchSeries } from '../actions/seriesAction';
+import { actionUploadVideo } from '../actions/videosAction';
+import { FaSpinner } from 'react-icons/fa';
 import {
     actionEmptyFileUploadProgressErrorMessage,
     actionEmptyFileUploadProgressSuccessMessage,
@@ -78,11 +78,11 @@ const VideoUploadForm = (props) => {
 
         video.onloadedmetadata = function () {
             resolve(this);
-        }
+        };
 
         video.onerror = function () {
-            setValidationMessage("invalid_video_format");
-        }
+            setValidationMessage('invalid_video_format');
+        };
 
         video.src = window.URL.createObjectURL(file);
     });
