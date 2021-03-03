@@ -78,13 +78,14 @@ export const downloadVideo = (data, fileName) => {
                     let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
                     let uploadSpeed = receivedLength  / (timeElapsed/1000); // Upload speed in second
                     let timeRemaining = Math.round((contentLength - receivedLength) / uploadSpeed / 60); // time remaining in minutes
-                    dispatch(fileDownloadProgressAction(actualPercentage));
+                    dispatch(fileDownloadProgressAction(actualPercentage > MAXIMUM_UPLOAD_PERCENTAGE ? MAXIMUM_UPLOAD_PERCENTAGE : actualPercentage));
                     dispatch(fileDownloadTimeRemainingProgressAction(timeRemaining));
                 }
 
                 let blob = new Blob(chunks);
 
                 fileDownload(blob, fileName);
+                dispatch(fileDownloadProgressAction(100));
                 return response;
             } else {
                 throw new Error(response.status);
