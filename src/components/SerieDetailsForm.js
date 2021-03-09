@@ -31,6 +31,7 @@ const SerieDetailsForm = (props) => {
     const [inputs, setInputs] = useState(props.serie);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [copiedMessage, setCopiedMessage] = useState(null);
     const [hovered, setHovered] = useState(false);
 
     const toggleHover = () => {
@@ -99,6 +100,7 @@ const SerieDetailsForm = (props) => {
         setInputs(props.serie);
         setSuccessMessage(null);
         setErrorMessage(null);
+        setCopiedMessage(null);
     }, [props.serie, props.user.eppn]);
 
     const generateAclList = (updateSeries, moodleNumbers) => {
@@ -170,7 +172,7 @@ const SerieDetailsForm = (props) => {
         seriesId.setSelectionRange(0,99999);
         document.execCommand('copy');
         seriesId.remove();
-        setSuccessMessage(translate('copied_to_clipboard'));
+        setCopiedMessage(translate('copied_to_clipboard'));
     };
 
     return (
@@ -187,19 +189,30 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
                             <label id="seriesId" className="col-sm-3 col-form-label">{props.serie.identifier}</label>
-                            <div className="col-sm-3">
+                            <div className="col-sm-1">
                                 <IconContext.Provider value={{ size: '1.5em' }}>
                                     <div>
                                         <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                     </div>
                                 </IconContext.Provider>
                             </div>
+                            <div className="col-sm-4">
+                            { copiedMessage !== null ?
+                                <Alert variant="success" onClose={ () => setCopiedMessage(null) } dismissible>
+                                    <p>
+                                        { copiedMessage }
+                                    </p>
+                                </Alert>
+                                : (<></>)
+                            }
+                            </div>
                         </div>
+
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
-                                <input type="text" name="title" className="form-control" value={ inputs.title }
+                                <input type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
                                     onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
@@ -215,7 +228,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
-                                <textarea name="description" className="form-control" value={ inputs.description }
+                                <textarea name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
                                     onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
@@ -229,145 +242,145 @@ const SerieDetailsForm = (props) => {
                         </div>
                     </div>
 
-                        <div className="series-bg">
-                            <div className="form-group row">
-                                <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
-                                <div className="col-sm-1 info-box-margin">
-                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
-                                        <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                        </span>
-                                    </OverlayTrigger>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-4 col-form-label">{translate('add_person')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <div className="col-sm-9">
-                                    <PersonListAutoSuggest/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <div className="col-sm-7">
-                                    <PersonList/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <div className="col-sm-9">
-                                    <IAMGroupAutoSuggest/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <div className="col-sm-7">
-                                    <IAMGroupList/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="series-bg">
-                            <div className="form-group row">
-                                <label className="series-title col-sm-2 col-form-label">{translate('series_visibility_title')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
-                                <div className="col-sm-9">
-                                    <div className="form-check-inline">
-                                        <label className="form-check-label">
-                                            <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
-                                            {translate('public_series')}
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="col-sm-1">
-                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
-                                        <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                        </span>
-                                    </OverlayTrigger>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <div className="col-sm-9">
-                                    <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
-                                    <button type="submit" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
-                                </div>
-                                <div className="col-sm-1">
-                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
-                                        <span className="d-inline-block">
-                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                        </span>
-                                    </OverlayTrigger>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label"></label>
-                                <div className="col-sm-7">
-                                    <SelectedMoodleNumbers/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="series-bg">
-                            <div className="form-group row">
-                                <label className="series-title col-sm-11 col-form-label">{translate('series_included_videos')}</label>
-                            </div>
-                            <div className="series-bg">
-
-                                <div className="form-group row">
-                                    <div className="col-sm-12 video-list">
-                                        <VideosInSeries />
-                                    </div>
-                                </div>
+                    <div className="series-bg">
+                        <div className="form-group row">
+                            <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
+                            <div className="col-sm-1 info-box-margin">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                    </span>
+                                </OverlayTrigger>
                             </div>
                         </div>
                         <div className="form-group row">
-                            <div className="col-sm-12">
-                                {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
-                                { successMessage !== null ?
-                                    <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
-                                        <p>
-                                            { successMessage }
-                                        </p>
-                                    </Alert>
-                                    : (<></>)
-                                }
-                                { errorMessage !== null ?
-                                    <Alert variant="danger" onClose={ () => setErrorMessage(null) } dismissible>
-                                        <p>
-                                            { errorMessage }
-                                        </p>
-                                    </Alert>
-                                    : (<></>)
-                                }
-                                <button type="submit" className="btn btn-primary button-position">{translate('save')}</button>
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label className="col-sm-4 col-form-label">{translate('add_person')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <div className="col-sm-9">
+                                <PersonListAutoSuggest/>
                             </div>
                         </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <div className="col-sm-7">
+                                <PersonList/>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <div className="col-sm-9">
+                                <IAMGroupAutoSuggest/>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label className="col-sm-2 col-form-label">{translate('added_iam_groups')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <div className="col-sm-7">
+                                <IAMGroupList/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="series-bg">
+                        <div className="form-group row">
+                            <label className="series-title col-sm-2 col-form-label">{translate('series_visibility_title')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <div className="col-sm-9">
+                                <div className="form-check-inline">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input" data-cy="test-series-published-checkbox" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
+                                        {translate('public_series')}
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="col-sm-1">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <div className="col-sm-9">
+                                <input size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
+                                <button type="submit" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
+                            </div>
+                            <div className="col-sm-1">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_moodle_visibility_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <label className="col-sm-2 col-form-label">{translate('added_moodle_courses')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label"></label>
+                            <div className="col-sm-7">
+                                <SelectedMoodleNumbers/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="series-bg">
+                        <div className="form-group row">
+                            <label className="series-title col-sm-11 col-form-label">{translate('series_included_videos')}</label>
+                        </div>
+                        <div className="series-bg">
+
+                            <div className="form-group row">
+                                <div className="col-sm-12 video-list" data-cy="test-series-video-list">
+                                    <VideosInSeries />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <div className="col-sm-12">
+                            {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
+                            { successMessage !== null ?
+                                <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
+                                    <p>
+                                        { successMessage }
+                                    </p>
+                                </Alert>
+                                : (<></>)
+                            }
+                            { errorMessage !== null ?
+                                <Alert variant="danger" onClose={ () => setErrorMessage(null) } dismissible>
+                                    <p>
+                                        { errorMessage }
+                                    </p>
+                                </Alert>
+                                : (<></>)
+                            }
+                            <button type="submit" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
+                        </div>
+                    </div>
                 </form>
                 : (
                     <div></div>

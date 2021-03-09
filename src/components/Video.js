@@ -35,7 +35,7 @@ const Video = (props) => {
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
                                     ?
-                                 <video controls src={video.url}>
+                                    <video controls src={video.url}>
                                         {
                                             video.vttFile && video.vttFile.track ?
                                                 <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles" srcLang="fi" label="Suomi" default/>
@@ -56,7 +56,7 @@ const Video = (props) => {
                             <div className="form-group row">
                                 {translate('video_duration')}: {video.duration}
                             </div>
-                            <div className="form-group row">
+                            <div className="form-group row" data-cy="test-video-text-track">
                                 {translate('added_vtt_file')} : {video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt' ? getFileName(video.vttFile.url)  : ''}
                             </div>
                         </div>

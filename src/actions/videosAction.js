@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
     fileUploadFailedActionMessage,
     fileUploadProgressAction,
-    fileUploadSuccessActionMessage
+    fileUploadSuccessActionMessage, timeRemainingProgressAction
 } from './fileUploadAction';
 
 import fileDownload from 'js-file-download';
@@ -13,8 +13,9 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
 const MONITOR_JOB_PATH = '/api/monitor/';
-
 const DOWNLOAD_PATH = '/api/download';
+
+const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
 export const downloadVideo = async (data, fileName) => {
     try {
@@ -55,6 +56,7 @@ export const fetchVideoUrl = (row) => {
 };
 
 export const actionUploadVideo = (newVideo) => {
+    let timeStarted = new Date();
     return async (dispatch) => {
         initVideoUploadProcessInformation(dispatch);
         const extracted = async (response, jobId) => {
@@ -82,10 +84,15 @@ export const actionUploadVideo = (newVideo) => {
         try {
             let response = await axios.post(`${VIDEO_SERVER_API}${USER_VIDEOS_PATH}`, newVideo, {
                 headers: {
-                    'content-type': 'multipart/form-data'
+                    'content-type': 'multipart/form-data',
                 },
                 onUploadProgress: ProgressEvent => {
-                    dispatch(fileUploadProgressAction(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total-20)));
+                    let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
+                    let uploadSpeed = ProgressEvent.loaded  / (timeElapsed/1000); // Upload speed in second
+                    let timeRemaining = (ProgressEvent.total - ProgressEvent.loaded) / uploadSpeed / 60; // time remaining in minutes
+                    let actualPercentage = Math.ceil((ProgressEvent.loaded * 100) / ProgressEvent.total);
+                    dispatch(fileUploadProgressAction(actualPercentage > MAXIMUM_UPLOAD_PERCENTAGE ? MAXIMUM_UPLOAD_PERCENTAGE : actualPercentage));
+                    dispatch(timeRemainingProgressAction(timeRemaining.toFixed(0)));
                 }
             });
 
@@ -111,6 +118,7 @@ const initVideoUploadProcessInformation = (dispatch) => {
     dispatch(fileUploadSuccessActionMessage(null));
     dispatch(fileUploadFailedActionMessage(null));
     dispatch(fileUploadProgressAction(0));
+    dispatch(timeRemainingProgressAction(0));
 };
 
 export const apiGetVideoSuccessCall = (data, selectedRowId) => ({

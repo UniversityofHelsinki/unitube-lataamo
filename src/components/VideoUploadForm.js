@@ -47,12 +47,13 @@ const VideoUploadForm = (props) => {
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
     const browseButtonStatus = () => submitButtonDisabled && selectedVideoFile;
 
-    const validateVideoFileLength = (selectedVideoFile) => {
+    const validateVideoFileLength = (selectedVideoFile, video) => {
         if (selectedVideoFile && selectedVideoFile.size > Constants.MAX_FILE_SIZE_LIMIT) {
             setValidationMessage('input_file_size_exceeded');
             return false;
-        } else if (selectedVideoFile && selectedVideoFile.size < Constants.MIN_FILE_SIZE_LIMIT) {
-            setValidationMessage('input_file_size_below_two_megabytes');
+        } else if (video && video.duration < Constants.MIN_DURATION_IN_SECONDS) {
+            setValidationMessage('video_duration_below_one_second');
+            return false;
         } else {
             return true;
         }
@@ -64,7 +65,6 @@ const VideoUploadForm = (props) => {
         setSubmitButtonDisabled(true);
         setOnProgressVisible(true);
         const response = await uploadVideo();
-        console.log(response);
         if (response && response.status) {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);
@@ -72,20 +72,39 @@ const VideoUploadForm = (props) => {
         setOnProgressVisible(false);
     };
 
-    const handleFileInputChange = (event) => {
+    const loadVideo = file => new Promise((resolve, reject) => {
+        let video = document.createElement('video');
+        video.preload = 'metadata';
+
+        video.onloadedmetadata = function () {
+            resolve(this);
+        };
+
+        video.onerror = function () {
+            setValidationMessage('invalid_video_format');
+        };
+
+        video.src = window.URL.createObjectURL(file);
+    });
+
+    const handleFileInputChange = async (event) => {
         event.persist();
         const videoFile = event.target.files[0];
         setValidationMessage(null);
-        if (validateVideoFileLength(videoFile)) {
-            setVideoFile(videoFile);
-            setSubmitButtonDisabled(false);
-        } else {
-            clearVideoFileSelection();
+        if(videoFile){
+            const video = await loadVideo(videoFile);
+            if (video && validateVideoFileLength(videoFile, video)) {
+                setVideoFile(videoFile);
+                setSubmitButtonDisabled(false);
+            } else {
+                clearVideoFileSelection();
+            }
         }
+        props.onResetProgressbar();
     };
 
     const clearVideoFileSelection = () => {
-        var element = document.getElementById('upload_video_form');
+        let element = document.getElementById('upload_video_form');
         if (element !== null && element.value === '') {
             document.getElementById('upload_video_form').reset();
         }
@@ -146,8 +165,10 @@ const VideoUploadForm = (props) => {
                     <div className="col-sm-2">
                         <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('upload') }</button>
                     </div>
-                    <div className="col-sm-4">
-                        <span hidden={!onProgressVisible}>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
+                    <div hidden={!onProgressVisible} className="col-sm-4">
+                        <span>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
+                        <div hidden={props.timeRemaining === 0 || props.percentage >= 80}>{props.timeRemaining}  { translate('upload_estimate_remaining_in_minutes') }</div>
+                        <div hidden={props.percentage < 80}>{ translate('upload_is_being_processed') }</div>
                     </div>
                 </div>
             </form>
@@ -160,7 +181,9 @@ const mapStateToProps = state => ({
     event : state.er.event,
     series : state.ser.series,
     i18n: state.i18n,
-    fur: state.fur
+    fur: state.fur,
+    timeRemaining: state.fur.timeRemaining,
+    percentage : state.fur.percentage
 });
 
 const mapDispatchToProps = dispatch => ({
