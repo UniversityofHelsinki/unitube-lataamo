@@ -59,6 +59,7 @@ export const downloadVideo = (data, fileName) => {
                 let blob = new Blob(chunks);
 
                 fileDownload(blob, fileName);
+                dispatch(fileDownloadProgressAction(100));
                 return response;
             } else {
                 throw new Error(response.status);
