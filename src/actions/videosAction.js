@@ -14,8 +14,40 @@ const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
 const MONITOR_JOB_PATH = '/api/monitor/';
 const DOWNLOAD_PATH = '/api/download';
+const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
+
+export const downloadFile = async (eventId, fileName) => {
+    try {
+
+        let response = await fetch(`${VIDEO_SERVER_API}${VTT_DOWNLOAD_PATH}${eventId}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } });
+
+        if (response.status === 200) {
+            const reader = response.body.getReader();
+
+            // read the data
+            let chunks = []; // array of received binary chunks (comprises the body)
+            while (true) {
+                const {done, value} = await reader.read();
+                if (done) {
+                    break;
+                }
+                chunks.push(value);
+            }
+
+            let blob = new Blob(chunks);
+
+            fileDownload(blob, fileName);
+            return response;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 
 export const downloadVideo = async (data, fileName) => {
     try {

@@ -7,10 +7,12 @@ import {
     setEventProcessingState,
     updateEventList
 } from '../actions/eventsAction';
+import {downloadFile} from "../actions/videosAction";
 import constants from '../utils/constants';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import {FiDownload} from "react-icons/fi";
 
 const SweetAlert = withReactContent(Swal);
 
@@ -120,6 +122,18 @@ const VideoTextTrackForm = (props) => {
         }
     };
 
+    const downloadVTTFile = async(event) => {
+        event.preventDefault();
+        try {
+            const fileName = getFileName(props.videoFiles[0].vttFile.url);
+            await downloadFile(props.event.identifier, fileName);
+        }
+        catch (err) {
+            setErrorMessage(translate('download_webvtt_failed'));
+        }
+    };
+
+
     useEffect(() => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
@@ -179,6 +193,7 @@ const VideoTextTrackForm = (props) => {
                     <div className="col-sm-12">
                         <button  type="button" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
+                        <button type="submit"  disabled={!videoTextFile || disabledInputs} className="btn btn-primary float-right button-position mr-1" onClick={downloadVTTFile}><FiDownload></FiDownload></button>
                     </div>
                 </div>
             </form>
