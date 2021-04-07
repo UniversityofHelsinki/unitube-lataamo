@@ -1,5 +1,7 @@
 // asynchronous action creator
 import axios from 'axios';
+import {WritableStream} from 'web-streams-polyfill/ponyfill';
+import streamSaver from 'streamsaver';
 import {
     fileUploadFailedActionMessage,
     fileUploadProgressAction,
@@ -7,12 +9,9 @@ import {
     timeRemainingProgressAction
 } from './fileUploadAction';
 
-import {
-    fileDownloadProgressAction,
-    fileDownloadTimeRemainingProgressAction
-} from './fileDownloadAction';
-
 import fileDownload from 'js-file-download';
+
+import {fileDownloadProgressAction, fileDownloadTimeRemainingProgressAction} from './fileDownloadAction';
 
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
@@ -58,13 +57,38 @@ export const downloadVideo = (data, fileName) => {
 
                 let blob = new Blob(chunks);
 
-                fileDownload(blob, fileName);
-                dispatch(fileDownloadProgressAction(100));
-                return response;
+                // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
+                if (!window.WritableStream) {
+                    streamSaver.WritableStream = WritableStream;
+                    window.WritableStream = WritableStream;
+                }
+
+
+                const fileStream = streamSaver.createWriteStream(fileName, {
+                    size: blob.size // Makes the percentage visible in the download
+                });
+
+                const readableStream = blob.stream();
+
+                if (window.WritableStream && readableStream.pipeTo) {
+                    return await new Promise(async resolve => {
+                        const value = await readableStream.pipeTo(fileStream);
+                        console.log("download complete");
+                        dispatch(fileDownloadProgressAction(100));
+                        resolve(response);
+                    });
+                } else {
+                    return await new Promise(async resolve => {
+                        fileDownload(blob, fileName);
+                        dispatch(fileDownloadProgressAction(100));
+                        resolve(response);
+                    });
+                }
             } else {
                 throw new Error(response.status);
             }
         } catch (error) {
+            console.log(error);
             throw new Error(error);
         }
     }

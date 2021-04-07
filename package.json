@@ -26,8 +26,10 @@
     "react-test-renderer": "^16.12.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "streamsaver": "^2.0.5",
     "sweetalert2": "^9.5.3",
-    "sweetalert2-react-content": "^2.0.2"
+    "sweetalert2-react-content": "^2.0.2",
+    "web-streams-polyfill": "^3.0.2"
   },
   "scripts": {
     "start": "cross-env PORT=8000 react-scripts start",
