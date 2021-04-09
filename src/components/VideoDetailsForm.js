@@ -136,7 +136,17 @@ const VideoDetailsForm = (props) => {
         }
     };
 
+    const replaceIllegalCharacters = (target, value) => {
+        if (target === 'title' || target === 'description') {
+           return value.replace(/\%/g, '');
+        } else {
+            return value;
+        }
+    };
+
     const handleInputChange = (event) => {
+        console.log(event.target.name);
+        event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         event.persist();
         setIsBeingEdited(true);
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
