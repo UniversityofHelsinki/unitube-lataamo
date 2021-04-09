@@ -145,7 +145,6 @@ const VideoDetailsForm = (props) => {
     };
 
     const handleInputChange = (event) => {
-        console.log(event.target.name);
         event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         event.persist();
         setIsBeingEdited(true);
