@@ -150,7 +150,8 @@ const SerieDetailsForm = (props) => {
 
     const replaceIllegalCharacters = (target, value) => {
         if (target === 'title' || target === 'description') {
-            return value.replace(/\%/g, '');
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, "g");
+            return value.replace(regExp, '');
         } else {
             return value;
         }
