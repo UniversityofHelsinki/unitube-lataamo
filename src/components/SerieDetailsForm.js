@@ -136,6 +136,7 @@ const SerieDetailsForm = (props) => {
     };
 
     const handleInputChange = (event) => {
+        event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
@@ -145,6 +146,14 @@ const SerieDetailsForm = (props) => {
             return true;
         }
         return false;
+    };
+
+    const replaceIllegalCharacters = (target, value) => {
+        if (target === 'title' || target === 'description') {
+            return value.replace(/\%/g, '');
+        } else {
+            return value;
+        }
     };
 
     const handleMoodleInputChange = (event) => {
