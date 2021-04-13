@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
-import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
-import { IconContext } from 'react-icons';
-import { FiCopy } from 'react-icons/fi';
+import {IconContext} from 'react-icons';
+import {FiCopy} from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -136,7 +136,17 @@ const VideoDetailsForm = (props) => {
         }
     };
 
+    const replaceIllegalCharacters = (target, value) => {
+        if (target === 'title' || target === 'description') {
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, "g");
+            return value.replace(regExp, '');
+        } else {
+            return value;
+        }
+    };
+
     const handleInputChange = (event) => {
+        event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         event.persist();
         setIsBeingEdited(true);
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
@@ -152,7 +162,7 @@ const VideoDetailsForm = (props) => {
 
     const drawLicenseSelectionValues = () => {
         return props.video.licenses.map((license) => {
-           return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
+            return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
         });
     };
 
@@ -270,7 +280,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
                                     <textarea disabled={disabledInputs} name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
-                                        onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
+                                              onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
