@@ -50,10 +50,8 @@ const VideoList = (props) => {
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
-                let downloadProgress = await props.onDownloadProgress(data, fileName);
-                if (downloadProgress) {
-                    props.downloadProgressFinished();
-                }
+                const downloadProgress = await props.onDownloadProgress(data, fileName);
+                props.downloadProgressFinished();
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }

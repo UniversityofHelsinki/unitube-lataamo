@@ -25,72 +25,72 @@ const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 export const downloadVideo = (data, fileName) => {
     let timeStarted = new Date();
     return async (dispatch) => {
-        try {
+        return await new Promise(async resolve => {
+            try {
 
-            let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
-
-            if (response.status === 200) {
-                const reader = response.body.getReader();
-
-                // Step 2: get total length
-                const contentLength = +response.headers.get('Content-Length');
-
-                // Step 3: read the data
-                let receivedLength = 0; // received that many bytes at the moment
-                let chunks = []; // array of received binary chunks (comprises the body)
-
-
-                while (true) {
-                    const {done, value} = await reader.read();
-                    if (done) {
-                        break;
-                    }
-                    chunks.push(value);
-                    receivedLength += value.length;
-                    let actualPercentage = Math.round((receivedLength * 100) / contentLength);
-                    let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
-                    let uploadSpeed = receivedLength  / (timeElapsed/1000); // Upload speed in second
-                    let timeRemaining = Math.round((contentLength - receivedLength) / uploadSpeed / 60); // time remaining in minutes
-                    dispatch(fileDownloadProgressAction(actualPercentage > MAXIMUM_UPLOAD_PERCENTAGE ? MAXIMUM_UPLOAD_PERCENTAGE : actualPercentage));
-                    dispatch(fileDownloadTimeRemainingProgressAction(timeRemaining));
-                }
-
-                let blob = new Blob(chunks);
-
-                // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
-                if (!window.WritableStream) {
-                    streamSaver.WritableStream = WritableStream;
-                    window.WritableStream = WritableStream;
-                }
-
-
-                const fileStream = streamSaver.createWriteStream(fileName, {
-                    size: blob.size // Makes the percentage visible in the download
+                let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {'Content-Type': 'application/json'}
                 });
 
-                const readableStream = blob.stream();
+                if (response.status === 200) {
+                    const reader = response.body.getReader();
 
-                if (window.WritableStream && readableStream.pipeTo) {
-                    return await new Promise(async resolve => {
+                    // Step 2: get total length
+                    const contentLength = +response.headers.get('Content-Length');
+
+                    // Step 3: read the data
+                    let receivedLength = 0; // received that many bytes at the moment
+                    let chunks = []; // array of received binary chunks (comprises the body)
+
+
+                    while (true) {
+                        const {done, value} = await reader.read();
+                        if (done) {
+                            break;
+                        }
+                        chunks.push(value);
+                        receivedLength += value.length;
+                        let actualPercentage = Math.round((receivedLength * 100) / contentLength);
+                        let timeElapsed = (new Date()) - timeStarted; // Assuming that timeStarted is a Date Object
+                        let uploadSpeed = receivedLength / (timeElapsed / 1000); // Upload speed in second
+                        let timeRemaining = Math.round((contentLength - receivedLength) / uploadSpeed / 60); // time remaining in minutes
+                        dispatch(fileDownloadProgressAction(actualPercentage > MAXIMUM_UPLOAD_PERCENTAGE ? MAXIMUM_UPLOAD_PERCENTAGE : actualPercentage));
+                        dispatch(fileDownloadTimeRemainingProgressAction(timeRemaining));
+                    }
+
+                    let blob = new Blob(chunks);
+
+                    // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
+                    if (!window.WritableStream) {
+                        streamSaver.WritableStream = WritableStream;
+                        window.WritableStream = WritableStream;
+                    }
+
+
+                    const fileStream = streamSaver.createWriteStream(fileName, {
+                        size: blob.size // Makes the percentage visible in the download
+                    });
+
+                    const readableStream = blob.stream();
+
+                    if (window.WritableStream && readableStream.pipeTo) {
                         const value = await readableStream.pipeTo(fileStream);
-                        console.log("download complete videos action");
                         resolve(response);
-                    });
-                } else {
-                    return await new Promise(async resolve => {
+                    } else {
                         fileDownload(blob, fileName);
-                        console.log("download complete videos action");
                         resolve(response);
-                    });
+                    }
+                } else {
+                    throw new Error(response.status);
                 }
-            } else {
-                throw new Error(response.status);
+            } catch (error) {
+                console.log(error);
+                throw new Error(error);
             }
-        } catch (error) {
-            console.log(error);
-            throw new Error(error);
-        }
-    }
+        });
+    };
 };
 
 
