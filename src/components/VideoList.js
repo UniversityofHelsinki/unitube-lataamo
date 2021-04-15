@@ -19,6 +19,7 @@ import { FiDownload } from 'react-icons/fi';
 import { FaSpinner, FaSearch } from 'react-icons/fa';
 import constants from '../utils/constants';
 import FileDownloadProgressBar from "./FileDownloadProgressBar";
+import {fileDownloadProgressAction} from "../actions/fileDownloadAction";
 
 const { SearchBar } = Search;
 
@@ -49,7 +50,10 @@ const VideoList = (props) => {
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
-                await props.onDownloadProgress(data, fileName);
+                let downloadProgress = await props.onDownloadProgress(data, fileName);
+                if (downloadProgress) {
+                    props.downloadProgressFinished();
+                }
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
@@ -332,7 +336,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(deselectRow());
         dispatch(deselectEvent());
     },
-    onDownloadProgress: (data, filename) => dispatch(downloadVideo(data, filename))
+    onDownloadProgress: (data, filename) => dispatch(downloadVideo(data, filename)),
+    downloadProgressFinished: () =>  dispatch(fileDownloadProgressAction(100))
 });
 
 

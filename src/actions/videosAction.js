@@ -73,14 +73,13 @@ export const downloadVideo = (data, fileName) => {
                 if (window.WritableStream && readableStream.pipeTo) {
                     return await new Promise(async resolve => {
                         const value = await readableStream.pipeTo(fileStream);
-                        console.log("download complete");
-                        dispatch(fileDownloadProgressAction(100));
+                        console.log("download complete videos action");
                         resolve(response);
                     });
                 } else {
                     return await new Promise(async resolve => {
                         fileDownload(blob, fileName);
-                        dispatch(fileDownloadProgressAction(100));
+                        console.log("download complete videos action");
                         resolve(response);
                     });
                 }

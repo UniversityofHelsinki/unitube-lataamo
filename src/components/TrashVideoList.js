@@ -14,6 +14,7 @@ import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 import {fetchSeriesDropDownList} from '../actions/seriesAction';
 import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
+import {fileDownloadProgressAction} from "../actions/fileDownloadAction";
 
 const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
@@ -46,7 +47,10 @@ const TrashVideoList = (props) => {
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
-                await downloadVideo(data, fileName);
+                let downloadProgress = await downloadVideo(data, fileName);
+                if (downloadProgress) {
+                    props.downloadProgressFinished();
+                }
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
@@ -282,7 +286,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchTrashEvents(refresh));
         dispatch(fetchSeriesDropDownList());
     },
-    onRouteChange: (route) =>  dispatch(routeAction(route))
+    onRouteChange: (route) =>  dispatch(routeAction(route)),
+    downloadProgressFinished: () =>  dispatch(fileDownloadProgressAction(100))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashVideoList);
