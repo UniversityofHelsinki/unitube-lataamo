@@ -25,7 +25,7 @@ const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 export const downloadVideo = (data, fileName) => {
     let timeStarted = new Date();
     return async (dispatch) => {
-        return await new Promise(async resolve => {
+        return await new Promise(async (resolve, reject) => {
             try {
 
                 let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, {
@@ -83,11 +83,11 @@ export const downloadVideo = (data, fileName) => {
                         resolve(response);
                     }
                 } else {
-                    throw new Error(response.status);
+                   return reject(response.status);
                 }
             } catch (error) {
                 console.log(error);
-                throw new Error(error);
+                return reject(error);
             }
         });
     };
