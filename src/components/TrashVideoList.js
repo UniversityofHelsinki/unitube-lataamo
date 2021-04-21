@@ -48,7 +48,9 @@ const TrashVideoList = (props) => {
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
                 const downloadProgress = await downloadVideo(data, fileName);
-                props.downloadProgressFinished();
+                if (downloadProgress && downloadProgress.status === 200) {
+                    props.downloadProgressFinished();
+                }
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }

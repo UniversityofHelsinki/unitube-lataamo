@@ -76,7 +76,7 @@ export const downloadVideo = (data, fileName) => {
                     const readableStream = blob.stream();
 
                     if (window.WritableStream && readableStream.pipeTo) {
-                        const value = await readableStream.pipeTo(fileStream);
+                        await readableStream.pipeTo(fileStream);
                         resolve(response);
                     } else {
                         fileDownload(blob, fileName);

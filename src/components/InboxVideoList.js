@@ -62,11 +62,13 @@ const InboxVideoList = (props) => {
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
                 const downloadProgress = await props.onDownloadProgress(data, fileName);
-                props.downloadProgressFinished();
-                elements = document.getElementsByClassName('disable-enable-buttons');
-                array = [ ...elements ];
-                array.map(element => element.removeAttribute('disabled'));
-                event.target.downloadIndicator.setAttribute('hidden', true);
+                if (downloadProgress && downloadProgress.status === 200) {
+                    props.downloadProgressFinished();
+                    elements = document.getElementsByClassName('disable-enable-buttons');
+                    array = [ ...elements ];
+                    array.map(element => element.removeAttribute('disabled'));
+                    event.target.downloadIndicator.setAttribute('hidden', true);
+                }
             } catch (error) {
                 setVideoDownloadErrorMessage(translate('error_on_video_download'));
             }
