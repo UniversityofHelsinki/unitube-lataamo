@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   Client uses REACT_APP_LATAAMO_PROXY_SERVER environment variable. For local <br>
   development it is set in the env.development.local file. <br>
 - create env.development.local file to the project root and add REACT_APP_LATAAMO_PROXY_SERVER variable <br>
-  `cd unitube-lataamo && echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3002" > .env.development.local`
+  `cd unitube-lataamo && echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3000" > .env.development.local`
 - install dependencies, start the local fake REST API and start the react app <br>
  `npm install && npm run local-dev-db && npm start`
 
