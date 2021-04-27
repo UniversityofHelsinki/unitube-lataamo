@@ -13,6 +13,7 @@ import constants from '../utils/constants';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import {FiDownload} from "react-icons/fi";
+import '../stylesheets/components/all.sass'
 
 const SweetAlert = withReactContent(Swal);
 
@@ -193,7 +194,13 @@ const VideoTextTrackForm = (props) => {
                     <div className="col-sm-12">
                         <button  type="button" disabled={!videoTextFile || disabledInputs} className="btn delete-button float-right button-position" onClick={showAlert} >{translate('remove_text_track')}</button>
                         <button  type="submit" disabled={disabledInputs} className="btn btn-primary float-right button-position mr-1">{translate('save_text_track')}</button>
-                        <button type="submit"  disabled={!videoTextFile || disabledInputs} className="btn btn-primary float-right button-position mr-1" onClick={downloadVTTFile}><FiDownload></FiDownload></button>
+                        <div className="col-sm-10">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('download_vtt_file')}</Tooltip>}>
+                                <span className="d-inline-block float-right mr-1">
+                                    <button type="submit"  disabled={!videoTextFile || disabledInputs} className="btn btn-primary float-right button-position mr-1" onClick={downloadVTTFile}><FiDownload></FiDownload></button>
+                                  </span>
+                            </OverlayTrigger>
+                        </div>
                     </div>
                 </div>
             </form>

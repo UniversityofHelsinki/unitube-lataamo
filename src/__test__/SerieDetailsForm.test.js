@@ -39,7 +39,7 @@ const msg = 'Unable to fetch data';
 
 describe('<SerieList />', () => {
     const initialState =  {
-        ser: { error: '', series: series, serie: {
+        ser: { error: '', series: series, seriesDropDown: [],  serie: {
             title : '',
             description: '',
             published: '',
@@ -83,6 +83,7 @@ describe('<SerieList />', () => {
         const expectedState =   {
             'moodleNumbers': [moodleNumber1],
             'selectedRowId': '',
+            "seriesDropDown": [],
             'serie': {
                 'description': '',
                 'moodleNumber': '',
@@ -133,7 +134,7 @@ describe('<SerieList />', () => {
             'type': 'ADD_IAM_GROUP',
             'payload': iamGroup1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'iamGroups': [iamGroup1], 'persons': [],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'seriesDropDown': [], 'iamGroups': [iamGroup1], 'persons': [],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_IAM_GROUP'))).toEqual(expectedState);
@@ -173,7 +174,7 @@ describe('<SerieList />', () => {
             'type': 'ADD_PERSON',
             'payload': person1
         });
-        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'iamGroups': [], 'persons': [person1],
+        const expectedState =   { 'moodleNumbers': [], 'selectedRowId': '', 'serie': { 'description': '', 'title': '',  'published': '', 'moodleNumber': '', 'moodleNumbers': [] },'series': [], 'seriesDropDown': [], 'iamGroups': [], 'persons': [person1],
             seriesPostSuccessMessage: null,
             seriesPostFailureMessage: null };
         expect(SeriesReducer(undefined, await getAction(store, 'ADD_PERSON'))).toEqual(expectedState);

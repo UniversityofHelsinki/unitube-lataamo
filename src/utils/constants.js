@@ -18,7 +18,6 @@ const VIDEO_PROCESSING_SUCCEEDED = 'SUCCEEDED';
 
 const EMPTY_VTT_FILE_NAME = 'empty.vtt';
 
-
 module.exports = {
     ROLE_ANONYMOUS,
     ROLE_KATSOMO,

@@ -1,5 +1,6 @@
 const initialState = {
     series: [],
+    seriesDropDown: [],
     serie: {
         title : '',
         description: '',
