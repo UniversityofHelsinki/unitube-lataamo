@@ -118,6 +118,25 @@ build_prod:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
 
+.deploy_to_ohtumetri_script:
+  script:
+    - echo "====== Install rsync and openssh ========="
+    - apk add --no-cache rsync openssh
+    - echo "====== Activate the ssh-agent ========"
+    - eval $(ssh-agent -s)
+    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY_OHTUMETRI variable to the agent store ====="
+    - echo "$SSH_PRIVATE_KEY_OHTUMETRI" | tr -d '\r' | ssh-add - > /dev/null
+    - echo "====== Add target servers secret key ======"
+    - mkdir ~/.ssh
+    - echo $SSH_PRIVATE_KEY_OHTUMETRI  >> ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - echo "====== Test ssh connection and make unitube-lataamo-frontend folder if not exist ======"
+    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $OHTUMETRI_USER@$SERVER_OHTUMETRI "mkdir -p /var/www/html/unitube-lataamo-frontend"
+    - echo "====== Sync local and remote directory ======"
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ${CI_PROJECT_DIR}/report.html $LATAAMO_USER@$SERVER_OHTUMETRI:/var/www/html/unitube-lataamo-frontend
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ${CI_PROJECT_DIR}/outdated-report.html $LATAAMO_USER@$SERVER_OHTUMETRI:/var/www/html/unitube-lataamo-frontend
+
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
@@ -184,11 +203,13 @@ dependency scanning:
     - ohtu-build-2
   allow_failure: true
   only:
-    - schedules
+    - OHTU-620
   before_script:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
     - npm install -g npm-outdated-html
+    - echo "====== Send scanning reports to ohtumetri server ========"
+  extends: .deploy_to_ohtumetri_script
   script:
     - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
     - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
