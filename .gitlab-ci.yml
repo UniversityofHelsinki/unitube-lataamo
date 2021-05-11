@@ -136,11 +136,11 @@ build_prod:
     - echo $SSH_PRIVATE_KEY_OHTUMETRI  >> ~/.ssh/id_rsa
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
     - echo "====== Test ssh connection and make unitube-lataamo-frontend folder if not exist ======"
-    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $OHTUMETRI_USER@$SERVER_OHTUMETRI "mkdir -p /var/www/html/unitube-lataamo-frontend"
+    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $OHTUMETRI_USER@$SERVER_OHTUMETRI "mkdir -p /home/ohtu/unitube-lataamo-frontend"
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ${CI_PROJECT_DIR}/report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/var/www/html/unitube-lataamo-frontend
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ${CI_PROJECT_DIR}/outdated-report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/var/www/html/unitube-lataamo-frontend
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ${CI_PROJECT_DIR}/report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/home/ohtu/unitube-lataamo-frontend
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ${CI_PROJECT_DIR}/outdated-report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/home/ohtu/unitube-lataamo-frontend
 
 # deploy to oc test environment
 deploy_oc_test:
