@@ -120,6 +120,11 @@ build_prod:
 
 .deploy_to_ohtumetri_script:
   script:
+    - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
+    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
+    - echo "Send Slack Messages"
+    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File ' -F channels=C01KV33GE90 -F filename=audit-report.html -F filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File ' -F channels=C01KV33GE90 -F filename=outdated-report.html  filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
     - echo "====== Install rsync and openssh ========="
     - apk add --no-cache rsync openssh
     - echo "====== Activate the ssh-agent ========"
@@ -208,14 +213,6 @@ dependency scanning:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
     - npm install -g npm-outdated-html
-    - echo "====== Send scanning reports to ohtumetri server ========"
   extends: .deploy_to_ohtumetri_script
-  script:
-    - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
-    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
-    - echo "Send Slack Messages"
-    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File ' -F channels=C01KV33GE90 -F filename=audit-report.html -F filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
-    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File ' -F channels=C01KV33GE90 -F filename=outdated-report.html  filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
-
 
 
