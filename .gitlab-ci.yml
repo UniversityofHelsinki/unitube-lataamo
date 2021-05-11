@@ -208,7 +208,7 @@ dependency scanning:
     - ohtu-build-2
   allow_failure: true
   only:
-    - OHTU-620
+    - schedules
   before_script:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
