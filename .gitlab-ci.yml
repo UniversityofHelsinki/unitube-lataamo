@@ -117,6 +117,7 @@ build_prod:
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER:/home/lataamo/react-app
 
 .deploy_to_ohtumetri_script:
   script:
@@ -168,6 +169,7 @@ deploy_dev:
     - schedules
   variables:
     SERVER: $LATAAMO_DEV
+    MAINTENANCE_MODE: $MAINTENANCE_MODE
   before_script:
     - echo "====== Deploy to development server ========"
   extends: .deploy_script
