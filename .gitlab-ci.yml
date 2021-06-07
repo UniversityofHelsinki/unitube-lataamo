@@ -117,6 +117,31 @@ build_prod:
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER:/home/lataamo/react-app
+
+.deploy_to_ohtumetri_script:
+  script:
+    - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
+    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
+    - echo "Send Slack Messages"
+    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File ' -F channels=C01KV33GE90 -F filename=audit-report.html -F filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File ' -F channels=C01KV33GE90 -F filename=outdated-report.html  filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+    - echo "====== Install rsync and openssh ========="
+    - apk add --no-cache rsync openssh
+    - echo "====== Activate the ssh-agent ========"
+    - eval $(ssh-agent -s)
+    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY_OHTUMETRI variable to the agent store ====="
+    - echo "$SSH_PRIVATE_KEY_OHTUMETRI" | tr -d '\r' | ssh-add - > /dev/null
+    - echo "====== Add target servers secret key ======"
+    - mkdir ~/.ssh
+    - echo $SSH_PRIVATE_KEY_OHTUMETRI  >> ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - echo "====== Test ssh connection and make unitube-lataamo-frontend folder if not exist ======"
+    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $OHTUMETRI_USER@$SERVER_OHTUMETRI "mkdir -p /home/ohtu/unitube-lataamo-frontend"
+    - echo "====== Sync local and remote directory ======"
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ${CI_PROJECT_DIR}/report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/home/ohtu/unitube-lataamo-frontend
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ${CI_PROJECT_DIR}/outdated-report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/home/ohtu/unitube-lataamo-frontend
 
 # deploy to oc test environment
 deploy_oc_test:
@@ -144,6 +169,7 @@ deploy_dev:
     - schedules
   variables:
     SERVER: $LATAAMO_DEV
+    MAINTENANCE_MODE: $MAINTENANCE_MODE
   before_script:
     - echo "====== Deploy to development server ========"
   extends: .deploy_script
@@ -189,12 +215,6 @@ dependency scanning:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
     - npm install -g npm-outdated-html
-  script:
-    - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
-    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
-    - echo "Send Slack Messages"
-    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File ' -F channels=C01KV33GE90 -F filename=audit-report.html -F filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
-    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File ' -F channels=C01KV33GE90 -F filename=outdated-report.html  filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
-
+  extends: .deploy_to_ohtumetri_script
 
 
