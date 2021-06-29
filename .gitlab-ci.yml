@@ -68,7 +68,7 @@ build_test:
   tags:
     - ohtu-build-2
   only:
-    - test
+    - lataamo-524
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - npm rebuild node-sass
