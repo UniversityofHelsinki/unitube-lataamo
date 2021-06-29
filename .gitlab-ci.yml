@@ -181,7 +181,7 @@ deploy_test:
     name: test
     url: https://$LATAAMO_TEST
   only:
-    - test
+    - lataamo-524
   variables:
     SERVER: $LATAAMO_TEST
   before_script:

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { IconContext } from 'react-icons';
-import { FiCopy } from 'react-icons/fi';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {IconContext} from 'react-icons';
+import {FiCopy} from 'react-icons/fi';
+import {connect} from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
     actionUpdateSerieDetails,
@@ -10,7 +10,7 @@ import {
     emptyMoodleNumberCall,
     updateSeriesList
 } from '../actions/seriesAction';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
@@ -170,6 +170,17 @@ const SerieDetailsForm = (props) => {
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
 
+    const handleSubmitButtonClick = (event) => {
+        let submitButton = event.target;
+        submitButton.setAttribute('disabled', 'disabled');
+        const nextSibling = submitButton.nextSibling;
+        nextSibling.removeAttribute('hidden');
+        setTimeout(function() {
+            submitButton.removeAttribute('disabled');
+            nextSibling.setAttribute('hidden', 'hidden');
+        },60000);
+    };
+
     const copyTextToClipboard = (event) => {
         event.preventDefault();
         event.persist();
@@ -207,14 +218,14 @@ const SerieDetailsForm = (props) => {
                                 </IconContext.Provider>
                             </div>
                             <div className="col-sm-4">
-                            { copiedMessage !== null ?
-                                <Alert variant="success" onClose={ () => setCopiedMessage(null) } dismissible>
-                                    <p>
-                                        { copiedMessage }
-                                    </p>
-                                </Alert>
-                                : (<></>)
-                            }
+                                { copiedMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setCopiedMessage(null) } dismissible>
+                                        <p>
+                                            { copiedMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
                             </div>
                         </div>
 
@@ -223,7 +234,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
                                 <input type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
-                                    onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
+                                       onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger
@@ -239,7 +250,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
                                 <textarea name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
-                                    onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
+                                          onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger overlay={ <Tooltip
@@ -388,7 +399,8 @@ const SerieDetailsForm = (props) => {
                                 </Alert>
                                 : (<></>)
                             }
-                            <button type="submit" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
+                            <button type="submit" onClick={handleSubmitButtonClick} className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
+                            <p hidden className="info-text-position">{translate('save_in_progress_please_wait')} </p>
                         </div>
                     </div>
                 </form>
