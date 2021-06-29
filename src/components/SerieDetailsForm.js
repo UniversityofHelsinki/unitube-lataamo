@@ -119,9 +119,21 @@ const SerieDetailsForm = (props) => {
         updateSeries.acl = aclList;
     };
 
+    const handleSubmitButtonClick = () => {
+        let submitButton = document.getElementById('submitBtnId');
+        submitButton.setAttribute('disabled', 'disabled');
+        let waitForTextElement = submitButton.nextSibling;
+        waitForTextElement.removeAttribute('hidden');
+        setTimeout(function() {
+            submitButton.removeAttribute('disabled');
+            waitForTextElement.setAttribute('hidden', 'hidden');
+        },60000);
+    };
+
     const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
+            handleSubmitButtonClick(event);
             await updateSeriesDetails();
         }
     };
@@ -168,17 +180,6 @@ const SerieDetailsForm = (props) => {
         props.onMoodleNumberAdd(inputs.moodleNumber);
         event.preventDefault();
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
-    };
-
-    const handleSubmitButtonClick = (event) => {
-        let submitButton = event.target;
-        submitButton.setAttribute('disabled', 'disabled');
-        const nextSibling = submitButton.nextSibling;
-        nextSibling.removeAttribute('hidden');
-        setTimeout(function() {
-            submitButton.removeAttribute('disabled');
-            nextSibling.setAttribute('hidden', 'hidden');
-        },60000);
     };
 
     const copyTextToClipboard = (event) => {
@@ -399,7 +400,7 @@ const SerieDetailsForm = (props) => {
                                 </Alert>
                                 : (<></>)
                             }
-                            <button type="submit" onClick={handleSubmitButtonClick} className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
+                            <button type="submit" id="submitBtnId" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
                             <p hidden className="info-text-position">{translate('save_in_progress_please_wait')} </p>
                         </div>
                     </div>
