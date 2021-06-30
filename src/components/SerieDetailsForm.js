@@ -122,11 +122,8 @@ const SerieDetailsForm = (props) => {
     const handleSubmitButtonClick = () => {
         let submitButton = document.getElementById('submitBtnId');
         submitButton.setAttribute('disabled', 'disabled');
-        let waitForTextElement = submitButton.nextSibling;
-        waitForTextElement.removeAttribute('hidden');
         setTimeout(function() {
             submitButton.removeAttribute('disabled');
-            waitForTextElement.setAttribute('hidden', 'hidden');
         },60000);
     };
 
@@ -401,7 +398,6 @@ const SerieDetailsForm = (props) => {
                                 : (<></>)
                             }
                             <button type="submit" id="submitBtnId" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
-                            <p hidden className="info-text-position">{translate('save_in_progress_please_wait')} </p>
                         </div>
                     </div>
                 </form>

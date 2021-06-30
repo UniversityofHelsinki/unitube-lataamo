@@ -105,7 +105,7 @@ const translationsObject = {
         embedded_video_title: 'Embedding code of video',
         updated_event_details: 'Recording information updated!',
         failed_to_update_event_details: 'Failed to update the information!',
-        updated_series_details: 'Series information updated!',
+        updated_series_details: 'Changes saved! The series information is updated for one minute, after which it can be edited again',
         failed_to_update_series_details: 'Failed to update the information!',
         error_on_video_download: 'Recording download failed!',
         error_on_video_upload: 'Failed to add the recording to the uploader!',
@@ -172,8 +172,7 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minute(s) remaining',
         video_duration_below_one_second: 'Error: The duration of the video is less than 1 second! Try uploading a longer video.',
         invalid_video_format: 'Error: The file format is not supported. Try to save the file in a compatible format (e.g. .mp4, .mov)!',
-        download_vtt_file: "Download subtitble file",
-        save_in_progress_please_wait: "Saving changes, please wait!"
+        download_vtt_file: "Download subtitble file"
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -281,7 +280,7 @@ const translationsObject = {
         embedded_video_title: 'Videon upotuskoodi',
         updated_event_details: 'Tallenteen tiedot päivitetty!',
         failed_to_update_event_details: 'Tietojen päivittäminen epäonnistui!',
-        updated_series_details: 'Sarjan tiedot päivitetty!',
+        updated_series_details: 'Muutokset tallennettu! Sarjan tietoja päivitetään minuutin ajan, jonka jälkeen niitä voi taas muokata.',
         failed_to_update_series_details: 'Tietojen päivitys epäonnistui!',
         error_on_video_download: 'Tallenteen lataus koneelle epäonnistui!',
         error_on_video_upload: 'Tallenteen vienti lataamoon epäonnistui!',
@@ -348,8 +347,7 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minuutti(a) jäljellä',
         video_duration_below_one_second: 'Virhe: ladattavan videon kesto on alle yksi sekunti! Yritä ladata pidempi video.',
         invalid_video_format: 'Virhe: tiedostomuoto ei ole tuettu. Kokeile tallentaa tiedosto yhteensopivassa muodossa (esimerkiksi .mp4, .mov)!',
-        download_vtt_file: "Tallenna tekstitystiedosto koneellesi",
-        save_in_progress_please_wait: "Muutoksia tallennetaan, odota hetki!"
+        download_vtt_file: "Tallenna tekstitystiedosto koneellesi"
     },
 
     sv: {
@@ -454,7 +452,7 @@ const translationsObject = {
         video_id_copied_to_clipboard: 'Inspelningens kod kopierad till urklipp!',
         updated_event_details: 'Inspelningens uppgifter uppdaterades!',
         failed_to_update_event_details: 'Uppgifterna kunde inte uppdateras!',
-        updated_series_details: 'Seriens uppgifter uppdaterades!',
+        updated_series_details: 'Ändringar sparade! Serieinformationen uppdateras i en minut, varefter den kan redigeras igen',
         failed_to_update_series_details: 'Uppgifterna kunde inte uppdateras!',
         error_on_video_download: 'Det gick inte att ladda inspelningen till datorn!',
         error_on_video_upload: 'Export av inspelning till uppspelning misslyckades!',
@@ -525,8 +523,7 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minuter kvar',
         video_duration_below_one_second: 'Fel: Längden på videon är mindre än 1 sekund! Försök ladda upp en längre video.',
         invalid_video_format: 'Fel: Filformatet stöds inte. Försök att spara filen i ett kompatibelt format (t.ex. .mp4, .mov)!',
-        download_vtt_file: "Ladda ner textningsfil",
-        save_in_progress_please_wait: "Ändringar sparas, vänta ett stund!"
+        download_vtt_file: "Ladda ner textningsfil"
     }
 };
 
