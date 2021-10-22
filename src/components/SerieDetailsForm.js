@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {IconContext} from 'react-icons';
-import {FiCopy} from 'react-icons/fi';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { IconContext } from 'react-icons';
+import { FiCopy } from 'react-icons/fi';
+import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import {
     actionUpdateSerieDetails,
@@ -10,7 +10,7 @@ import {
     emptyMoodleNumberCall,
     updateSeriesList
 } from '../actions/seriesAction';
-import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
@@ -159,7 +159,7 @@ const SerieDetailsForm = (props) => {
 
     const replaceIllegalCharacters = (target, value) => {
         if (target === 'title' || target === 'description') {
-            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, "g");
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, 'g');
             return value.replace(regExp, '');
         } else {
             return value;
@@ -232,7 +232,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
                                 <input type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
-                                       onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
+                                    onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger
@@ -248,7 +248,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
                                 <textarea name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
-                                          onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
+                                    onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger overlay={ <Tooltip

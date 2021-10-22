@@ -12,7 +12,7 @@ import routeAction from '../actions/routeAction';
 import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
-import {fetchSeriesDropDownList} from '../actions/seriesAction';
+import { fetchSeriesDropDownList } from '../actions/seriesAction';
 import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
 
 const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
@@ -165,7 +165,7 @@ const TrashVideoList = (props) => {
             props.onFetchEvents(false);
         }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.apiError, props.route]);
 
     useEffect(() => {
