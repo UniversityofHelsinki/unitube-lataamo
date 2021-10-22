@@ -105,7 +105,7 @@ export const actionUploadVideo = (newVideo) => {
                         resolve(response);
                     }
                     if (response.status === 500) {
-                        dispatch(fileUploadSuccessActionMessage('error_on_video_upload'));
+                        dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
                         dispatch(fileUploadProgressAction(0));
                         resolve(response);
                     }
