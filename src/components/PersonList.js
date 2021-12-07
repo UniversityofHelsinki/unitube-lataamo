@@ -58,7 +58,7 @@ const addLoggedUserAsAdministrator = (props) => {
     if (props.persons && props.persons.length === 0 && (props.iamGroups && props.iamGroups.length === 0)) {
         props.persons.push(props.user.eppn);
     }
-}
+};
 
 const mapStateToProps = state => ({
     user : state.ur.user,

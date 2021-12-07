@@ -10,7 +10,7 @@ const FileUploadProgressbar = (props) => {
     };
     useEffect(() => {
         props.onRemoveProgressBar(); // reset progress when component loads
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, []);
     return (
         <div>
