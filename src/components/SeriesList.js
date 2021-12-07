@@ -38,7 +38,7 @@ const SeriesList = (props) => {
             props.onClearPostSeriesSuccessMessage();
         }, 5000);
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, []);
 
     const translatedSeries = () => {
@@ -143,7 +143,7 @@ const SeriesList = (props) => {
         if (props.apiError) {
             setErrorMessage(translate(props.apiError));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.apiError]);
     return (
         <div>

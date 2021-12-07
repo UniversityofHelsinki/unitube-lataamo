@@ -85,7 +85,7 @@ const VideoList = (props) => {
             }
         }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.selectedRowId, props.videos]);
 
 
@@ -95,7 +95,7 @@ const VideoList = (props) => {
         if (props.apiError) {
             setErrorMessage(translate(props.apiError));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.apiError, props.route]);
 
     useEffect(() => {

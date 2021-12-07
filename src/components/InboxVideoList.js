@@ -106,8 +106,8 @@ const InboxVideoList = (props) => {
         }]
     };
 
-     useEffect( () => {
-     }, [disabledInputs, progressMessage]);
+    useEffect( () => {
+    }, [disabledInputs, progressMessage]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -120,7 +120,7 @@ const InboxVideoList = (props) => {
             }
         }, VIDEO_LIST_POLL_INTERVAL);
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.selectedRowId, props.videos, disabledInputs]);
 
     useEffect(() => {
@@ -129,7 +129,7 @@ const InboxVideoList = (props) => {
         if (props.apiError) {
             setErrorMessage(translate(props.apiError));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.apiError, props.route, disabledInputs]);
 
     useEffect(() => {
@@ -145,20 +145,20 @@ const InboxVideoList = (props) => {
 
     const moveEventToTrashSeries = async(deletedEvent) => {
         const eventId = deletedEvent.identifier;
-         try {
-             await actionMoveEventToTrashSeries(eventId, deletedEvent);
-             await props.onFetchEvents(true);
-             setSuccessMessage(translate('succeeded_to_delete_event'));
-         } catch (err) {
-             setVideoDeleteErrorMessage(translate('failed_to_delete_event'));
-         }
+        try {
+            await actionMoveEventToTrashSeries(eventId, deletedEvent);
+            await props.onFetchEvents(true);
+            setSuccessMessage(translate('succeeded_to_delete_event'));
+        } catch (err) {
+            setVideoDeleteErrorMessage(translate('failed_to_delete_event'));
+        }
         setDisabledInputs(false);
     };
 
     const deleteEvent = async (e, deletedEvent) => {
         e.preventDefault();
         e.persist();
-        if(e.target.classList.contains("disabled")){
+        if(e.target.classList.contains('disabled')){
             return false;
         }
         setProgressMessage(translate('progress_message_delete_event'));
@@ -187,8 +187,8 @@ const InboxVideoList = (props) => {
         }else {
             return (
                 <div>
-                        {translate('event_failed_state')}
-                        <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
+                    {translate('event_failed_state')}
+                    <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
                 </div>
             );
         }

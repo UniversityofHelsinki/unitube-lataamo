@@ -25,7 +25,7 @@ const VideoUploadForm = (props) => {
         props.onFetchSeries();
         props.onSuccessMessageClick();
         props.onFailureMessageClick();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, []);// Only re-run the effect if values of arguments changes
 
     const translations =  props.i18n.translations[props.i18n.locale];
