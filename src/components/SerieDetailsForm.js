@@ -288,7 +288,7 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
-                            <div className="col-sm-7">
+                            <div className="col-sm-9 series-admin-list">
                                 <PersonList/>
                             </div>
                         </div>
@@ -308,7 +308,7 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
-                            <div className="col-sm-7">
+                            <div className="col-sm-9 series-admin-list">
                                 <IAMGroupList/>
                             </div>
                         </div>

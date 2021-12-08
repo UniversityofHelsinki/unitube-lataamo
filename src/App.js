@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './stylesheets/layout/app.sass';
 import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
 import VideoUploadForm from './components/VideoUploadForm';
