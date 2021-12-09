@@ -1,7 +1,30 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
-it('renders without crashing', () => {
-    shallow(<FileUploadProgressbar />);
+const mockStore = configureStore([thunk]);
+const translations = { en: { hy_address_part1: 'Address'}, fi: { hy_address_part1: 'Osoite'}, sv: { hy_address_part1: 'Adressen'} };
+
+describe('<FileUploadProgressbar />', () => {
+
+    let store;
+    let wrapper;
+
+    const initialState =  {
+        fur: { percentage: 0 },
+        i18n : {
+            translations: translations,
+            locale: 'fi'
+        }
+    };
+
+    it('renders without crashing', () => {
+        store = mockStore(initialState);
+        wrapper = mount(<Provider store={store}>
+            <FileUploadProgressbar />
+        </Provider>);
+    });
 });
