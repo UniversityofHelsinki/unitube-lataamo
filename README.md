@@ -1,91 +1,18 @@
-## React client for unitube lataamo
+# React client for unitube lataamo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Local installation and running with a local proxy
 
+Client uses REACT_APP_LATAAMO_PROXY_SERVER environment variable. For local development it is set in the env.development.local file. For this to work you need to have [unitube-lataamo-proxy](https://version.helsinki.fi/tike-ohtu/unitube-lataamo-proxy) running localy.
+- Create env.development.local file to the project root with REACT_APP_LATAAMO_PROXY_SERVER variable to the local proxy<br>
+  `echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3000" > .env.development.local`
+- Install dependencies and start the react app <br>
+  `npm install && npm start`
 
-### Local installation
+## Running localy with fake data
 
-- clone the repo <br>
-  Client uses REACT_APP_LATAAMO_PROXY_SERVER environment variable. For local <br>
-  development it is set in the env.development.local file. <br>
-- create env.development.local file to the project root and add REACT_APP_LATAAMO_PROXY_SERVER variable <br>
-  `cd unitube-lataamo && echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3000" > .env.development.local`
-- install dependencies, start the local fake REST API and start the react app <br>
- `npm install && npm run local-dev-db && npm start`
-
-
-
-
-For more info about naming conventions and .env files see [Adding Custom Environment Variables](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables) <br>
-For more info about json-server fake REST API see [JSON server](https://github.com/typicode/json-server)
-
-### Translation library
-
-- https://www.npmjs.com/package/react-redux-i18n
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Create env.development.local file to the project root with REACT_APP_LATAAMO_PROXY_SERVER variable to the fake data<br>
+  `echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3002" > .env.development.local`
+- Start the local fake REST API<br>
+  `npm run local-dev-db`
+- Install dependencies and start the react app<br>
+  `npm install && npm start`
