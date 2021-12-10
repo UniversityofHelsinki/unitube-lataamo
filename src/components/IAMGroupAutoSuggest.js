@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { asyncContainer, Typeahead } from 'react-bootstrap-typeahead';
+import { withAsync, Typeahead } from 'react-bootstrap-typeahead';
 import { connect } from 'react-redux';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { iamGroupQuery, addIamGroup } from '../actions/seriesAction';
 
-const AsyncTypeahead = asyncContainer(Typeahead);
+const AsyncTypeahead = withAsync(Typeahead);
 
 const IAMGroupAutoSuggest = (props) => {
 
@@ -29,9 +29,8 @@ const IAMGroupAutoSuggest = (props) => {
     };
 
     const clearTypeAheadSelection = () => {
-        const instance = iamGroupTypeAhead.getInstance();
-        instance.clear();
-        instance.focus();
+        iamGroupTypeAhead.clear();
+        iamGroupTypeAhead.focus();
     };
 
     const addToSelection = (selection) => {
