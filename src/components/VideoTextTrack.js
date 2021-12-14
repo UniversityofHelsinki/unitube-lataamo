@@ -7,13 +7,13 @@ import {
     setEventProcessingState,
     updateEventList
 } from '../actions/eventsAction';
-import {downloadFile} from "../actions/videosAction";
+import { downloadFile } from '../actions/videosAction';
 import constants from '../utils/constants';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import {FiDownload} from "react-icons/fi";
-import '../stylesheets/components/all.sass'
+import { FiDownload } from 'react-icons/fi';
+import '../stylesheets/components/all.sass';
 
 const SweetAlert = withReactContent(Swal);
 
@@ -139,7 +139,7 @@ const VideoTextTrackForm = (props) => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
         hasVttVideoFile();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.videoFiles]);// Only re-run the effect if values of arguments changes
 
     const handleFileInputChange = (event) => {
@@ -198,7 +198,7 @@ const VideoTextTrackForm = (props) => {
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('download_vtt_file')}</Tooltip>}>
                                 <span className="d-inline-block float-right mr-1">
                                     <button type="submit"  disabled={!videoTextFile || disabledInputs} className="btn btn-primary float-right button-position mr-1" onClick={downloadVTTFile}><FiDownload></FiDownload></button>
-                                  </span>
+                                </span>
                             </OverlayTrigger>
                         </div>
                     </div>

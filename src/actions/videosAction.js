@@ -29,7 +29,7 @@ export const downloadFile = async (eventId, fileName) => {
             // read the data
             let chunks = []; // array of received binary chunks (comprises the body)
             while (true) {
-                const {done, value} = await reader.read();
+                const { done, value } = await reader.read();
                 if (done) {
                     break;
                 }
@@ -105,7 +105,7 @@ export const actionUploadVideo = (newVideo) => {
                         resolve(response);
                     }
                     if (response.status === 500) {
-                        dispatch(fileUploadSuccessActionMessage('error_on_video_upload'));
+                        dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
                         dispatch(fileUploadProgressAction(0));
                         resolve(response);
                     }

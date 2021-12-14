@@ -1,4 +1,4 @@
-import {api401FailureCall, apiFailureCall} from './videosAction';
+import { api401FailureCall, apiFailureCall } from './videosAction';
 
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const VIDEO_TEXT_FILE_PATH = '/api/videoTextTrack';

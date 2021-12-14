@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
-import {Alert, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList} from '../actions/eventsAction';
+import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
-import {IconContext} from 'react-icons';
-import {FiCopy} from 'react-icons/fi';
+import { IconContext } from 'react-icons';
+import { FiCopy } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -111,7 +111,7 @@ const VideoDetailsForm = (props) => {
         if (!isBeingEdited) {
             setInputs(props.video);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.video, props.series, props.inbox]);
 
     const embedVideo = () => {
@@ -138,7 +138,7 @@ const VideoDetailsForm = (props) => {
 
     const replaceIllegalCharacters = (target, value) => {
         if (target === 'title' || target === 'description') {
-            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, "g");
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, 'g');
             return value.replace(regExp, '');
         } else {
             return value;
@@ -250,7 +250,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
                                     <select disabled={disabledInputs} required className="form-control" name="isPartOf"
-                                            data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleInputChange}>
+                                        data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleInputChange}>
                                         {drawSelectionValues()}
                                     </select>
                                 </div>
@@ -266,7 +266,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
                                     <input disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
-                                           data-cy="test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
+                                        data-cy="test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
@@ -280,7 +280,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
                                     <textarea disabled={disabledInputs} name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
-                                              onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
+                                        onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>

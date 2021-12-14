@@ -34,7 +34,7 @@ const SeriesUploadForm = (props) => {
             props.onClearPostSeriesFailureMessage();
         }, 5000);
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [props.seriesPostFailureMessage, props.seriesPostSuccessMessage]);
 
 
