@@ -177,7 +177,7 @@ deploy_dev:
     - echo "====== Deploy to development server ========"
   extends: .deploy_script
 
-# deploy to test environment
+# deploy to test environment 
 deploy_test:
   stage: deploy
   environment:
