@@ -55,6 +55,7 @@ build_dev:
     - ohtu-build-2
   only:
     - master
+    - lataamo_poistamo_dev # poistamo dev branch
   script:
     - yes | cp -f -v .env.development .env.production || true
     - npm run build
@@ -69,6 +70,7 @@ build_test:
     - ohtu-build-2
   only:
     - test
+    - lataamo_poistamo_test # poistamo test branch
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - npm rebuild node-sass
@@ -165,6 +167,7 @@ deploy_dev:
     url: https://$LATAAMO_DEV
   only:
     - master
+    - lataamo_poistamo_dev # poistamo dev branch
   except:
     - schedules
   variables:
@@ -182,6 +185,7 @@ deploy_test:
     url: https://$LATAAMO_TEST
   only:
     - test
+    - lataamo_poistamo_test # poistamo test branch
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
