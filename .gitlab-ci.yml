@@ -165,7 +165,6 @@ deploy_dev:
     url: https://$LATAAMO_DEV
   only:
     - master
-    - lataamo_poistamo_dev # poistamo dev branch
   except:
     - schedules
   variables:
@@ -183,7 +182,6 @@ deploy_test:
     url: https://$LATAAMO_TEST
   only:
     - test
-    - lataamo_poistamo_test # poistamo test branch
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
