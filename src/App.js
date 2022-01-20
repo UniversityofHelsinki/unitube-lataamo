@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
 import InboxVideoList from './components/InboxVideoList';
 import TrashVideoList from './components/TrashVideoList';
+import 'animate.css';
 
 const App = (props) => {
 

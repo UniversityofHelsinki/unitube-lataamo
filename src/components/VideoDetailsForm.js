@@ -96,7 +96,7 @@ const VideoDetailsForm = (props) => {
         // call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
-            setSuccessMessage(translate('updated_event_details'));
+            showUpdateSuccessMessage();
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
@@ -212,6 +212,26 @@ const VideoDetailsForm = (props) => {
             customClass: {
                 confirmButton: 'test-delete-event-success-confirm-button',
             }
+        });
+    };
+    const showUpdateSuccessMessage = () => {
+        SweetAlert.fire({
+            title: translate('succeeded_to_update_event_title'),
+            text: translate('succeeded_to_update_event'),
+            icon: 'success',
+            showClass: {
+                popup: 'animate__animated animate__backInRight'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__backOutRight'
+            },
+            width: '300 px',
+            toast: true,
+            timer: 5000,
+            timerProgressBar: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            showCloseButton: true
         });
     };
 
@@ -342,14 +362,14 @@ const VideoDetailsForm = (props) => {
                         <div className="form-group row">
                             <div className="col-sm-12">
                                 {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
-                                {successMessage !== null ?
+                                {/*{successMessage !== null ?
                                     <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
                                         <p>
                                             {successMessage}
                                         </p>
                                     </Alert>
                                     : (<></>)
-                                }
+                                }*/}
                                 {errorMessage !== null ?
                                     <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
                                         <p>
