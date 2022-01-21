@@ -227,7 +227,7 @@ const VideoDetailsForm = (props) => {
             },
             width: '300 px',
             toast: true,
-            timer: 5000,
+            timer: 20000,
             timerProgressBar: true,
             position: 'top-right',
             showConfirmButton: false,
