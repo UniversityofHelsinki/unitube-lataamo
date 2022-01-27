@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
 import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import { fetchUser } from './actions/userAction';
 import InboxVideoList from './components/InboxVideoList';
 import TrashVideoList from './components/TrashVideoList';
+import 'animate.css';
 
 const App = (props) => {
 
@@ -30,14 +31,14 @@ const App = (props) => {
                     <LoginRedirect loginUrl={SHIBBOLETH_LOGIN} />
                     <Header />
                     <div id="main-content" className="content-wrapper">
-                        <Switch>
-                            <Route exact path='/' render={(props) => <InboxVideoList {...props} route={'inbox'}  />}/>
-                            <Route exact path='/events' render={(props) => <VideoList {...props} route={'events'} />}/>
-                            <Route exact path='/series' render={(props) => <SeriesList {...props} route={'series'} />}/>
-                            <Route exact path='/uploadVideo' render={(props) => <VideoUploadForm {...props} route={'uploadVideo'} />} />
-                            <Route exact path='/uploadSeries' component={SeriesUploadForm}/>
-                            <Route exact path='/trash' render={(props) => <TrashVideoList {...props} route={'trash'}  />}/>
-                        </Switch>
+                        <Routes>
+                            <Route path='/' element={<InboxVideoList {...props} route={'inbox'}/>}/>
+                            <Route path='/events' element={<VideoList {...props} route={'events'}/>}/>
+                            <Route path='/series' element={<SeriesList {...props} route={'series'}/>}/>
+                            <Route path='/uploadVideo' element={<VideoUploadForm {...props} route={'uploadVideo'}/>}/>
+                            <Route path='/uploadSeries' element={<SeriesUploadForm {...props} route={'uploadSeries'}/>}/>
+                            <Route path='/trash' element={<TrashVideoList {...props} route={'trash'}/>}/>
+                        </Routes>
                     </div>
                     <Footer/>
                 </div>

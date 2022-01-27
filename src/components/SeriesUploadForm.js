@@ -9,9 +9,11 @@ import PersonListAutoSuggest from './PersonListAutoSuggest';
 import PersonList from './PersonList';
 import * as constants from '../utils/constants';
 import routeAction from '../actions/routeAction';
+import { useNavigate } from 'react-router-dom';
 
 const SeriesUploadForm = (props) => {
 
+    let navigate = useNavigate();
     const translations =  props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
@@ -27,8 +29,8 @@ const SeriesUploadForm = (props) => {
 
     useEffect(() => {
         props.onRouteChange(props.route);
-        if (props.seriesPostSuccessMessage !== null && props.history) {
-            props.history.push('series'); // redirect to Router's series path
+        if (props.seriesPostSuccessMessage !== null) {
+            navigate('../series');
         }
         const interval = setInterval(() => {
             props.onClearPostSeriesFailureMessage();
@@ -109,7 +111,17 @@ const SeriesUploadForm = (props) => {
         }
     };
 
+    const replaceIllegalCharacters = (target, value) => {
+        if (target === 'title' || target === 'description') {
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, 'g');
+            return value.replace(regExp, '');
+        } else {
+            return value;
+        }
+    };
+
     const handleInputChange = (event) => {
+        event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
     };
