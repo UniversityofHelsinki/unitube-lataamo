@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { downloadVideo } from '../actions/videosAction';
 import { actionUpdateEventDetails, fetchTrashEvents } from '../actions/eventsAction';
+import { fetchSeriesDropDownList } from '../actions/seriesAction';
+import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -9,10 +11,8 @@ import moment from 'moment';
 import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
-import { fetchSeriesDropDownList } from '../actions/seriesAction';
 import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
 
 const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
@@ -20,10 +20,10 @@ const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 const { SearchBar } = Search;
 
 const TrashVideoList = (props) => {
+    const translations = props.i18n.translations[props.i18n.locale];
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
-    const translations = props.i18n.translations[props.i18n.locale];
 
     let [inputs, setInputs] = useState('');
 
@@ -39,10 +39,10 @@ const TrashVideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
+            event.target.downloadIndicator.removeAttribute('hidden');
             let elements = document.getElementsByClassName('disable-enable-buttons');
             let array = [ ...elements ];
             array.map(element => element.setAttribute('disabled', 'disabled'));
-            event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
@@ -155,9 +155,13 @@ const TrashVideoList = (props) => {
         }]
     };
 
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_trash_video_list') : ''
+    );
+
     useEffect(() => {
-        props.onRouteChange(props.route);
         props.onFetchEvents(true);
+        props.onRouteChange(props.route);
         if (props.apiError) {
             setErrorMessage(translate(props.apiError));
         }
@@ -179,7 +183,8 @@ const TrashVideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
-    const columns = [{ dataField: 'title',
+    const columns = [{
+        dataField: 'title',
         text: translate('video_title'),
         sort: true
     }, {
@@ -197,17 +202,12 @@ const TrashVideoList = (props) => {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
-    }
-    ];
+    }];
 
     const defaultSorted = [{
         dataField: 'title',
         order: 'desc'
     }];
-
-    const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_trash_video_list') : ''
-    );
 
     return (
         <div>
@@ -250,7 +250,7 @@ const TrashVideoList = (props) => {
                                     </div>
                                     <BootstrapTable { ...props.baseProps }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={() => <NoDataIndication/>} bordered={ false } hover />
+                                        noDataIndication={ () => <NoDataIndication/> } bordered={ false } hover />
                                 </div>
                             )
                         }
@@ -284,5 +284,6 @@ const mapDispatchToProps = dispatch => ({
     },
     onRouteChange: (route) =>  dispatch(routeAction(route))
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashVideoList);

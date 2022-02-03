@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
+import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
 import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import { Button } from 'react-bootstrap';
@@ -12,22 +12,26 @@ import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
+import constants, {
+    VIDEO_PROCESSING_INSTANTIATED,
+    VIDEO_PROCESSING_RUNNING
+} from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
-import { FaSpinner, FaSearch } from 'react-icons/fa';
-import constants from '../utils/constants';
+import { FaSearch, FaSpinner } from 'react-icons/fa';
+
+const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 const { SearchBar } = Search;
 
 const VideoList = (props) => {
-    const [errorMessage, setErrorMessage] = useState(null);
-    // eslint-disable-next-line no-unused-vars
-    let [media, setMedia] = useState({ column: 'media', expanded: '' });
     const translations = props.i18n.translations[props.i18n.locale];
+    const [errorMessage, setErrorMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
-    const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
+    // eslint-disable-next-line no-unused-vars
+
+    let [media, setMedia] = useState({ column: 'media', expanded: '' });
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -41,10 +45,10 @@ const VideoList = (props) => {
         if (event) {
             event.persist();
             event.preventDefault();
+            event.target.downloadIndicator.removeAttribute('hidden');
             let elements = document.getElementsByClassName('disable-enable-buttons');
             let array = [ ...elements ];
             array.map(element => element.setAttribute('disabled', 'disabled'));
-            event.target.downloadIndicator.removeAttribute('hidden');
             const data = { 'mediaUrl':  event.target.mediaUrl.value };
             const fileName = getFileName(event.target.mediaUrl.value);
             try {
@@ -59,6 +63,21 @@ const VideoList = (props) => {
         }
     };
 
+    const mediaFormatter = (cell, row) => {
+        return (
+            <div className="form-container">
+                {
+                    row.media.map((media, index) =>
+                        <form key={index} onSubmit={handleSubmit}>
+                            <input type="hidden" name="mediaUrl" value={media} />
+                            <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
+                        </form>
+                    )
+                }
+            </div>
+        );
+    };
 
     // the only translated property is the visibility value
     const translatedVideos = () => {
@@ -68,6 +87,16 @@ const VideoList = (props) => {
                 visibility: video.visibility.map(visibilityKey => translate(visibilityKey))
             };
         });
+    };
+
+    const options = {
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        }, {
+            text: '30', value: 30
+        }]
     };
 
     const NoDataIndication = () => (
@@ -88,7 +117,6 @@ const VideoList = (props) => {
         // eslint-disable-next-line
     }, [props.selectedRowId, props.videos]);
 
-
     useEffect(() => {
         props.onFetchEvents(true);
         props.onRouteChange(props.route);
@@ -105,6 +133,10 @@ const VideoList = (props) => {
         return () => clearInterval(interval);
     }, []);
 
+    const dateFormatter = (cell) => {
+        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
+    };
+
     const statusFormatter = (cell, row) => {
         return (
             <div>
@@ -117,32 +149,12 @@ const VideoList = (props) => {
         );
     };
 
-    const mediaFormatter = (cell, row) => {
-        return (
-            <div className="form-container">
-                {
-                    row.media.map((media, index) =>
-                        <form key={index} onSubmit={handleSubmit}>
-                            <input type="hidden" name="mediaUrl" value={media} />
-                            <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
-                            <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
-                        </form>
-                    )
-                }
-            </div>
-        );
-    };
-
-    const dateFormatter = (cell) => {
-        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
-    };
-
     const stateFormatter = (cell) => {
-        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+        if (cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return translate('event_succeeded_state');
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return translate('event_running_and_instantiated_state');
-        }else {
+        } else {
             return translate('event_failed_state');
         }
     };
@@ -221,13 +233,12 @@ const VideoList = (props) => {
         ),
         onlyOneExpanding: true,
         onExpand: (row, isExpand, rowIndex, e) => {
-            if(isExpand) {
+            if (isExpand) {
                 props.onSelectEvent(row);
             }
         },
         nonExpandable: nonSelectableRows()
     };
-
 
     const rowStyle = (row) => {
         const style = {};
@@ -235,16 +246,6 @@ const VideoList = (props) => {
             style.backgroundColor = '#f4f5f9';
         }
         return style;
-    };
-
-    const options = {
-        sizePerPageList: [{
-            text: '5', value: 5
-        }, {
-            text: '10', value: 10
-        }, {
-            text: '30', value: 30
-        }]
     };
 
     return (
@@ -263,7 +264,6 @@ const VideoList = (props) => {
                             </p>
                         </Alert> : ''
                     }
-
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"
@@ -281,9 +281,9 @@ const VideoList = (props) => {
                                     </div>
                                     <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
                                         pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={() => <NoDataIndication /> } bordered={ false }
+                                        noDataIndication={ () => <NoDataIndication/> } bordered={ false }
                                         rowStyle={ rowStyle }
-                                        hover/>
+                                        hover />
                                 </div>
                             )
                         }

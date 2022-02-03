@@ -6,9 +6,11 @@ import {
     deselectEvent,
     deselectRow,
     fetchEvent,
-    fetchInboxEvents, updateEventList
+    fetchInboxEvents,
+    updateEventList
 } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
+import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -23,7 +25,6 @@ import constants, {
 } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import { Button } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 
@@ -32,12 +33,12 @@ const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 const { SearchBar } = Search;
 
 const InboxVideoList = (props) => {
+    const translations = props.i18n.translations[props.i18n.locale];
     const [errorMessage, setErrorMessage] = useState(null);
+    const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [progressMessage, setProgressMessage] = useState(null);
-    const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
     const [videoDeleteErrorMessage, setVideoDeleteErrorMessage] = useState(null);
-    const translations = props.i18n.translations[props.i18n.locale];
     const [disabledInputs, setDisabledInputs] = useState(false);
 
     const translate = (key) => {
@@ -106,7 +107,11 @@ const InboxVideoList = (props) => {
         }]
     };
 
-    useEffect( () => {
+    const NoDataIndication = () => (
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_inbox_video_list') : ''
+    );
+
+    useEffect(() => {
     }, [disabledInputs, progressMessage]);
 
     useEffect(() => {
@@ -158,7 +163,7 @@ const InboxVideoList = (props) => {
     const deleteEvent = async (e, deletedEvent) => {
         e.preventDefault();
         e.persist();
-        if(e.target.classList.contains('disabled')){
+        if (e.target.classList.contains('disabled')){
             return false;
         }
         setProgressMessage(translate('progress_message_delete_event'));
@@ -180,11 +185,11 @@ const InboxVideoList = (props) => {
     };
 
     const stateFormatter = (cell, row) => {
-        if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+        if (cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return translate('event_succeeded_state');
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return translate('event_running_and_instantiated_state');
-        }else {
+        } else {
             return (
                 <div>
                     {translate('event_failed_state')}
@@ -249,17 +254,12 @@ const InboxVideoList = (props) => {
         ),
         onlyOneExpanding: true,
         onExpand: (row, isExpand, rowIndex, e) => {
-            if(isExpand) {
+            if (isExpand) {
                 props.onSelectEvent(row);
             }
         },
         nonExpandable: nonSelectableRows()
     };
-
-    const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_inbox_video_list') : ''
-    );
-
 
     const rowStyle = (row) => {
         const style = {};
@@ -301,7 +301,6 @@ const InboxVideoList = (props) => {
             }
             { !errorMessage ?
                 <div className="table-responsive">
-
                     {videoDownloadErrorMessage ?
                         <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
@@ -345,6 +344,7 @@ const InboxVideoList = (props) => {
         </div>
     );
 };
+
 const mapStateToProps = state => ({
     videos: state.er.inboxVideos,
     selectedRowId: state.vr.selectedRowId,
