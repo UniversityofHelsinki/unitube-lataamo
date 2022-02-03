@@ -8,7 +8,6 @@ import {
 
 import fileDownload from 'js-file-download';
 
-
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_VIDEOS_PATH = '/api/userVideos';
 const VIDEO_PATH = '/api/videoUrl/';
@@ -48,7 +47,6 @@ export const downloadFile = async (eventId, fileName) => {
     }
 };
 
-
 export const downloadVideo = async (data, fileName) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${DOWNLOAD_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
@@ -65,18 +63,17 @@ export const downloadVideo = async (data, fileName) => {
     }
 };
 
-
 //fetch video url
 export const fetchVideoUrl = (row) => {
     return async (dispatch) => {
         try {
             let response = await fetch(`${VIDEO_SERVER_API}${VIDEO_PATH}${row.identifier}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetVideoSuccessCall(responseJSON, row.identifier));
             } else if (response.status === 404) {
                 dispatch(apiFailureCall('not_found_error'));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -134,11 +131,11 @@ export const actionUploadVideo = (newVideo) => {
                 return result;
             }
         } catch (error) {
-            if(error.response.status===415){
+            if (error.response.status === 415){
                 const errorResponseMessage = await error.response.data.message;
                 dispatch(fileUploadFailedActionMessage(errorResponseMessage));
                 dispatch(fileUploadProgressAction( 0));
-            }else{
+            } else {
                 dispatch(fileUploadFailedActionMessage('error_on_video_upload'));
                 dispatch(fileUploadProgressAction( 0));
             }

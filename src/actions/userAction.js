@@ -4,7 +4,7 @@ export const fetchUser = () => {
     return async (dispatch)  => {
         try {
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetUserSuccessCall(responseJSON));
             } else {
@@ -22,7 +22,6 @@ export const apiGetUserSuccessCall = data => {
         payload: data
     };
 };
-
 
 export const api401FailureCall = failureTime => ({
     type: 'STATUS_401_API_CALL',

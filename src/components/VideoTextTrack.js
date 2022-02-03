@@ -29,7 +29,7 @@ const VideoTextTrackForm = (props) => {
     };
 
     const showUpdateSuccessMessage = (addSubtitles) => {
-        if(addSubtitles){
+        if (addSubtitles){
             SweetAlert.fire({
                 title: translate('save_webvtt_successful_title'),
                 text: translate('save_webvtt_successful'),
@@ -175,7 +175,6 @@ const VideoTextTrackForm = (props) => {
         }
     };
 
-
     useEffect(() => {
         let isDisabled  = props.event.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
@@ -189,7 +188,6 @@ const VideoTextTrackForm = (props) => {
         setVideoTextFile(videoTextFile);
     };
 
-
     return (
         <div>
             {errorMessage  !== null ?
@@ -198,7 +196,6 @@ const VideoTextTrackForm = (props) => {
                 </Alert>
                 : (<></>)
             }
-
             <form id="upload_text_track_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">

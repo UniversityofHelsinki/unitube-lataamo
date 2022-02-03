@@ -8,7 +8,7 @@ import languageChangeAction from '../actions/languageChangeAction';
 const Language = (props) => {
 
     useEffect(() => {
-        if(props.user && props.user.preferredLanguage) {
+        if (props.user && props.user.preferredLanguage) {
             props.setInitialLanguage(props.user.preferredLanguage);
         } else {
             props.setInitialLanguage('fi');
@@ -44,4 +44,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Language);
-

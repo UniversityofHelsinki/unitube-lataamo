@@ -34,7 +34,6 @@ const VideoUploadForm = (props) => {
         return translations ? translations[key] : '';
     };
 
-
     const uploadVideo = async() => {
         //https://developer.mozilla.org/en-US/docs/Web/API/FormData/set
         const data = new FormData();
@@ -91,7 +90,7 @@ const VideoUploadForm = (props) => {
         event.persist();
         const videoFile = event.target.files[0];
         setValidationMessage(null);
-        if(videoFile){
+        if (videoFile){
             const video = await loadVideo(videoFile);
             if (video && validateVideoFileLength(videoFile, video)) {
                 setVideoFile(videoFile);
@@ -172,7 +171,6 @@ const VideoUploadForm = (props) => {
         </div>
     );
 };
-
 
 const mapStateToProps = state => ({
     event : state.er.event,

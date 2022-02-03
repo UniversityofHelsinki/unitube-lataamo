@@ -122,7 +122,7 @@ const SeriesList = (props) => {
         ),
         onlyOneExpanding: true,
         onExpand: (row, isExpand, rowIndex, e) => {
-            if(isExpand) {
+            if (isExpand) {
                 props.onSelectSeries(row);
             }
         }

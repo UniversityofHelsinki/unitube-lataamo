@@ -116,7 +116,7 @@ const VideoDetailsForm = (props) => {
 
     const embedVideo = () => {
         let targetElement = document.getElementById('embeddedVideo');
-        if(targetElement){
+        if (targetElement){
             targetElement.innerText='<iframe ' +
                 'src="https://unitube.it.helsinki.fi/unitube/embed.html?id='+ props.video.identifier +'" ' +
                 'scrolling="no" allowfullscreen="true" frameBorder="0" marginHeight="0px" marginWidth="0px" height="360" width="640"></iframe>';
@@ -391,7 +391,6 @@ const VideoDetailsForm = (props) => {
         </div>
     );
 };
-
 
 const mapStateToProps = state => ({
     video : state.er.event,

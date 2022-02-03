@@ -19,7 +19,6 @@ import PersonList from './PersonList';
 import VideosInSeries from './VideosInSeries';
 import * as constants from '../utils/constants';
 
-
 const SerieDetailsForm = (props) => {
 
     const translations = props.i18n.translations[props.i18n.locale];
@@ -167,7 +166,7 @@ const SerieDetailsForm = (props) => {
     };
 
     const handleMoodleInputChange = (event) => {
-        if(event.target.value === '' || containsOnlyNumbers(event)) {
+        if (event.target.value === '' || containsOnlyNumbers(event)) {
             event.persist();
             setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
         }
@@ -408,7 +407,6 @@ const SerieDetailsForm = (props) => {
         </div>
     );
 };
-
 
 const mapStateToProps = state => ({
     serie: state.ser.serie,

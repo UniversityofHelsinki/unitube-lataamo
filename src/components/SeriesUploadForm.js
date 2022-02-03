@@ -105,7 +105,7 @@ const SeriesUploadForm = (props) => {
     };
 
     const handleMoodleInputChange = (event) => {
-        if(event.target.value === '' || containsOnlyNumbers(event)) {
+        if (event.target.value === '' || containsOnlyNumbers(event)) {
             event.persist();
             setInputs(inputs => ({ ...inputs, [event.target.name]:event.target.value }));
         }

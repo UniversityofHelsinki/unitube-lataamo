@@ -11,7 +11,7 @@ export const personQuery = async (query) => {
         let response = await fetch(`${VIDEO_SERVER_API}${PERSON_API_PATH}${query}`, {
             method: 'GET',
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
             return await response.json();
         } else {
             throw new Error(response.status);
@@ -45,10 +45,10 @@ export const fetchSeriesDropDownList = () => {
     return async (dispatch) => {
         try {
             let response = await fetch(`${VIDEO_SERVER_API}${SERIES_DROP_DOWN_PATH}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetSeriesDropDownListSuccessCall(responseJSON));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -66,10 +66,10 @@ export const fetchSeries = () => {
         try {
             dispatch(apiGetSeriesRequestCall());
             let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetSeriesSuccessCall(responseJSON));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -85,7 +85,7 @@ export const iamGroupQuery = async (query) => {
         let response = await fetch(`${SERVER_API}${IAM_GROUP_PATH}${query}`, {
             method: 'GET',
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
             return await response.json();
         } else {
             throw new Error(response.status);
@@ -104,7 +104,7 @@ export const actionUpdateSerieDetails = async (id, updatedSerie) => {
             },
             body: JSON.stringify(updatedSerie)
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
             let responseJSON = await response.json();
             return responseJSON;
         } else {
@@ -127,9 +127,9 @@ export const actionUploadSeries = (newSeries) => {
             });
             if (response.status === 200) {
                 dispatch(apiPostSeriesSuccessCall());
-            } else if(response.status === 403){
+            } else if (response.status === 403){
                 dispatch(apiPostSeries403FailureCall());
-            } else if(response.status === 500){
+            } else if (response.status === 500){
                 let resp = await response.json();
                 dispatch(apiPostSeries500FailureCall(resp.message));
             } else {

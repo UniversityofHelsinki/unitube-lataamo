@@ -9,7 +9,9 @@ function Navigation (props) {
             <nav id="navigation">
                 <ul id="mainmenu">
                     <li className={props.route === 'inbox' ? 'main-nav-item open' : 'main-nav-item'} >
-                        <Link to="/" className="menuitem" data-cy="test-inbox-menu"><Translate value="inbox" /> <span hidden={props.videos<=0} className="videos-count">{props.videos >= 100 ? '99+' : props.videos}</span></Link>
+                        <Link to="/" className="menuitem" data-cy="test-inbox-menu"><Translate value="inbox" />
+                            <span hidden={props.videos <= 0} className="videos-count">{props.videos >= 100 ? '99+' : props.videos}</span>
+                        </Link>
                     </li>
                     <li className={props.route === 'series' ? 'main-nav-item open' : 'main-nav-item'}>
                         <Link to="/series" className="menuitem" data-cy="test-series-menu" ><Translate value="series" /></Link>

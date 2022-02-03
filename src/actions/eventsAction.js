@@ -12,12 +12,12 @@ export const fetchEvent = (row) => {
     return async (dispatch) => {
         try {
             let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${row.identifier}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetEventSuccessCall(responseJSON));
             } else if (response.status === 404) {
                 dispatch(apiFailureCall('not_found_error'));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -39,10 +39,10 @@ export const fetchInboxEvents = (refresh) => {
         try {
             eventsRequestCall(dispatch, refresh);
             let response = await fetch(`${VIDEO_SERVER_API}${USER_INBOX_EVENTS_PATH}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetInboxEventsSuccessCall(responseJSON));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -58,10 +58,10 @@ export const fetchTrashEvents = (refresh) => {
         try {
             eventsRequestCall(dispatch, refresh);
             let response = await fetch(`${VIDEO_SERVER_API}${USER_TRASH_EVENTS_PATH}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetTrashEventsSuccessCall(responseJSON));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -77,10 +77,10 @@ export const fetchEvents = (refresh) => {
         try {
             eventsRequestCall(dispatch, refresh);
             let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_PATH}`);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetEventsSuccessCall(responseJSON));
-            }else if(response.status === 401){
+            } else if (response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
                 dispatch(apiFailureCall('general_error'));
@@ -93,7 +93,7 @@ export const fetchEvents = (refresh) => {
 
 // update the eventlist in state (called on video information update)
 export const updateEventList = (inbox, updatedVideos) => {
-    if(inbox==='true'){
+    if (inbox==='true'){
         return async dispatch => {
             dispatch(apiGetInboxEventsSuccessCall(updatedVideos));
         };
@@ -112,7 +112,7 @@ export const actionUpdateEventDetails = async (id, updatedEvent) => {
             },
             body: JSON.stringify(updatedEvent)
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
             let responseJSON = await response.json();
             return responseJSON;
         } else {
@@ -132,7 +132,7 @@ export const actionMoveEventToTrashSeries = async (id, deletedEvent) => {
             },
             body: JSON.stringify(deletedEvent)
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
             let responseJSON = await response.json();
             return responseJSON;
         } else {

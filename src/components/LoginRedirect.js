@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-
 const LoginRedirect = (props) => {
     useEffect(() => {
-        if(props.redirect401) {
+        if (props.redirect401) {
             window.location.assign(props.loginUrl);
         }
         // eslint-disable-next-line
