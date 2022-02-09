@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
+import { fetchVideoUrl } from '../actions/videosAction';
 import {
     actionMoveEventToTrashSeries,
     deselectEvent,
@@ -14,21 +14,29 @@ import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import VideoDetailsForm from './VideoDetailsForm';
-import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
-import Loader from './Loader';
-import constants, {
+import {
     VIDEO_PROCESSING_INSTANTIATED,
-    VIDEO_PROCESSING_RUNNING
+    VIDEO_PROCESSING_RUNNING,
+    VIDEO_PROCESSING_SUCCEEDED
 } from '../utils/constants';
+import {
+    dateFormatter,
+    downloadHandler,
+    hideErrorMessageAfter,
+    noDataIndication,
+    paginationOptions,
+    rowStyle,
+    getExpandRowProps,
+    viewErrorMessage,
+    updateProcessedEventInfo,
+    stateFormatter
+} from '../utils/videoListUtils';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
-
-const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 const { SearchBar } = Search;
 
@@ -45,38 +53,13 @@ const InboxVideoList = (props) => {
         return translations ? translations[key] : '';
     };
 
-    const getFileName = (url) => {
-        return url.substring(url.lastIndexOf('/') + 1);
-    };
-
-    const handleSubmit = async (event) => {
-        if (event) {
-            event.persist();
-            event.preventDefault();
-            event.target.downloadIndicator.removeAttribute('hidden');
-            let elements = document.getElementsByClassName('disable-enable-buttons');
-            let array = [ ...elements ];
-            array.map(element => element.setAttribute('disabled', 'disabled'));
-            const data = { 'mediaUrl':  event.target.mediaUrl.value };
-            const fileName = getFileName(event.target.mediaUrl.value);
-            try {
-                await downloadVideo(data, fileName);
-            } catch (error) {
-                setVideoDownloadErrorMessage(translate('error_on_video_download'));
-            }
-            elements = document.getElementsByClassName('disable-enable-buttons');
-            array = [ ...elements ];
-            array.map(element => element.removeAttribute('disabled'));
-            event.target.downloadIndicator.setAttribute('hidden', true);
-        }
-    };
-
     const mediaFormatter = (cell, row) => {
         return (
             <div className="form-container">
                 {
                     row.media.map((media, index) =>
-                        <form key={index} onSubmit={handleSubmit}>
+                        <form key={index}
+                            onSubmit={(event) => downloadHandler(event, setVideoDownloadErrorMessage, translate('error_on_video_download'))}>
                             <input type="hidden" name="mediaUrl" value={media} />
                             <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
                             <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
@@ -97,56 +80,16 @@ const InboxVideoList = (props) => {
         });
     };
 
-    const options = {
-        sizePerPageList: [{
-            text: '5', value: 5
-        }, {
-            text: '10', value: 10
-        }, {
-            text: '30', value: 30
-        }]
-    };
+    useEffect(() => {},
+        [disabledInputs, progressMessage]);
 
-    const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_inbox_video_list') : ''
-    );
+    useEffect(updateProcessedEventInfo(props),
+        [props.selectedRowId, props.videos, disabledInputs]);
 
-    useEffect(() => {
-    }, [disabledInputs, progressMessage]);
+    useEffect(viewErrorMessage(props, setErrorMessage, translate(props.apiError)),
+        [props.apiError, props.route, disabledInputs]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-            if (props.selectedRowId && props.videos) {
-                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
-                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
-                    props.onSelectEvent({ identifier: props.selectedRowId });
-                }
-            }
-        }, VIDEO_LIST_POLL_INTERVAL);
-        return () => clearInterval(interval);
-        // eslint-disable-next-line
-    }, [props.selectedRowId, props.videos, disabledInputs]);
-
-    useEffect(() => {
-        props.onFetchEvents(true);
-        props.onRouteChange(props.route);
-        if (props.apiError) {
-            setErrorMessage(translate(props.apiError));
-        }
-        // eslint-disable-next-line
-    }, [props.apiError, props.route, disabledInputs]);
-
-    useEffect(() => {
-        const interval = setInterval( () => {
-            setVideoDownloadErrorMessage(null);
-        }, 60000);
-        return () => clearInterval(interval);
-    }, []);
-
-    const dateFormatter = (cell) => {
-        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
-    };
+    useEffect(hideErrorMessageAfter(setVideoDownloadErrorMessage, 60000), []);
 
     const moveEventToTrashSeries = async(deletedEvent) => {
         const eventId = deletedEvent.identifier;
@@ -184,20 +127,7 @@ const InboxVideoList = (props) => {
         setProgressMessage(null);
     };
 
-    const stateFormatter = (cell, row) => {
-        if (cell === constants.VIDEO_PROCESSING_SUCCEEDED){
-            return translate('event_succeeded_state');
-        } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
-            return translate('event_running_and_instantiated_state');
-        } else {
-            return (
-                <div>
-                    {translate('event_failed_state')}
-                    <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
-                </div>
-            );
-        }
-    };
+    const stateFormatterInbox = (cell, row) => stateFormatter(cell, row, true);
 
     const columns = [{
         dataField: 'identifier',
@@ -221,7 +151,7 @@ const InboxVideoList = (props) => {
         dataField: 'processing_state',
         text: translate('processing_state'),
         sort: true,
-        formatter: stateFormatter
+        formatter: stateFormatterInbox
     }, {
         dataField: 'media',
         text: translate('download_video'),
@@ -233,49 +163,13 @@ const InboxVideoList = (props) => {
         order: 'desc'
     }];
 
-    const eventNotSelectable = (processingState) => {
-        return (processingState && (processingState !== constants.VIDEO_PROCESSING_SUCCEEDED));
-    };
-
-    const nonSelectableRows = () => {
-        let nonSelectableArray = [];
-        props.videos.forEach(video => {
-            if (eventNotSelectable(video.processing_state)) {
-                nonSelectableArray.push(video.identifier);
-            }
-        });
-        return nonSelectableArray;
-    };
-
-    const expandRow = {
-        parentClassName: 'parent-expand',
-        renderer: row => (
-            <VideoDetailsForm inbox="true"/>
-        ),
-        onlyOneExpanding: true,
-        onExpand: (row, isExpand, rowIndex, e) => {
-            if (isExpand) {
-                props.onSelectEvent(row);
-            }
-        },
-        nonExpandable: nonSelectableRows()
-    };
-
-    const rowStyle = (row) => {
-        const style = {};
-        if (eventNotSelectable(row.processing_state)) {
-            style.backgroundColor = '#f4f5f9';
-        }
-        return style;
-    };
+    const expandRow = getExpandRowProps(props.videos, props.onSelectEvent, true);
 
     return (
-        <div>
-            <div className="margintop">
-                <Link to="/uploadVideo" className="btn btn-primary">
-                    <Translate value="add_video"/>
-                </Link>
-            </div>
+        <div className="margintop marginbottom">
+            <Link to="/uploadVideo" className="btn btn-primary">
+                <Translate value="add_video"/>
+            </Link>
             {progressMessage !== null ?
                 <Alert variant="warning" onClose={() => setProgressMessage(null)} dismissible>
                     <p>
@@ -316,16 +210,18 @@ const InboxVideoList = (props) => {
                         search>
                         {
                             props => (
-                                <div>
-                                    <br/>
-                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                <div className="margintop">
+                                    <label className='info-text'>{ translate('search_events_info') }</label>
                                     <div className="form-group has-search">
-                                        <span className="form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch/></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     </div>
-                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={ () => <NoDataIndication /> } bordered={ false }
+                                    <BootstrapTable { ...props.baseProps }
+                                        expandRow={ expandRow }
+                                        pagination={ paginationFactory(paginationOptions) }
+                                        defaultSorted={ defaultSorted }
+                                        noDataIndication={ noDataIndication(props.loading, translate('empty_inbox_video_list')) }
+                                        bordered={ false }
                                         rowStyle={ rowStyle }
                                         hover/>
                                 </div>

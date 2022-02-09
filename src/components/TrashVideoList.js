@@ -7,15 +7,21 @@ import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import moment from 'moment';
-import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
-import { VIDEO_PROCESSING_SUCCEEDED } from '../utils/constants';
-
-const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
+import {
+    VIDEO_PROCESSING_SUCCEEDED
+} from '../utils/constants';
+import {
+    dateFormatter,
+    getFileName,
+    hideErrorMessageAfter,
+    noDataIndication,
+    paginationOptions,
+    viewErrorMessage
+} from '../utils/videoListUtils';
 
 const { SearchBar } = Search;
 
@@ -29,10 +35,6 @@ const TrashVideoList = (props) => {
 
     const translate = (key) => {
         return translations ? translations[key] : '';
-    };
-
-    const getFileName = (url) => {
-        return url.substring(url.lastIndexOf('/') + 1);
     };
 
     const handleSubmit = async (event) => {
@@ -145,43 +147,10 @@ const TrashVideoList = (props) => {
         });
     };
 
-    const options = {
-        sizePerPageList: [{
-            text: '5', value: 5
-        }, {
-            text: '10', value: 10
-        }, {
-            text: '30', value: 30
-        }]
-    };
+    useEffect(viewErrorMessage(props, setErrorMessage, translate(props.apiError)),
+        [props.apiError, props.route]);
 
-    const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_trash_video_list') : ''
-    );
-
-    useEffect(() => {
-        props.onFetchEvents(true);
-        props.onRouteChange(props.route);
-        if (props.apiError) {
-            setErrorMessage(translate(props.apiError));
-        }
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-        }, VIDEO_LIST_POLL_INTERVAL);
-        return () => clearInterval(interval);
-        // eslint-disable-next-line
-    }, [props.apiError, props.route]);
-
-    useEffect(() => {
-        const interval = setInterval( () => {
-            setVideoDownloadErrorMessage(null);
-        }, 60000);
-        return () => clearInterval(interval);
-    }, []);
-
-    const dateFormatter = (cell) => {
-        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
-    };
+    useEffect(hideErrorMessageAfter(setVideoDownloadErrorMessage, 60000), []);
 
     const columns = [{
         dataField: 'title',
@@ -210,10 +179,8 @@ const TrashVideoList = (props) => {
     }];
 
     return (
-        <div>
-            <div className="margintop">
-                <h2>{translate('trash_info')}</h2>
-            </div>
+        <div className="margintop marginbottom">
+            <h2>{translate('trash_info')}</h2>
             { successMessage ?
                 <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
                     <p>
@@ -224,7 +191,6 @@ const TrashVideoList = (props) => {
             }
             { !errorMessage ?
                 <div className="table-responsive">
-
                     {videoDownloadErrorMessage ?
                         <Alert className="position-fixed" variant="danger" onClose={() => setVideoDownloadErrorMessage(null)} dismissible>
                             <p>
@@ -232,7 +198,6 @@ const TrashVideoList = (props) => {
                             </p>
                         </Alert> : ''
                     }
-
                     <ToolkitProvider
                         bootstrap4
                         keyField="identifier"
@@ -241,16 +206,18 @@ const TrashVideoList = (props) => {
                         search>
                         {
                             props => (
-                                <div>
-                                    <br/>
-                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                <div className="margintop">
+                                    <label className='info-text'>{ translate('search_events_info') }</label>
                                     <div className="form-group has-search">
-                                        <span className="form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch/></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={ () => <NoDataIndication/> } bordered={ false } hover />
+                                        pagination={ paginationFactory(paginationOptions) }
+                                        defaultSorted={ defaultSorted }
+                                        noDataIndication={ noDataIndication(props.loading, translate('empty_trash_video_list')) }
+                                        bordered={ false }
+                                        hover />
                                 </div>
                             )
                         }
@@ -262,7 +229,7 @@ const TrashVideoList = (props) => {
                             { errorMessage }
                         </p>
                     </Alert>
-                    : <Loader loading={ translate('loading') }/>
+                    : ''
             }
         </div>
     );

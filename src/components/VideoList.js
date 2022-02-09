@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
+import { fetchVideoUrl } from '../actions/videosAction';
 import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import VideoDetailsForm from './VideoDetailsForm';
-import moment from 'moment';
 import { Translate } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
-import Loader from './Loader';
-import constants, {
+import {
     VIDEO_PROCESSING_INSTANTIATED,
-    VIDEO_PROCESSING_RUNNING
+    VIDEO_PROCESSING_RUNNING,
+    VIDEO_PROCESSING_SUCCEEDED
 } from '../utils/constants';
+import {
+    dateFormatter,
+    downloadHandler,
+    getExpandRowProps,
+    hideErrorMessageAfter,
+    noDataIndication,
+    paginationOptions,
+    rowStyle,
+    updateProcessedEventInfo,
+    viewErrorMessage
+} from '../utils/videoListUtils';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
-
-const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 const { SearchBar } = Search;
 
@@ -29,7 +36,6 @@ const VideoList = (props) => {
     const translations = props.i18n.translations[props.i18n.locale];
     const [errorMessage, setErrorMessage] = useState(null);
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
-    // eslint-disable-next-line no-unused-vars
 
     let [media, setMedia] = useState({ column: 'media', expanded: '' });
 
@@ -37,38 +43,13 @@ const VideoList = (props) => {
         return translations ? translations[key] : '';
     };
 
-    const getFileName = (url) => {
-        return url.substring(url.lastIndexOf('/') + 1);
-    };
-
-    const handleSubmit = async (event) => {
-        if (event) {
-            event.persist();
-            event.preventDefault();
-            event.target.downloadIndicator.removeAttribute('hidden');
-            let elements = document.getElementsByClassName('disable-enable-buttons');
-            let array = [ ...elements ];
-            array.map(element => element.setAttribute('disabled', 'disabled'));
-            const data = { 'mediaUrl':  event.target.mediaUrl.value };
-            const fileName = getFileName(event.target.mediaUrl.value);
-            try {
-                await downloadVideo(data, fileName);
-            } catch (error) {
-                setVideoDownloadErrorMessage(translate('error_on_video_download'));
-            }
-            elements = document.getElementsByClassName('disable-enable-buttons');
-            array = [ ...elements ];
-            array.map(element => element.removeAttribute('disabled'));
-            event.target.downloadIndicator.setAttribute('hidden', true);
-        }
-    };
-
     const mediaFormatter = (cell, row) => {
         return (
             <div className="form-container">
                 {
                     row.media.map((media, index) =>
-                        <form key={index} onSubmit={handleSubmit}>
+                        <form key={index}
+                            onSubmit={(event) => downloadHandler(event, setVideoDownloadErrorMessage, translate('error_on_video_download'))}>
                             <input type="hidden" name="mediaUrl" value={media} />
                             <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
                             <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
@@ -89,53 +70,13 @@ const VideoList = (props) => {
         });
     };
 
-    const options = {
-        sizePerPageList: [{
-            text: '5', value: 5
-        }, {
-            text: '10', value: 10
-        }, {
-            text: '30', value: 30
-        }]
-    };
+    useEffect(updateProcessedEventInfo(props),
+        [props.selectedRowId, props.videos]);
 
-    const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
-    );
+    useEffect(viewErrorMessage(props, setErrorMessage, translate(props.apiError)),
+        [props.apiError, props.route]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            props.onFetchEvents(false);
-            if (props.selectedRowId && props.videos) {
-                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
-                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
-                    props.onSelectEvent({ identifier: props.selectedRowId });
-                }
-            }
-        }, VIDEO_LIST_POLL_INTERVAL);
-        return () => clearInterval(interval);
-        // eslint-disable-next-line
-    }, [props.selectedRowId, props.videos]);
-
-    useEffect(() => {
-        props.onFetchEvents(true);
-        props.onRouteChange(props.route);
-        if (props.apiError) {
-            setErrorMessage(translate(props.apiError));
-        }
-        // eslint-disable-next-line
-    }, [props.apiError, props.route]);
-
-    useEffect(() => {
-        const interval = setInterval( () => {
-            setVideoDownloadErrorMessage(null);
-        }, 60000);
-        return () => clearInterval(interval);
-    }, []);
-
-    const dateFormatter = (cell) => {
-        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
-    };
+    useEffect(hideErrorMessageAfter(setVideoDownloadErrorMessage, 60000), []);
 
     const statusFormatter = (cell, row) => {
         return (
@@ -150,7 +91,7 @@ const VideoList = (props) => {
     };
 
     const stateFormatter = (cell) => {
-        if (cell === constants.VIDEO_PROCESSING_SUCCEEDED){
+        if (cell === VIDEO_PROCESSING_SUCCEEDED){
             return translate('event_succeeded_state');
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return translate('event_running_and_instantiated_state');
@@ -195,13 +136,13 @@ const VideoList = (props) => {
         dataField: 'media',
         text: translate('download_video'),
         formatter: mediaFormatter,
-        //näin saadaan estettyä haitarin avautuminen, kun klikataan download tallenne
+        // Prevent row from expanding when clicking "download video".
+        // As a side-effect the whole cell is disabled.
         events: {
-            // eslint-disable-next-line no-unused-vars
-            onClick: (e, column, columnIndex, row, rowIndex) => {
+            onClick: () => {
                 setMedia( {
                     column: 'media',
-                    expanded: false //tämä estää haitarin avautumisen
+                    expanded: false
                 });
             }
         }
@@ -212,49 +153,13 @@ const VideoList = (props) => {
         order: 'desc'
     }];
 
-    const eventNotSelectable = (processingState) => {
-        return (processingState && (processingState !== constants.VIDEO_PROCESSING_SUCCEEDED));
-    };
-
-    const nonSelectableRows = () => {
-        let nonSelectableArray = [];
-        props.videos.forEach(video => {
-            if (eventNotSelectable(video.processing_state)) {
-                nonSelectableArray.push(video.identifier);
-            }
-        });
-        return nonSelectableArray;
-    };
-
-    const expandRow = {
-        parentClassName: 'parent-expand',
-        renderer: row => (
-            <VideoDetailsForm inbox="false"/>
-        ),
-        onlyOneExpanding: true,
-        onExpand: (row, isExpand, rowIndex, e) => {
-            if (isExpand) {
-                props.onSelectEvent(row);
-            }
-        },
-        nonExpandable: nonSelectableRows()
-    };
-
-    const rowStyle = (row) => {
-        const style = {};
-        if (eventNotSelectable(row.processing_state)) {
-            style.backgroundColor = '#f4f5f9';
-        }
-        return style;
-    };
+    const expandRow = getExpandRowProps(props.videos, props.onSelectEvent, false);
 
     return (
-        <div>
-            <div className="margintop">
-                <Link to="/uploadVideo" className="btn btn-primary">
-                    <Translate value="add_video"/>
-                </Link>
-            </div>
+        <div className="margintop marginbottom">
+            <Link to="/uploadVideo" className="btn btn-primary">
+                <Translate value="add_video"/>
+            </Link>
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?
@@ -272,16 +177,18 @@ const VideoList = (props) => {
                         search>
                         {
                             props => (
-                                <div>
-                                    <br/>
-                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                <div className="margintop">
+                                    <label className='info-text'>{ translate('search_events_info') }</label>
                                     <div className="form-group has-search">
-                                        <span className="form-control-feedback"><FaSearch /></span>
+                                        <span className="form-control-feedback"><FaSearch/></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
                                     </div>
-                                    <BootstrapTable { ...props.baseProps } expandRow={ expandRow }
-                                        pagination={ paginationFactory(options) } defaultSorted={ defaultSorted }
-                                        noDataIndication={ () => <NoDataIndication/> } bordered={ false }
+                                    <BootstrapTable { ...props.baseProps }
+                                        expandRow={ expandRow }
+                                        pagination={ paginationFactory(paginationOptions) }
+                                        defaultSorted={ defaultSorted }
+                                        noDataIndication={ noDataIndication(props.loading, translate('empty_video_list')) }
+                                        bordered={ false }
                                         rowStyle={ rowStyle }
                                         hover />
                                 </div>
