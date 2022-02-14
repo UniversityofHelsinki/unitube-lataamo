@@ -21,12 +21,53 @@ const VideoTextTrackForm = (props) => {
     const [selectedVideoTextFile, setVideoTextFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [videoTextFile, hasVideoTextFile] = useState(false);
-    const [successMessage, setSuccessMessage] = useState(null);
     const translations =  props.i18n.translations[props.i18n.locale];
     const [disabledInputs, setDisabledInputs] = useState(false);
 
     const translate = (key) => {
         return translations ? translations[key] : '';
+    };
+
+    const showUpdateSuccessMessage = (addSubtitles) => {
+        if(addSubtitles){
+            SweetAlert.fire({
+                title: translate('save_webvtt_successful_title'),
+                text: translate('save_webvtt_successful'),
+                icon: 'success',
+                showClass: {
+                    popup: 'animate__animated animate__backInRight'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__backOutRight'
+                },
+                width: '300 px',
+                toast: true,
+                timer: 20000,
+                timerProgressBar: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        } else {
+            SweetAlert.fire({
+                title: translate('remove_webvtt_successful_title'),
+                text: translate('remove_webvtt_successful'),
+                icon: 'success',
+                showClass: {
+                    popup: 'animate__animated animate__backInRight'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__backOutRight'
+                },
+                width: '300 px',
+                toast: true,
+                timer: 20000,
+                timerProgressBar: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
     };
 
     const createAlert = async () => {
@@ -100,7 +141,7 @@ const VideoTextTrackForm = (props) => {
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(props.event.identifier) : getUpdatedVideos(props.event.identifier);
             props.onEventDetails(props.inbox, updatedVideos);
             props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
-            setSuccessMessage(translate('remove_webvtt_successful'));
+            showUpdateSuccessMessage(false);
         } catch (err) {
             setDisabledInputs(false);
             setErrorMessage(translate('remove_webvtt_failed'));
@@ -116,7 +157,7 @@ const VideoTextTrackForm = (props) => {
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(props.event.identifier) : getUpdatedVideos(props.event.identifier);
             props.onEventDetails(props.inbox, updatedVideos);
             props.onSetEventProcessingState({ ...props.event, processing_state: constants.VIDEO_PROCESSING_INSTANTIATED });
-            setSuccessMessage(translate('save_webvtt_successful'));
+            showUpdateSuccessMessage(true);
         } catch (err) {
             setDisabledInputs(false);
             setErrorMessage(translate('save_webvtt_failed'));
@@ -151,13 +192,6 @@ const VideoTextTrackForm = (props) => {
 
     return (
         <div>
-            {successMessage !== null ?
-                <Alert variant="success" onClose={() => {setSuccessMessage(null);}} dismissible>
-                    <p>{successMessage}</p>
-                </Alert>
-                : (<></>)
-            }
-
             {errorMessage  !== null ?
                 <Alert variant="danger" onClose={() => {setErrorMessage(null);}} dismissible>
                     <p>{errorMessage}</p>
