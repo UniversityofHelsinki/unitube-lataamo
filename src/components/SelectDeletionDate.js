@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { changeDeletionDate } from '../actions/eventsAction';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { addYears } from 'date-fns';
