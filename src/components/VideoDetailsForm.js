@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList, actionUpdateDeletionDate } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
 import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import SelectDeletionDate from './SelectDeletionDate';
 
 const SweetAlert = withReactContent(Swal);
 
@@ -93,9 +94,11 @@ const VideoDetailsForm = (props) => {
         props.video.processing_state = constants.VIDEO_PROCESSING_INSTANTIATED;
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
+        const deletionDate = { deletionDate : props.deletionDate };
         // call unitube-proxy api
         try {
             await actionUpdateEventDetails(eventId, updatedEvent);
+            await actionUpdateDeletionDate(eventId, deletionDate);
             showUpdateSuccessMessage();
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
@@ -112,7 +115,7 @@ const VideoDetailsForm = (props) => {
             setInputs(props.video);
         }
         // eslint-disable-next-line
-    }, [props.video, props.series, props.inbox]);
+    }, [props.video, props.series, props.inbox, props.deletionDate]);
 
     const embedVideo = () => {
         let targetElement = document.getElementById('embeddedVideo');
@@ -310,6 +313,7 @@ const VideoDetailsForm = (props) => {
                                     </OverlayTrigger>
                                 </div>
                             </div>
+                            <SelectDeletionDate/>
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
@@ -398,6 +402,7 @@ const mapStateToProps = state => ({
     series : state.ser.seriesDropDown,
     videos : state.er.videos,
     inboxVideos : state.er.inboxVideos,
+    deletionDate : state.er.deletionDate,
     i18n: state.i18n
 });
 
