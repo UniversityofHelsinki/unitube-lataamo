@@ -330,10 +330,9 @@ const VideoDetailsForm = (props) => {
                                         dateFormat="dd.MM.yyyy"
                                         locale="fi"
                                         showPopperArrow={false}
-                                        minDate={new Date()}
+                                        minDate={addYears(new Date(), 1)}
                                         maxDate={addYears(new Date(), 3)}
-                                        showMonthDropdown
-                                        showYearDropdown
+                                        showMonthYearDropdown
                                         dropdownMode="select"
                                         selected={deletionDate}
                                         onChange={(date) => setDeletionDate(date)}/>
