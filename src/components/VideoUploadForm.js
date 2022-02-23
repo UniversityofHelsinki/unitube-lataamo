@@ -161,10 +161,15 @@ const VideoUploadForm = (props) => {
                         <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
                         <div className="col-sm-8">
                             <DatePicker
+                                required
+                                showPopperArrow={false}
                                 dateFormat="dd.MM.yyyy"
                                 selected={archivedDate}
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
                                 includeDateIntervals={[
-                                    { start: subDays(archivedDate, 0), end: addDays(archivedDate, 365) },
+                                    { start: subDays(addDays(new Date(), 365), 0), end: addDays(addDays(new Date(), 365), 365) },
                                 ]}
                                 onChange={(date) => setArchivedDate(date)}
                             />
