@@ -29,11 +29,6 @@ const eventsReducer = (state = initialState, action) => {
             apiError: action.payload,
             deletionDate: ''
         };
-    case 'DELETION_DATE_CHANGE_SUCCESS':
-        return {
-            ...state,
-            deletionDate : action.payload
-        };
     case 'SUCCESS_API_GET_INBOX_EVENTS':
         return {
             ...state,

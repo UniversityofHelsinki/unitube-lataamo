@@ -9,7 +9,11 @@ import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import SelectDeletionDate from './SelectDeletionDate';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import { addYears } from 'date-fns';
+import fi from 'date-fns/locale/fi';
+registerLocale('fi', fi);
+import 'react-datepicker/dist/react-datepicker.css';
 
 const SweetAlert = withReactContent(Swal);
 
@@ -26,6 +30,7 @@ const VideoDetailsForm = (props) => {
     const [disabledInputs, setDisabledInputs] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [hovered, setHovered] = useState(false);
+    const [deletionDate, setDeletionDate] = useState(null);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -94,25 +99,28 @@ const VideoDetailsForm = (props) => {
         props.video.processing_state = constants.VIDEO_PROCESSING_INSTANTIATED;
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
-        const deletionDate = { deletionDate : props.deletionDate };
+        const updatedDeletionDate = { deletionDate : deletionDate };
         // call unitube-proxy api
         try {
+            await actionUpdateDeletionDate(eventId, updatedDeletionDate);
             await actionUpdateEventDetails(eventId, updatedEvent);
-            await actionUpdateDeletionDate(eventId, deletionDate);
             showUpdateSuccessMessage();
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
+            setDisabledInputs(false);
             setErrorMessage(translate('failed_to_update_event_details'));
         }
     };
-
     useEffect(() => {
         let isDisabled  = props.video.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
         if (!isBeingEdited) {
             setInputs(props.video);
+        }
+        if(props.deletionDate){
+            setDeletionDate(new Date(props.deletionDate));
         }
         // eslint-disable-next-line
     }, [props.video, props.series, props.inbox, props.deletionDate]);
@@ -313,7 +321,31 @@ const VideoDetailsForm = (props) => {
                                     </OverlayTrigger>
                                 </div>
                             </div>
-                            <SelectDeletionDate/>
+                            <div className="form-group row">
+                                <label className="col-sm-2">{translate('deletion_date_title')}</label>
+                                <div className="col-sm-8">
+                                    <DatePicker
+                                        disabled={disabledInputs}
+                                        required
+                                        dateFormat="dd.MM.yyyy"
+                                        locale="fi"
+                                        showPopperArrow={false}
+                                        minDate={new Date()}
+                                        maxDate={addYears(new Date(), 3)}
+                                        showMonthDropdown
+                                        showYearDropdown
+                                        dropdownMode="select"
+                                        selected={deletionDate}
+                                        onChange={(date) => setDeletionDate(date)}/>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('deletion_date_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
@@ -366,14 +398,14 @@ const VideoDetailsForm = (props) => {
                         <div className="form-group row">
                             <div className="col-sm-12">
                                 {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
-                                {/*{successMessage !== null ?
+                                {successMessage !== null ?
                                     <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
                                         <p>
                                             {successMessage}
                                         </p>
                                     </Alert>
                                     : (<></>)
-                                }*/}
+                                }
                                 {errorMessage !== null ?
                                     <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
                                         <p>

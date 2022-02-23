@@ -194,12 +194,6 @@ export const fetchDeletionDate = (eventId) => {
     };
 };
 
-export const changeDeletionDate = (date) => {
-    return (dispatch)  => {
-        dispatch(changeDeletionDateSuccessCall(date));
-    };
-};
-
 export const actionUpdateDeletionDate = async (id, deletionDate) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${id}${EVENT_DELETION_DATE_PATH}`, {
@@ -291,10 +285,3 @@ export const apiGetDeletionDateFailureCall = (msg) => ({
     payload: msg,
     loading: false
 });
-
-export const changeDeletionDateSuccessCall = data => {
-    return {
-        type: 'DELETION_DATE_CHANGE_SUCCESS',
-        payload: data
-    };
-};
