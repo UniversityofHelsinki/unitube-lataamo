@@ -169,7 +169,7 @@ const VideoUploadForm = (props) => {
                                 showYearDropdown
                                 dropdownMode="select"
                                 includeDateIntervals={[
-                                    { start: subDays(addDays(new Date(), 365), 0), end: addDays(addDays(new Date(), 365), 365) },
+                                    { start: subDays(addDays(new Date(), 365), 0), end: addDays(new Date(), 1095) },
                                 ]}
                                 onChange={(date) => setArchivedDate(date)}
                             />
