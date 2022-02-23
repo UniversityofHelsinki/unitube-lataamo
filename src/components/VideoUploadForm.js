@@ -12,11 +12,17 @@ import {
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 import routeAction from '../actions/routeAction';
 import Constants from '../utils/constants';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { subDays, addDays } from 'date-fns';
+
+import { fi, sv, enUS } from 'date-fns/locale';
+
+registerLocale('fi', fi);
+registerLocale('en', enUS);
+registerLocale('sv', sv);
 
 const VideoUploadForm = (props) => {
 
@@ -162,15 +168,14 @@ const VideoUploadForm = (props) => {
                         <div className="col-sm-8">
                             <DatePicker
                                 required
+                                locale={props.preferredLanguage}
                                 showPopperArrow={false}
                                 dateFormat="dd.MM.yyyy"
                                 selected={archivedDate}
-                                showMonthDropdown
-                                showYearDropdown
                                 dropdownMode="select"
-                                includeDateIntervals={[
-                                    { start: subDays(addDays(new Date(), 365), 0), end: addDays(new Date(), 1095) },
-                                ]}
+                                minDate={subDays(addDays(new Date(), 365), 0)}
+                                maxDate={addDays(new Date(), 1095)}
+                                showMonthYearDropdown
                                 onChange={(date) => setArchivedDate(date)}
                             />
                         </div>
@@ -212,7 +217,8 @@ const mapStateToProps = state => ({
     i18n: state.i18n,
     fur: state.fur,
     timeRemaining: state.fur.timeRemaining,
-    percentage : state.fur.percentage
+    percentage : state.fur.percentage,
+    preferredLanguage: state.ur.user.preferredLanguage
 });
 
 const mapDispatchToProps = dispatch => ({
