@@ -12,6 +12,11 @@ import {
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 import routeAction from '../actions/routeAction';
 import Constants from '../utils/constants';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
+import { subDays, addDays } from 'date-fns';
 
 const VideoUploadForm = (props) => {
 
@@ -19,6 +24,7 @@ const VideoUploadForm = (props) => {
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
+    const [archivedDate, setArchivedDate] = useState(addDays(new Date(), 365));
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -38,6 +44,7 @@ const VideoUploadForm = (props) => {
     const uploadVideo = async() => {
         //https://developer.mozilla.org/en-US/docs/Web/API/FormData/set
         const data = new FormData();
+        data.set('archivedDate', archivedDate);
         data.set('videofile', selectedVideoFile);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
@@ -144,6 +151,26 @@ const VideoUploadForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
+                        <div className="col-sm-8">
+                            <DatePicker
+                                dateFormat="dd.MM.yyyy"
+                                selected={archivedDate}
+                                includeDateIntervals={[
+                                    { start: subDays(archivedDate, 0), end: addDays(archivedDate, 365) },
+                                ]}
+                                onChange={(date) => setArchivedDate(date)}
+                            />
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_datepicker_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
                                 </span>
