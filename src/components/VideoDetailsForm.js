@@ -10,10 +10,13 @@ import { FiCopy } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import DatePicker, { registerLocale } from 'react-datepicker';
-import { addYears } from 'date-fns';
-import fi from 'date-fns/locale/fi';
-registerLocale('fi', fi);
 import 'react-datepicker/dist/react-datepicker.css';
+import { addYears } from 'date-fns';
+import { fi, sv, enUS } from 'date-fns/locale';
+registerLocale('fi', fi);
+registerLocale('en', enUS);
+registerLocale('sv', sv);
+
 
 const SweetAlert = withReactContent(Swal);
 
@@ -328,7 +331,7 @@ const VideoDetailsForm = (props) => {
                                         disabled={disabledInputs}
                                         required
                                         dateFormat="dd.MM.yyyy"
-                                        locale="fi"
+                                        locale={props.preferredLanguage}
                                         showPopperArrow={false}
                                         minDate={addYears(new Date(), 1)}
                                         maxDate={addYears(new Date(), 3)}
@@ -434,7 +437,8 @@ const mapStateToProps = state => ({
     videos : state.er.videos,
     inboxVideos : state.er.inboxVideos,
     deletionDate : state.er.deletionDate,
-    i18n: state.i18n
+    i18n: state.i18n,
+    preferredLanguage: state.ur.user.preferredLanguage
 });
 
 const mapDispatchToProps = dispatch => ({
