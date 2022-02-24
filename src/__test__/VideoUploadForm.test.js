@@ -23,6 +23,7 @@ describe('<VideoUploadForm />', () => {
             timeRemaining: 0,
             percentage: 0
         },
+        ur : { user: { eppn: '', preferredLanguage: '' } },
         i18n : {
             translations: translations,
             locale: 'fi'
