@@ -16,7 +16,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { subDays, addDays } from 'date-fns';
+import { subDays, addMonths, addYears } from 'date-fns';
 
 import { fi, sv, enUS } from 'date-fns/locale';
 
@@ -30,7 +30,7 @@ const VideoUploadForm = (props) => {
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
-    const [archivedDate, setArchivedDate] = useState(addDays(new Date(), 365));
+    const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -83,6 +83,7 @@ const VideoUploadForm = (props) => {
             setSubmitButtonDisabled(false);
         }
         setOnProgressVisible(false);
+        setArchivedDate(addMonths(new Date(), 12));
     };
 
     const loadVideo = file => new Promise((resolve, reject) => {
@@ -173,8 +174,8 @@ const VideoUploadForm = (props) => {
                                 dateFormat="dd.MM.yyyy"
                                 selected={archivedDate}
                                 dropdownMode="select"
-                                minDate={subDays(addDays(new Date(), 365), 0)}
-                                maxDate={addDays(new Date(), 1095)}
+                                minDate={subDays(addMonths(new Date(), 6), 0)}
+                                maxDate={addYears(new Date(), 3)}
                                 showMonthYearDropdown
                                 onChange={(date) => setArchivedDate(date)}
                             />
