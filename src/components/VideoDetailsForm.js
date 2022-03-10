@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { addYears } from 'date-fns';
+import { addYears, addMonths } from 'date-fns';
 import { fi, sv, enUS } from 'date-fns/locale';
 registerLocale('fi', fi);
 registerLocale('en', enUS);
@@ -333,7 +333,7 @@ const VideoDetailsForm = (props) => {
                                         dateFormat="dd.MM.yyyy"
                                         locale={props.preferredLanguage}
                                         showPopperArrow={false}
-                                        minDate={addYears(new Date(), 1)}
+                                        minDate={addMonths(new Date(), 6)}
                                         maxDate={addYears(new Date(), 3)}
                                         showMonthYearDropdown
                                         dropdownMode="select"
