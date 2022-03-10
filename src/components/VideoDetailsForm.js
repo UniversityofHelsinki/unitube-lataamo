@@ -122,11 +122,11 @@ const VideoDetailsForm = (props) => {
         if (!isBeingEdited) {
             setInputs(props.video);
         }
-        if(props.deletionDate){
+        if (props.deletionDate) {
             setDeletionDate(new Date(props.deletionDate));
         }
         // eslint-disable-next-line
-    }, [props.video, props.series, props.inbox, props.deletionDate]);
+    }, [props.video, props.series, props.inbox]);
 
     const embedVideo = () => {
         let targetElement = document.getElementById('embeddedVideo');
