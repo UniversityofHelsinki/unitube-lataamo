@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
-import { fetchEvent, fetchEvents, deselectEvent, deselectRow } from '../actions/eventsAction';
+import { fetchEvent, fetchEvents, deselectEvent, deselectRow, fetchDeletionDate } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -316,6 +316,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchEvent(row));
         dispatch(fetchSeries());
         dispatch(fetchSeriesDropDownList());
+        dispatch(fetchDeletionDate(row.identifier));
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),
     onDeselectRow : () => {

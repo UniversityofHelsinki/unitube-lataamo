@@ -4,7 +4,7 @@ import { downloadVideo, fetchVideoUrl } from '../actions/videosAction';
 import {
     actionMoveEventToTrashSeries,
     deselectEvent,
-    deselectRow,
+    deselectRow, fetchDeletionDate,
     fetchEvent,
     fetchInboxEvents, updateEventList
 } from '../actions/eventsAction';
@@ -360,6 +360,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchEvent(row));
         dispatch(fetchSeries());
         dispatch(fetchSeriesDropDownList());
+        dispatch(fetchDeletionDate(row.identifier));
     },
     onRouteChange: (route) =>  dispatch(routeAction(route)),
     onDeselectRow : () => {

@@ -3,6 +3,7 @@ const initialState = {
     videos: [],
     inboxVideos: [],
     trashVideos: [],
+    deletionDate : '',
     event: {
         title : '',
         description: ''
@@ -16,6 +17,17 @@ const eventsReducer = (state = initialState, action) => {
             ...state,
             videos: action.payload,
             loading: action.loading
+        };
+    case 'SUCCESS_API_GET_DELETION_DATE':
+        return {
+            ...state,
+            deletionDate : action.payload.deletionDate
+        };
+    case 'FAILURE_API_GET_DELETION_DATE':
+        return {
+            ...state,
+            apiError: action.payload,
+            deletionDate: ''
         };
     case 'SUCCESS_API_GET_INBOX_EVENTS':
         return {
