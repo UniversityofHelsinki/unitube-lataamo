@@ -29,7 +29,8 @@ describe('<VideoDetailsForm />', () => {
         i18n : {
             translations: translations,
             locale: 'fi'
-        }
+        },
+        ur : { user: { eppn: '', preferredLanguage: '' } }
     };
 
     it('renders without crashing', () => {
