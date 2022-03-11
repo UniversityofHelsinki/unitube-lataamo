@@ -7,6 +7,7 @@ const USER_EVENTS_PATH = '/api/userVideos';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
 const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
 const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
+const EVENT_DELETION_DATE_PATH = '/deletionDate';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -176,6 +177,43 @@ export const actionUploadVideoTextFile = async (data) => {
     }
 };
 
+export const fetchDeletionDate = (eventId) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${eventId}${EVENT_DELETION_DATE_PATH}`);
+            if(response.status === 200){
+                let responseJSON = await response.json();
+                dispatch(apiGetDeletionDateSuccessCall(responseJSON));
+            } else {
+                dispatch(apiGetDeletionDateFailureCall('error_failed_to_get_event_deletion_date'));
+            }
+        } catch(err) {
+            console.log(err);
+        }
+
+    };
+};
+
+export const actionUpdateDeletionDate = async (id, deletionDate) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${id}${EVENT_DELETION_DATE_PATH}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(deletionDate)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const deselectRow = () => {
     return async dispatch => {
         dispatch(apiDeselectRow());
@@ -235,4 +273,15 @@ export const setEventProcessingState = data => {
 export const apiEventProcessingState = data => ({
     type: 'PROCESSING_STATE_UPDATE',
     payload: data
+});
+
+export const apiGetDeletionDateSuccessCall = (data) => ({
+    type: 'SUCCESS_API_GET_DELETION_DATE',
+    payload: data
+});
+
+export const apiGetDeletionDateFailureCall = (msg) => ({
+    type: 'FAILURE_API_GET_DELETION_DATE',
+    payload: msg,
+    loading: false
 });

@@ -12,6 +12,17 @@ import {
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 import routeAction from '../actions/routeAction';
 import Constants from '../utils/constants';
+import DatePicker, { registerLocale } from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
+import { subDays, addMonths, addYears } from 'date-fns';
+
+import { fi, sv, enUS } from 'date-fns/locale';
+
+registerLocale('fi', fi);
+registerLocale('en', enUS);
+registerLocale('sv', sv);
 
 const VideoUploadForm = (props) => {
 
@@ -19,6 +30,7 @@ const VideoUploadForm = (props) => {
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
+    const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
 
     useEffect(() => {
         props.onRouteChange(props.route);
@@ -38,6 +50,7 @@ const VideoUploadForm = (props) => {
     const uploadVideo = async() => {
         //https://developer.mozilla.org/en-US/docs/Web/API/FormData/set
         const data = new FormData();
+        data.set('archivedDate', archivedDate);
         data.set('videofile', selectedVideoFile);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
@@ -70,6 +83,7 @@ const VideoUploadForm = (props) => {
             setSubmitButtonDisabled(false);
         }
         setOnProgressVisible(false);
+        setArchivedDate(addMonths(new Date(), 12));
     };
 
     const loadVideo = file => new Promise((resolve, reject) => {
@@ -150,6 +164,30 @@ const VideoUploadForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
+                        <div className="col-sm-8">
+                            <DatePicker
+                                required
+                                locale={props.preferredLanguage}
+                                showPopperArrow={false}
+                                dateFormat="dd.MM.yyyy"
+                                selected={archivedDate}
+                                dropdownMode="select"
+                                minDate={subDays(addMonths(new Date(), 6), 0)}
+                                maxDate={addYears(new Date(), 3)}
+                                showMonthYearDropdown
+                                onChange={(date) => setArchivedDate(date)}
+                            />
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_datepicker_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="form-group row">
@@ -180,7 +218,8 @@ const mapStateToProps = state => ({
     i18n: state.i18n,
     fur: state.fur,
     timeRemaining: state.fur.timeRemaining,
-    percentage : state.fur.percentage
+    percentage : state.fur.percentage,
+    preferredLanguage: state.ur.user.preferredLanguage
 });
 
 const mapDispatchToProps = dispatch => ({

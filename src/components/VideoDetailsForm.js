@@ -2,13 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList } from '../actions/eventsAction';
+import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList, actionUpdateDeletionDate } from '../actions/eventsAction';
 import Video from './Video';
 import constants from '../utils/constants';
 import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { addYears, addMonths } from 'date-fns';
+import { fi, sv, enUS } from 'date-fns/locale';
+registerLocale('fi', fi);
+registerLocale('en', enUS);
+registerLocale('sv', sv);
+
 
 const SweetAlert = withReactContent(Swal);
 
@@ -25,6 +33,7 @@ const VideoDetailsForm = (props) => {
     const [disabledInputs, setDisabledInputs] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [hovered, setHovered] = useState(false);
+    const [deletionDate, setDeletionDate] = useState(null);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -93,23 +102,28 @@ const VideoDetailsForm = (props) => {
         props.video.processing_state = constants.VIDEO_PROCESSING_INSTANTIATED;
         const eventId = inputs.identifier;
         const updatedEvent = { ...inputs }; // values from the form
+        const updatedDeletionDate = { deletionDate : deletionDate };
         // call unitube-proxy api
         try {
+            await actionUpdateDeletionDate(eventId, updatedDeletionDate);
             await actionUpdateEventDetails(eventId, updatedEvent);
             showUpdateSuccessMessage();
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
+            setDisabledInputs(false);
             setErrorMessage(translate('failed_to_update_event_details'));
         }
     };
-
     useEffect(() => {
         let isDisabled  = props.video.processing_state !== constants.VIDEO_PROCESSING_SUCCEEDED;
         setDisabledInputs(isDisabled);
         if (!isBeingEdited) {
             setInputs(props.video);
+        }
+        if (props.deletionDate) {
+            setDeletionDate(new Date(props.deletionDate));
         }
         // eslint-disable-next-line
     }, [props.video, props.series, props.inbox]);
@@ -311,6 +325,30 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
+                                <label className="col-sm-2">{translate('deletion_date_title')}</label>
+                                <div className="col-sm-8">
+                                    <DatePicker
+                                        disabled={disabledInputs}
+                                        required
+                                        dateFormat="dd.MM.yyyy"
+                                        locale={props.preferredLanguage}
+                                        showPopperArrow={false}
+                                        minDate={addMonths(new Date(), 6)}
+                                        maxDate={addYears(new Date(), 3)}
+                                        showMonthYearDropdown
+                                        dropdownMode="select"
+                                        selected={deletionDate}
+                                        onChange={(date) => setDeletionDate(date)}/>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('deletion_date_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                            <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
                                     <select disabled={disabledInputs} required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleInputChange}>
@@ -398,7 +436,9 @@ const mapStateToProps = state => ({
     series : state.ser.seriesDropDown,
     videos : state.er.videos,
     inboxVideos : state.er.inboxVideos,
-    i18n: state.i18n
+    deletionDate : state.er.deletionDate,
+    i18n: state.i18n,
+    preferredLanguage: state.ur.user.preferredLanguage
 });
 
 const mapDispatchToProps = dispatch => ({
