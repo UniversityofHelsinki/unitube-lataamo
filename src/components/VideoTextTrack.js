@@ -181,7 +181,7 @@ const VideoTextTrackForm = (props) => {
         setDisabledInputs(isDisabled);
         hasVttVideoFile();
         // eslint-disable-next-line
-    }, [props.videoFiles]);// Only re-run the effect if values of arguments changes
+    }, [props.videoFiles, props.event]);// Only re-run the effect if values of arguments changes
 
     const handleFileInputChange = (event) => {
         event.persist();
