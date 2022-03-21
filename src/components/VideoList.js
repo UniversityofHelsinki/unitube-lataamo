@@ -18,6 +18,7 @@ import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSpinner, FaSearch } from 'react-icons/fa';
 import constants from '../utils/constants';
+import UploadButton from './UploadButton';
 
 const { SearchBar } = Search;
 
@@ -249,11 +250,7 @@ const VideoList = (props) => {
 
     return (
         <div>
-            <div className="margintop">
-                <Link to="/uploadVideo" className="btn btn-primary">
-                    <Translate value="add_video"/>
-                </Link>
-            </div>
+            <UploadButton />
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?
