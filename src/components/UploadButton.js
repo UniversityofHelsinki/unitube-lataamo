@@ -14,7 +14,7 @@ const UploadButton = (props) => (
         <div className="col-xs-10 col-sm-10 col-md-10">
             {props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES &&
                 <h4 style={{ marginTop: '0px', color: 'red' }} >
-                    You have maximum amount of videos in inbox series (100) , please move videos from inbox series
+                    You have maximum amount of videos in inbox series ({props.videos.length}) , please move videos from inbox series
                 </h4>
             }
         </div>
