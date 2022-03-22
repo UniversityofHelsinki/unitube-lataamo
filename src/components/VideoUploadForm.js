@@ -22,6 +22,7 @@ import { fi, sv, enUS } from 'date-fns/locale';
 
 import constants from '../utils/constants';
 import { fetchInboxEvents } from '../actions/eventsAction';
+import WarningMessage from './WarningMessage';
 
 registerLocale('fi', fi);
 registerLocale('en', enUS);
@@ -157,11 +158,7 @@ const VideoUploadForm = (props) => {
 
             <h2>{translate('video_file_title')}</h2>
 
-            {props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES &&
-                <h2 style={{ marginTop: '0px', color: 'red' }} >
-                    { translate('warning_max_amount_of_messages') }
-                </h2>
-            }
+            <WarningMessage warning={'warning_max_amount_of_messages'} />
 
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">

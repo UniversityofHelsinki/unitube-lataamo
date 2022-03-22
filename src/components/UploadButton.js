@@ -3,15 +3,9 @@ import { Translate } from 'react-redux-i18n';
 import React from 'react';
 import { connect } from 'react-redux';
 import constants from '../utils/constants';
+import WarningMessage from './WarningMessage';
 
 const UploadButton = (props) => {
-
-    const translate = (key) => {
-        return translations ? translations[key] : '';
-    };
-
-    const translations = props.i18n.translations[props.i18n.locale];
-
     return (
         <div className="margintop row">
             <div className="col-xs-2 col-sm-2 col-md-2">
@@ -20,11 +14,7 @@ const UploadButton = (props) => {
                 </Link>
             </div>
             <div className="col-xs-10 col-sm-10 col-md-10">
-                {props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES &&
-                    <h4 style={{ marginTop: '0px', color: 'red' }} >
-                        { translate('warning_max_amount_of_messages') }
-                    </h4>
-                }
+                <WarningMessage />
             </div>
         </div>
     );
@@ -32,8 +22,7 @@ const UploadButton = (props) => {
 
 
 const mapStateToProps = state => ({
-    videos: state.er.inboxVideos,
-    i18n: state.i18n
+    videos: state.er.inboxVideos
 });
 
 export default connect(mapStateToProps, null)(UploadButton);
