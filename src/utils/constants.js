@@ -20,7 +20,7 @@ const EMPTY_VTT_FILE_NAME = 'empty.vtt';
 
 const ILLEGAL_CHARACTERS = '%';
 
-const MAX_AMOUNT_OF_MESSAGES = 5;
+const MAX_AMOUNT_OF_MESSAGES = 100;
 
 module.exports = {
     ROLE_ANONYMOUS,
