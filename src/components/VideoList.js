@@ -9,8 +9,6 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';

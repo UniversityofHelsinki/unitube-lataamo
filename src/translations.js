@@ -180,7 +180,8 @@ const translationsObject = {
         invalid_video_format: 'Error: The file format is not supported. Try to save the file in a compatible format (e.g. .mp4, .mov)!',
         download_vtt_file: 'Download subtitble file',
         deletion_date_title: 'Deletion date',
-        deletion_date_info: 'After deletion date video is removed from Lataamo'
+        deletion_date_info: 'After deletion date video is removed from Lataamo',
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -363,7 +364,8 @@ const translationsObject = {
         invalid_video_format: 'Virhe: tiedostomuoto ei ole tuettu. Kokeile tallentaa tiedosto yhteensopivassa muodossa (esimerkiksi .mp4, .mov)!',
         download_vtt_file: 'Tallenna tekstitystiedosto koneellesi',
         deletion_date_title: 'Poistopäivämäärä',
-        deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta'
+        deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta',
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???'
     },
 
     sv: {
@@ -547,7 +549,8 @@ const translationsObject = {
         invalid_video_format: 'Fel: Filformatet stöds inte. Försök att spara filen i ett kompatibelt format (t.ex. .mp4, .mov)!',
         download_vtt_file: 'Ladda ner textningsfil',
         deletion_date_title: 'Samma på svenska',
-        deletion_date_info: 'Samma på svenska'
+        deletion_date_info: 'Samma på svenska',
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???'
     }
 };
 
