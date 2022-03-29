@@ -63,6 +63,20 @@ build_dev:
     paths:
       - build
 
+build_dev-22:
+  stage: build
+  tags:
+    - ohtu-build-2
+  only:
+    - master
+  script:
+    - yes | cp -f -v .env.development-22 .env.production || true
+    - npm run build
+  artifacts:
+    name: lataamo-build-22
+    paths:
+      - dev-22
+
 build_test:
   stage: build
   tags:
@@ -102,6 +116,7 @@ build_prod:
 #   $SERVER           <-- define within each deploy job  <-- from Gitlab CI env variables
 .deploy_script:
   script:
+    - ls -la
     - echo "====== Install rsync and openssh ========="
     - apk add --no-cache rsync openssh
     - echo "====== Activate the ssh-agent ========"
@@ -122,7 +137,7 @@ build_prod:
     - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $LATAAMO_USER@$SERVER2 "mkdir -p /home/lataamo/react-app"
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./dev-22/ $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
 
 .deploy_to_ohtumetri_script:
