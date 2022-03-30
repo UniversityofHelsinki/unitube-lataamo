@@ -63,7 +63,7 @@ build_dev:
     paths:
       - build
 
-build_dev-22:
+build_dev-19:
   stage: build
   tags:
     - ohtu-build-2
