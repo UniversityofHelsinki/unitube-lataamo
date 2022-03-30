@@ -172,7 +172,6 @@ deploy_dev:
     - schedules
   variables:
     SERVER: $LATAAMO_DEV
-    SERVER2 : $LATAAMO_DEV_19
     MAINTENANCE_MODE: $MAINTENANCE_MODE
   before_script:
     - echo "====== Deploy to development server ========"
