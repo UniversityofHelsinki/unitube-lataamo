@@ -73,9 +73,9 @@ build_dev-19:
     - yes | cp -f -v .env.development-19 .env.production || true
     - npm run build
   artifacts:
-    name: lataamo-build-22
+    name: lataamo-build-19
     paths:
-      - dev-22
+      - dev-19
 
 build_test:
   stage: build
