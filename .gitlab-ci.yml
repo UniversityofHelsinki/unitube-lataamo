@@ -65,21 +65,6 @@ build_dev:
     paths:
       - build
 
-build_dev-19:
-  stage: build
-  tags:
-    - ohtu-build-2
-  only:
-    - master
-  script:
-    - yes | cp -f -v .env.development-19 .env.production || true
-    - npm run build
-  artifacts:
-    expire_in: 1h
-    name: lataamo-build-19
-    paths:
-      - dev-19
-
 build_test:
   stage: build
   tags:
@@ -136,12 +121,6 @@ build_prod:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER:/home/lataamo/react-app
-    - echo "====== Test ssh connection to lataamo-dev-19.it.helsinki.fi and make react-app folder if not exist ======"
-    - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $LATAAMO_USER@$SERVER2 "mkdir -p /home/lataamo/react-app"
-    - echo "====== Sync local and remote directory ======"
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./dev-19/ $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
 
 .deploy_to_ohtumetri_script:
   script:
