@@ -88,7 +88,6 @@ build_test:
     - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
-    - npm rebuild node-sass
     - npm run build
   artifacts:
     expire_in: 1h
@@ -103,7 +102,6 @@ build_prod:
   only:
     - prod
   script:
-    - npm rebuild node-sass
     - npm run build
   artifacts:
     expire_in: 1h
