@@ -70,7 +70,7 @@ build_dev-22:
   only:
     - master
   script:
-    - yes | cp -f -v .env.development-22 .env.production || true
+    - yes | cp -f -v .env.development-19 .env.production || true
     - npm run build
   artifacts:
     name: lataamo-build-22
@@ -137,7 +137,7 @@ build_prod:
     - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T $LATAAMO_USER@$SERVER2 "mkdir -p /home/lataamo/react-app"
     - echo "====== Sync local and remote directory ======"
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./dev-22/ $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
+    - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./dev-19/ $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER2:/home/lataamo/react-app
 
 .deploy_to_ohtumetri_script:
@@ -190,7 +190,7 @@ deploy_dev:
     - schedules
   variables:
     SERVER: $LATAAMO_DEV
-    SERVER2 : $LATAAMO_DEV_22
+    SERVER2 : $LATAAMO_DEV_19
     MAINTENANCE_MODE: $MAINTENANCE_MODE
   before_script:
     - echo "====== Deploy to development server ========"
