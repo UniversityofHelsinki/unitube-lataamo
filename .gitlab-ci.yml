@@ -45,6 +45,7 @@ build_oc_test:
     - yes | cp -f -v .env.oc-test .env.production || true
     - npm run build
   artifacts:
+    expire_in: 1h
     name: lataamo-build
     paths:
       - build
@@ -59,6 +60,7 @@ build_dev:
     - yes | cp -f -v .env.development .env.production || true
     - npm run build
   artifacts:
+    expire_in: 1h
     name: lataamo-build
     paths:
       - build
@@ -71,9 +73,9 @@ build_test:
     - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
-    - npm rebuild node-sass
     - npm run build
   artifacts:
+    expire_in: 1h
     name: lataamo-build
     paths:
       - build
@@ -85,9 +87,9 @@ build_prod:
   only:
     - prod
   script:
-    - npm rebuild node-sass
     - npm run build
   artifacts:
+    expire_in: 1h
     name: lataamo-build
     paths:
       - build
@@ -102,6 +104,7 @@ build_prod:
 #   $SERVER           <-- define within each deploy job  <-- from Gitlab CI env variables
 .deploy_script:
   script:
+    - ls -la
     - echo "====== Install rsync and openssh ========="
     - apk add --no-cache rsync openssh
     - echo "====== Activate the ssh-agent ========"

@@ -47,6 +47,8 @@ const translationsObject = {
         video_description_info: 'Public description of the recording. Is the recording a part of a lecture series, course or module? Is the shooting location worth mentioning? Who are the people featured in the recording?',
         video_file_info: 'Click the Browse button and use the pop-up window to find the recording you would like to upload to the service from your computer or device. The service supports the most common video file formats, such as .avi, .mov and .mp4.',
         video_file: 'Video file',
+        video_datepicker_info: 'Recordings are removed from Unitube after their date of expiry. The furthest possible date is three years away from the current date. You can change this date at any time! Please also note the rules of use for Unitube.',
+        video_datepicker: 'Choose expiration date',
         created: 'Saved',
         loading: 'Loading',
         add_video: 'Add new recording',
@@ -176,7 +178,9 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minute(s) remaining',
         video_duration_below_one_second: 'Error: The duration of the video is less than 1 second! Try uploading a longer video.',
         invalid_video_format: 'Error: The file format is not supported. Try to save the file in a compatible format (e.g. .mp4, .mov)!',
-        download_vtt_file: 'Download subtitble file'
+        download_vtt_file: 'Download subtitble file',
+        deletion_date_title: 'Deletion date',
+        deletion_date_info: 'After deletion date video is removed from Lataamo'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -226,6 +230,8 @@ const translationsObject = {
         video_description_info: 'Tallenteen julkinen kuvaus. Onko tallenne osa luentosarjaa, kurssia tai kokonaisuutta? Onko kuvauspaikka maininnan arvoinen? Keitä tallenteella esiintyy?',
         video_file_info: 'Klikkaa Browse-painiketta ja etsi avautuvasta ikkunasta koneeltasi tai laitteeltasi tallenne, jonka haluat ladata palveluun. Tuettuja tiedostomuotoja ovat yleisimmät videotiedostot kuten .avi, .mov ja .mp4.',
         video_file: 'Videotiedosto',
+        video_datepicker: 'Valitse viimeinen voimassaolopäivä',
+        video_datepicker_info: 'Tallenteet poistuvat Unitubesta viimeisen voimassaolopäivän jälkeen. Pisin mahdollinen voimassaoloaika on kolme vuotta eteenpäin. Voit muuttaa voimassaoloaikaa milloin vain tallenteen tiedoissa! Otathan huomioon myös palvelun käyttösäännöt.',
         created: 'Tallennettu',
         loading: 'Ladataan',
         add_video: 'Lisää uusi tallenne',
@@ -355,7 +361,9 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minuutti(a) jäljellä',
         video_duration_below_one_second: 'Virhe: ladattavan videon kesto on alle yksi sekunti! Yritä ladata pidempi video.',
         invalid_video_format: 'Virhe: tiedostomuoto ei ole tuettu. Kokeile tallentaa tiedosto yhteensopivassa muodossa (esimerkiksi .mp4, .mov)!',
-        download_vtt_file: 'Tallenna tekstitystiedosto koneellesi'
+        download_vtt_file: 'Tallenna tekstitystiedosto koneellesi',
+        deletion_date_title: 'Poistopäivämäärä',
+        deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta'
     },
 
     sv: {
@@ -405,7 +413,9 @@ const translationsObject = {
         video_title_info: 'Inspelningens namn. Namnet visas på alla de platser där inspelningen har publicerats.',
         video_description_info: 'Offentlig beskrivning av inspelningen. Är inspelningen en del av samma föreläsningsserie, kurs eller helhet? Är inspelningsplatsen värd att nämna? Vilka figurerar på inspelningen?',
         video_file_info: 'Klicka på Browse och sök inspelningen som du vill ladda upp i tjänsten på din dator eller enhet. Stödda filformat är de vanligaste videofilerna, som .avi, .mov och .mp4.',
+        video_datepicker_info: 'Inspelningar tas bort från Unitube efter deras utgångsdatum. Längsta möjliga datum är tre år från nuvarande datum. Du kan ändra detta datum när som helst! Observera även användningsreglerna för Unitube.',
         video_file: 'Videofil',
+        video_datepicker: 'Välj utgångsdatum',
         created: 'Sparad',
         loading: 'Laddar',
         add_video: 'Lägg till ny inspelning',
@@ -535,7 +545,9 @@ const translationsObject = {
         upload_estimate_remaining_in_minutes: 'minuter kvar',
         video_duration_below_one_second: 'Fel: Längden på videon är mindre än 1 sekund! Försök ladda upp en längre video.',
         invalid_video_format: 'Fel: Filformatet stöds inte. Försök att spara filen i ett kompatibelt format (t.ex. .mp4, .mov)!',
-        download_vtt_file: 'Ladda ner textningsfil'
+        download_vtt_file: 'Ladda ner textningsfil',
+        deletion_date_title: 'Samma på svenska',
+        deletion_date_info: 'Samma på svenska'
     }
 };
 
