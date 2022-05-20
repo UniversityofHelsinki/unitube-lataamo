@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
 import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import { connect } from 'react-redux';
-import Alert from 'react-bootstrap/Alert';
 import {
     actionUpdateSerieDetails,
     addMoodleNumber,
@@ -10,14 +11,13 @@ import {
     emptyMoodleNumberCall,
     updateSeriesList
 } from '../actions/seriesAction';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import SelectedMoodleNumbers from './SelectedMoodleNumbers';
+import * as constants from '../utils/constants';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
 import IAMGroupList from './IamGroupList';
-import PersonListAutoSuggest from './PersonListAutoSuggest';
 import PersonList from './PersonList';
+import PersonListAutoSuggest from './PersonListAutoSuggest';
+import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import VideosInSeries from './VideosInSeries';
-import * as constants from '../utils/constants';
 
 
 const SerieDetailsForm = (props) => {
@@ -60,11 +60,16 @@ const SerieDetailsForm = (props) => {
         const roleAnonymous = series.acl.filter(acl => acl.includes(constants.ROLE_ANONYMOUS));
         const roleKatsomoTuotanto = series.acl.filter(acl => acl.includes(constants.ROLE_KATSOMO_TUOTANTO));
         const roleKatsomo = series.acl.filter(acl => acl.includes(constants.ROLE_KATSOMO));
+        const roleUnlisted = series.acl.filter(acl => acl.includes(constants.ROLE_USER_UNLISTED));
+
+        console.log(`series.acl: ${series.acl} ${roleAnonymous} ${roleKatsomoTuotanto} ${roleKatsomo} ${roleUnlisted}`);
 
         if ((roleAnonymous && roleAnonymous.length > 0) || (roleKatsomoTuotanto && roleKatsomoTuotanto.length > 0) || (roleKatsomo && roleKatsomo.length > 0)) {
             //video has either (constants.ROLE_ANONYMOUS, constants.ROLE_KATSOMO constants.ROLE_KATSOMO_TUOTANTO) roles
             //constants.ROLE_KATSOMO is to be deleted in the future
             visibility.push(constants.STATUS_PUBLISHED);
+        } else if (roleUnlisted && roleUnlisted.length > 0) {
+            visibility.push(constants.STATUS_UNLISTED);
         } else {
             visibility.push(constants.STATUS_PRIVATE);
         }
@@ -106,9 +111,11 @@ const SerieDetailsForm = (props) => {
     const generateAclList = (updateSeries, moodleNumbers) => {
         let aclList = [];
         updateSeries.acl = [];
-        if (updateSeries.published) {
+        if ([constants.ROLE_ANONYMOUS].includes(updateSeries.published)) {
             aclList.push(updateSeries.published);
             aclList.push(constants.ROLE_KATSOMO_TUOTANTO);
+        } else if ([constants.ROLE_USER_UNLISTED].includes(updateSeries.published)) {
+            aclList.push(updateSeries.published);
         }
         if (moodleNumbers && moodleNumbers.length > 0) {
             moodleNumbers.forEach(moodleNumber => {
@@ -135,13 +142,8 @@ const SerieDetailsForm = (props) => {
         }
     };
 
-    const handleCheckBoxChange = (event) => {
-        event.persist();
-        if (event.target.checked) {
-            setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
-        } else {
-            setInputs(inputs => ({ ...inputs, [event.target.name]: '' }));
-        }
+    const handlePublicityChange = (event) => {
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
     const handleInputChange = (event) => {
@@ -321,11 +323,19 @@ const SerieDetailsForm = (props) => {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
                             <div className="col-sm-9">
-                                <div className="form-check-inline">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input" data-cy="test-series-published-checkbox" type="checkbox" name="published" value="ROLE_ANONYMOUS" checked={inputs.published} onChange={handleCheckBoxChange} />
-                                        {translate('public_series')}
-                                    </label>
+                                <div id="publicity-radio-buttons">
+                                    <div className="form-check">
+                                        <input name="published" id="publicity-unpublished" className="form-check-input" type="radio" value="" onChange={handlePublicityChange} checked={inputs.published === ''} />
+                                        <label htmlFor="publicity-unpublished" className="form-check-label">{translate('unpublished_series')}</label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input name="published" id="publicity-public" className="form-check-input" type="radio" value="ROLE_ANONYMOUS" onChange={handlePublicityChange} checked={inputs.published === constants.ROLE_ANONYMOUS} />
+                                        <label htmlFor="publicity-public">{translate('public_series')}</label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input name="published" id="publicity-unlisted" className="form-check-input" type="radio" value="ROLE_USER_UNLISTED" onChange={handlePublicityChange} checked={inputs.published === constants.ROLE_USER_UNLISTED} />
+                                        <label htmlFor="publicity-unlisted">{translate('unlisted_series')}</label>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-sm-1">
