@@ -181,7 +181,7 @@ const translationsObject = {
         download_vtt_file: 'Download subtitble file',
         deletion_date_title: 'Deletion date',
         deletion_date_info: 'After deletion date video is removed from Lataamo',
-        video_upload_info_text: '???'
+        video_upload_info_text: '???video_upload_info_text???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -365,7 +365,7 @@ const translationsObject = {
         download_vtt_file: 'Tallenna tekstitystiedosto koneellesi',
         deletion_date_title: 'Poistopäivämäärä',
         deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta',
-        video_upload_info_text: '???'
+        video_upload_info_text: '???video_upload_info_text???'
     },
 
     sv: {
@@ -550,7 +550,7 @@ const translationsObject = {
         download_vtt_file: 'Ladda ner textningsfil',
         deletion_date_title: 'Samma på svenska',
         deletion_date_info: 'Samma på svenska',
-        video_upload_info_text: '???'
+        video_upload_info_text: '???video_upload_info_text???'
     }
 };
 
