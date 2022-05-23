@@ -10,6 +10,7 @@ import PersonList from './PersonList';
 import * as constants from '../utils/constants';
 import routeAction from '../actions/routeAction';
 import { useNavigate } from 'react-router-dom';
+import RadioButtonGroup from './RadioButtonGroup';
 
 const SeriesUploadForm = (props) => {
 
@@ -132,6 +133,37 @@ const SeriesUploadForm = (props) => {
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
     };
     let seriesPostFailureMessage = props.seriesPostFailureMessage;
+
+    const handlePublicityChange = (event) => {
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
+    };
+
+    const publicityRadioButtons = [
+        {
+            name: 'published',
+            id: 'publicity-unpublished',
+            label: translate('unpublished_series'),
+            value: '',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === ''
+        },
+        {
+            name: 'published',
+            id: 'publicity-published',
+            label: translate('public_series'),
+            value: 'ROLE_ANONYMOUS',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === 'ROLE_ANONYMOUS'
+        },
+        {
+            name: 'published',
+            id: 'publicity-unlisted',
+            label: translate('unlisted_series'),
+            value: 'ROLE_USER_UNLISTED',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === 'ROLE_USER_UNLISTED'
+        }
+    ];
     return(
         <div>
             <h2>{translate('series_creation_form')}</h2>
@@ -221,12 +253,7 @@ const SeriesUploadForm = (props) => {
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
                         <div className="col-sm-9">
-                            <div className="form-check-inline">
-                                <label className="form-check-label">
-                                    <input className="form-check-input" type="checkbox" name="published" value="ROLE_ANONYMOUS" data-cy="test-series-public" onChange={handleCheckBoxChange} />
-                                    {translate('public_series')}
-                                </label>
-                            </div>
+                            <RadioButtonGroup name="published" id="publicity-radio-buttons" members={publicityRadioButtons} />
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
