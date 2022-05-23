@@ -43,7 +43,7 @@ build_oc_test:
     - oc-test
   script:
     - yes | cp -f -v .env.oc-test .env.production || true
-    - npm run build
+    - CI=false npm run build
   artifacts:
     expire_in: 1h
     name: lataamo-build
@@ -58,7 +58,7 @@ build_dev:
     - master
   script:
     - yes | cp -f -v .env.development .env.production || true
-    - npm run build
+    - CI=false npm run build
   artifacts:
     expire_in: 1h
     name: lataamo-build
@@ -73,7 +73,7 @@ build_test:
     - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
-    - npm run build
+    - CI=false npm run build
   artifacts:
     expire_in: 1h
     name: lataamo-build
@@ -87,7 +87,7 @@ build_prod:
   only:
     - prod
   script:
-    - npm run build
+    - CI=false npm run build
   artifacts:
     expire_in: 1h
     name: lataamo-build
