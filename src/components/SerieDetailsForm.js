@@ -18,6 +18,7 @@ import PersonList from './PersonList';
 import PersonListAutoSuggest from './PersonListAutoSuggest';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import VideosInSeries from './VideosInSeries';
+import RadioButtonGroup from './RadioButtonGroup';
 
 
 const SerieDetailsForm = (props) => {
@@ -142,10 +143,6 @@ const SerieDetailsForm = (props) => {
         }
     };
 
-    const handlePublicityChange = (event) => {
-        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
-    };
-
     const handleInputChange = (event) => {
         event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         event.persist();
@@ -195,6 +192,38 @@ const SerieDetailsForm = (props) => {
         seriesId.remove();
         setCopiedMessage(translate('copied_to_clipboard'));
     };
+
+    const handlePublicityChange = (event) => {
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
+    };
+
+
+    const publicityRadioButtons = [
+        {
+            name: 'published',
+            id: 'publicity-unpublished',
+            label: translate('unpublished_series'),
+            value: '',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === ''
+        },
+        {
+            name: 'published',
+            id: 'publicity-published',
+            label: translate('public_series'),
+            value: 'ROLE_ANONYMOUS',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === 'ROLE_ANONYMOUS'
+        },
+        {
+            name: 'published',
+            id: 'publicity-unlisted',
+            label: translate('unlisted_series'),
+            value: 'ROLE_USER_UNLISTED',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === 'ROLE_USER_UNLISTED'
+        }
+    ];
 
     return (
         <div>
@@ -323,20 +352,7 @@ const SerieDetailsForm = (props) => {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
                             <div className="col-sm-9">
-                                <div id="publicity-radio-buttons">
-                                    <div className="form-check">
-                                        <input name="published" id="publicity-unpublished" className="form-check-input" type="radio" value="" onChange={handlePublicityChange} checked={inputs.published === ''} />
-                                        <label htmlFor="publicity-unpublished" className="form-check-label">{translate('unpublished_series')}</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input name="published" id="publicity-public" className="form-check-input" type="radio" value="ROLE_ANONYMOUS" onChange={handlePublicityChange} checked={inputs.published === constants.ROLE_ANONYMOUS} />
-                                        <label htmlFor="publicity-public">{translate('public_series')}</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input name="published" id="publicity-unlisted" className="form-check-input" type="radio" value="ROLE_USER_UNLISTED" onChange={handlePublicityChange} checked={inputs.published === constants.ROLE_USER_UNLISTED} />
-                                        <label htmlFor="publicity-unlisted">{translate('unlisted_series')}</label>
-                                    </div>
-                                </div>
+                                <RadioButtonGroup name="published" id="publicity-radio-buttons" members={publicityRadioButtons} />
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_visibility_info')}</Tooltip>}>
