@@ -23,6 +23,8 @@ const SweetAlert = withReactContent(Swal);
 const VideoDetailsForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
 
+    console.log(`${JSON.stringify(props.video)}`);
+
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
@@ -34,6 +36,7 @@ const VideoDetailsForm = (props) => {
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [hovered, setHovered] = useState(false);
     const [deletionDate, setDeletionDate] = useState(null);
+    const [showLink, setShowLink] = useState(false);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -51,6 +54,15 @@ const VideoDetailsForm = (props) => {
         event.persist();
         copyTextToClipboard('embeddedVideo');
         setSuccessMessage(translate('embedded_video_copied_to_clipboard'));
+    };
+
+    const copyToClipboard = ({ elementId, successMessage }) => {
+        return (event) => {
+            event.preventDefault();
+            event.persist();
+            copyTextToClipboard(elementId);
+            setSuccessMessage(translate(successMessage));
+        };
     };
 
     const copyTextToClipboard = (id) => {
@@ -256,6 +268,23 @@ const VideoDetailsForm = (props) => {
         }
     };
 
+    useEffect(() => {
+        if (props.video && props.video.visibility) {
+            setShowLink(props.video.visibility.filter(v => [constants.STATUS_PUBLISHED, constants.STATUS_UNLISTED].includes(v)).length > 0);
+        }
+    }, [props.video]);
+
+    const publishedLink = `https://unitube.it.helsinki.fi/unitube/video/${props.video.identifier}`;
+    const unlistedLink = `https://unitube.it.helsinki.fi/unitube/unlisted.html?id=${props.video.identifier}`;
+
+    const hasStatus = (status) => {
+        return props.video && props.video.visibility && props.video.visibility.includes(status);
+    };
+
+    const linkElement = (link, colSmX) => {
+        return <a href={link} id="videoLink" className={`${colSmX} col-form-label`}>{link}</a>;
+    };
+
     return (
         <div>
             <Video/>
@@ -280,9 +309,17 @@ const VideoDetailsForm = (props) => {
                                     </IconContext.Provider>
                                 </div>
                             </div>
+                            { showLink &&
                             <div className="form-group row">
                                 <label htmlFor="videoLink" className="col-sm-2 col-form-label">{translate('video_link')}</label>
-                                <a href="#" id="videoLink" className="col-sm-8 col-form-label">https://{props.video.identifier}</a>
+                                {(hasStatus(constants.STATUS_PUBLISHED) && linkElement(publishedLink, 'col-sm-6')) || (hasStatus(constants.STATUS_UNLISTED) && linkElement(unlistedLink, 'col-sm-7'))}
+                                <div className={(hasStatus(constants.STATUS_PUBLISHED) ? 'col-sm-2' : 'col-sm-1')}>
+                                    <IconContext.Provider value={{ size: '1.5em' }}>
+                                        <div>
+                                            <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyToClipboard({ elementId: 'videoLink', successMessage: 'video_link_copied_to_clipboard' }) } >{translate('copy_to_clipboard')}</FiCopy>
+                                        </div>
+                                    </IconContext.Provider>
+                                </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_link_info')}</Tooltip>}>
                                         <span className="d-inline-block">
@@ -291,6 +328,7 @@ const VideoDetailsForm = (props) => {
                                     </OverlayTrigger>
                                 </div>
                             </div>
+                            }
                             <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
