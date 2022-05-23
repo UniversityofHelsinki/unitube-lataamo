@@ -281,6 +281,17 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
+                                <label htmlFor="videoLink" className="col-sm-2 col-form-label">{translate('video_link')}</label>
+                                <a href="#" id="videoLink" className="col-sm-8 col-form-label">https://{props.video.identifier}</a>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_link_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                            <div className="form-group row">
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
                                     <select disabled={disabledInputs} required className="form-control" name="isPartOf"
