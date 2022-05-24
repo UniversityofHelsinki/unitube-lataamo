@@ -274,8 +274,8 @@ const VideoDetailsForm = (props) => {
         }
     }, [props.video]);
 
-    const publishedLink = `https://unitube.it.helsinki.fi/unitube/video/${props.video.identifier}`;
-    const unlistedLink = `https://unitube.it.helsinki.fi/unitube/unlisted.html?id=${props.video.identifier}`;
+    const publishedLink = props.video && `${process.env.REACT_APP_KATSOMO_PUBLISHED_LINK_URL}${props.video.identifier}`;
+    const unlistedLink = props.video && `${process.env.REACT_APP_KATSOMO_UNLISTED_LINK_URL}${props.video.identifier}`;
 
     const hasStatus = (status) => {
         return props.video && props.video.visibility && props.video.visibility.includes(status);
