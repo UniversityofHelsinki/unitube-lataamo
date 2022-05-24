@@ -280,7 +280,7 @@ const VideoDetailsForm = (props) => {
     };
 
     const linkElement = (link, colSmX) => {
-        return <a href={link} id="videoLink" className={`${colSmX} col-form-label`}>{link}</a>;
+        return <a href={link} id="videoLink" target="_blank" rel="noreferrer" className={`${colSmX} col-form-label`}>{link}</a>;
     };
 
     return (
