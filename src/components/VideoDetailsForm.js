@@ -23,8 +23,6 @@ const SweetAlert = withReactContent(Swal);
 const VideoDetailsForm = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
 
-    console.log(`${JSON.stringify(props.video)}`);
-
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
