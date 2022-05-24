@@ -63,8 +63,6 @@ const SerieDetailsForm = (props) => {
         const roleKatsomo = series.acl.filter(acl => acl.includes(constants.ROLE_KATSOMO));
         const roleUnlisted = series.acl.filter(acl => acl.includes(constants.ROLE_USER_UNLISTED));
 
-        console.log(`series.acl: ${series.acl} ${roleAnonymous} ${roleKatsomoTuotanto} ${roleKatsomo} ${roleUnlisted}`);
-
         if ((roleAnonymous && roleAnonymous.length > 0) || (roleKatsomoTuotanto && roleKatsomoTuotanto.length > 0) || (roleKatsomo && roleKatsomo.length > 0)) {
             //video has either (constants.ROLE_ANONYMOUS, constants.ROLE_KATSOMO constants.ROLE_KATSOMO_TUOTANTO) roles
             //constants.ROLE_KATSOMO is to be deleted in the future
