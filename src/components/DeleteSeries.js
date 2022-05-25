@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 const DeleteSeries = (props) => {
-    console.debug('DeleteSeries props %o', props);
     const [disabled, setDisabled] = useState(true);
     useEffect(() => {
         if (props.serie && props.serie.eventColumns) {

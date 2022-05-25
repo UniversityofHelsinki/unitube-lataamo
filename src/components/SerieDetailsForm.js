@@ -405,10 +405,10 @@ const SerieDetailsForm = (props) => {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-1">
-                            <DeleteSeries label="POISTA" serie={props.serie} />
+                            <DeleteSeries label={translate('delete_serie')} serie={props.serie} />
                         </div>
                         <div className="col-sm-1" style={{ paddingLeft: 0 }}>
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{'POISTA TÄMÄ'}</Tooltip>}>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('delete_serie_info')}</Tooltip>}>
                                 <span>
                                     <Button disabled style={{ pointerEvents: 'none' }}>{'?'}</Button>
                                 </span>
@@ -456,6 +456,7 @@ const mapStateToProps = state => ({
     user : state.ur.user,
     iamGroups : state.ser.iamGroups,
     persons: state.ser.persons,
+    globalFeedback: state.gf.globalFeedback
 });
 
 const mapDispatchToProps = dispatch => ({

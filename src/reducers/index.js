@@ -7,6 +7,7 @@ import seriesReducer from './seriesReducer';
 import routeReducer from './routeReducer';
 import eventsReducer from './eventsReducer';
 import fileUploadReducer from './fileUploadReducer';
+import { globalFeedbackReducer } from './globalFeedbackReducer';
 
 const rootReducer = combineReducers({
     i18n: i18nReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     ser: seriesReducer,
     rr: routeReducer,
     er: eventsReducer,
-    fur : fileUploadReducer
+    fur: fileUploadReducer,
+    gf: globalFeedbackReducer,
 });
 
 export default rootReducer;
