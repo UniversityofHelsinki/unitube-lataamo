@@ -19,6 +19,7 @@ import PersonListAutoSuggest from './PersonListAutoSuggest';
 import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import VideosInSeries from './VideosInSeries';
 import RadioButtonGroup from './RadioButtonGroup';
+import DeleteSeries from './DeleteSeries';
 
 
 const SerieDetailsForm = (props) => {
@@ -403,7 +404,17 @@ const SerieDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <div className="col-sm-12">
+                        <div className="col-sm-1">
+                            <DeleteSeries label="POISTA" serie={props.serie} />
+                        </div>
+                        <div className="col-sm-1" style={{ paddingLeft: 0 }}>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{'POISTA TÄMÄ'}</Tooltip>}>
+                                <span>
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{'?'}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                        <div className="col-sm-8">
                             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
                             { successMessage !== null ?
                                 <Alert variant="success" onClose={ () => setSuccessMessage(null) } dismissible>
@@ -421,6 +432,9 @@ const SerieDetailsForm = (props) => {
                                 </Alert>
                                 : (<></>)
                             }
+
+                        </div>
+                        <div className="col-sm-2">
                             <button type="submit" id="submitBtnId" className="btn btn-primary button-position" data-cy="test-series-submit-button">{translate('save')}</button>
                         </div>
                     </div>

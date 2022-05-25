@@ -115,6 +115,26 @@ export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     }
 };
 
+export const actionDeleteSeries = (series) => {
+    console.debug('actionDeleteSeries %o', series);
+    return async (dispatch) => {
+        try {
+            const response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${series.identifier}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(series)
+            });
+            if (response.status === 200) {
+                dispatch(apiDeleteSeriesSuccessCall(series));
+            }
+        } catch (error) {
+            console.debug('actionDeleteSeries, errori tuli %o', error);
+        }
+    };
+};
+
 export const actionUploadSeries = (newSeries) => {
     return async (dispatch) => {
         try {
@@ -201,6 +221,14 @@ export const clearPostSeriesSuccessCall = () => ({
 export const clearPostSeriesFailureCall = () => ({
     type: 'CLEAR_API_POST_SERIES_FAILURE_CALL',
     payload: null
+});
+
+export const apiDeleteSeriesSuccessCall = (serie) => ({
+    type: 'SUCCESS_API_DELETE_SERIES',
+    payload: {
+        message: 'api_delete_series_successful',
+        serie
+    }
 });
 
 export const apiGetSeriesDropDownListSuccessCall = data => ({
