@@ -120,13 +120,9 @@ export const actionDeleteSeries = (series) => {
     return async (dispatch) => {
         try {
             const response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${series.identifier}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(series)
+                method: 'DELETE'
             });
-            if (response.status === 200) {
+            if (response.status === 204) {
                 dispatch(apiDeleteSeriesSuccessCall(series));
                 dispatch(setGlobalFeedback('api_delete_series_successful'));
             } else {
