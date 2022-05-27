@@ -9,6 +9,11 @@ export const globalFeedbackReducer = (state = initialState, action) => {
             ...state,
             globalFeedback: action.payload
         };
+    case 'CLEAR_GLOBAL_FEEDBACK':
+        return {
+            ...state,
+            globalFeedback: undefined
+        };
     default:
         return state;
     }

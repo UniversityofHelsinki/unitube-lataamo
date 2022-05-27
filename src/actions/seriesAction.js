@@ -118,20 +118,14 @@ export const actionUpdateSerieDetails = async (id, updatedSerie) => {
 
 export const actionDeleteSeries = (series) => {
     return async (dispatch) => {
-        try {
-            const response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${series.identifier}`, {
-                method: 'DELETE'
-            });
-            if (response.status === 204) {
-                dispatch(apiDeleteSeriesSuccessCall(series));
-                dispatch(setGlobalFeedback('api_delete_series_successful'));
-            } else {
-                dispatch(apiDeleteSeriesFailureCall(series));
-                dispatch(setGlobalFeedback('api_delete_series_failure'));
-            }
-        } catch (error) {
-            dispatch(apiDeleteSeriesFailureCall(series));
-            dispatch(setGlobalFeedback('api_delete_series_failure'));
+        const response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${series.identifier}`, {
+            method: 'DELETE'
+        });
+        if (response.status === 204) {
+            dispatch(apiDeleteSeriesSuccessCall(series));
+            dispatch(setGlobalFeedback('api_delete_series_successful'));
+        } else {
+            throw new Error(response.status);
         }
     };
 };

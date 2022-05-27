@@ -18,7 +18,7 @@ import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FaSearch } from 'react-icons/fa';
-import { setGlobalFeedback } from '../actions/globalFeedbackAction';
+import { clearGlobalFeedback, setGlobalFeedback } from '../actions/globalFeedbackAction';
 
 
 const { SearchBar } = Search;
@@ -164,8 +164,8 @@ const SeriesList = (props) => {
                 </div>
                 <div className="col-sm-10">
                     { props.globalFeedback &&
-                        <Alert className="no-margin-bottom" variant="success" onClose={() => props.setGlobalFeedbackMessage('')} dismissible>
-                            { translate(props.globalFeedback) }
+                        <Alert className="no-margin-bottom" variant={props.globalFeedback.variant} onClose={() => props.clearGlobalFeedbackMessage('')} dismissible>
+                            { translate(props.globalFeedback.message) }
                         </Alert>
                     }
                 </div>
@@ -226,7 +226,8 @@ const mapDispatchToProps = dispatch => ({
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage()),
     onRouteChange: (route) =>  dispatch(routeAction(route)),
-    setGlobalFeedbackMessage: (message) => dispatch(setGlobalFeedback(message))
+    setGlobalFeedbackMessage: (message) => dispatch(setGlobalFeedback(message)),
+    clearGlobalFeedbackMessage: () => dispatch(clearGlobalFeedback())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesList);

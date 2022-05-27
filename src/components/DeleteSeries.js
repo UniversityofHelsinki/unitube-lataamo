@@ -11,9 +11,13 @@ const DeleteSeries = (props) => {
         }
     }, [props.serie]);
 
-    const handleOnClick = (event) => {
+    const handleOnClick = async (event) => {
         event.preventDefault();
-        props.deleteSeries(props.serie);
+        try {
+            await props.deleteSeries(props.serie);
+        } catch (error) {
+            props.setErrorMessage(`${props.errorMessage}: ${error.message}`);
+        }
     };
 
     return (
