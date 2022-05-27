@@ -380,7 +380,7 @@ const translationsObject = {
         download_vtt_file: 'Tallenna tekstitystiedosto koneellesi',
         deletion_date_title: 'Poistopäivämäärä',
         deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta',
-        warning_max_amount_of_messages: '???warning_max_amount_of_messages???';
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
         video_upload_info_text: '???video_upload_info_text???'
     },
 
