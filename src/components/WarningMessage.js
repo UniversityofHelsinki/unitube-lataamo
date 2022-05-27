@@ -12,7 +12,7 @@ const WarningMessage = (props) => {
 
     return (
         <div>
-            {props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES &&
+            {!props.loading && props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES &&
                 <h4 style={{ marginTop: '0px', color: 'red' }} >
                     { translate('warning_max_amount_of_messages') }
                 </h4>
@@ -24,6 +24,7 @@ const WarningMessage = (props) => {
 
 const mapStateToProps = state => ({
     videos: state.er.inboxVideos,
+    loading: state.er.loading,
     i18n: state.i18n
 });
 

@@ -9,7 +9,7 @@ const UploadButton = (props) => {
     return (
         <div className="margintop row">
             <div className="col-xs-2 col-sm-2 col-md-2">
-                <Link to="/uploadVideo" className={`btn btn-primary ${props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES ? 'disabled' : ''}`}>
+                <Link to="/uploadVideo" className={`btn btn-primary ${props.loading === undefined || props.loading || props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES ? 'disabled' : ''}`}>
                     <Translate value="add_video"/>
                 </Link>
             </div>
@@ -22,7 +22,8 @@ const UploadButton = (props) => {
 
 
 const mapStateToProps = state => ({
-    videos: state.er.inboxVideos
+    videos: state.er.inboxVideos,
+    loading: state.er.loading
 });
 
 export default connect(mapStateToProps, null)(UploadButton);
