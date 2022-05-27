@@ -272,7 +272,7 @@ const InboxVideoList = (props) => {
 
     return (
         <div>
-            <UploadButton />
+            <UploadButton alreadyFetched={true} />
             {progressMessage !== null ?
                 <Alert variant="warning" onClose={() => setProgressMessage(null)} dismissible>
                     <p>

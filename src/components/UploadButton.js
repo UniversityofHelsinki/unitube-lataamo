@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import constants from '../utils/constants';
 import WarningMessage from './WarningMessage';
+import { fetchInboxEvents } from '../actions/eventsAction';
 
 const UploadButton = (props) => {
+    const [alreadyFetched, setAlreadyFetched] = useState(props.alreadyFetched);
+    useEffect(() => {
+        if (!alreadyFetched) {
+            props.fetchInboxEvents();
+            setAlreadyFetched(true);
+        }
+    }, [props.videos]);
     return (
         <div className="margintop row">
             <div className="col-xs-2 col-sm-2 col-md-2">
@@ -26,4 +35,8 @@ const mapStateToProps = state => ({
     loading: state.er.loading
 });
 
-export default connect(mapStateToProps, null)(UploadButton);
+const mapDispatchToProps = dispatch => ({
+    fetchInboxEvents: () => dispatch(fetchInboxEvents(false))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadButton);

@@ -248,7 +248,7 @@ const VideoList = (props) => {
 
     return (
         <div>
-            <UploadButton />
+            <UploadButton alreadyFetched={false} />
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?
