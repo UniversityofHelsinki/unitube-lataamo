@@ -200,6 +200,11 @@ const VideoUploadForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <div className="col-sm-4">
+                            <p className="font-weight-bold">{translate('video_upload_info_text')}</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="form-group row">
