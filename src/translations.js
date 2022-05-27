@@ -189,7 +189,8 @@ const translationsObject = {
         deletion_date_title: 'Deletion date',
         deletion_date_info: 'After deletion date video is removed from Lataamo',
         warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
-        video_upload_info_text: '???video_upload_info_text???'
+        video_upload_info_text: '???video_upload_info_text???',
+        selected_serie_video_limit_exceeded: '???selected_serie_video_limit_exceeded???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -381,7 +382,8 @@ const translationsObject = {
         deletion_date_title: 'Poistopäivämäärä',
         deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta',
         warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
-        video_upload_info_text: '???video_upload_info_text???'
+        video_upload_info_text: '???video_upload_info_text???',
+        selected_serie_video_limit_exceeded: '???selected_serie_video_limit_exceeded???'
     },
 
     sv: {
@@ -574,7 +576,8 @@ const translationsObject = {
         deletion_date_title: 'Samma på svenska',
         deletion_date_info: 'Samma på svenska',
         warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
-        video_upload_info_text: '???video_upload_info_text???'
+        video_upload_info_text: '???video_upload_info_text???',
+        selected_serie_video_limit_exceeded: '???selected_serie_video_limit_exceeded???'
     }
 };
 
