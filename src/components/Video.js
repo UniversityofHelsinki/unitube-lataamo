@@ -35,7 +35,7 @@ const Video = (props) => {
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
                                     ?
-                                    <video controls src={video.url}>
+                                    <video controls onContextMenu={e => e.preventDefault()} src={video.url}>
                                         {
                                             video.vttFile && video.vttFile.track ?
                                                 <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles" srcLang="fi" label="Suomi" default/>
