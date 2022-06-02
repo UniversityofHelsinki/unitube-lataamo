@@ -9,7 +9,7 @@ import moment from 'moment';
 import Loader from './Loader';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
 import { fetchSeriesDropDownList } from '../actions/seriesAction';
@@ -58,13 +58,20 @@ const TrashVideoList = (props) => {
     };
 
     const mediaFormatter = (cell, row) => {
+        const labels = {
+            resolution: (x,y) => `${x}x${y}`,
+            bitrate: (bitrate) => `${Math.round(bitrate/1000)} kbps`,
+            size: (duration, bitrate) => `${Math.max(1, Math.round((duration/1000) * (bitrate/8) / 10**6))} MB`
+        };
         return (
             <div className="form-container">
                 {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-disabled">{`${labels.resolution(row.publications[media].width, row.publications[media].height)} - ${labels.bitrate(row.publications[media].bitrate)} - ${labels.size(row.publications[media].duration, row.publications[media].bitrate)}`}</Tooltip>}>
+                                <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            </OverlayTrigger>
                             <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
                         </form>
                     )
@@ -179,6 +186,23 @@ const TrashVideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
+    const downloadColumnFormatter = (column, colIndex, components) => {
+        return (
+            <div>
+                <span style={{ paddingRight: '10px', position: 'relative', top: '4px'  }}>{translate('download_video')}</span>
+                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('download_video_info')}</Tooltip>}>
+                    <span className="d-inline-block">
+                        <Button disabled style={{
+                            pointerEvents: 'none',
+                            paddingTop: '0px',
+                            paddingBottom: '0px'
+                        }}>{translate('info_box_text')}</Button>
+                    </span>
+                </OverlayTrigger>
+            </div>
+        );
+    };
+
     const columns = [{ dataField: 'title',
         text: translate('video_title'),
         sort: true
@@ -195,7 +219,7 @@ const TrashVideoList = (props) => {
     },
     {
         dataField: 'media',
-        text: translate('download_video'),
+        headerFormatter: downloadColumnFormatter,
         formatter: mediaFormatter,
     }
     ];
