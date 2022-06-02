@@ -189,7 +189,7 @@ const VideoUploadForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <div className="col-sm-4">
+                        <div className="col-sm-10">
                             <p className="font-weight-bold">{translate('video_upload_info_text')}</p>
                         </div>
                     </div>
