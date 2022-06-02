@@ -189,7 +189,11 @@ const translationsObject = {
         download_vtt_file: 'Download subtitble file',
         deletion_date_title: 'Deletion date',
         deletion_date_info: 'After deletion date video is removed from Lataamo',
-        video_upload_info_text: 'When you press the Upload button, the upload of the video starts in the browser and then into Unitube. Once the file is uploaded, it is compressed and processed for viewing. When processing is complete, the recording is ready to be viewed, and you can edit its information. The time required for uploading and processing depends on e.g. file size. It is a good idea to reserve an hour to two to download and process an HD quality, lecture-length video.'
+        video_upload_info_text: 'When you press the Upload button, the upload of the video starts in the browser and then into Unitube. Once the file is uploaded, it is compressed and processed for viewing. When processing is complete, the recording is ready to be viewed, and you can edit its information. The time required for uploading and processing depends on e.g. file size. It is a good idea to reserve an hour to two to download and process an HD quality, lecture-length video.',
+        api_delete_series_successful: 'Series deleted',
+        api_delete_series_failure: 'Series deletion failed',
+        delete_serie: 'Delete',
+        delete_serie_info: 'Delete series by clicking the button.'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -381,7 +385,11 @@ const translationsObject = {
         download_vtt_file: 'Tallenna tekstitystiedosto koneellesi',
         deletion_date_title: 'Poistopäivämäärä',
         deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta',
-        video_upload_info_text: 'Kun painat Lataa-painiketta, video alkaa tallentua ensin selaimeen ja sitten palveluun. Kun tiedosto on ladattu palveluun, se pakataan ja käsitellään katselua varten. Kun käsittely on valmis, tallenne on valmis katsottavaksi ja pääset muokkaamaan sen tietoja. Lataus- ja käsittelyaika riippuu mm. tiedoston koosta. HD-laatuisen, luennon mittaisen videon lataukseen ja käsittelyyn kannattaa varata tunnista kahteen tuntiin.'
+        video_upload_info_text: 'Kun painat Lataa-painiketta, video alkaa tallentua ensin selaimeen ja sitten palveluun. Kun tiedosto on ladattu palveluun, se pakataan ja käsitellään katselua varten. Kun käsittely on valmis, tallenne on valmis katsottavaksi ja pääset muokkaamaan sen tietoja. Lataus- ja käsittelyaika riippuu mm. tiedoston koosta. HD-laatuisen, luennon mittaisen videon lataukseen ja käsittelyyn kannattaa varata tunnista kahteen tuntiin.',
+        api_delete_series_successful: 'Sarja poistettu.',
+        api_delete_series_failure: 'Sarjan poisto epäonnistui',
+        delete_serie: 'Poista',
+        delete_serie_info: 'Poista sarja nappia painamalla.'
     },
 
     sv: {
@@ -574,7 +582,11 @@ const translationsObject = {
         download_vtt_file: 'Ladda ner textningsfil',
         deletion_date_title: 'Samma på svenska',
         deletion_date_info: 'Samma på svenska',
-        video_upload_info_text: 'När du trycker på knappen Ladda börjar videon att sparas i webbläsaren och sedan i tjänsten. När filen har laddats upp till tjänsten komprimeras den och bearbetas för visning. När bearbetningen är klar är inspelningen klar att ses och du kan redigera informationen. Laddning och handläggningstid beror på t.ex. filstorlek. Det är en bra idé att boka en timme till två timmar för att ladda ner och bearbeta video i HD-kvalitet, föreläsningslängd.'
+        video_upload_info_text: 'När du trycker på knappen Ladda börjar videon att sparas i webbläsaren och sedan i tjänsten. När filen har laddats upp till tjänsten komprimeras den och bearbetas för visning. När bearbetningen är klar är inspelningen klar att ses och du kan redigera informationen. Laddning och handläggningstid beror på t.ex. filstorlek. Det är en bra idé att boka en timme till två timmar för att ladda ner och bearbeta video i HD-kvalitet, föreläsningslängd.',
+        api_delete_series_successful: 'Serie deleted',
+        api_delete_series_failure: 'Serie deletion failed',
+        delete_serie: 'Delete',
+        delete_serie_info: 'Delete serie by clicking the button.'
     }
 };
 

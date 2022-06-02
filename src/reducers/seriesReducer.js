@@ -73,6 +73,11 @@ const seriesReducer = (state = initialState, action) => {
             ...state,
             seriesPostFailureMessage: action.payload
         };
+    case 'SUCCESS_API_DELETE_SERIES':
+        return {
+            ...state,
+            series: [ ...state.series.filter(serie => serie.identifier !== action.payload.serie.identifier) ],
+        };
     case 'STATUS_403_API_CALL':
         return {
             ...state,
