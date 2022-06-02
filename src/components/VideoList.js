@@ -207,6 +207,7 @@ const VideoList = (props) => {
         dataField: 'media',
         headerFormatter: downloadColumnFormatter,
         formatter: mediaFormatter,
+        text: '',
         //näin saadaan estettyä haitarin avautuminen, kun klikataan download tallenne
         events: {
             // eslint-disable-next-line no-unused-vars

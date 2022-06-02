@@ -239,7 +239,8 @@ const InboxVideoList = (props) => {
     }, {
         dataField: 'media',
         formatter: mediaFormatter,
-        headerFormatter: downloadColumnFormatter
+        headerFormatter: downloadColumnFormatter,
+        text: '',
     }];
 
     const defaultSorted = [{

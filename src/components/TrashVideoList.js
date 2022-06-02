@@ -221,6 +221,7 @@ const TrashVideoList = (props) => {
         dataField: 'media',
         headerFormatter: downloadColumnFormatter,
         formatter: mediaFormatter,
+        text: '',
     }
     ];
 
