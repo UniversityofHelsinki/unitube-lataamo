@@ -207,20 +207,20 @@ const SerieDetailsForm = (props) => {
         },
         {
             name: 'published',
+            id: 'publicity-unlisted',
+            label: translate('unlisted_series'),
+            value: 'ROLE_USER_UNLISTED',
+            onChange: handlePublicityChange,
+            checked: () => inputs.published === 'ROLE_USER_UNLISTED'
+        },
+        {
+            name: 'published',
             id: 'publicity-published',
             label: translate('public_series'),
             value: 'ROLE_ANONYMOUS',
             onChange: handlePublicityChange,
             checked: () => inputs.published === 'ROLE_ANONYMOUS'
         },
-        {
-            name: 'published',
-            id: 'publicity-unlisted',
-            label: translate('unlisted_series'),
-            value: 'ROLE_USER_UNLISTED',
-            onChange: handlePublicityChange,
-            checked: () => inputs.published === 'ROLE_USER_UNLISTED'
-        }
     ];
 
     return (
