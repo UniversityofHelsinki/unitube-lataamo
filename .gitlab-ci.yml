@@ -20,6 +20,7 @@ compile:
   tags:
     - ohtu-build-2
   script:
+    - npm install react-bootstrap-table-next --save --legacy-peer-deps
     - npm ci
 # ------------------------------ test stage ------------------------------
 
@@ -87,7 +88,6 @@ build_prod:
   only:
     - prod
   script:
-    - npm install react-bootstrap-table-next --save --legacy-peer-deps
     - CI=false npm run build
   artifacts:
     expire_in: 1h
