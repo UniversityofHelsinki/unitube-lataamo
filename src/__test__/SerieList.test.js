@@ -31,7 +31,8 @@ describe('<SerieList />', () => {
         i18n : {
             translations: translations,
             locale: 'fi'
-        }
+        },
+        gf: { globalFeedback: '' }
     };
     let store;
     let wrapper;
