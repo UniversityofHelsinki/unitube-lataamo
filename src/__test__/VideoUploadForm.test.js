@@ -17,7 +17,9 @@ describe('<VideoUploadForm />', () => {
             event: {
                 title : '',
                 description: ''
-            }},
+            },
+            inboxVideos : []
+            },
         ser: { series: []},
         fur: {
             timeRemaining: 0,

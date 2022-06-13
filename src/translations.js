@@ -193,7 +193,8 @@ const translationsObject = {
         api_delete_series_successful: 'Series deleted',
         api_delete_series_failure: 'Series deletion failed',
         delete_serie: 'Delete',
-        delete_serie_info: 'Delete series by clicking the button.'
+        delete_serie_info: 'Delete series by clicking the button.',
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -389,7 +390,8 @@ const translationsObject = {
         api_delete_series_successful: 'Sarja poistettu.',
         api_delete_series_failure: 'Sarjan poisto epäonnistui',
         delete_serie: 'Poista',
-        delete_serie_info: 'Poista sarja nappia painamalla.'
+        delete_serie_info: 'Poista sarja nappia painamalla.',
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???'
     },
 
     sv: {
@@ -586,7 +588,8 @@ const translationsObject = {
         api_delete_series_successful: 'Serie deleted',
         api_delete_series_failure: 'Serie deletion failed',
         delete_serie: 'Delete',
-        delete_serie_info: 'Delete serie by clicking the button.'
+        delete_serie_info: 'Delete serie by clicking the button.',
+        warning_max_amount_of_messages: '???warning_max_amount_of_messages???'
     }
 };
 

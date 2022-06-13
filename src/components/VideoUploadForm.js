@@ -20,12 +20,15 @@ import { subDays, addMonths, addYears } from 'date-fns';
 
 import { fi, sv, enUS } from 'date-fns/locale';
 
+import constants from '../utils/constants';
+import { fetchInboxEvents } from '../actions/eventsAction';
+import WarningMessage from './WarningMessage';
+
 registerLocale('fi', fi);
 registerLocale('en', enUS);
 registerLocale('sv', sv);
 
 const VideoUploadForm = (props) => {
-
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
@@ -33,6 +36,7 @@ const VideoUploadForm = (props) => {
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
 
     useEffect(() => {
+        props.onFetchEvents(false);
         props.onRouteChange(props.route);
         props.onFetchSeries();
         props.onSuccessMessageClick();
@@ -55,6 +59,10 @@ const VideoUploadForm = (props) => {
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
         return result;
+    };
+
+    const maxAmountOfInboxEvents = () => {
+        return props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES;
     };
 
     const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
@@ -149,12 +157,15 @@ const VideoUploadForm = (props) => {
             }
 
             <h2>{translate('video_file_title')}</h2>
+
+            <WarningMessage warning={'warning_max_amount_of_messages'} />
+
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
                         <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                         <div className="col-sm-8">
-                            <input disabled={browseButtonStatus()} onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
+                            <input disabled={browseButtonStatus() || maxAmountOfInboxEvents()} onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
@@ -169,6 +180,7 @@ const VideoUploadForm = (props) => {
                         <div className="col-sm-8">
                             <DatePicker
                                 required
+                                disabled={maxAmountOfInboxEvents()}
                                 locale={props.preferredLanguage}
                                 showPopperArrow={false}
                                 dateFormat="dd.MM.yyyy"
@@ -203,7 +215,7 @@ const VideoUploadForm = (props) => {
 
                 <div className="form-group row">
                     <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus()}>{ translate('upload') }</button>
+                        <button type="submit" className="btn btn-primary" disabled={submitButtonStatus() || maxAmountOfInboxEvents()}>{ translate('upload') }</button>
                     </div>
                     <div hidden={!onProgressVisible} className="col-sm-4">
                         <span>{ translate('upload_in_progress_wait') }<FaSpinner className="icon-spin"></FaSpinner></span>
@@ -224,10 +236,12 @@ const mapStateToProps = state => ({
     fur: state.fur,
     timeRemaining: state.fur.timeRemaining,
     percentage : state.fur.percentage,
-    preferredLanguage: state.ur.user.preferredLanguage
+    preferredLanguage: state.ur.user.preferredLanguage,
+    videos: state.er.inboxVideos
 });
 
 const mapDispatchToProps = dispatch => ({
+    onFetchEvents: (refresh, inbox) => dispatch(fetchInboxEvents(refresh, inbox)),
     onFetchSeries: () => dispatch(fetchSeries()),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
