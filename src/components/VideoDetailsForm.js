@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList, actionUpdateDeletionDate } from '../actions/eventsAction';
+import { fetchSerie } from '../actions/seriesAction';
 import Video from './Video';
 import constants from '../utils/constants';
 import { IconContext } from 'react-icons';
@@ -31,10 +32,13 @@ const VideoDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [disabledInputs, setDisabledInputs] = useState(false);
+    const [disabledSubmit, setDisabledSubmit] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [hovered, setHovered] = useState(false);
     const [deletionDate, setDeletionDate] = useState(null);
     const [showLink, setShowLink] = useState(false);
+    const [invalidSerie, setInvalidSerie] = useState(false);
+    const [selectedSerie, setSelectedSerie] = useState(props.selectedSerie);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -175,6 +179,26 @@ const VideoDetailsForm = (props) => {
         setIsBeingEdited(true);
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
+
+    const handleSelectionChange = async (event) => {
+        handleInputChange(event);
+        const seriesId = event.target.value;
+        await props.fetchSerie(seriesId);
+    };
+
+    useEffect(() => {
+        if (props.video.series) {
+            setInvalidSerie(selectedSerie.identifier !== props.video.series.identifier && selectedSerie.eventsCount >= constants.MAX_AMOUNT_OF_MESSAGES);
+        }
+    }, [selectedSerie]);
+
+    useEffect(() => {
+        setSelectedSerie(props.video.series);
+    }, [props.video]);
+
+    useEffect(() => {
+        setSelectedSerie(props.selectedSerie);
+    }, [props.selectedSerie]);
 
     const drawSelectionValues = () => {
         let series = [...props.series];
@@ -331,7 +355,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                                 <div className="col-sm-8">
                                     <select disabled={disabledInputs} required className="form-control" name="isPartOf"
-                                        data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleInputChange}>
+                                        data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleSelectionChange}>
                                         {drawSelectionValues()}
                                     </select>
                                 </div>
@@ -343,6 +367,14 @@ const VideoDetailsForm = (props) => {
                                     </OverlayTrigger>
                                 </div>
                             </div>
+                            { invalidSerie &&
+                            <div className="form-group row">
+                                <div className="col-sm-2"></div>
+                                <div className="col-sm-8">
+                                    <span style={{ color: 'red' }}>{translate('selected_serie_video_limit_exceeded')}</span>
+                                </div>
+                            </div>
+                            }
                             <div className="form-group row">
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
@@ -464,7 +496,7 @@ const VideoDetailsForm = (props) => {
                                     : (<></>)
                                 }
                                 <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" data-cy="test-delete-event-button" onClick={showAlert}>{translate('delete_event')}</button>
-                                <button disabled={disabledInputs} type="submit" className="btn btn-primary float-right button-position mr-1" data-cy="test-save-event-button">{translate('save')}</button>
+                                <button disabled={disabledInputs || invalidSerie} type="submit" className="btn btn-primary float-right button-position mr-1" data-cy="test-save-event-button">{translate('save')}</button>
                             </div>
                         </div>
                     </form>
@@ -481,6 +513,7 @@ const VideoDetailsForm = (props) => {
 const mapStateToProps = state => ({
     video : state.er.event,
     series : state.ser.seriesDropDown,
+    selectedSerie: state.ser.serie,
     videos : state.er.videos,
     inboxVideos : state.er.inboxVideos,
     deletionDate : state.er.deletionDate,
@@ -489,7 +522,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos))
+    onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
+    fetchSerie: (identifier) => dispatch(fetchSerie({ identifier }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);
