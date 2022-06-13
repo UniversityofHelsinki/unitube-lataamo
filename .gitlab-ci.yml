@@ -20,7 +20,7 @@ compile:
   tags:
     - ohtu-build-2
   script:
-    - npm ci
+    - npm ci --legacy-peer-deps
 # ------------------------------ test stage ------------------------------
 
 test:
