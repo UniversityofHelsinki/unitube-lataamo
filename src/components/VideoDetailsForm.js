@@ -37,6 +37,8 @@ const VideoDetailsForm = (props) => {
     const [hovered, setHovered] = useState(false);
     const [deletionDate, setDeletionDate] = useState(null);
     const [showLink, setShowLink] = useState(false);
+    const [invalidSerie, setInvalidSerie] = useState(false);
+    const [selectedSerie, setSelectedSerie] = useState(props.selectedSerie);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -185,9 +187,17 @@ const VideoDetailsForm = (props) => {
     };
 
     useEffect(() => {
-        if (props.video && props.video.series) {
-            setDisabledSubmit(props.selectedSerie.identifier !== props.video.series.identifier && props.selectedSerie.eventsCount >= constants.MAX_AMOUNT_OF_MESSAGES);
+        if (props.video.series) {
+            setInvalidSerie(selectedSerie.identifier !== props.video.series.identifier && selectedSerie.eventsCount >= constants.MAX_AMOUNT_OF_MESSAGES);
         }
+    }, [selectedSerie]);
+
+    useEffect(() => {
+        setSelectedSerie(props.video.series);
+    }, [props.video]);
+
+    useEffect(() => {
+        setSelectedSerie(props.selectedSerie);
     }, [props.selectedSerie]);
 
     const drawSelectionValues = () => {
@@ -357,7 +367,7 @@ const VideoDetailsForm = (props) => {
                                     </OverlayTrigger>
                                 </div>
                             </div>
-                            { props.selectedSerie && props.selectedSerie.identifier !== props.video.series.identifier && props.selectedSerie.eventsCount >= constants.MAX_AMOUNT_OF_MESSAGES &&
+                            { invalidSerie &&
                             <div className="form-group row">
                                 <div className="col-sm-2"></div>
                                 <div className="col-sm-8">
@@ -486,7 +496,7 @@ const VideoDetailsForm = (props) => {
                                     : (<></>)
                                 }
                                 <button disabled={disabledInputs} type="button" className="btn delete-button float-right button-position" data-cy="test-delete-event-button" onClick={showAlert}>{translate('delete_event')}</button>
-                                <button disabled={disabledInputs || disabledSubmit} type="submit" className="btn btn-primary float-right button-position mr-1" data-cy="test-save-event-button">{translate('save')}</button>
+                                <button disabled={disabledInputs || invalidSerie} type="submit" className="btn btn-primary float-right button-position mr-1" data-cy="test-save-event-button">{translate('save')}</button>
                             </div>
                         </div>
                     </form>
