@@ -9,8 +9,6 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
@@ -18,6 +16,7 @@ import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSpinner, FaSearch } from 'react-icons/fa';
 import constants from '../utils/constants';
+import UploadButton from './UploadButton';
 
 const { SearchBar } = Search;
 
@@ -274,11 +273,7 @@ const VideoList = (props) => {
 
     return (
         <div>
-            <div className="margintop">
-                <Link to="/uploadVideo" className="btn btn-primary">
-                    <Translate value="add_video"/>
-                </Link>
-            </div>
+            <UploadButton alreadyFetched={false} />
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?

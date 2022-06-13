@@ -26,6 +26,7 @@ import routeAction from '../actions/routeAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FiDownload } from 'react-icons/fi';
 import { FaSearch, FaSpinner } from 'react-icons/fa';
+import UploadButton from './UploadButton';
 
 const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
@@ -291,11 +292,7 @@ const InboxVideoList = (props) => {
 
     return (
         <div>
-            <div className="margintop">
-                <Link to="/uploadVideo" className="btn btn-primary">
-                    <Translate value="add_video"/>
-                </Link>
-            </div>
+            <UploadButton alreadyFetched={true} />
             {progressMessage !== null ?
                 <Alert variant="warning" onClose={() => setProgressMessage(null)} dismissible>
                     <p>

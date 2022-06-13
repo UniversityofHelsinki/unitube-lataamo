@@ -150,7 +150,7 @@ const msg = 'Unable to fetch data';
 
 describe('<VideoList />', () => {
     const initialState = {
-        er: { event: {}, videos: videos, loading: false  },
+        er: { event: {}, videos: videos, loading: false, inboxVideos : []  },
         ser: { series: [] },
         vr: { error: '' },
         sr: { apiError: '' },
