@@ -110,7 +110,7 @@ const translationsObject = {
         video_link_copied_to_clipboard: 'Link copied to clipboard!',
         select_series : 'Select series',
         embedded_video_copied_to_clipboard: 'Video embedding code copied to the clipboard',
-        embedded_video_info: 'Video can be embedded if it is public or shared via link',
+        embedded_video_info: 'The video can be embedded if it is public or shared via link',
         embedded_video_title: 'Embedding code for the video',
         succeeded_to_update_event_title: 'The information was updated successfully!',
         succeeded_to_update_event: 'Updating the recording may take a moment, after which the information can again be edited.',
@@ -123,7 +123,7 @@ const translationsObject = {
         success_on_video_upload: 'Recording added to uploader!',
         api_post_series_failed: 'Could not create the series!',
         download_video: 'Download recording',
-        download_video_info: '???download_video_info???',
+        download_video_info: 'There are two different versions of all recordings available for download, one usually a higher quality and the other a more compressed version. When you hover over the download button, you will see more detailed information e.g. image resolution and file size.',
         UNITUBE_ALLRIGHTS: '"All rights reserved" in accordance with the Unitube rules of use',
         CC_BY: 'CC-BY – may be modified and utilised freely; source must be mentioned',
         CC_BY_NC_ND: 'CC BY-NC-ND – may be distributed freely for non-commercial use',
@@ -191,11 +191,11 @@ const translationsObject = {
         deletion_date_info: 'After deletion date video is removed from Lataamo',
         video_upload_info_text: 'When you press the Upload button, the upload of the video starts in the browser and then into Unitube. Once the file is uploaded, it is compressed and processed for viewing. When processing is complete, the recording is ready to be viewed, and you can edit its information. The time required for uploading and processing depends on e.g. file size. It is a good idea to reserve an hour to two to download and process an HD quality, lecture-length video.',
         api_delete_series_successful: 'Series deleted',
-        api_delete_series_failure: 'Series deletion failed',
-        delete_serie: 'Delete',
-        delete_serie_info: 'Delete series by clicking the button.',
-        warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
-        selected_serie_video_limit_exceeded: '???selected_serie_video_limit_exceeded???'
+        api_delete_series_failure: 'Failed to delete series!',
+        delete_serie: 'Delete series',
+        delete_serie_info: 'You can delete this series, if there are no recordings in it.',
+        warning_max_amount_of_messages: 'The number of recordings in your Inbox exceeds the maximum allowed (100 recordings). To upload new videos to Unitube, transfer recordings from Inbox to other series!',
+        selected_serie_video_limit_exceeded: 'The number of recordings in the selected series exceeds the maximum number allowed (100 recordings). To move any new videos to this series, first make some space by moving recordings from this to other series!'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -321,7 +321,7 @@ const translationsObject = {
         success_on_video_upload: 'Tallenne viety lataamoon!',
         api_post_series_failed: 'Sarjan luonti epäonnistui!',
         download_video: 'Lataa tallenne koneellesi',
-        download_video_info: '???download_video_info???',
+        download_video_info: 'Kaikista tallenteista on tarjolla ladattavaksi kaksi eri versiota, joista toinen on yleensä korkealaatuisempi ja toinen pakatumpi versio. Kun viet osoittimen latauspainikkeen ylle, näet tarkempaa tietoa mm. kuvan tarkkuudesta ja tiedoston koosta.',
         UNITUBE_ALLRIGHTS: '"Kaikki oikeudet pidätetään" Unituben käyttösääntöjen mukaan',
         CC_BY: 'CC-BY – voi muokata ja hyödyntää vapaasti, lähde mainittava',
         CC_BY_NC_ND: 'CC BY-NC-ND – vapaasti jaettava ei-kaupalliseen käyttöön',
@@ -389,11 +389,11 @@ const translationsObject = {
         deletion_date_info: 'Poistopäivämäärän jälkeen video poistetaan Lataamosta',
         video_upload_info_text: 'Kun painat Lataa-painiketta, video alkaa tallentua ensin selaimeen ja sitten palveluun. Kun tiedosto on ladattu palveluun, se pakataan ja käsitellään katselua varten. Kun käsittely on valmis, tallenne on valmis katsottavaksi ja pääset muokkaamaan sen tietoja. Lataus- ja käsittelyaika riippuu mm. tiedoston koosta. HD-laatuisen, luennon mittaisen videon lataukseen ja käsittelyyn kannattaa varata tunnista kahteen tuntiin.',
         api_delete_series_successful: 'Sarja poistettu.',
-        api_delete_series_failure: 'Sarjan poisto epäonnistui',
-        delete_serie: 'Poista',
-        delete_serie_info: 'Poista sarja nappia painamalla.',
-        warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
-        selected_serie_video_limit_exceeded: '???selected_serie_video_limit_exceeded???'
+        api_delete_series_failure: 'Sarjan poisto epäonnistui!',
+        delete_serie: 'Poista sarja',
+        delete_serie_info: 'Poista sarja nappia painamalla. Voit poistaa ainoastaan tyhjän sarjan, eli kun sarjassa ei ole yhtään tallennetta.',
+        warning_max_amount_of_messages: 'Inbox-tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit ladata uusia videoita Unitubeen, siirrä tallenteita Inboxista muihin sarjoihin!',
+        selected_serie_video_limit_exceeded: 'Valitun sarjan tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit siirtää sarjaan uusia videoita, siirrä siitä ensin ylimääräisiä tallenteita muihin sarjoihin!'
     },
 
     sv: {
@@ -516,7 +516,7 @@ const translationsObject = {
         success_on_video_upload: 'Inspelningen exporterades till uppspelning!',
         api_post_series_failed: 'Det gick inte att skapa serien!',
         download_video: 'Ladda ner inspelningen på din dator',
-        download_video_info: '???download_video_info???',
+        download_video_info: 'Det finns två olika versioner av alla inspelningar tillgängliga för nedladdning, en av högre kvalitet och den andra den mer komprimerade versionen. När du håller muspekaren över nedladdningsknappen ser du mer detaljerad information t.ex. bildupplösning och filstorlek.',
         UNITUBE_ALLRIGHTS: '”Alla rättigheter förbehålles” enligt Unitubes användningsregler',
         CC_BY: 'CC-BY – får modifieras och utnyttjas fritt, källan ska uppges',
         CC_BY_NC_ND: 'CC BY-NC-ND – får spridas fritt i ickekommersiellt syfte',
@@ -587,12 +587,12 @@ const translationsObject = {
         deletion_date_title: 'Samma på svenska',
         deletion_date_info: 'Samma på svenska',
         video_upload_info_text: 'När du trycker på knappen Ladda börjar videon att sparas i webbläsaren och sedan i tjänsten. När filen har laddats upp till tjänsten komprimeras den och bearbetas för visning. När bearbetningen är klar är inspelningen klar att ses och du kan redigera informationen. Laddning och handläggningstid beror på t.ex. filstorlek. Det är en bra idé att boka en timme till två timmar för att ladda ner och bearbeta video i HD-kvalitet, föreläsningslängd.',
-        api_delete_series_successful: 'Serie deleted',
-        api_delete_series_failure: 'Serie deletion failed',
-        delete_serie: 'Delete',
-        delete_serie_info: 'Delete serie by clicking the button.',
-        warning_max_amount_of_messages: '???warning_max_amount_of_messages???',
-        selected_serie_video_limit_exceeded: '???selected_serie_video_limit_exceeded???'
+        api_delete_series_successful: 'Serien raderades!',
+        api_delete_series_failure: 'Det gick inte att radera serien!',
+        delete_serie: 'Radera serien',
+        delete_serie_info: 'Du kan radera den här serien, om det inte finns några inspelningar i den.',
+        warning_max_amount_of_messages: 'Antalet Inbox-inspelningar överstiger det maximalt tillåtna (100 inspelningar). För att ladda upp nya videor till Unitube, överför inspelningar från Inbox till andra serier!',
+        selected_serie_video_limit_exceeded: 'Antalet inspelningar i den valda serien överstiger det maximalt tillåtna (100 inspelningar). För att överföra nya videor till en serie, överför först ytterligare inspelningar till andra serier!'
     }
 };
 
