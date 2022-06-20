@@ -18,7 +18,7 @@ import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FaSearch } from 'react-icons/fa';
-import { clearGlobalFeedback, setGlobalFeedback } from '../actions/globalFeedbackAction';
+import { clearGlobalFeedback, setGlobalFeedback, setFeedback } from '../actions/globalFeedbackAction';
 
 
 const { SearchBar } = Search;
@@ -148,23 +148,15 @@ const SeriesList = (props) => {
     }, [props.apiError]);
     return (
         <div>
-            {props.seriesPostSuccessMessage !== null ?
-                <Alert variant="success">
-                    <p>
-                        {translate(props.seriesPostSuccessMessage)}
-                    </p>
-                </Alert>
-                : (<></>)
-            }
             <div className="margintop marginleft row">
                 <div className="col-sm-2">
-                    <Link to="/uploadSeries" onClick={() => {props.emptyPersons(); props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage();}} data-cy="test-add-new-series-button" className="btn btn-primary">
+                    <Link to="/uploadSeries" onClick={() => {props.emptyPersons(); props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage(); }} data-cy="test-add-new-series-button" className="btn btn-primary">
                         <Translate value="add_series"/>
                     </Link>
                 </div>
                 <div className="col-sm-10">
                     { props.globalFeedback &&
-                        <Alert className="no-margin-bottom" variant={props.globalFeedback.variant} onClose={() => props.clearGlobalFeedbackMessage('')} dismissible>
+                        <Alert className="no-margin-bottom" variant={props.globalFeedback.variant} >
                             { translate(props.globalFeedback.message) }
                         </Alert>
                     }
@@ -226,7 +218,6 @@ const mapDispatchToProps = dispatch => ({
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage()),
     onRouteChange: (route) =>  dispatch(routeAction(route)),
-    setGlobalFeedbackMessage: (message) => dispatch(setGlobalFeedback(message)),
     clearGlobalFeedbackMessage: () => dispatch(clearGlobalFeedback())
 });
 
