@@ -142,6 +142,7 @@ export const actionUploadSeries = (newSeries) => {
             });
             if (response.status === 200) {
                 dispatch(apiPostSeriesSuccessCall());
+                dispatch(setGlobalFeedback('api_post_series_successful'));
             } else if(response.status === 403){
                 dispatch(apiPostSeries403FailureCall());
             } else if(response.status === 500){
