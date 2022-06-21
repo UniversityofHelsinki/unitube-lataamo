@@ -18,6 +18,7 @@ import { Translate } from 'react-redux-i18n';
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FaSearch } from 'react-icons/fa';
+import { clearGlobalFeedback, setGlobalFeedback, setFeedback } from '../actions/globalFeedbackAction';
 
 
 const { SearchBar } = Search;
@@ -147,18 +148,19 @@ const SeriesList = (props) => {
     }, [props.apiError]);
     return (
         <div>
-            {props.seriesPostSuccessMessage !== null ?
-                <Alert variant="success">
-                    <p>
-                        {translate(props.seriesPostSuccessMessage)}
-                    </p>
-                </Alert>
-                : (<></>)
-            }
-            <div className="margintop">
-                <Link to="/uploadSeries" onClick={() => {props.emptyPersons(); props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage();}} data-cy="test-add-new-series-button" className="btn btn-primary">
-                    <Translate value="add_series"/>
-                </Link>
+            <div className="margintop marginleft row">
+                <div className="col-sm-2">
+                    <Link to="/uploadSeries" onClick={() => {props.emptyPersons(); props.emptyMoodleNumber(); props.onEmptyIamGroups(); props.onClearPostSeriesSuccessMessage(); }} data-cy="test-add-new-series-button" className="btn btn-primary">
+                        <Translate value="add_series"/>
+                    </Link>
+                </div>
+                <div className="col-sm-10">
+                    { props.globalFeedback &&
+                        <Alert className="no-margin-bottom" variant={props.globalFeedback.variant} >
+                            { translate(props.globalFeedback.message) }
+                        </Alert>
+                    }
+                </div>
             </div>
             { !errorMessage ?
                 <div className="table-responsive">
@@ -202,7 +204,8 @@ const mapStateToProps = state => ({
     loading: state.ser.loading,
     selectedRowId: state.ser.selectedRowId,
     apiError: state.sr.apiError,
-    seriesPostSuccessMessage : state.ser.seriesPostSuccessMessage
+    seriesPostSuccessMessage : state.ser.seriesPostSuccessMessage,
+    globalFeedback: state.gf.globalFeedback,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -214,7 +217,8 @@ const mapDispatchToProps = dispatch => ({
     emptyMoodleNumber: () => dispatch(emptyMoodleNumber()),
     onEmptyIamGroups: () => dispatch(emptyIamGroupsCall()),
     onClearPostSeriesSuccessMessage: () => dispatch(clearPostSeriesSuccessMessage()),
-    onRouteChange: (route) =>  dispatch(routeAction(route))
+    onRouteChange: (route) =>  dispatch(routeAction(route)),
+    clearGlobalFeedbackMessage: () => dispatch(clearGlobalFeedback())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesList);
