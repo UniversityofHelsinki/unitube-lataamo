@@ -404,12 +404,10 @@ const SerieDetailsForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <div className="col-sm-1">
+                        <div className="col-sm-2">
                             <DeleteSeries label={translate('delete_serie')} serie={props.serie} setErrorMessage={setErrorMessage} errorMessage={translate('api_delete_series_failure')} />
-                        </div>
-                        <div className="col-sm-1" style={{ paddingLeft: 0 }}>
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('delete_serie_info')}</Tooltip>}>
-                                <span>
+                                <span style={{ paddingLeft: '10px' }}>
                                     <Button disabled style={{ pointerEvents: 'none' }}>{'?'}</Button>
                                 </span>
                             </OverlayTrigger>
