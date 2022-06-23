@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchInboxEvents: () => dispatch(fetchInboxEvents(false))
+    fetchInboxEvents: () => dispatch(fetchInboxEvents(false, true))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadButton);

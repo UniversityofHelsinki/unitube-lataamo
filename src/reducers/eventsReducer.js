@@ -35,6 +35,11 @@ const eventsReducer = (state = initialState, action) => {
             inboxVideos: action.payload,
             loading: action.loading
         };
+    case 'SUCCESS_API_GET_INBOX_EVENTS_WITHOUT_SETTING_LOADING':
+        return {
+            ...state,
+            inboxVideos: action.payload
+        };
     case 'SUCCESS_API_GET_TRASH_EVENTS':
         return {
             ...state,
