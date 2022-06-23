@@ -35,14 +35,16 @@ const eventsRequestCall = (dispatch, refresh) => {
     }
 };
 
-export const fetchInboxEvents = (refresh) => {
+export const fetchInboxEvents = (refresh, skipSettingLoading) => {
     return async (dispatch) => {
         try {
             eventsRequestCall(dispatch, refresh);
             let response = await fetch(`${VIDEO_SERVER_API}${USER_INBOX_EVENTS_PATH}`);
             if(response.status === 200) {
                 let responseJSON = await response.json();
-                dispatch(apiGetInboxEventsSuccessCall(responseJSON));
+                dispatch(
+                    skipSettingLoading ?  apiGetInboxEventsSuccessCallWithoutSettingLoading(responseJSON) : apiGetInboxEventsSuccessCall(responseJSON)
+                );
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
@@ -247,6 +249,12 @@ export const apiGetInboxEventsSuccessCall = data => ({
     payload: data,
     loading: false
 });
+
+export const apiGetInboxEventsSuccessCallWithoutSettingLoading = data => ({
+    type: 'SUCCESS_API_GET_INBOX_EVENTS_WITHOUT_SETTING_LOADING',
+    payload: data
+});
+
 
 export const apiGetTrashEventsSuccessCall = data => ({
     type: 'SUCCESS_API_GET_TRASH_EVENTS',
