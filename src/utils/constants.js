@@ -22,6 +22,8 @@ const EMPTY_VTT_FILE_NAME = 'empty.vtt';
 
 const ILLEGAL_CHARACTERS = '%';
 
+const MAX_AMOUNT_OF_MESSAGES = 100;
+
 module.exports = {
     ROLE_ANONYMOUS,
     ROLE_KATSOMO,
@@ -40,5 +42,6 @@ module.exports = {
     MAX_FILE_SIZE_LIMIT,
     MIN_DURATION_IN_SECONDS,
     EMPTY_VTT_FILE_NAME,
-    ILLEGAL_CHARACTERS
+    ILLEGAL_CHARACTERS,
+    MAX_AMOUNT_OF_MESSAGES
 };

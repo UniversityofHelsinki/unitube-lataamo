@@ -1,3 +1,4 @@
+import setGlobalFeedback from './globalFeedbackAction';
 // asynchronous action creator
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
@@ -115,6 +116,20 @@ export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     }
 };
 
+export const actionDeleteSeries = (series) => {
+    return async (dispatch) => {
+        const response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${series.identifier}`, {
+            method: 'DELETE'
+        });
+        if (response.status === 204) {
+            dispatch(apiDeleteSeriesSuccessCall(series));
+            dispatch(setGlobalFeedback('api_delete_series_successful'));
+        } else {
+            throw new Error(response.status);
+        }
+    };
+};
+
 export const actionUploadSeries = (newSeries) => {
     return async (dispatch) => {
         try {
@@ -127,6 +142,7 @@ export const actionUploadSeries = (newSeries) => {
             });
             if (response.status === 200) {
                 dispatch(apiPostSeriesSuccessCall());
+                dispatch(setGlobalFeedback('api_post_series_successful'));
             } else if(response.status === 403){
                 dispatch(apiPostSeries403FailureCall());
             } else if(response.status === 500){
@@ -201,6 +217,22 @@ export const clearPostSeriesSuccessCall = () => ({
 export const clearPostSeriesFailureCall = () => ({
     type: 'CLEAR_API_POST_SERIES_FAILURE_CALL',
     payload: null
+});
+
+export const apiDeleteSeriesSuccessCall = (serie) => ({
+    type: 'SUCCESS_API_DELETE_SERIES',
+    payload: {
+        message: 'api_delete_series_successful',
+        serie
+    }
+});
+
+export const apiDeleteSeriesFailureCall = (serie) => ({
+    type: 'FAILURE_API_DELETE_SERIES',
+    payload: {
+        message: 'api_delete_series_failure',
+        serie
+    }
 });
 
 export const apiGetSeriesDropDownListSuccessCall = data => ({

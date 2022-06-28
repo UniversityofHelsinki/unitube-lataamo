@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
 import { fetchEvent, fetchEvents, deselectEvent, deselectRow, fetchDeletionDate } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import VideoDetailsForm from './VideoDetailsForm';
 import moment from 'moment';
-import { Translate } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
@@ -18,6 +16,7 @@ import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
 import { FaSpinner, FaSearch } from 'react-icons/fa';
 import constants from '../utils/constants';
+import UploadButton from './UploadButton';
 
 const { SearchBar } = Search;
 
@@ -118,13 +117,20 @@ const VideoList = (props) => {
     };
 
     const mediaFormatter = (cell, row) => {
+        const labels = {
+            resolution: (x,y) => `${x}x${y}`,
+            bitrate: (bitrate) => `${Math.round(bitrate/1000)} kbps`,
+            size: (duration, bitrate) => `${Math.max(1, Math.round((duration/1000) * (bitrate/8) / 10**6))} MB`
+        };
         return (
             <div className="form-container">
                 {
                     row.media.map((media, index) =>
                         <form key={index} onSubmit={handleSubmit}>
                             <input type="hidden" name="mediaUrl" value={media} />
-                            <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-disabled">{`${labels.resolution(row.publications[media].width, row.publications[media].height)} - ${labels.bitrate(row.publications[media].bitrate)} - ${labels.size(row.publications[media].duration, row.publications[media].bitrate)}`}</Tooltip>}>
+                                <Button name="downloadButton" className="disable-enable-buttons" variant="link" type="submit"><FiDownload></FiDownload></Button>
+                            </OverlayTrigger>
                             <Button name="downloadIndicator" hidden disabled variant="link"><FaSpinner className="icon-spin"></FaSpinner></Button>
                         </form>
                     )
@@ -145,6 +151,23 @@ const VideoList = (props) => {
         }else {
             return translate('event_failed_state');
         }
+    };
+
+    const downloadColumnFormatter = (column, colIndex, components) => {
+        return (
+            <div>
+                <span style={{ paddingRight: '10px', position: 'relative', top: '4px'  }}>{translate('download_video')}</span>
+                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('download_video_info')}</Tooltip>}>
+                    <span className="d-inline-block">
+                        <Button disabled style={{
+                            pointerEvents: 'none',
+                            paddingTop: '0px',
+                            paddingBottom: '0px'
+                        }}>{translate('info_box_text')}</Button>
+                    </span>
+                </OverlayTrigger>
+            </div>
+        );
     };
 
     const columns = [{
@@ -181,8 +204,9 @@ const VideoList = (props) => {
         sort: true
     }, {
         dataField: 'media',
-        text: translate('download_video'),
+        headerFormatter: downloadColumnFormatter,
         formatter: mediaFormatter,
+        text: '',
         //näin saadaan estettyä haitarin avautuminen, kun klikataan download tallenne
         events: {
             // eslint-disable-next-line no-unused-vars
@@ -249,11 +273,7 @@ const VideoList = (props) => {
 
     return (
         <div>
-            <div className="margintop">
-                <Link to="/uploadVideo" className="btn btn-primary">
-                    <Translate value="add_video"/>
-                </Link>
-            </div>
+            <UploadButton alreadyFetched={false} />
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?
