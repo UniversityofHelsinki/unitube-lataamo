@@ -93,6 +93,7 @@ const translationsObject = {
         added_iam_groups: 'This series is administered by University of Helsinki user groups:',
         series_creation_form: 'Series creation form',
         copied_to_clipboard: 'Series ID copied to clipboard',
+        copied_series_link_to_clipboard: '???copied_series_link_to_clipboard???',
         select : 'Select',
         license : 'Publishing licence',
         licenses_info: 'Select the suitable licence for publishing the recording. If you are not the copyright holder of the recording, make sure you have permission from the actual copyright holder to publish the recording under the licence you have chosen! When you select a licence, a short description of its use is displayed on the screen. For more information on the different licences, visit www.creativecommons.fi!',
@@ -195,7 +196,8 @@ const translationsObject = {
         delete_serie: 'Delete series',
         delete_serie_info: 'You can delete this series, if there are no recordings in it.',
         warning_max_amount_of_messages: 'The number of recordings in your Inbox exceeds the maximum allowed (100 recordings). To upload new videos to Unitube, transfer recordings from Inbox to other series!',
-        selected_serie_video_limit_exceeded: 'The number of recordings in the selected series exceeds the maximum number allowed (100 recordings). To move any new videos to this series, first make some space by moving recordings from this to other series!'
+        selected_serie_video_limit_exceeded: 'The number of recordings in the selected series exceeds the maximum number allowed (100 recordings). To move any new videos to this series, first make some space by moving recordings from this to other series!',
+        link_to_series_videos: '???link_to_series_videos???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -291,6 +293,7 @@ const translationsObject = {
         added_iam_groups: 'Tätä sarjaa hallinnoivat HY:n käyttäjäryhmät:',
         series_creation_form: 'Sarjan luontilomake',
         copied_to_clipboard: 'Sarjan tunniste kopioitu leikepöydälle',
+        copied_series_link_to_clipboard: 'Sarjan linkki kopioitu leikepöydälle',
         select : 'Valitse',
         select_series : 'Valitse sarja',
         license : 'Julkaisulisenssi',
@@ -393,7 +396,8 @@ const translationsObject = {
         delete_serie: 'Poista sarja',
         delete_serie_info: 'Poista sarja nappia painamalla. Voit poistaa ainoastaan tyhjän sarjan, eli kun sarjassa ei ole yhtään tallennetta.',
         warning_max_amount_of_messages: 'Inbox-tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit ladata uusia videoita Unitubeen, siirrä tallenteita Inboxista muihin sarjoihin!',
-        selected_serie_video_limit_exceeded: 'Valitun sarjan tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit siirtää sarjaan uusia videoita, siirrä siitä ensin ylimääräisiä tallenteita muihin sarjoihin!'
+        selected_serie_video_limit_exceeded: 'Valitun sarjan tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit siirtää sarjaan uusia videoita, siirrä siitä ensin ylimääräisiä tallenteita muihin sarjoihin!',
+        link_to_series_videos: 'Linkki sarjan videoihin'
     },
 
     sv: {
@@ -490,6 +494,7 @@ const translationsObject = {
         added_iam_groups: 'HU-användargrupper som administrerar denna serie:',
         series_creation_form: 'Formulär för att skapa en serie',
         copied_to_clipboard: 'Seriens kod kopierad till urklipp',
+        copied_series_link_to_clipboard: '???copied_series_link_to_clipboard???',
         select : 'Välj',
         license : 'Publiceringslicens',
         licenses_info: 'Välj en licens som lämpar sig för publicering av inspelningen. Säkerställ att innehavaren av upphovsrätten till inspelningen (om det är någon annan än du) ger tillstånd till publicering med licensen som du valt! När du väljer en licens, visas en kort förklaring om dess användningsändamål på skärmen. Mer information om licenser på adressen www.creativecommons.fi!',
@@ -592,7 +597,8 @@ const translationsObject = {
         delete_serie: 'Radera serien',
         delete_serie_info: 'Du kan radera den här serien, om det inte finns några inspelningar i den.',
         warning_max_amount_of_messages: 'Antalet Inbox-inspelningar överstiger det maximalt tillåtna (100 inspelningar). För att ladda upp nya videor till Unitube, överför inspelningar från Inbox till andra serier!',
-        selected_serie_video_limit_exceeded: 'Antalet inspelningar i den valda serien överstiger det maximalt tillåtna (100 inspelningar). För att överföra nya videor till en serie, överför först ytterligare inspelningar till andra serier!'
+        selected_serie_video_limit_exceeded: 'Antalet inspelningar i den valda serien överstiger det maximalt tillåtna (100 inspelningar). För att överföra nya videor till en serie, överför först ytterligare inspelningar till andra serier!',
+        link_to_series_videos: '???link_to_series_videos???'
     }
 };
 

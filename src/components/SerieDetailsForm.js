@@ -34,6 +34,7 @@ const SerieDetailsForm = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [copiedMessage, setCopiedMessage] = useState(null);
+    const [copiedLinkMessage, setCopiedLinkMessage] = useState(null);
     const [hovered, setHovered] = useState(false);
 
     const toggleHover = () => {
@@ -192,6 +193,21 @@ const SerieDetailsForm = (props) => {
         setCopiedMessage(translate('copied_to_clipboard'));
     };
 
+    const copyLinkToClipboard = (event) => {
+        event.preventDefault();
+        event.persist();
+        let copySeriesLink = document.getElementById('seriesLink').innerText;
+        let seriesUrl = document.createElement('input');
+        document.body.appendChild(seriesUrl);
+        seriesUrl.value = copySeriesLink;
+        /* Select the text field */
+        seriesUrl.select();
+        seriesUrl.setSelectionRange(0, 99999); /* For mobile devices */
+        document.execCommand('copy');
+        seriesUrl.remove();
+        setCopiedLinkMessage(translate('copied_series_link_to_clipboard'));
+    };
+
     const handlePublicityChange = (event) => {
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
@@ -224,6 +240,10 @@ const SerieDetailsForm = (props) => {
         }
     ];
 
+    const publishedVideosLink = props.serie && props.serie.identifier && `${process.env.REACT_APP_KATSOMO_PUBLISHED_SERIES_VIDEOS_LINK_URL}${props.serie.identifier}`;
+
+    console.log(inputs.published);
+
     return (
         <div>
             { props.serie && props.serie.identifier !== undefined
@@ -233,7 +253,41 @@ const SerieDetailsForm = (props) => {
                         <div className="form-group row">
                             <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
                             <input id="eventsCount" type="hidden" value={inputs.eventsCount || ''} />
+                            <div className="col-sm-4">
+                                { copiedMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setCopiedMessage(null) } dismissible>
+                                        <p>
+                                            { copiedMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                { copiedLinkMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setCopiedLinkMessage(null) } dismissible>
+                                        <p>
+                                            { copiedLinkMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                            </div>
                         </div>
+                        { inputs.published === 'ROLE_ANONYMOUS' ?
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <label htmlFor="seriesLink" className="col-sm-2 col-form-label">{translate('link_to_series_videos')}</label>
+                                <label id="seriesLink" className="col-sm-6 col-form-label">{publishedVideosLink}</label>
+                                <div className="col-sm-1">
+                                    <IconContext.Provider value={{ size: '1.5em' }}>
+                                        <div>
+                                            <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyLinkToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
+                                        </div>
+                                    </IconContext.Provider>
+                                </div>
+                            </div>
+                            : (<></>)
+                        }
+
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
                             <label htmlFor="seriesId" className="col-sm-2 col-form-label">{translate('series_id')}</label>
@@ -244,16 +298,6 @@ const SerieDetailsForm = (props) => {
                                         <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyTextToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
                                     </div>
                                 </IconContext.Provider>
-                            </div>
-                            <div className="col-sm-4">
-                                { copiedMessage !== null ?
-                                    <Alert variant="success" onClose={ () => setCopiedMessage(null) } dismissible>
-                                        <p>
-                                            { copiedMessage }
-                                        </p>
-                                    </Alert>
-                                    : (<></>)
-                                }
                             </div>
                         </div>
 
