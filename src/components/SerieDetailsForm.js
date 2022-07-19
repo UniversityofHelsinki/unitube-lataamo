@@ -242,8 +242,6 @@ const SerieDetailsForm = (props) => {
 
     const publishedVideosLink = props.serie && props.serie.identifier && `${process.env.REACT_APP_KATSOMO_PUBLISHED_SERIES_VIDEOS_LINK_URL}${props.serie.identifier}`;
 
-    console.log(inputs.published);
-
     return (
         <div>
             { props.serie && props.serie.identifier !== undefined
