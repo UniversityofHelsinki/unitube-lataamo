@@ -129,6 +129,12 @@ const SeriesList = (props) => {
         }
     };
 
+    const rowStyle = (row) => {
+        const style = {};
+        style.cursor = 'pointer';
+        return style;
+    };
+
     const options = {
         sizePerPageList: [{
             text: '5', value: 5
@@ -180,7 +186,7 @@ const SeriesList = (props) => {
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>
                                     </div>
                                     <BootstrapTable { ...props.baseProps }  expandRow={ expandRow } noDataIndication={() => <NoDataIndication /> }
-                                        pagination={ paginationFactory(options) } hover defaultSorted={ defaultSorted }/>
+                                        pagination={ paginationFactory(options) } hover defaultSorted={ defaultSorted } rowStyle={ rowStyle }/>
                                 </div>
                             )
                         }
