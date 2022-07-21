@@ -16,12 +16,13 @@ const UploadButton = (props) => {
             setLoading(true);
         }
     }, []);
+
     useEffect(() => {
         if (loading) {
             setAlreadyFetched(true);
             setLoading(false);
         }
-    }, [loading]);
+    }, [props.videos]);
 
     return (
         <div className="margintop row">
