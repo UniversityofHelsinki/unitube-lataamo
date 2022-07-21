@@ -258,6 +258,7 @@ const VideoList = (props) => {
         if (eventNotSelectable(row.processing_state)) {
             style.backgroundColor = '#f4f5f9';
         }
+        style.cursor = 'pointer';
         return style;
     };
 
