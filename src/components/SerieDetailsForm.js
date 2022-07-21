@@ -270,16 +270,18 @@ const SerieDetailsForm = (props) => {
                                 }
                             </div>
                         </div>
-                        { inputs.published === 'ROLE_ANONYMOUS' ?
+                        { inputs.published === 'ROLE_ANONYMOUS' && !inputs.moodleNumbers?.length ?
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label htmlFor="seriesLink" className="col-sm-2 col-form-label">{translate('link_to_series_videos')}</label>
-                                <label id="seriesLink" className="col-sm-6 col-form-label">{publishedVideosLink}</label>
-                                <div className="col-sm-1">
+                                <div className="col-sm-6">
+                                    <label id="seriesLink" className="col-form-label">
+                                        <a target="_blank" rel="noreferrer" href={publishedVideosLink}>{publishedVideosLink}</a>
+                                    </label>
                                     <IconContext.Provider value={{ size: '1.5em' }}>
-                                        <div>
+                                        <span style={{ marginLeft: '20px' }}>
                                             <FiCopy className={hovered ? 'cursor-pointer' : ''} onMouseEnter={toggleHover} onMouseLeave={toggleHover} onClick={ copyLinkToClipboard } >{translate('copy_to_clipboard')}</FiCopy>
-                                        </div>
+                                        </span>
                                     </IconContext.Provider>
                                 </div>
                             </div>
