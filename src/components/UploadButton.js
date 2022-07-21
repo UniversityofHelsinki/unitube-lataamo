@@ -9,11 +9,10 @@ import { fetchInboxEvents } from '../actions/eventsAction';
 
 const UploadButton = (props) => {
     const [alreadyFetched, setAlreadyFetched] = useState(props.alreadyFetched);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(!props.alreadyFetched);
     useEffect(() => {
         if (!alreadyFetched) {
             props.fetchInboxEvents();
-            setLoading(true);
         }
     }, []);
 
@@ -27,7 +26,7 @@ const UploadButton = (props) => {
     return (
         <div className="margintop row">
             <div className="col-xs-2 col-sm-2 col-md-2">
-                <Link to="/uploadVideo" className={`btn btn-primary ${!alreadyFetched || props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES ? 'disabled' : ''}`}>
+                <Link to="/uploadVideo" className={`btn btn-primary ${!alreadyFetched || props.loading || props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES ? 'disabled' : ''}`}>
                     <Translate value="add_video"/>
                 </Link>
             </div>
@@ -40,7 +39,8 @@ const UploadButton = (props) => {
 
 
 const mapStateToProps = state => ({
-    videos: state.er.inboxVideos
+    videos: state.er.inboxVideos,
+    loading: state.er.loading
 });
 
 const mapDispatchToProps = dispatch => ({
