@@ -38,7 +38,8 @@ const Video = (props) => {
                                     <video controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={video.url}>
                                         {
                                             video.vttFile && video.vttFile.track ?
-                                                <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles" srcLang="fi" label="Suomi" default/>
+                                                <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles"
+                                                    srcLang="fi" label={translate('subtitles_on')} default/>
                                                 : ''
                                         }
                                     </video>
