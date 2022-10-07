@@ -7,12 +7,3 @@ Client uses REACT_APP_LATAAMO_PROXY_SERVER environment variable. For local devel
   `echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3000" > .env.development.local`
 - Install dependencies and start the react app <br>
   `npm install && npm start`
-
-## Running locally with fake data
-
-- Create env.development.local file to the project root with REACT_APP_LATAAMO_PROXY_SERVER variable to the fake data<br>
-  `echo "REACT_APP_LATAAMO_PROXY_SERVER=http://localhost:3002" > .env.development.local`
-- Start the local fake REST API<br>
-  `npm run local-dev-db`
-- Install dependencies and start the react app<br>
-  `npm install && npm start`
