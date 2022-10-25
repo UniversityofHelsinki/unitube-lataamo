@@ -7,8 +7,7 @@ module.exports = {
     },
     'extends': [
         'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:jsx-a11y/recommended'
+        'plugin:react/recommended'
     ],
     'parserOptions': {
         'ecmaFeatures': {
@@ -18,7 +17,7 @@ module.exports = {
         'sourceType': 'module'
     },
     'plugins': [
-        'react', 'jest', 'jsx-a11y'
+        'react', 'jest'
     ],
     'rules': {
         'indent': [2, 4],
