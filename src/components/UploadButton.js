@@ -5,16 +5,10 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import constants from '../utils/constants';
 import WarningMessage from './WarningMessage';
-import { fetchInboxEvents } from '../actions/eventsAction';
 
 const UploadButton = (props) => {
     const [alreadyFetched, setAlreadyFetched] = useState(props.alreadyFetched);
     const [loading, setLoading] = useState(!props.alreadyFetched);
-    //useEffect(() => {
-    //if (!alreadyFetched) {
-    //props.fetchInboxEvents();
-    //}
-    //}, []);
 
     useEffect(() => {
         if (loading) {
@@ -43,8 +37,4 @@ const mapStateToProps = state => ({
     loading: state.er.loading
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchInboxEvents: () => dispatch(fetchInboxEvents(false, true))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UploadButton);
+export default connect(mapStateToProps, null)(UploadButton);
