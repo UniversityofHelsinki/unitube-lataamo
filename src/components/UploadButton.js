@@ -10,11 +10,11 @@ import { fetchInboxEvents } from '../actions/eventsAction';
 const UploadButton = (props) => {
     const [alreadyFetched, setAlreadyFetched] = useState(props.alreadyFetched);
     const [loading, setLoading] = useState(!props.alreadyFetched);
-    useEffect(() => {
-        if (!alreadyFetched) {
-            props.fetchInboxEvents();
-        }
-    }, []);
+    //useEffect(() => {
+    //if (!alreadyFetched) {
+    //props.fetchInboxEvents();
+    //}
+    //}, []);
 
     useEffect(() => {
         if (loading) {
