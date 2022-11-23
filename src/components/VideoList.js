@@ -143,6 +143,12 @@ const VideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
+    const dateFormatterDDMMYYYY = (cell) => {
+        let cellDate = new Date(cell);
+        let cellDateFormat = moment(cellDate).format('DD.MM.YYYY');
+        return cellDateFormat;
+    };
+
     const stateFormatter = (cell) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return translate('event_succeeded_state');
@@ -202,6 +208,11 @@ const VideoList = (props) => {
         text: translate('publication_status'),
         formatter: statusFormatter,
         sort: true
+    }, {
+        dataField: 'archived_date',
+        text: translate('archived_date'),
+        sort: true,
+        formatter: dateFormatterDDMMYYYY
     }, {
         dataField: 'media',
         headerFormatter: downloadColumnFormatter,
