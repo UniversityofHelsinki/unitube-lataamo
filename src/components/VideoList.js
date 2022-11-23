@@ -171,7 +171,7 @@ const VideoList = (props) => {
     };
 
     const  actionsFormatter = () => {
-        return <FaExclamationTriangle size={65} class='fa_custom'/>;
+        return <FaExclamationTriangle size={35} class='fa_custom'/>;
     };
 
     const columns = [{
