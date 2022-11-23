@@ -14,7 +14,7 @@ import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../util
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
-import { FaSpinner, FaSearch } from 'react-icons/fa';
+import { FaSpinner, FaSearch, FaExclamationTriangle } from 'react-icons/fa';
 import constants from '../utils/constants';
 import UploadButton from './UploadButton';
 
@@ -170,6 +170,10 @@ const VideoList = (props) => {
         );
     };
 
+    const  actionsFormatter = () => {
+        return <FaExclamationTriangle size={65} class='fa_custom'/>;
+    };
+
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
@@ -196,7 +200,8 @@ const VideoList = (props) => {
     }, {
         dataField: 'series',
         text: translate('series_title'),
-        sort: true
+        sort: true,
+        formatter: actionsFormatter
     }, {
         dataField: 'visibility',
         text: translate('publication_status'),
