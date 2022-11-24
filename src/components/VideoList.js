@@ -143,10 +143,32 @@ const VideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
-    const dateFormatterDDMMYYYY = (cell) => {
+    const compareDates = (cellDate) => {
+        let afterThreeMonths = addMonthsToNotifiedDate(3);
+        let afterThreeMonthsPlusOneWeek = addDays(afterThreeMonths, 7);
+        if (cellDate.getTime() <= afterThreeMonthsPlusOneWeek.getTime()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const dateFormatterAndWarning = (cell) => {
         let cellDate = new Date(cell);
+        let showWarning = compareDates(cellDate);
         let cellDateFormat = moment(cellDate).format('DD.MM.YYYY');
-        return cellDateFormat;
+        return <div> {cellDateFormat} {showWarning ? <FaExclamationTriangle size={25} class='fa_custom'/> : null}</div>;
+    };
+
+    const addMonthsToNotifiedDate = (amountOfMonths) => {
+        let notifiedDate = new Date();
+        notifiedDate.setFullYear(notifiedDate.getFullYear(), notifiedDate.getMonth() + amountOfMonths);
+        return notifiedDate;
+    };
+
+    const addDays = (notifiedDate, numberOfDays) => {
+        notifiedDate.setDate(notifiedDate.getDate() + numberOfDays);
+        return notifiedDate;
     };
 
     const stateFormatter = (cell) => {
@@ -176,10 +198,6 @@ const VideoList = (props) => {
         );
     };
 
-    const  actionsFormatter = () => {
-        return <FaExclamationTriangle size={25} class='fa_custom'/>;
-    };
-
     const columns = [{
         dataField: 'identifier',
         text: translate('video_id'),
@@ -206,8 +224,7 @@ const VideoList = (props) => {
     }, {
         dataField: 'series',
         text: translate('series_title'),
-        sort: true,
-        formatter: actionsFormatter
+        sort: true
     }, {
         dataField: 'visibility',
         text: translate('publication_status'),
@@ -217,7 +234,7 @@ const VideoList = (props) => {
         dataField: 'archived_date',
         text: translate('archived_date'),
         sort: true,
-        formatter: dateFormatterDDMMYYYY
+        formatter: dateFormatterAndWarning,
     }, {
         dataField: 'media',
         headerFormatter: downloadColumnFormatter,
