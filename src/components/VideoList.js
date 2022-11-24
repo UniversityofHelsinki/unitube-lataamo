@@ -157,7 +157,7 @@ const VideoList = (props) => {
         let cellDate = new Date(cell);
         let showWarning = compareDates(cellDate);
         let cellDateFormat = moment(cellDate).format('DD.MM.YYYY');
-        return <div> {cellDateFormat} {showWarning ? <FaExclamationTriangle size={25} class='fa_custom'/> : null}</div>;
+        return <div> {cellDateFormat} {showWarning ? <FaExclamationTriangle size={25} className='fa_custom'/> : null}</div>;
     };
 
     const addMonthsToNotifiedDate = (amountOfMonths) => {
@@ -235,6 +235,9 @@ const VideoList = (props) => {
         text: translate('archived_date'),
         sort: true,
         formatter: dateFormatterAndWarning,
+        title:  (cell, row, rowIndex, colIndex) => {
+            return 'varoitus-warning';
+        }
     }, {
         dataField: 'media',
         headerFormatter: downloadColumnFormatter,
