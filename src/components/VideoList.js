@@ -207,7 +207,10 @@ const VideoList = (props) => {
         text: translate('created'),
         type: 'date',
         sort: true,
-        formatter: dateFormatter
+        formatter: dateFormatter,
+        headerStyle: (colum, colIndex) => {
+            return { width: '180px' };
+        }
     }, {
         dataField: 'title',
         text: translate('video_title'),
