@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { fetchSeries } from '../actions/seriesAction';
+import { fetchSeriesWithOutTrash } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
 import { FaSpinner } from 'react-icons/fa';
 import {
@@ -34,6 +34,7 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
+    const [inputs, setInputs] = useState({ isPartOf: '' });
 
     useEffect(() => {
         props.onFetchEvents(false);
@@ -56,6 +57,7 @@ const VideoUploadForm = (props) => {
         const data = new FormData();
         data.set('archivedDate', archivedDate);
         data.set('videofile', selectedVideoFile);
+        data.set('selectedSeries', inputs.isPartOf);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
         return result;
@@ -134,6 +136,22 @@ const VideoUploadForm = (props) => {
         setVideoFile('');
     };
 
+    const drawSelectionValues = () => {
+        let series = [...props.series];
+        series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
+        return series.map((series) => {
+            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title}</option>;
+        });
+    };
+
+    const handleInputChange = (event) => {
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
+    };
+
+    const handleSelectionChange = async (event) => {
+        handleInputChange(event);
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -171,6 +189,22 @@ const VideoUploadForm = (props) => {
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_file_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
+                        <div className="col-sm-8">
+                            <select required className="form-control" name="isPartOf"
+                                data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleSelectionChange}>
+                                {drawSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
                             </OverlayTrigger>
                         </div>
@@ -242,7 +276,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onFetchEvents: (refresh, inbox) => dispatch(fetchInboxEvents(refresh, inbox)),
-    onFetchSeries: () => dispatch(fetchSeries()),
+    onFetchSeries: () => dispatch(fetchSeriesWithOutTrash()),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
     onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
