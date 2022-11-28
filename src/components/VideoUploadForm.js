@@ -136,11 +136,19 @@ const VideoUploadForm = (props) => {
         setVideoFile('');
     };
 
+    const getVisibilities = (visibilities) => {
+        let visibilityArray = [];
+        for (const visibility of visibilities) {
+            visibilityArray.push(translate(visibility));
+        }
+        return '( ' + visibilityArray.join(', ') + ' )';
+    };
+
     const drawSelectionValues = () => {
         let series = [...props.series];
         series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
         return series.map((series) => {
-            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title} ({translate(series.visibility)})</option>;
+            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title} {getVisibilities(series.visibility)}</option>;
         });
     };
 
