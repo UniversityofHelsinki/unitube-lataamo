@@ -270,7 +270,7 @@ const SerieDetailsForm = (props) => {
                                 }
                             </div>
                         </div>
-                        { inputs.published === 'ROLE_ANONYMOUS' && !props.moodleNumbers?.length ?
+                        {/* { inputs.published === 'ROLE_ANONYMOUS' && !props.moodleNumbers?.length ?
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label htmlFor="seriesLink" className="col-sm-2 col-form-label">{translate('link_to_series_videos')}</label>
@@ -286,7 +286,7 @@ const SerieDetailsForm = (props) => {
                                 </div>
                             </div>
                             : (<></>)
-                        }
+                        } */}
 
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
