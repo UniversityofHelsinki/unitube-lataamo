@@ -14,7 +14,7 @@ import { VIDEO_PROCESSING_INSTANTIATED, VIDEO_PROCESSING_RUNNING } from '../util
 import Alert from 'react-bootstrap/Alert';
 import routeAction from '../actions/routeAction';
 import { FiDownload } from 'react-icons/fi';
-import { FaSpinner, FaSearch } from 'react-icons/fa';
+import { FaSpinner, FaSearch, FaExclamationTriangle } from 'react-icons/fa';
 import constants from '../utils/constants';
 import UploadButton from './UploadButton';
 
@@ -143,10 +143,32 @@ const VideoList = (props) => {
         return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
     };
 
-    const dateFormatterDDMMYYYY = (cell) => {
+    const compareDates = (cellDate) => {
+        let afterThreeMonths = addMonthsToNotifiedDate(3);
+        let afterThreeMonthsPlusOneWeek = addDays(afterThreeMonths, 7);
+        if (cellDate.getTime() <= afterThreeMonthsPlusOneWeek.getTime()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const dateFormatterAndWarning = (cell) => {
         let cellDate = new Date(cell);
+        let showWarning = compareDates(cellDate);
         let cellDateFormat = moment(cellDate).format('DD.MM.YYYY');
-        return cellDateFormat;
+        return <div> {cellDateFormat} {showWarning ? <FaExclamationTriangle size={25} className='fa_custom'/> : null}</div>;
+    };
+
+    const addMonthsToNotifiedDate = (amountOfMonths) => {
+        let notifiedDate = new Date();
+        notifiedDate.setFullYear(notifiedDate.getFullYear(), notifiedDate.getMonth() + amountOfMonths);
+        return notifiedDate;
+    };
+
+    const addDays = (notifiedDate, numberOfDays) => {
+        notifiedDate.setDate(notifiedDate.getDate() + numberOfDays);
+        return notifiedDate;
     };
 
     const stateFormatter = (cell) => {
@@ -185,7 +207,10 @@ const VideoList = (props) => {
         text: translate('created'),
         type: 'date',
         sort: true,
-        formatter: dateFormatter
+        formatter: dateFormatter,
+        headerStyle: (colum, colIndex) => {
+            return { width: '180px' };
+        }
     }, {
         dataField: 'title',
         text: translate('video_title'),
@@ -212,7 +237,10 @@ const VideoList = (props) => {
         dataField: 'archived_date',
         text: translate('archived_date'),
         sort: true,
-        formatter: dateFormatterDDMMYYYY
+        formatter: dateFormatterAndWarning,
+        title:  (cell, row, rowIndex, colIndex) => {
+            return 'varoitus-warning';
+        }
     }, {
         dataField: 'media',
         headerFormatter: downloadColumnFormatter,
