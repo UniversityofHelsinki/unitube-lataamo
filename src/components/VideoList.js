@@ -240,6 +240,9 @@ const VideoList = (props) => {
         formatter: dateFormatterAndWarning,
         title:  (cell, row, rowIndex, colIndex) => {
             return 'varoitus-warning';
+        },
+        headerStyle: (colum, colIndex) => {
+            return { width: '180px' };
         }
     }, {
         dataField: 'media',
