@@ -34,7 +34,7 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
-    const [inputs, setInputs] = useState({ isPartOf: '', licenses: [],  description: '' });
+    const [inputs, setInputs] = useState({ isPartOf: '', description: '', license : '' });
 
     useEffect(() => {
         props.onFetchLicenses();
@@ -46,6 +46,7 @@ const VideoUploadForm = (props) => {
         // eslint-disable-next-line
     }, []);// Only re-run the effect if values of arguments changes
 
+
     const translations =  props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
@@ -54,6 +55,9 @@ const VideoUploadForm = (props) => {
 
 
     const uploadVideo = async() => {
+
+        console.log(inputs.license);
+
         //https://developer.mozilla.org/en-US/docs/Web/API/FormData/set
         const data = new FormData();
         data.set('archivedDate', archivedDate);
@@ -182,6 +186,10 @@ const VideoUploadForm = (props) => {
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
+    useEffect(() => { // this hook will get called everytime when inputs has changed
+        console.log('Updated State', inputs);
+    }, [inputs]);
+
     const handleSelectionChange = async (event) => {
         handleInputChange(event);
     };
@@ -246,7 +254,7 @@ const VideoUploadForm = (props) => {
                     <div className="form-group row">
                         <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                         <div className="col-sm-8">
-                            <select required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleInputChange}>
+                            <select required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleSelectionChange}>
                                 {drawLicenseSelectionValues()}
                             </select>
                         </div>
