@@ -34,7 +34,7 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
-    const [inputs, setInputs] = useState({ isPartOf: '', licenses: [] });
+    const [inputs, setInputs] = useState({ isPartOf: '', licenses: [],  description: '' });
 
     useEffect(() => {
         props.onFetchLicenses();
@@ -70,7 +70,7 @@ const VideoUploadForm = (props) => {
         return props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES;
     };
 
-    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
+    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile || !inputs.description;
     const browseButtonStatus = () => submitButtonDisabled && selectedVideoFile;
 
     const validateVideoFileLength = (selectedVideoFile, video) => {
@@ -89,6 +89,7 @@ const VideoUploadForm = (props) => {
         event.persist();
         event.preventDefault();
         setSubmitButtonDisabled(true);
+        inputs.description = '';
         setOnProgressVisible(true);
         const response = await uploadVideo();
         if (response && response.status) {
@@ -155,10 +156,13 @@ const VideoUploadForm = (props) => {
         });
     };
 
-    const drawLicenseSelectionValues = () => {
-        return props.licenses.map((license) => {
-            return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
-        });
+    const replaceIllegalCharacters = (target, value) => {
+        if (target === 'title' || target === 'description') {
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, 'g');
+            return value.replace(regExp, '');
+        } else {
+            return value;
+        }
     };
 
     const replaceCharacter = (replaceStr) => {
@@ -167,7 +171,14 @@ const VideoUploadForm = (props) => {
         }
     };
 
+    const drawLicenseSelectionValues = () => {
+        return props.licenses.map((license) => {
+            return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
+        });
+    };
+
     const handleInputChange = (event) => {
+        event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
 
@@ -241,6 +252,20 @@ const VideoUploadForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
+                        <div className="col-sm-8">
+                            <textarea name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
+                                onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
