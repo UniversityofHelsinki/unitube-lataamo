@@ -74,7 +74,7 @@ const VideoUploadForm = (props) => {
         return props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES;
     };
 
-    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile || !inputs.description;
+    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile ||  !inputs.isPartOf || !inputs.description || !inputs.license;
     const browseButtonStatus = () => submitButtonDisabled && selectedVideoFile;
 
     const validateVideoFileLength = (selectedVideoFile, video) => {
@@ -240,6 +240,7 @@ const VideoUploadForm = (props) => {
                         <div className="col-sm-8">
                             <select required className="form-control" name="isPartOf"
                                 data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                 {drawSelectionValues()}
                             </select>
                         </div>
@@ -255,6 +256,7 @@ const VideoUploadForm = (props) => {
                         <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                         <div className="col-sm-8">
                             <select required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                 {drawLicenseSelectionValues()}
                             </select>
                         </div>
