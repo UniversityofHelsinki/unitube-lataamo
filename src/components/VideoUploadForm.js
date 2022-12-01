@@ -89,13 +89,13 @@ const VideoUploadForm = (props) => {
         event.persist();
         event.preventDefault();
         setSubmitButtonDisabled(true);
-        inputs.description = '';
         setOnProgressVisible(true);
         const response = await uploadVideo();
         if (response && response.status) {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);
         }
+        inputs.description = '';
         setOnProgressVisible(false);
         setArchivedDate(addMonths(new Date(), 12));
     };
