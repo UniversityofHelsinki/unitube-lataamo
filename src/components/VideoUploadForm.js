@@ -21,7 +21,7 @@ import { subDays, addMonths, addYears } from 'date-fns';
 import { fi, sv, enUS } from 'date-fns/locale';
 
 import constants from '../utils/constants';
-import { fetchInboxEvents } from '../actions/eventsAction';
+import { fetchInboxEvents, fetchLicenses } from '../actions/eventsAction';
 import WarningMessage from './WarningMessage';
 
 registerLocale('fi', fi);
@@ -34,9 +34,10 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
-    const [inputs, setInputs] = useState({ isPartOf: '' });
+    const [inputs, setInputs] = useState({ isPartOf: '', licenses: [] });
 
     useEffect(() => {
+        props.onFetchLicenses();
         props.onFetchEvents(false);
         props.onRouteChange(props.route);
         props.onFetchSeries();
@@ -58,6 +59,8 @@ const VideoUploadForm = (props) => {
         data.set('archivedDate', archivedDate);
         data.set('videofile', selectedVideoFile);
         data.set('selectedSeries', inputs.isPartOf);
+        data.set('description', inputs.description);
+        data.set('license', inputs.license);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
         return result;
@@ -152,6 +155,18 @@ const VideoUploadForm = (props) => {
         });
     };
 
+    const drawLicenseSelectionValues = () => {
+        return props.licenses.map((license) => {
+            return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
+        });
+    };
+
+    const replaceCharacter = (replaceStr) => {
+        if (replaceStr) {
+            return replaceStr.replace(/-/g, '_');
+        }
+    };
+
     const handleInputChange = (event) => {
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
@@ -211,6 +226,21 @@ const VideoUploadForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
+                        <div className="col-sm-8">
+                            <select required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleInputChange}>
+                                {drawLicenseSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
@@ -279,10 +309,12 @@ const mapStateToProps = state => ({
     timeRemaining: state.fur.timeRemaining,
     percentage : state.fur.percentage,
     preferredLanguage: state.ur.user.preferredLanguage,
-    videos: state.er.inboxVideos
+    videos: state.er.inboxVideos,
+    licenses : state.er.licenses
 });
 
 const mapDispatchToProps = dispatch => ({
+    onFetchLicenses: () => dispatch(fetchLicenses()),
     onFetchEvents: (refresh, inbox) => dispatch(fetchInboxEvents(refresh, inbox)),
     onFetchSeries: () => dispatch(fetchSeriesWithOutTrash()),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
