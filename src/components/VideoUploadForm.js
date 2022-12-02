@@ -34,7 +34,7 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
-    const [inputs, setInputs] = useState({ isPartOf: '', description: '', license : '' });
+    const [inputs, setInputs] = useState({ isPartOf: '', description: '', license : '' , title: '' });
 
     useEffect(() => {
         props.onFetchLicenses();
@@ -55,9 +55,6 @@ const VideoUploadForm = (props) => {
 
 
     const uploadVideo = async() => {
-
-        console.log(inputs.license);
-
         //https://developer.mozilla.org/en-US/docs/Web/API/FormData/set
         const data = new FormData();
         data.set('archivedDate', archivedDate);
@@ -65,6 +62,7 @@ const VideoUploadForm = (props) => {
         data.set('selectedSeries', inputs.isPartOf);
         data.set('description', inputs.description);
         data.set('license', inputs.license);
+        data.set('title', inputs.title);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
         return result;
@@ -74,7 +72,7 @@ const VideoUploadForm = (props) => {
         return props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES;
     };
 
-    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile ||  !inputs.isPartOf || !inputs.description || !inputs.license;
+    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile ||  !inputs.isPartOf || !inputs.description || !inputs.license || !inputs.title;
     const browseButtonStatus = () => submitButtonDisabled && selectedVideoFile;
 
     const validateVideoFileLength = (selectedVideoFile, video) => {
@@ -100,6 +98,9 @@ const VideoUploadForm = (props) => {
             setSubmitButtonDisabled(false);
         }
         inputs.description = '';
+        inputs.title = '';
+        inputs.license = '';
+        inputs.isPartOf = '';
         setOnProgressVisible(false);
         setArchivedDate(addMonths(new Date(), 12));
     };
@@ -223,7 +224,7 @@ const VideoUploadForm = (props) => {
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
+                        <label htmlFor="file" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                         <div className="col-sm-8">
                             <input disabled={browseButtonStatus() || maxAmountOfInboxEvents()} onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
                         </div>
@@ -239,7 +240,7 @@ const VideoUploadForm = (props) => {
                         <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
                         <div className="col-sm-8">
                             <select required className="form-control" name="isPartOf"
-                                data-cy="test-event-is-part-of" value={inputs.isPartOf} onChange={handleSelectionChange}>
+                                data-cy="upload-test-event-is-part-of" value={inputs.isPartOf} onChange={handleSelectionChange}>
                                 <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                 {drawSelectionValues()}
                             </select>
@@ -253,15 +254,13 @@ const VideoUploadForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                         <div className="col-sm-8">
-                            <select required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleSelectionChange}>
-                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
-                                {drawLicenseSelectionValues()}
-                            </select>
+                            <input type="text" name="title" className="form-control" onChange={handleInputChange}
+                                data-cy="upload-test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
                         </div>
                         <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
@@ -276,6 +275,22 @@ const VideoUploadForm = (props) => {
                         </div>
                         <div className="col-sm-2">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
+                        <div className="col-sm-8">
+                            <select required className="form-control" data-cy="upload-test-licences-select" name="license" value={inputs.license} onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawLicenseSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
