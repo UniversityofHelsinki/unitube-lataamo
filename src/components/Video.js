@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Video = (props) => {
+    console.log(props.event);
     const translations =  props.i18n.translations[props.i18n.locale];
-
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
@@ -60,6 +60,9 @@ const Video = (props) => {
                             <div className="form-group row" data-cy="test-video-text-track">
                                 {translate('added_vtt_file')} : {video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt' ? getFileName(video.vttFile.url)  : ''}
                             </div>
+                            <div className="form-group row">
+                                {translate('video_views')}: {props.event.views}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +85,8 @@ const Video = (props) => {
 
 const mapStateToProps = state => ({
     videoFiles : state.vr.videoFiles,
-    i18n: state.i18n
+    i18n: state.i18n,
+    event: state.er.event
 });
 
 
