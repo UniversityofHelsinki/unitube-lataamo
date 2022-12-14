@@ -23,6 +23,7 @@ const Video = (props) => {
     };
 
     const getVideoFiles = () => {
+        console.log(props.event);
         return props.videoFiles.map((video, index) => {
             return (
                 <div key={index}>
@@ -82,7 +83,8 @@ const Video = (props) => {
 
 const mapStateToProps = state => ({
     videoFiles : state.vr.videoFiles,
-    i18n: state.i18n
+    i18n: state.i18n,
+    event : state.er.event
 });
 
 
