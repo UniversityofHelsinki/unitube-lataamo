@@ -156,20 +156,10 @@ build_prod:
     # Add all generated files to Git
     - git add .
 
-    - |-
+    - CHANGES=$(git status --porcelain | wc -l)
+
     # Check if we have modifications to commit
-    CHANGES=$(git status --porcelain | wc -l)
-        
-      if [ "$CHANGES" -gt "0" ]; then
-        # Show the status of files that are about to be created, updated or deleted
-        git status
-        
-        # Commit all changes
-        git commit -m "${COMMIT_MESSAGE}"
-        
-        # Update the repository and make sure to skip the pipeline create for this commit
-        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
-      fi
+    - if [ "$CHANGES" -gt "0" ]; then git status git commit -m "${COMMIT_MESSAGE}" git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip; fi
 
 # deploy to oc test environment
 deploy_oc_test:
