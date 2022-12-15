@@ -160,7 +160,7 @@ build_prod:
     - ls -la
     # Add all generated files to Git
     - git add .
-    - - |-
+    - |-
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
       if [ "$CHANGES" -gt "0" ]; then
