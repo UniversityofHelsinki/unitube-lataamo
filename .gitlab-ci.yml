@@ -160,6 +160,9 @@ build_prod:
     - mkdir ~/.ssh
     - echo $SSH_PRIVATE_KEY_GITHUB  >> ~/.ssh/id_rsa
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - git init
+    - git add .
+    - git commit -m echo $(git log -1 --pretty=%B)
     - git remote add github git@github.com:UniversityofHelsinki/unitube-lataamo.git
     - git push -u github main
 
