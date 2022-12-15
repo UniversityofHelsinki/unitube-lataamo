@@ -160,13 +160,14 @@ build_prod:
     - ls -la
     # Add all generated files to Git
     - git add .
-
+    - - |-
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
-
-    # Check if we have modifications to commit
-    - if [ "$CHANGES" -gt "0" ]; then git status git commit -m "${COMMIT_MESSAGE}" git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip; fi
-
+      if [ "$CHANGES" -gt "0" ]; then
+      git status
+      git commit -m "${COMMIT_MESSAGE}"
+      git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
+      fi
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
@@ -236,7 +237,7 @@ publish_to_github:
   before_script:
     - echo "====== Publish to GitHub ========"
     - echo "====== Install git and openssh ========="
-    - apk add --no-cache git openssh
+    - apk add --no-cache git rsync openssh
     - echo "====== Activate the ssh-agent ========"
     - eval $(ssh-agent -s)
     - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY_GITHUB variable to the agent store ====="
@@ -248,8 +249,8 @@ publish_to_github:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
   script:
-      # Copy all files to cloned directory
-      - cp -R ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
+    # sync all new and changed files
+    - rsync -azPq ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
   extends: .publish_to_github_script
 
 dependency scanning:
