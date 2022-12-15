@@ -164,7 +164,7 @@ build_prod:
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
     - if [ "$CHANGES" -gt "0" ]; then git status; fi;
-    - if [ "$CHANGES" -gt "0" ]; then git commit -m "${COMMIT_MESSAGE}"; fi;
+    - if [ "$CHANGES" -gt "0" ]; then git commit -m "${CI_COMMIT_MESSAGE}"; fi;
     - if [ "$CHANGES" -gt "0" ]; then git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip; fi;
 # deploy to oc test environment
 deploy_oc_test:
@@ -247,8 +247,8 @@ publish_to_github:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
     # Set the displayed user with the commits that are about to be made
-    - git config --global user.email "tike-ohtu@helsinki.fi"
-    - git config --global user.name "Gitlab Runner"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GITLAB_USER_NAME}"
   script:
     # copy all files to cloned directory
     - cp -R ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
