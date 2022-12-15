@@ -164,9 +164,9 @@ build_prod:
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
       if [ "$CHANGES" -gt "0" ]; then
-      git status
-      git commit -m "${COMMIT_MESSAGE}"
-      git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
+        git status
+        git commit -m "${COMMIT_MESSAGE}"
+        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
       fi
 # deploy to oc test environment
 deploy_oc_test:
