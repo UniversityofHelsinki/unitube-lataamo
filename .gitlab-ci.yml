@@ -154,8 +154,10 @@ build_prod:
 # publish to GitHub
 .publish_to_github_script:
   script:
+    - la -ls
     # Go to the new directory
     - cd "${CI_COMMIT_SHA}"
+    - la -ls
 
     # Add all generated files to Git
     - git add .
