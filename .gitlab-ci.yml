@@ -157,10 +157,8 @@ build_prod:
     - ls -la
     # Go to the new directory
     - cd "${CI_COMMIT_SHA}"
-    - ls -la
-
     # Add all generated files to Git
-    - git add .
+    - git add ./*
 
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
