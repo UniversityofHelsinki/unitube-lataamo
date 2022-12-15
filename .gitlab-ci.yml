@@ -160,8 +160,7 @@ build_prod:
     - mkdir ~/.ssh
     - echo $SSH_PRIVATE_KEY_GITHUB  >> ~/.ssh/id_rsa
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-    - git remote remove github
-    - git remote add github git@github.com:UniversityofHelsinki/unitube-lataamo.git
+    - git remote set-url github git@github.com:UniversityofHelsinki/unitube-lataamo.git
     - git push -u github github
 
 # deploy to oc test environment
