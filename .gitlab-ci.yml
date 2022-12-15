@@ -160,14 +160,12 @@ build_prod:
     - ls -la
     # Add all generated files to Git
     - git add .
-    - |-
+    # Check if we have modifications to commit
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
-      if [ "$CHANGES" -gt "0" ]; then
-        git status
-        git commit -m "${COMMIT_MESSAGE}"
-        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
-      fi
+    - if [ "$CHANGES" -gt "0" ]; then git status; fi;
+    - if [ "$CHANGES" -gt "0" ]; then git commit -m "${COMMIT_MESSAGE}"; fi;
+    - if [ "$CHANGES" -gt "0" ]; then git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip; fi;
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
