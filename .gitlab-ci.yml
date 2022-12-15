@@ -165,7 +165,7 @@ build_prod:
     - echo "${CHANGES}"
     - if [ "$CHANGES" -gt "0" ]; then git status; fi;
     - if [ "$CHANGES" -gt "0" ]; then git commit -m "${CI_COMMIT_MESSAGE}"; fi;
-    - if [ "$CHANGES" -gt "0" ]; then git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip; fi;
+    - if [ "$CHANGES" -gt "0" ]; then git push origin main -o ci.skip; fi;
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
