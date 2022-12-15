@@ -12,6 +12,7 @@ stages:
   - audit_scan
   - test
   - deploy
+  - publish
 
 # ------------------------------ compile stage ------------------------------
 
@@ -146,6 +147,22 @@ build_prod:
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ${CI_PROJECT_DIR}/report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/home/ohtu/unitube-lataamo-frontend
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ${CI_PROJECT_DIR}/outdated-report.html $OHTUMETRI_USER@$SERVER_OHTUMETRI:/home/ohtu/unitube-lataamo-frontend
 
+# publish to GitHub
+.publish_to_github_script:
+  script:
+    - echo "====== Install git and openssh ========="
+    - apk add --no-cache git openssh
+    - echo "====== Activate the ssh-agent ========"
+    - eval $(ssh-agent -s)
+    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY_GITHUB variable to the agent store ====="
+    - echo "$SSH_PRIVATE_KEY_GITLAB" | tr -d '\r' | ssh-add - > /dev/null
+    - echo "====== Add target servers secret key ======"
+    - mkdir ~/.ssh
+    - echo $SSH_PRIVATE_KEY_GITHUB  >> ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - git remote add origin https://github.com/UniversityofHelsinki/unitube-lataamo.git
+    - git push -u origin github
+
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
@@ -206,6 +223,15 @@ deploy_prod:
     - echo "====== Deploy to production server ========"
   extends: .deploy_script
 
+# publish to GitHub
+publish_to_github:
+  stage: publish
+  only:
+    - github
+  when: manual
+  before_script:
+    - echo "====== Publish to GitHub ========"
+  extends: .publish_to_github_script
 
 dependency scanning:
   stage: audit_scan
