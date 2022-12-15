@@ -7,12 +7,12 @@ cache:
     - node_modules
 
 stages:
-  - publish
   - compile
   - build
   - audit_scan
   - test
   - deploy
+  - publish
 
 # ------------------------------ compile stage ------------------------------
 
@@ -154,10 +154,10 @@ build_prod:
 # publish to GitHub
 .publish_to_github_script:
   script:
-    - la -ls
+    - ls -la
     # Go to the new directory
     - cd "${CI_COMMIT_SHA}"
-    - la -ls
+    - ls -la
 
     # Add all generated files to Git
     - git add .
