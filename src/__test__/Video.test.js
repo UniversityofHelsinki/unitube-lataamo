@@ -6,7 +6,12 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 const mockStore = configureStore([thunk]);
-const translations = { en: { hy_address_part1: 'Address'}, fi: { hy_address_part1: 'Osoite'}, sv: { hy_address_part1: 'Adressen'} };
+
+const translations = { 
+    en: { hy_address_part1: 'Address'}, 
+    fi: { hy_address_part1: 'Osoite'}, 
+    sv: { hy_address_part1: 'Adressen'} 
+};
 
 describe('<Video />', () => {
 
@@ -24,7 +29,8 @@ describe('<Video />', () => {
             trashVideos: [],
             event: {
             title : 'Video',
-            description: 'Video video'
+            description: 'Video video',
+            views: 5
         }}
     };
 
