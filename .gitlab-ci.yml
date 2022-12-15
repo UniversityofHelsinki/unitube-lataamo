@@ -250,7 +250,7 @@ publish_to_github:
     - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
   script:
     # sync all new and changed files
-    - rsync -azPq ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
+    - cp -R ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
   extends: .publish_to_github_script
 
 dependency scanning:
