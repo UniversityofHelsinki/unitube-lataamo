@@ -150,18 +150,26 @@ build_prod:
 # publish to GitHub
 .publish_to_github_script:
   script:
-    - echo "====== Install git and openssh ========="
-    - apk add --no-cache git openssh
-    - echo "====== Activate the ssh-agent ========"
-    - eval $(ssh-agent -s)
-    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY_GITHUB variable to the agent store ====="
-    - echo "$SSH_PRIVATE_KEY_GITHUB" | tr -d '\r' | ssh-add - > /dev/null
-    - echo "====== Add target servers secret key ======"
-    - mkdir ~/.ssh
-    - echo $SSH_PRIVATE_KEY_GITHUB  >> ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-    - git remote set-url github git@github.com:UniversityofHelsinki/unitube-lataamo.git
-    - git push -u github github
+    # Go to the new directory
+    - cd "${CI_COMMIT_SHA}"
+
+    # Add all generated files to Git
+    - git add .
+
+    - |-
+    # Check if we have modifications to commit
+    CHANGES=$(git status --porcelain | wc -l)
+        
+      if [ "$CHANGES" -gt "0" ]; then
+        # Show the status of files that are about to be created, updated or deleted
+        git status
+        
+        # Commit all changes
+        git commit -m "${COMMIT_MESSAGE}"
+        
+        # Update the repository and make sure to skip the pipeline create for this commit
+        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
+      fi
 
 # deploy to oc test environment
 deploy_oc_test:
@@ -231,6 +239,17 @@ publish_to_github:
   when: manual
   before_script:
     - echo "====== Publish to GitHub ========"
+    - echo "====== Install git and openssh ========="
+    - apk add --no-cache git openssh
+    - echo "====== Activate the ssh-agent ========"
+    - eval $(ssh-agent -s)
+    - echo "======= Add the SSH key stored in SSH_PRIVATE_KEY_GITHUB variable to the agent store ====="
+    - echo "$SSH_PRIVATE_KEY_GITHUB" | tr -d '\r' | ssh-add - > /dev/null
+    - echo "====== Add target servers secret key ======"
+    - mkdir ~/.ssh
+    - echo $SSH_PRIVATE_KEY_GITHUB  >> ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
   extends: .publish_to_github_script
 
 dependency scanning:
