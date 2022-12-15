@@ -239,6 +239,7 @@ publish_to_github:
     - mkdir ~/.ssh
     - echo $SSH_PRIVATE_KEY_GITHUB  >> ~/.ssh/id_rsa
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
   extends: .publish_to_github_script
 
