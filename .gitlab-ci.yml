@@ -155,10 +155,12 @@ build_prod:
 .publish_to_github_script:
   script:
     - ls -la
+    # Copy all files into cloned directory
+    - cp -R ${CI_PROJECT_DIR} ${CI_COMMIT_SHA}
     # Go to the new directory
     - cd "${CI_COMMIT_SHA}"
     # Add all generated files to Git
-    - git add ./*
+    - git add .
 
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
