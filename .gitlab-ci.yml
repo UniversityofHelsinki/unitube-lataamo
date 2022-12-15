@@ -1,5 +1,8 @@
 image: node:16-alpine
 
+variables:
+  GIT_STRATEGY: clone
+
 # Cache node modules - speeds up future builds
 cache:
   key: ${CI_COMMIT_REF_SLUG}
