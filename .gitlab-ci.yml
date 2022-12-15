@@ -18,6 +18,8 @@ stages:
 
 compile:
   stage: compile
+  except:
+    - github
   tags:
     - ohtu-build-2
   script:
@@ -26,6 +28,8 @@ compile:
 
 test:
   stage: test
+  except:
+    - github
   tags:
     - ohtu-build-2
   script:
