@@ -153,12 +153,11 @@ build_prod:
 
 # publish to GitHub
 .publish_to_github_script:
-  script:
+  after_script:
     - ls -la
-    # Copy all files into cloned directory
-    - cp -R ${CI_PROJECT_DIR} ${CI_COMMIT_SHA}
     # Go to the new directory
     - cd "${CI_COMMIT_SHA}"
+    - ls -la
     # Add all generated files to Git
     - git add .
 
@@ -248,6 +247,9 @@ publish_to_github:
     - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
+  script:
+      # Copy all files to cloned directory
+      - cp -R ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
   extends: .publish_to_github_script
 
 dependency scanning:
