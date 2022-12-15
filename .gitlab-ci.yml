@@ -248,8 +248,8 @@ publish_to_github:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git clone git@github.com:UniversityofHelsinki/unitube-lataamo.git "${CI_COMMIT_SHA}"
     # Set the displayed user with the commits that are about to be made
-    - git config --global user.email "${GITLAB_USER_EMAIL}"
-    - git config --global user.name "${GITLAB_USER_NAME}"
+    #- git config --global user.email "${GITLAB_USER_EMAIL}"
+    #- git config --global user.name "${GITLAB_USER_NAME}"
   script:
     # copy all files to cloned directory
     - cp -R ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
