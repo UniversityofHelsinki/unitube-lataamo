@@ -18,7 +18,14 @@ describe('<Video />', () => {
         i18n : {
             translations: translations,
             locale: 'fi'
-        }
+        },
+        er: {    videos: [],
+            inboxVideos: [],
+            trashVideos: [],
+            event: {
+            title : 'Video',
+            description: 'Video video'
+        }}
     };
 
     it('renders without crashing', () => {

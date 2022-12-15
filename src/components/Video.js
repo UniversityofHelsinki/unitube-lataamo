@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Video = (props) => {
-    console.log(props.event);
     const translations =  props.i18n.translations[props.i18n.locale];
     const translate = (key) => {
         return translations ? translations[key] : '';
