@@ -157,6 +157,7 @@ build_prod:
     - git add .
 
     - CHANGES=$(git status --porcelain | wc -l)
+    - echo "${CHANGES}"
 
     # Check if we have modifications to commit
     - if [ "$CHANGES" -gt "0" ]; then git status git commit -m "${COMMIT_MESSAGE}" git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip; fi
