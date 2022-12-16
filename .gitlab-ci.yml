@@ -163,10 +163,11 @@ build_prod:
     # Check if we have modifications to commit
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
+    - echo git remote -v
     - if [ "$CHANGES" -gt "0" ]; then git status; fi;
     - if [ "$CHANGES" -gt "0" ]; then git commit -m "${CI_COMMIT_MESSAGE}"; fi;
     - if [ "$CHANGES" -gt "0" ]; then git branch -M main; fi;
-    - if [ "$CHANGES" -gt "0" ]; then git push origin main -o ci.skip; fi;
+    #- if [ "$CHANGES" -gt "0" ]; then git push origin main -o ci.skip; fi;
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
@@ -233,6 +234,7 @@ publish_to_github:
   only:
     - github
   when: manual
+  allow_failure: false
   before_script:
     - echo "====== Publish to GitHub ========"
     - echo "====== Install git and openssh ========="
@@ -251,8 +253,8 @@ publish_to_github:
     #- git config --global user.email "${GITLAB_USER_EMAIL}"
     #- git config --global user.name "${GITLAB_USER_NAME}"
   script:
-    # copy all files to cloned directory
-    - cp -R ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
+    # rsync all files to cloned directory except .git folder
+    - rsync -avz --exclude .git/ ${CI_PROJECT_DIR} "${CI_COMMIT_SHA}"
   extends: .publish_to_github_script
 
 dependency scanning:
