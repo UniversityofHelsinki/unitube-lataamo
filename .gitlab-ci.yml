@@ -163,7 +163,7 @@ build_prod:
     # Check if we have modifications to commit
     - CHANGES=$(git status --porcelain | wc -l)
     - echo "${CHANGES}"
-    - echo git remote -v
+    - git remote -v
     - if [ "$CHANGES" -gt "0" ]; then git status; fi;
     - if [ "$CHANGES" -gt "0" ]; then git commit -m "${CI_COMMIT_MESSAGE}"; fi;
     - if [ "$CHANGES" -gt "0" ]; then git branch -M main; fi;
