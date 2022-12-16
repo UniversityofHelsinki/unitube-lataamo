@@ -8,6 +8,7 @@ const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
 const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
 const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
 const EVENT_DELETION_DATE_PATH = '/deletionDate';
+const EVENT_EXPIRY_DATE_PATH = '/updateAchivedDateOfVideosInSerie';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
@@ -204,6 +205,26 @@ export const actionUpdateDeletionDate = async (id, deletionDate) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(deletionDate)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const actionUpdateExpiryDates = async (id, expiryDate) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${EVENT_PATH}${id}${EVENT_EXPIRY_DATE_PATH}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(expiryDate)
         });
         if(response.status === 200) {
             let responseJSON = await response.json();

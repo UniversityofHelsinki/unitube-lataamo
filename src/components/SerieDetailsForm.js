@@ -8,8 +8,7 @@ import {
     actionUpdateSerieDetails,
     addMoodleNumber,
     emptyIamGroupsCall,
-    emptyMoodleNumberCall,
-    updateSeriesList
+    emptyMoodleNumberCall, updateSeriesList
 } from '../actions/seriesAction';
 import * as constants from '../utils/constants';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
@@ -20,6 +19,9 @@ import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import VideosInSeries from './VideosInSeries';
 import RadioButtonGroup from './RadioButtonGroup';
 import DeleteSeries from './DeleteSeries';
+import { actionUpdateExpiryDates } from '../actions/eventsAction';
+import DatePicker from 'react-datepicker';
+import { addMonths, addYears } from 'date-fns';
 
 
 const SerieDetailsForm = (props) => {
@@ -36,6 +38,10 @@ const SerieDetailsForm = (props) => {
     const [copiedMessage, setCopiedMessage] = useState(null);
     const [copiedLinkMessage, setCopiedLinkMessage] = useState(null);
     const [hovered, setHovered] = useState(false);
+    const [deletionDate, setDeletionDate] = useState(null);
+    const [disabledInputs, setDisabledInputs] = useState(false);
+    const [errorExpiryDatesMessage, setErrorExpiryDatesMessage] = useState(null);
+    const [successExpiryDatesMessage, setSuccessExpiryDatesMessage] = useState(null);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -176,6 +182,17 @@ const SerieDetailsForm = (props) => {
         props.onMoodleNumberAdd(inputs.moodleNumber);
         event.preventDefault();
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
+    };
+
+    const updateExpiryDates = async () => {
+        const seriesId = inputs.identifier;
+        const updatedDeletionDate = { deletionDate : deletionDate };
+        try {
+            await actionUpdateExpiryDates(seriesId, updatedDeletionDate);
+            setSuccessExpiryDatesMessage(translate('update_videos_expiry_date_message'));
+        } catch (err) {
+            setErrorExpiryDatesMessage(translate('failed_update_videos_expiry_date'));
+        }
     };
 
     const copyTextToClipboard = (event) => {
@@ -438,12 +455,61 @@ const SerieDetailsForm = (props) => {
                         <div className="form-group row">
                             <label className="series-title col-sm-11 col-form-label">{translate('series_included_videos')}</label>
                         </div>
-                        <div className="series-bg">
-
-                            <div className="form-group row">
-                                <div className="col-sm-12 video-list" data-cy="test-series-video-list">
-                                    <VideosInSeries />
-                                </div>
+                        <div className="form-group row">
+                            <div className="col-sm-12 video-list" data-cy="test-series-video-list">
+                                <VideosInSeries />
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <div className="col-sm-2 col-form-label">
+                                <DatePicker
+                                    disabled={disabledInputs}
+                                    required
+                                    dateFormat="dd.MM.yyyy"
+                                    locale={props.preferredLanguage}
+                                    showPopperArrow={false}
+                                    minDate={addMonths(new Date(), 6)}
+                                    maxDate={addYears(new Date(), 3)}
+                                    showMonthYearDropdown
+                                    dropdownMode="select"
+                                    selected={deletionDate}
+                                    onChange={(date) => setDeletionDate(date)}/>
+                            </div>
+                            <div className="col-sm-2 ml-2">
+                                <span id="submitExpriryBtnId" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
+                                    {translate('update_videos_expiry_date_button')}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date_text')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <div className="col-sm-8">
+                                {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
+                                { successExpiryDatesMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setSuccessExpiryDatesMessage(null) } dismissible>
+                                        <p>
+                                            { successExpiryDatesMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                { errorExpiryDatesMessage !== null ?
+                                    <Alert variant="danger" onClose={ () => setErrorExpiryDatesMessage(null) } dismissible>
+                                        <p>
+                                            { errorExpiryDatesMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
                             </div>
                         </div>
                     </div>
