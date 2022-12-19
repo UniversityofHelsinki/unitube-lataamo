@@ -268,7 +268,7 @@ const TrashVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <div className='info-text'>{ translate('search_events_info') } </div>
+                                    <div className='info-text marginbottom-small'>{ translate('search_events_info') } </div>
                                     <div className="form-group has-search">
                                         <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>
