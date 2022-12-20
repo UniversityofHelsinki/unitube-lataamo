@@ -469,7 +469,6 @@ const SerieDetailsForm = (props) => {
                             <div className="col-sm-2 col-form-label">
                                 <DatePicker
                                     disabled={disabledInputs}
-                                    required
                                     dateFormat="dd.MM.yyyy"
                                     locale={props.preferredLanguage}
                                     showPopperArrow={false}
