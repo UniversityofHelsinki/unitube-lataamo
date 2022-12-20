@@ -8,7 +8,7 @@ const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
 const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
 const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
 const EVENT_DELETION_DATE_PATH = '/deletionDate';
-const EVENT_EXPIRY_DATE_PATH = '/updateAchivedDateOfVideosInSerie';
+const EVENT_EXPIRY_DATE_PATH = '/updateArchivedDateOfVideosInSerie';
 
 export const fetchEvent = (row) => {
     return async (dispatch) => {
