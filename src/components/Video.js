@@ -29,7 +29,7 @@ const Video = (props) => {
                     <div key={index} className="row">
                         <div className="col events-bg">
                             <div className="form-group row">
-                                <h4 className="events-title margin-top-position col-sm-10 ">{translate('video_preview')}</h4>
+                                <h3 className="events-title margin-top-position col-sm-10 ">{translate('video_preview')}</h3>
                             </div>
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
@@ -48,7 +48,7 @@ const Video = (props) => {
                         </div>
                         <div className="col events-bg">
                             <div className="form-group row">
-                                <h4 className="events-title margin-top-position col-sm-10 ">{translate('video_info')}</h4>
+                                <h3 className="events-title margin-top-position col-sm-10 ">{translate('video_info')}</h3>
                             </div>
                             <div className="form-group row">
                                 {translate('video_resolution')}: {video.resolution}

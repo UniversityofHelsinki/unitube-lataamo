@@ -180,7 +180,7 @@ const SeriesList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <h4 className='info-text'>{ translate('search_series_info') } </h4>
+                                    <div className='info-text'>{ translate('search_series_info') } </div>
                                     <div className="form-group has-search">
                                         <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_series') }/>

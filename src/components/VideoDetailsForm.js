@@ -317,7 +317,7 @@ const VideoDetailsForm = (props) => {
                     <form onSubmit={handleSubmit} className="was-validated">
                         <div className="events-bg">
                             <div className="form-group row">
-                                <h4 className="series-title col-sm-10 margin-top-position col-form-label">{translate('events_basic_info')}</h4>
+                                <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('events_basic_info')}</h3>
                             </div>
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
