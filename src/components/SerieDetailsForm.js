@@ -266,7 +266,7 @@ const SerieDetailsForm = (props) => {
                 <form onSubmit={ handleSubmit } className="was-validated" >
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                            <h4 className="series-title col-sm-10 margin-top-position col-form-label">{translate('series_basic_info')}</h4>
                             <input id="eventsCount" type="hidden" value={inputs.eventsCount || ''} />
                             <div className="col-sm-4">
                                 { copiedMessage !== null ?
@@ -354,7 +354,7 @@ const SerieDetailsForm = (props) => {
 
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
+                            <h4 className="series-title col-sm-11 margin-top-position col-form-label">{translate('series_editing_rights')}</h4>
                             <div className="col-sm-1 info-box-margin">
                                 <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
                                     <span className="d-inline-block">
@@ -407,7 +407,7 @@ const SerieDetailsForm = (props) => {
 
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-2 col-form-label">{translate('series_visibility_title')}</label>
+                            <h4 className="series-title col-sm-2 margin-top-position col-form-label">{translate('series_visibility_title')}</h4>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
@@ -453,7 +453,7 @@ const SerieDetailsForm = (props) => {
                     </div>
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-11 col-form-label">{translate('series_included_videos')}</label>
+                            <h4 className="series-title col-sm-11 margin-top-position col-form-label">{translate('series_included_videos')}</h4>
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-12 video-list" data-cy="test-series-video-list">
