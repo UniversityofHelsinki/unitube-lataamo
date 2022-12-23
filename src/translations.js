@@ -1,8 +1,8 @@
 const translationsObject = {
     en: {
         lataamo_title: 'Unitube Uploader',
-        finnish: 'Suomi',
-        swedish: 'Svenska',
+        finnish: 'Finnish',
+        swedish: 'Swedish',
         english: 'English',
         maintenance_info: 'The maintenance window for Unitube is every Tuesday between 8.00-10.00 A.M. Small delays can occur during those times!',
         general_error: 'We’re sorry! Something went wrong. Try reloading the page (press F5 on the keyboard)!',
@@ -209,9 +209,9 @@ const translationsObject = {
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
-        finnish: 'Suomi',
-        swedish: 'Svenska',
-        english: 'English',
+        finnish: 'suomi',
+        swedish: 'ruotsi',
+        english: 'englanti',
         maintenance_info: 'Unituben huoltoikkuna on tiistaisin klo 8.00–10.00. Lataamossa saattaa joskus ilmetä pieniä häiriöitä tuolloin!',
         general_error: 'Pahoittelut, jokin meni vikaan. Kokeile ladata sivu uudestaan (paina näppäimistöltä F5)!',
         not_found_error: 'Tietoja ei löytynyt',
@@ -418,9 +418,9 @@ const translationsObject = {
 
     sv: {
         lataamo_title: 'Unitube-uppladdningssajt',
-        finnish: 'Suomi',
-        swedish: 'Svenska',
-        english: 'English',
+        finnish: 'finska',
+        swedish: 'svenska',
+        english: 'engelska',
         maintenance_info: 'Underhållsfönstret för Unitube är varje tisdag kl. 8.00–10.00.',
         general_error: 'Beklagar, något gick fel. Försök ladda om sidan (tryck på F5 på tangentbordet)!',
         not_found_error: 'Informationen hittades inte',
