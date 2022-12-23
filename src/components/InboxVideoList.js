@@ -147,7 +147,9 @@ const InboxVideoList = (props) => {
     }, []);
 
     const dateFormatter = (cell) => {
-        return moment(cell).local().format('DD.MM.YYYY HH:mm:ss');
+        return (<div>
+            <a href='#' className="inactiveLink"> {moment(cell).local().format('DD.MM.YYYY HH:mm:ss')} </a>
+        </div>);
     };
 
     const moveEventToTrashSeries = async(deletedEvent) => {
@@ -188,13 +190,17 @@ const InboxVideoList = (props) => {
 
     const stateFormatter = (cell, row) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
-            return translate('event_succeeded_state');
+            return (<div>
+                <a href='#' className="inactiveLink"> {translate('event_succeeded_state')} </a>
+            </div>);
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
-            return translate('event_running_and_instantiated_state');
-        }else {
+            return (<div>
+                <a href='#' className="inactiveLink"> {translate('event_running_and_instantiated_state')} </a>
+            </div>);
+        } else {
             return (
                 <div>
-                    {translate('event_failed_state')}
+                    <a href='#' className="inactiveLink"> {translate('event_failed_state')} </a>
                     <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
                 </div>
             );
@@ -227,11 +233,21 @@ const InboxVideoList = (props) => {
     }, {
         dataField: 'title',
         text: translate('video_title'),
-        sort: true
+        sort: true,
+        formatter: (cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.title} </a>
+            </div>
+        )
     }, {
         dataField: 'duration',
         text: translate('video_duration'),
-        sort: true
+        sort: true,
+        formatter: (cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.duration} </a>
+            </div>
+        )
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
