@@ -105,15 +105,10 @@ const VideoList = (props) => {
     }, []);
 
     const statusFormatter = (cell, row) => {
-        return (
-            <div>
-                {
-                    row.visibility.map((acl, index) =>
-                        <p key={ index }> { acl } </p>
-                    )
-                }
-            </div>
-        );
+        return (<div>
+            <a href='#' className="inactiveLink"> {row.visibility.map((acl, index) =>
+                <p key={ index }> { acl } </p>)} </a>
+        </div>);
     };
 
     const mediaFormatter = (cell, row) => {
@@ -140,7 +135,9 @@ const VideoList = (props) => {
     };
 
     const dateFormatter = (cell) => {
-        return moment(cell).local().format('DD.MM.YYYY HH:mm:ss');
+        return (<div>
+            <a href='#' className="inactiveLink"> {moment(cell).local().format('DD.MM.YYYY HH:mm:ss')} </a>
+        </div>);
     };
 
     const compareDates = (cellDate) => {
@@ -157,7 +154,9 @@ const VideoList = (props) => {
         let cellDate = new Date(cell);
         let showWarning = compareDates(cellDate);
         let cellDateFormat = moment(cellDate).format('DD.MM.YYYY');
-        return <div> {cellDateFormat} {showWarning ? <FaExclamationTriangle size={25} className='fa_custom'/> : null}</div>;
+        return (<div>
+            <a href='#' className="inactiveLink"> {cellDateFormat} {showWarning ? <FaExclamationTriangle size={25} className='fa_custom'/> : null} </a>
+        </div>);
     };
 
     const addMonthsToNotifiedDate = (amountOfMonths) => {
@@ -173,11 +172,17 @@ const VideoList = (props) => {
 
     const stateFormatter = (cell) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
-            return translate('event_succeeded_state');
+            return (<div>
+                <a href='#' className="inactiveLink"> {translate('event_succeeded_state')} </a>
+            </div>);
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
-            return translate('event_running_and_instantiated_state');
+            return (<div>
+                <a href='#' className="inactiveLink"> {translate('event_running_and_instantiated_state')} </a>
+            </div>);
         }else {
-            return translate('event_failed_state');
+            return (<div>
+                <a href='#' className="inactiveLink"> {translate('event_failed_state')} </a>
+            </div>);
         }
     };
 
@@ -214,11 +219,21 @@ const VideoList = (props) => {
     }, {
         dataField: 'title',
         text: translate('video_title'),
-        sort: true
+        sort: true,
+        formatter: (cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.title} </a>
+            </div>
+        )
     }, {
         dataField: 'duration',
         text: translate('video_duration'),
-        sort: true
+        sort: true,
+        formatter: (cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.duration} </a>
+            </div>
+        )
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
@@ -227,7 +242,12 @@ const VideoList = (props) => {
     }, {
         dataField: 'series',
         text: translate('series_title'),
-        sort: true
+        sort: true,
+        formatter: (cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.series} </a>
+            </div>
+        )
     }, {
         dataField: 'visibility',
         text: translate('publication_status'),
@@ -337,7 +357,7 @@ const VideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                    <div className='info-text marginbottom-small'>{ translate('search_events_info') } </div>
                                     <div className="form-group has-search">
                                         <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>
