@@ -61,7 +61,7 @@ const SeriesList = (props) => {
             <div>
                 {
                     row.visibility.map((acl, index) =>
-                        <p key={ index }> { acl } </p>
+                        (<a key={ index } href='#' className="inactiveLink"> <p> { acl } </p> </a>)
                     )
                 }
             </div>
@@ -73,7 +73,7 @@ const SeriesList = (props) => {
             <div>
                 {
                     row.contributors.map((contributor, index) =>
-                        <p key={ index }> { contributor } </p>
+                        (<a key={ index } href='#' className="inactiveLink"> <p key={ index }> { contributor } </p> </a>)
                     )
                 }
             </div>
@@ -95,7 +95,12 @@ const SeriesList = (props) => {
             } else {
                 return rowB.title.localeCompare(rowA.title, 'fi');
             }
-        }
+        },
+        formatter:(cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.title} </a>
+            </div>
+        )
     }, {
         dataField: 'contributors',
         text: translate('serie_contributors'),
@@ -104,7 +109,12 @@ const SeriesList = (props) => {
     }, {
         dataField: 'eventsCount',
         text: translate('events_count'),
-        sort: true
+        sort: true,
+        formatter:(cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.eventsCount} </a>
+            </div>
+        )
     },{
         dataField: 'visibility',
         text: translate('series_publication_status'),
