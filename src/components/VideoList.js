@@ -357,7 +357,7 @@ const VideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                    <div className='info-text marginbottom-small'>{ translate('search_events_info') } </div>
                                     <div className="form-group has-search">
                                         <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_events') }/>

@@ -48,7 +48,7 @@ const PersonListAutoSuggest = (props) => {
     return (
         <div>
             <AsyncTypeahead
-                id="person-list-typeahead"
+                inputProps={ { id: 'person_list_auto_suggest' } }
                 ref={(ref) => personListTypeAhead = ref}
                 isLoading={isLoading}
                 minLength={4}

@@ -320,9 +320,9 @@ const SerieDetailsForm = (props) => {
 
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
-                            <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
+                            <label htmlFor="series_title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
-                                <input type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
+                                <input id="series_title" type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
                                     onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
@@ -335,10 +335,10 @@ const SerieDetailsForm = (props) => {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
-                            <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
+                            <div className="col-sm-2 col-form-label"></div>
+                            <label htmlFor="series_details_description_area" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
-                                <textarea name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
+                                <textarea id="series_details_description_area" name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
                                     onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
@@ -354,9 +354,9 @@ const SerieDetailsForm = (props) => {
 
                     <div className="series-bg">
                         <div className="form-group row">
-                            <h3 className="series-title col-sm-11 margin-top-position col-form-label">{translate('series_editing_rights')}</h3>
+                            <label htmlFor="seriesrights" className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
                             <div className="col-sm-1 info-box-margin">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
+                                <OverlayTrigger id="seriesrights" overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
                                     <span className="d-inline-block">
                                         <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                     </span>
@@ -368,7 +368,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-4 col-form-label">{translate('add_person')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="person_list_auto_suggest" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
                                 <PersonListAutoSuggest/>
                             </div>
@@ -378,9 +378,9 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="personlist" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9 series-admin-list">
-                                <PersonList/>
+                                <PersonList id="personlist"></PersonList>
                             </div>
                         </div>
                         <div className="form-group row">
@@ -388,7 +388,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="iam_group_auto_suggest" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
                                 <IAMGroupAutoSuggest/>
                             </div>
@@ -427,9 +427,9 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="moodenumber" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
-                                <input size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
+                                <input id="moodenumber" size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
                                 <button type="submit" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
                             </div>
                             <div className="col-sm-1">

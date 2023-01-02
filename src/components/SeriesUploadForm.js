@@ -174,9 +174,9 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
-                        <label className="col-sm-2 col-form-label">{translate('series_title')}</label>
+                        <label htmlFor="series_upload_name" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                         <div className="col-sm-7">
-                            <input onChange={handleInputChange} type="text" name="title" className="form-control" data-cy="test-series-title" maxLength="150" required/>
+                            <input id="series_upload_name" onChange={handleInputChange} type="text" name="title" className="form-control" data-cy="test-series-title" maxLength="150" required/>
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_title_info')}</Tooltip>}>
@@ -188,9 +188,9 @@ const SeriesUploadForm = (props) => {
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
-                        <label className="col-sm-2 col-form-label">{translate('series_description')}</label>
+                        <label htmlFor="series_upload_description_area" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                         <div className="col-sm-7">
-                            <textarea onChange={handleInputChange} type="text" name="description" className="form-control" data-cy="test-series-description" maxLength="1500" required/>
+                            <textarea id="series_upload_description_area" onChange={handleInputChange} type="text" name="description" className="form-control" data-cy="test-series-description" maxLength="1500" required/>
                         </div>
                         <div className="col-sm-1">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_description_info')}</Tooltip>}>
@@ -216,7 +216,7 @@ const SeriesUploadForm = (props) => {
 
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
-                            <label className="col-sm-2 col-form-label">{translate('add_person')}</label>
+                            <label htmlFor="person_list_auto_suggest"  className="col-sm-2 col-form-label">{translate('add_person')}</label>
                             <div className="col-sm-7">
                                 <PersonListAutoSuggest/>
                             </div>
@@ -231,7 +231,7 @@ const SeriesUploadForm = (props) => {
 
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
-                            <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
+                            <label htmlFor="iam_group_auto_suggest" className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
                             <div className="col-sm-7">
                                 <IAMGroupAutoSuggest/>
                             </div>
@@ -266,9 +266,9 @@ const SeriesUploadForm = (props) => {
 
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
-                        <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
+                        <label htmlFor="series_upload_moodle_number" className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                         <div className="col-sm-4">
-                            <input size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
+                            <input id="series_upload_moodle_number" size="50" type="text" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange} />
                         </div>
                         <div className="col-sm-3">
                             <button disabled={!inputs.moodleNumber} type="submit" className="btn btn-primary" onClick={handleButtonClick}>{translate('add')}</button>
