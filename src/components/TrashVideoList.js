@@ -183,7 +183,9 @@ const TrashVideoList = (props) => {
     }, []);
 
     const dateFormatter = (cell) => {
-        return moment(cell).utc().format('DD.MM.YYYY HH:mm:ss');
+        return (<div>
+            <a href='#' className="inactiveLink"> { moment(cell).utc().format('DD.MM.YYYY HH:mm:ss') } </a>
+        </div>);
     };
 
     const downloadColumnFormatter = (column, colIndex, components) => {
@@ -205,7 +207,12 @@ const TrashVideoList = (props) => {
 
     const columns = [{ dataField: 'title',
         text: translate('video_title'),
-        sort: true
+        sort: true,
+        formatter:(cell, row) => (
+            <div>
+                <a href='#' className="inactiveLink"> {row.title} </a>
+            </div>
+        )
     }, {
         dataField: 'created',
         text: translate('created'),
@@ -268,7 +275,7 @@ const TrashVideoList = (props) => {
                             props => (
                                 <div>
                                     <br/>
-                                    <label className='info-text'>{ translate('search_events_info') } </label>
+                                    <div className='info-text marginbottom-small'>{ translate('search_events_info') } </div>
                                     <div className="form-group has-search">
                                         <span className="form-control-feedback"><FaSearch /></span>
                                         <SearchBar { ...props.searchProps } placeholder={ translate('search_deleted_videos') }/>

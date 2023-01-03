@@ -205,7 +205,7 @@ const VideoTextTrackForm = (props) => {
                         <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('video_text_track_label')}</h3>
                     </div>
                     <div className="form-group row">
-                        <label id="textTrack" className="col-sm-2 col-form-label">{translate('video_text_track')}</label>
+                        <label htmlFor="video_text_track_file" id="textTrack" className="col-sm-2 col-form-label">{translate('video_text_track')}</label>
                         <div className="col-sm-8">
                             <input disabled={disabledInputs} id="video_text_track_file" onChange={handleFileInputChange} type="file" accept=".vtt, .srt"  className="form-control" name="video_text_track_file"/>
                         </div>

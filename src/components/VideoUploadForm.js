@@ -163,7 +163,7 @@ const VideoUploadForm = (props) => {
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
+                        <label htmlFor="video_input_file" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                         <div className="col-sm-8">
                             <input disabled={browseButtonStatus() || maxAmountOfInboxEvents()} onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
                         </div>
@@ -176,9 +176,10 @@ const VideoUploadForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
+                        <label htmlFor="last_expiry_date" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
                         <div className="col-sm-8">
                             <DatePicker
+                                id="last_expiry_date"
                                 required
                                 disabled={maxAmountOfInboxEvents()}
                                 locale={props.preferredLanguage}
