@@ -487,7 +487,7 @@ const SerieDetailsForm = (props) => {
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
-                            <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date_text')}</label>
+                            <label className="col-sm-10 licence-long-info">{translate('update_videos_expiry_date_text')}</label>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
