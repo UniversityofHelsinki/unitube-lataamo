@@ -223,7 +223,7 @@ const VideoDetailsForm = (props) => {
     const inboxSeries = (seriesName) => {
         if (seriesName && seriesName.toLowerCase().includes('inbox')) {
             return (
-                <div className='col'>
+                <div className='form-group'>
                     <p>
                         {translate('events_link_series')}
                     </p>
@@ -321,7 +321,7 @@ const VideoDetailsForm = (props) => {
                             </div>
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
-                                <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')} LLL</label>
+                                <label htmlFor="eventId" className="col-sm-2 col-form-label">{translate('event_id')}</label>
                                 <label id="eventId" className="col-sm-3 col-form-label" data-cy="test-event-id">{props.video.identifier}</label>
                                 <div className="col-sm-3">
                                     <IconContext.Provider value={{ size: '1.5em' }}>
