@@ -465,9 +465,9 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <label htmlFor="exprirydate" className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
                             <div className="col-sm-2 col-form-label">
-                                <DatePicker
+                                <DatePicker id="exprirydate"
                                     disabled={disabledInputs}
                                     dateFormat="dd.MM.yyyy"
                                     locale={props.preferredLanguage}
@@ -481,7 +481,7 @@ const SerieDetailsForm = (props) => {
                                     placeholderText={translate('select_videos_expiry_date')} />
                             </div>
                             <div className="col-sm-2 ml-2">
-                                <span id="submitExpriryBtnId" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
+                                <span id="submitExpriryBtnId" tabIndex="0" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
                                     {translate('update_videos_expiry_date_button')}
                                 </span>
                             </div>
