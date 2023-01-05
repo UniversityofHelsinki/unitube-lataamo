@@ -477,7 +477,8 @@ const SerieDetailsForm = (props) => {
                                     showMonthYearDropdown
                                     dropdownMode="select"
                                     selected={deletionDate}
-                                    onChange={(date) => setDeletionDate(date)}/>
+                                    onChange={(date) => setDeletionDate(date)}
+                                    placeholderText={translate('select_videos_expiry_date')} />
                             </div>
                             <div className="col-sm-2 ml-2">
                                 <span id="submitExpriryBtnId" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
