@@ -215,7 +215,7 @@ const translationsObject = {
         finnish: 'suomi',
         swedish: 'ruotsi',
         english: 'englanti',
-        maintenance_info: 'Unituben huoltoikkuna on tiistaisin klo 8.00–10.00. Lataamossa saattaa joskus ilmetä pieniä häiriöitä tuolloin!',
+        maintenance_info: 'Unituben huoltoikkuna on tiistaisin klo 8.00–10.00. Lataamossa saattaa tuolloin ilmetä pieniä häiriöitä!',
         general_error: 'Pahoittelut, jokin meni vikaan. Kokeile ladata sivu uudestaan (paina näppäimistöltä F5)!',
         not_found_error: 'Tietoja ei löytynyt',
         searching: 'Haku käynnissä...',
