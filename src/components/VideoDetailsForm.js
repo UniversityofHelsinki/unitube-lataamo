@@ -379,7 +379,7 @@ const VideoDetailsForm = (props) => {
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
                                     <input id="title" disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
-                                        data-cy="test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
+                                        data-cy="test-event-title" placeholder={translate('video_title')} value={inputs.title} maxLength="150" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
