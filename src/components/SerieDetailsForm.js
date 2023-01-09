@@ -323,7 +323,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="series_title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
                                 <input id="series_title" type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
-                                    onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
+                                    onChange={ handleInputChange } placeholder={ translate('serie_title_info') } maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger
@@ -339,7 +339,7 @@ const SerieDetailsForm = (props) => {
                             <label htmlFor="series_details_description_area" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
                                 <textarea id="series_details_description_area" name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
-                                    onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
+                                    onChange={ handleInputChange } placeholder={ translate('serie_description') } maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger overlay={ <Tooltip
@@ -429,7 +429,7 @@ const SerieDetailsForm = (props) => {
                         <div className="form-group row">
                             <label htmlFor="moodenumber" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
-                                <input id="moodenumber" size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
+                                <input id="moodenumber" size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" placeholder={translate('add_moodle_placeholder')} onChange={handleMoodleInputChange}/>
                                 <button type="submit" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
                             </div>
                             <div className="col-sm-1">
@@ -465,9 +465,9 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <label htmlFor="exprirydate" className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
                             <div className="col-sm-2 col-form-label">
-                                <DatePicker
+                                <DatePicker id="exprirydate"
                                     disabled={disabledInputs}
                                     dateFormat="dd.MM.yyyy"
                                     locale={props.preferredLanguage}
@@ -477,17 +477,18 @@ const SerieDetailsForm = (props) => {
                                     showMonthYearDropdown
                                     dropdownMode="select"
                                     selected={deletionDate}
-                                    onChange={(date) => setDeletionDate(date)}/>
+                                    onChange={(date) => setDeletionDate(date)}
+                                    placeholderText={translate('select_videos_expiry_date')} />
                             </div>
                             <div className="col-sm-2 ml-2">
-                                <span id="submitExpriryBtnId" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
+                                <span id="submitExpriryBtnId" tabIndex="0" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
                                     {translate('update_videos_expiry_date_button')}
                                 </span>
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
-                            <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date_text')}</label>
+                            <label className="col-sm-10 licence-long-info">{translate('update_videos_expiry_date_text')}</label>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
