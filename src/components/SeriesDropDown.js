@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { fetchEventsBySeries } from '../actions/eventsAction';
+import { apiGetEventsBySeriesSuccessCall, fetchEventsBySeries } from '../actions/eventsAction';
 import { updateSelectedSeries } from '../actions/seriesAction';
 
 const SeriesDropDownList = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
-    const [dropDownValue, setDropDownValue] = useState(props.selectedSeries);
-
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
@@ -22,9 +20,12 @@ const SeriesDropDownList = (props) => {
 
     const handleSelectionChange = async (event) => {
         const seriesId = event.target.value;
-        setDropDownValue(seriesId);
         props.updateSelectedSeries(seriesId);
-        await props.fetchSeriesVideos(seriesId);
+        if (seriesId) {
+            await props.fetchSeriesVideos(seriesId);
+        } else {
+            props.emptyVideosInSeriesList();
+        }
     };
 
     return (
@@ -32,8 +33,8 @@ const SeriesDropDownList = (props) => {
             <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
             <div className="col-sm-8">
                 <select required className="form-control" name="isPartOf"
-                    data-cy="test-event-is-part-of" value={dropDownValue} onChange={handleSelectionChange}>
-                    <option key="-1" id="NOT_SELECTED" value="NOT_SELECTED">{translate('select')}</option>
+                    data-cy="test-event-is-part-of" value={props.selectedSeries} onChange={handleSelectionChange}>
+                    <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                     {drawSelectionValues()}
                 </select>
             </div>
@@ -56,7 +57,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId)),
-    updateSelectedSeries : (seriesId) => dispatch(updateSelectedSeries(seriesId))
+    updateSelectedSeries : (seriesId) => dispatch(updateSelectedSeries(seriesId)),
+    emptyVideosInSeriesList : () => dispatch(apiGetEventsBySeriesSuccessCall([]))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesDropDownList);
