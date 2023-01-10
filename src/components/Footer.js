@@ -12,8 +12,8 @@ const Footer = (props) => {
 
     return (
         <footer className="footer">
-            <div className="row">
-                <div className="content">
+            <div className="container">
+                <div className="row">
                     <div className="col-md-4 section left-section">
                         <div className="row">
                             <div className="col-md-3">
@@ -53,10 +53,17 @@ const Footer = (props) => {
                                     <Translate value="hy_address_part2" />
                                 </p>
                                 <p> <Translate value="hy_switchboard" /></p>
+                                <p>{translate('maintenance_info')}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 section middle-section">
+                        <div className="content">
+                            <div className="col-md-9">
                                 <p>
                                     <strong>
-                                        <a href="https://flamma.helsinki.fi/fi/group/yliopisto/yhteystiedot" >
-                                            <Translate value="hy_contact_info_link" />
+                                        <a href={translate('hy_contact_info_link')}>
+                                            <Translate value="hy_contact_info" />
                                         </a>
                                     </strong>
                                 </p>
@@ -67,18 +74,28 @@ const Footer = (props) => {
                                         </a>
                                     </strong>
                                 </p>
-                                <p>{translate('maintenance_info')}</p>
+                                <p>
+                                    <strong>
+                                        <a href={translate('hy_lataamo_instructions_link')}>
+                                            <Translate value="hy_lataamo_instructions" />
+                                        </a>
+                                    </strong>
+                                </p>
+                                <p>
+                                    <strong>
+                                        <a href={translate('hy_unitube_katsomo_link')}>
+                                            <Translate value="hy_unitube_katsomo" />
+                                        </a>
+                                    </strong>
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-4 section middle-section">
                     </div>
                     <div className="col-md-4 section right-section">
                     </div>
                 </div>
                 <div className="clear"></div>
             </div>
-            <div className="clear"></div>
         </footer>
     );
 };
