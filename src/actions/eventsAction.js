@@ -4,6 +4,7 @@ const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const VIDEO_TEXT_FILE_PATH = '/api/videoTextTrack';
 const EVENT_PATH = '/api/event/';
 const USER_EVENTS_PATH = '/api/userVideos';
+const USER_EVENTS_BY_SELECTED_SERIES = '/api/userVideosBySelectedSeries/';
 const USER_INBOX_EVENTS_PATH = '/api/userInboxEvents';
 const USER_TRASH_EVENTS_PATH = '/api/userTrashEvents';
 const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
@@ -71,6 +72,25 @@ export const fetchTrashEvents = (refresh) => {
                 dispatch(apiFailureCall('general_error'));
             }
         } catch(err) {
+            dispatch(apiFailureCall('general_error'));
+        }
+    };
+};
+
+export const fetchEventsBySeries = (refresh, selectedSeriesId) => {
+    return async (dispatch) => {
+        try {
+            eventsRequestCall(dispatch, refresh);
+            let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_BY_SELECTED_SERIES}${selectedSeriesId}`);
+            if (response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetEventsBySeriesSuccessCall(responseJSON));
+            } else if (response.status === 401) {
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('general_error'));
+            }
+        } catch (err) {
             dispatch(apiFailureCall('general_error'));
         }
     };
@@ -259,6 +279,11 @@ export const apiGetEventsRequestCall = () => ({
     loading: true
 });
 
+export const apiGetEventsBySeriesSuccessCall = data => ({
+    type: 'SUCCESS_API_GET_EVENTS_BY_SERIES',
+    payload: data,
+    loading: false
+});
 export const apiGetEventsSuccessCall = data => ({
     type: 'SUCCESS_API_GET_EVENTS',
     payload: data,

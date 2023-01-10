@@ -18,6 +18,12 @@ const eventsReducer = (state = initialState, action) => {
             videos: action.payload,
             loading: action.loading
         };
+    case 'SUCCESS_API_GET_EVENTS_BY_SERIES':
+        return {
+            ...state,
+            videosInSeries: action.payload,
+            loading: action.loading
+        };
     case 'SUCCESS_API_GET_DELETION_DATE':
         return {
             ...state,

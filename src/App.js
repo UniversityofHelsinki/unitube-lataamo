@@ -13,6 +13,7 @@ import { fetchUser } from './actions/userAction';
 import InboxVideoList from './components/InboxVideoList';
 import TrashVideoList from './components/TrashVideoList';
 import 'animate.css';
+import VideosInSeriesList from './components/VideosInSeriesList';
 
 const App = (props) => {
 
@@ -34,6 +35,7 @@ const App = (props) => {
                         <Routes>
                             <Route path='/' element={<InboxVideoList {...props} route={'inbox'}/>}/>
                             <Route path='/events' element={<VideoList {...props} route={'events'}/>}/>
+                            <Route path='/eventsBySeries' element={<VideosInSeriesList {...props} route={'eventsBySeries'}/>}/>
                             <Route path='/series' element={<SeriesList {...props} route={'series'}/>}/>
                             <Route path='/uploadVideo' element={<VideoUploadForm {...props} route={'uploadVideo'}/>}/>
                             <Route path='/uploadSeries' element={<SeriesUploadForm {...props} route={'uploadSeries'}/>}/>

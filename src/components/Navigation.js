@@ -17,6 +17,9 @@ function Navigation (props) {
                     <li className={props.route === 'events' ? 'main-nav-item open' : 'main-nav-item'} >
                         <Link to="/events" className="menuitem" data-cy="test-events-menu" ><Translate value="videos" /></Link>
                     </li>
+                    <li className={props.route === 'eventsBySeries' ? 'main-nav-item open' : 'main-nav-item'} >
+                        <Link to="/eventsBySeries" className="menuitem" data-cy="test-events-by-series-menu" ><Translate value="???videos???" /></Link>
+                    </li>
                     <li className={props.route === 'trash' ? 'main-nav-item open' : 'main-nav-item'} >
                         <Link to="/trash" className="menuitem" data-cy="test-trash-menu" ><Translate value="trash" /></Link>
                     </li>
