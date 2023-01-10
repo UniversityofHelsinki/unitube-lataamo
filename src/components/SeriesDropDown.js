@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { fetchEventsBySeries } from '../actions/eventsAction';
+import { updateSelectedSeries } from '../actions/seriesAction';
 
 const SeriesDropDownList = (props) => {
-
     const translations =  props.i18n.translations[props.i18n.locale];
-
-    const [dropDownValue, setDropDownValue] = useState( 'tetetete');
+    const [dropDownValue, setDropDownValue] = useState(props.selectedSeries);
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -24,6 +23,7 @@ const SeriesDropDownList = (props) => {
     const handleSelectionChange = async (event) => {
         const seriesId = event.target.value;
         setDropDownValue(seriesId);
+        props.updateSelectedSeries(seriesId);
         await props.fetchSeriesVideos(seriesId);
     };
 
@@ -50,11 +50,13 @@ const SeriesDropDownList = (props) => {
 
 const mapStateToProps = state => ({
     series : state.ser.seriesDropDown,
-    i18n: state.i18n
+    i18n: state.i18n,
+    selectedSeries : state.ser.selectedSeries
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId))
+    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId)),
+    updateSelectedSeries : (seriesId) => dispatch(updateSelectedSeries(seriesId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeriesDropDownList);
