@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { apiGetEventsBySeriesSuccessCall, fetchEventsBySeries } from '../actions/eventsAction';

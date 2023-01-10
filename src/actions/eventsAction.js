@@ -124,6 +124,7 @@ export const updateEventList = (inbox, updatedVideos) => {
     }
     return async dispatch => {
         dispatch(apiGetEventsSuccessCall(updatedVideos));
+        dispatch(apiGetEventsBySeriesSuccessCall(updatedVideos));
     };
 };
 

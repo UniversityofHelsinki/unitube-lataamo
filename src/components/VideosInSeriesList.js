@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchVideoUrl, downloadVideo } from '../actions/videosAction';
-import { fetchEvent, fetchEvents, deselectEvent, deselectRow, fetchDeletionDate } from '../actions/eventsAction';
+import {
+    fetchEvent,
+    fetchEvents,
+    deselectEvent,
+    deselectRow,
+    fetchDeletionDate,
+    fetchEventsBySeries
+} from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -76,11 +83,13 @@ const VideoList = (props) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            //props.onFetchEvents(false); -- fix to use selected series events
-            if (props.selectedRowId && props.videos) {
-                let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
-                if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
-                    props.onSelectEvent({ identifier: props.selectedRowId });
+            if (props.selectedSeries) {
+                props.fetchSeriesVideos(props.selectedSeries);
+                if (props.selectedRowId && props.videos) {
+                    let selectedEvent = props.videos.find(event => event.identifier === props.selectedRowId);
+                    if (selectedEvent && selectedEvent.processing_state && selectedEvent.processing_state === constants.VIDEO_PROCESSING_SUCCEEDED) {
+                        props.onSelectEvent({ identifier: props.selectedRowId });
+                    }
                 }
             }
         }, VIDEO_LIST_POLL_INTERVAL);
@@ -91,6 +100,9 @@ const VideoList = (props) => {
 
     useEffect(() => {
         props.fetchSeriesDropDownList();
+        if (props.selectedSeries) {
+            props.fetchSeriesVideos(props.selectedSeries);
+        }
         props.onRouteChange(props.route);
         if (props.apiError) {
             setErrorMessage(translate(props.apiError));
@@ -391,10 +403,12 @@ const mapStateToProps = state => ({
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,
-    apiError: state.sr.apiError
+    apiError: state.sr.apiError,
+    selectedSeries : state.ser.selectedSeries
 });
 
 const mapDispatchToProps = dispatch => ({
+    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId)),
     fetchSeriesDropDownList : () => dispatch(fetchSeriesDropDownList()),
     onSelectEvent: (row) => {
         dispatch(fetchVideoUrl(row));
