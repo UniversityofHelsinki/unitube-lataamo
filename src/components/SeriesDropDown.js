@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { fetchEventsBySeries } from '../actions/eventsAction';
@@ -6,6 +6,8 @@ import { fetchEventsBySeries } from '../actions/eventsAction';
 const SeriesDropDownList = (props) => {
 
     const translations =  props.i18n.translations[props.i18n.locale];
+
+    const [dropDownValue, setDropDownValue] = useState( 'tetetete');
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -21,6 +23,7 @@ const SeriesDropDownList = (props) => {
 
     const handleSelectionChange = async (event) => {
         const seriesId = event.target.value;
+        setDropDownValue(seriesId);
         await props.fetchSeriesVideos(seriesId);
     };
 
@@ -29,7 +32,8 @@ const SeriesDropDownList = (props) => {
             <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
             <div className="col-sm-8">
                 <select required className="form-control" name="isPartOf"
-                    data-cy="test-event-is-part-of" value="" onChange={handleSelectionChange}>
+                    data-cy="test-event-is-part-of" value={dropDownValue} onChange={handleSelectionChange}>
+                    <option key="-1" id="NOT_SELECTED" value="NOT_SELECTED">{translate('select')}</option>
                     {drawSelectionValues()}
                 </select>
             </div>
