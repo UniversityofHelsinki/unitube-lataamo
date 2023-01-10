@@ -62,28 +62,29 @@ const Footer = (props) => {
                             <div className="col-md-9">
                                 <p>
                                     <strong>
-                                        <a href={translate('hy_contact_info_link')}>
+                                        <a href={translate('hy_contact_info_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_contact_info" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
                                         </a>
                                     </strong>
                                 </p>
                                 <p>
                                     <strong>
-                                        <a href={translate('hy_terms_of_use_link')}>
+                                        <a href={translate('hy_terms_of_use_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_terms_of_use" />
                                         </a>
                                     </strong>
                                 </p>
                                 <p>
                                     <strong>
-                                        <a href={translate('hy_lataamo_instructions_link')}>
+                                        <a href={translate('hy_lataamo_instructions_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_lataamo_instructions" />
                                         </a>
                                     </strong>
                                 </p>
                                 <p>
                                     <strong>
-                                        <a href={translate('hy_unitube_katsomo_link')}>
+                                        <a href={translate('hy_unitube_katsomo_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_unitube_katsomo" />
                                         </a>
                                     </strong>

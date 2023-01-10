@@ -266,6 +266,7 @@ const translationsObject = {
         hy_lataamo_instructions_link: '???',
         hy_unitube_katsomo: 'Unitube',
         hy_unitube_katsomo_link: 'https://www.helsinki.fi/fi/unitube',
+        open_in_new_tab: 'Avautuu uuteen välilehteen',
         series_info: 'Jotta tallenteen voi julkaista, se pitää liittää johonkin sarjaan. Tallenteiden näkyvyys ja hallintaoikeudet määritellään myös sarjojen kautta. Voit valita jonkin sarjan, johon sinulla on hallintaoikeudet.',
         video_title_info: 'Tallenteen nimi. Nimi näkyy kaikissa niissä paikoissa, joihin tallenne on julkaistu.',
         video_description_info: 'Tallenteen julkinen kuvaus. Onko tallenne osa luentosarjaa, kurssia tai kokonaisuutta? Onko kuvauspaikka maininnan arvoinen? Keitä tallenteella esiintyy?',
