@@ -71,7 +71,7 @@ const VideoList = (props) => {
     };
 
     const NoDataIndication = () => (
-        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_video_list') : ''
+        props.loading  ? <Loader /> : props.videos && props.videos.length === 0 ? translate('empty_videos_in_series_list') : ''
     );
 
     useEffect(() => {
