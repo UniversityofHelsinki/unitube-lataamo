@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { apiGetEventsBySeriesSuccessCall, fetchEventsBySeries } from '../actions/eventsAction';
@@ -27,6 +27,12 @@ const SeriesDropDownList = (props) => {
             props.emptyVideosInSeriesList();
         }
     };
+
+    useEffect(() => {
+        if (props.selectedSeries) {
+            props.updateSelectedSeries(props.selectedSeries);
+        }
+    }, []);
 
     return (
         <div className="form-group row">

@@ -81,6 +81,8 @@ export const fetchEventsBySeries = (refresh, selectedSeriesId) => {
     return async (dispatch) => {
         try {
             eventsRequestCall(dispatch, refresh);
+            console.log(refresh);
+            console.log(selectedSeriesId);
             let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_BY_SELECTED_SERIES}${selectedSeriesId}`);
             if (response.status === 200) {
                 let responseJSON = await response.json();
@@ -124,7 +126,6 @@ export const updateEventList = (inbox, updatedVideos) => {
     }
     return async dispatch => {
         dispatch(apiGetEventsSuccessCall(updatedVideos));
-        dispatch(apiGetEventsBySeriesSuccessCall(updatedVideos));
     };
 };
 
