@@ -72,6 +72,7 @@ const Footer = (props) => {
                                     <strong>
                                         <a href={translate('hy_terms_of_use_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_terms_of_use" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
                                         </a>
                                     </strong>
                                 </p>
@@ -79,6 +80,7 @@ const Footer = (props) => {
                                     <strong>
                                         <a href={translate('hy_lataamo_instructions_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_lataamo_instructions" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
                                         </a>
                                     </strong>
                                 </p>
@@ -86,6 +88,7 @@ const Footer = (props) => {
                                     <strong>
                                         <a href={translate('hy_unitube_katsomo_link')} target="_blank" rel="noreferrer noopener">
                                             <Translate value="hy_unitube_katsomo" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
                                         </a>
                                     </strong>
                                 </p>
