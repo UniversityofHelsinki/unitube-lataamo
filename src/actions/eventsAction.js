@@ -80,17 +80,19 @@ export const fetchTrashEvents = (refresh) => {
 export const fetchEventsBySeries = (refresh, selectedSeriesId) => {
     return async (dispatch) => {
         try {
-            eventsRequestCall(dispatch, refresh);
-            console.log(refresh);
-            console.log(selectedSeriesId);
-            let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_BY_SELECTED_SERIES}${selectedSeriesId}`);
-            if (response.status === 200) {
-                let responseJSON = await response.json();
-                dispatch(apiGetEventsBySeriesSuccessCall(responseJSON));
-            } else if (response.status === 401) {
-                dispatch(api401FailureCall(new Date()));
+            if (selectedSeriesId) {
+                eventsRequestCall(dispatch, refresh);
+                let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_BY_SELECTED_SERIES}${selectedSeriesId}`);
+                if (response.status === 200) {
+                    let responseJSON = await response.json();
+                    dispatch(apiGetEventsBySeriesSuccessCall(responseJSON));
+                } else if (response.status === 401) {
+                    dispatch(api401FailureCall(new Date()));
+                } else {
+                    dispatch(apiFailureCall('general_error'));
+                }
             } else {
-                dispatch(apiFailureCall('general_error'));
+                dispatch(apiGetEventsBySeriesSuccessCall([]));
             }
         } catch (err) {
             dispatch(apiFailureCall('general_error'));

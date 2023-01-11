@@ -112,6 +112,7 @@ const VideoDetailsForm = (props) => {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
             showSuccessMessage();
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
+            props.fetchSeriesVideos(props.selectedSeries);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setErrorMessage(translate('failed_to_delete_event'));
