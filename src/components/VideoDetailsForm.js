@@ -518,7 +518,7 @@ const mapStateToProps = state => ({
     inboxVideos : state.er.inboxVideos,
     deletionDate : state.er.deletionDate,
     i18n: state.i18n,
-    preferredLanguage: state.ur.user.preferredLanguage
+    preferredLanguage: state.ur.user.preferredLanguage,
 });
 
 const mapDispatchToProps = dispatch => ({
