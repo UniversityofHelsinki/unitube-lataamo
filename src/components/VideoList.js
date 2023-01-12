@@ -254,7 +254,7 @@ const VideoList = (props) => {
         type: 'date',
         sort: true,
         formatter: dateFormatter,
-        headerStyle: (colum, colIndex) => {
+        headerStyle: (column, colIndex) => {
             return { width: '180px' };
         }
     }, {
@@ -274,12 +274,18 @@ const VideoList = (props) => {
             <div>
                 <a href='#' className="inactiveLink"> {row.duration} </a>
             </div>
-        )
+        ),
+        headerStyle: (column, colIndex) => {
+            return { width: '100px' };
+        }
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
         sort: true,
-        formatter: stateFormatter
+        formatter: stateFormatter,
+        headerStyle: (column, colIndex) => {
+            return { width: '190px' };
+        }
     }, {
         dataField: 'series',
         text: translate('series_title'),
@@ -301,9 +307,6 @@ const VideoList = (props) => {
         formatter: dateFormatterAndWarning,
         title:  (cell, row, rowIndex, colIndex) => {
             return 'varoitus-warning';
-        },
-        headerStyle: (colum, colIndex) => {
-            return { width: '180px' };
         }
     }, {
         dataField: 'media',
