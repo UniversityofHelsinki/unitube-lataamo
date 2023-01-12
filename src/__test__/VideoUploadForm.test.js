@@ -18,7 +18,8 @@ describe('<VideoUploadForm />', () => {
                 title : '',
                 description: ''
             },
-            inboxVideos : []
+            inboxVideos : [],
+            licenses : ["UNITUBE-ALLRIGHTS","CC-BY","CC-BY-NC-ND","CC0"]
             },
         ser: { series: []},
         fur: {

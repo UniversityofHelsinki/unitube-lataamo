@@ -7,7 +7,8 @@ const initialState = {
     event: {
         title : '',
         description: ''
-    }
+    },
+    licenses: []
 };
 
 const eventsReducer = (state = initialState, action) => {
@@ -68,6 +69,12 @@ const eventsReducer = (state = initialState, action) => {
         return {
             ...state,
             event: action.payload
+        };
+
+    case 'SUCCESS_API_GET_LICENSES':
+        return {
+            ...state,
+            licenses: action.payload
         };
     default:
         return state;

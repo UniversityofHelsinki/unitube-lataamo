@@ -10,6 +10,27 @@ const USER_TRASH_EVENT_PATH ='/api/moveEventToTrash';
 const EVENT_DELETION_DATE_PATH = '/deletionDate';
 const EVENT_EXPIRY_DATE_PATH = '/updateArchivedDateOfVideosInSerie';
 
+export const fetchLicenses = () => {
+    const PATH = '/api/licenses';
+    return async (dispatch) => {
+        try {
+            let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetLicensesSuccessCall(responseJSON));
+            } else if (response.status === 404) {
+                dispatch(apiFailureCall('not_found_error'));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('general_error'));
+            }
+        } catch(err) {
+            dispatch(apiFailureCall('general_error'));
+        }
+    };
+};
+
 export const fetchEvent = (row) => {
     return async (dispatch) => {
         try {
@@ -248,6 +269,11 @@ export const deselectEvent = () => {
         dispatch(apiDeselectEvent());
     };
 };
+
+export const apiGetLicensesSuccessCall = (data) => ({
+    type: 'SUCCESS_API_GET_LICENSES',
+    payload: data
+});
 
 export const apiGetEventSuccessCall = (data) => ({
     type: 'SUCCESS_API_GET_EVENT',
