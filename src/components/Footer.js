@@ -12,8 +12,8 @@ const Footer = (props) => {
 
     return (
         <footer className="footer">
-            <div className="row">
-                <div className="content">
+            <div className="container">
+                <div className="row">
                     <div className="col-md-4 section left-section">
                         <div className="row">
                             <div className="col-md-3">
@@ -53,32 +53,53 @@ const Footer = (props) => {
                                     <Translate value="hy_address_part2" />
                                 </p>
                                 <p> <Translate value="hy_switchboard" /></p>
-                                <p>
-                                    <strong>
-                                        <a href="https://flamma.helsinki.fi/fi/group/yliopisto/yhteystiedot" >
-                                            <Translate value="hy_contact_info_link" />
-                                        </a>
-                                    </strong>
-                                </p>
-                                <p>
-                                    <strong>
-                                        <a href={translate('hy_terms_of_use_link')}>
-                                            <Translate value="hy_terms_of_use" />
-                                        </a>
-                                    </strong>
-                                </p>
                                 <p>{translate('maintenance_info')}</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-4 section middle-section">
+                        <div className="content">
+                            <div className="col-md-9">
+                                <p>
+                                    <strong>
+                                        <a href={translate('hy_contact_info_link')} target="_blank" rel="noreferrer noopener">
+                                            <Translate value="hy_contact_info" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
+                                        </a>
+                                    </strong>
+                                </p>
+                                <p>
+                                    <strong>
+                                        <a href={translate('hy_terms_of_use_link')} target="_blank" rel="noreferrer noopener">
+                                            <Translate value="hy_terms_of_use" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
+                                        </a>
+                                    </strong>
+                                </p>
+                                <p>
+                                    <strong>
+                                        <a href={translate('hy_lataamo_instructions_link')} target="_blank" rel="noreferrer noopener">
+                                            <Translate value="hy_lataamo_instructions" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
+                                        </a>
+                                    </strong>
+                                </p>
+                                <p>
+                                    <strong>
+                                        <a href={translate('hy_unitube_katsomo_link')} target="_blank" rel="noreferrer noopener">
+                                            <Translate value="hy_unitube_katsomo" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
+                                        </a>
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-4 section right-section">
                     </div>
                 </div>
                 <div className="clear"></div>
             </div>
-            <div className="clear"></div>
         </footer>
     );
 };
