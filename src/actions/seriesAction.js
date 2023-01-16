@@ -2,6 +2,7 @@ import setGlobalFeedback from './globalFeedbackAction';
 // asynchronous action creator
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
+const USER_SERIES_ACL_PATH = '/api/series/acl/';
 const PERSON_API_PATH = '/api/persons/';
 const SERIES_DROP_DOWN_PATH = '/api/getUserSeriesDropDownList';
 const SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
@@ -120,6 +121,26 @@ export const iamGroupQuery = async (query) => {
 export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedSerie)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const actionUpdateSerieAclMetaData = async (id, updatedSerie) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_ACL_PATH}${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
