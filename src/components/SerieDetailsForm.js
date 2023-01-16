@@ -5,6 +5,7 @@ import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import {
+    actionUpdateSerieAclMetaData,
     actionUpdateSerieDetails,
     addMoodleNumber,
     emptyIamGroupsCall,
@@ -42,6 +43,8 @@ const SerieDetailsForm = (props) => {
     const [disabledInputs, setDisabledInputs] = useState(false);
     const [errorExpiryDatesMessage, setErrorExpiryDatesMessage] = useState(null);
     const [successExpiryDatesMessage, setSuccessExpiryDatesMessage] = useState(null);
+    const [successAclMessage, setSuccessAclMessage] = useState(null);
+    const [errorAclMessage, setErrorAclMessage] = useState(null);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -108,10 +111,29 @@ const SerieDetailsForm = (props) => {
         }
     };
 
+    const updateSeriesAclDetails = async () => {
+        const seriesId = inputs.identifier;
+        const updatedSeries = { ...inputs }; // values from the form
+        generateAclList(updatedSeries, null);
+        setVisibilityForSeries(updatedSeries);
+        // call unitube-proxy api
+        try {
+            await actionUpdateSerieAclMetaData(seriesId, updatedSeries);
+            setSuccessAclMessage(translate('updated_series_acl_details'));
+            // update the series list to redux state
+            props.onSeriesDetailsEdit(props.series.map(
+                series => series.identifier !== seriesId ? series : updatedSeries));
+        } catch (err) {
+            setErrorAclMessage(translate('failed_to_update_series_acl_details'));
+        }
+    };
+
     useEffect(() => {
         setInputs(props.serie);
         setSuccessMessage(null);
         setErrorMessage(null);
+        setSuccessAclMessage(null);
+        setErrorAclMessage(null);
         setCopiedMessage(null);
     }, [props.serie, props.user.eppn]);
 
@@ -133,8 +155,8 @@ const SerieDetailsForm = (props) => {
         updateSeries.acl = aclList;
     };
 
-    const handleSubmitButtonClick = () => {
-        let submitButton = document.getElementById('submitBtnId');
+    const handleSubmitButtonClick = (buttonId) => {
+        let submitButton = document.getElementById(buttonId);
         submitButton.setAttribute('disabled', 'disabled');
         setTimeout(function() {
             submitButton.removeAttribute('disabled');
@@ -144,8 +166,16 @@ const SerieDetailsForm = (props) => {
     const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
-            handleSubmitButtonClick(event);
+            handleSubmitButtonClick('submitBtnId');
             await updateSeriesDetails();
+        }
+    };
+
+    const handleAclSubmit = async (event) => {
+        if (event) {
+            event.preventDefault();
+            handleSubmitButtonClick('submitAclBtnId');
+            await updateSeriesAclDetails();
         }
     };
 
@@ -448,6 +478,38 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-7">
                                 <SelectedMoodleNumbers/>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <div className="col-sm-2">
+                                <span id="submitAclBtnId" tabIndex="0" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleAclSubmit}>{translate('update_serie_acls')}
+                                </span>
+                            </div>
+                            <div className="col-sm-9">
+                                {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
+                                { successAclMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setSuccessAclMessage(null) } dismissible>
+                                        <p>
+                                            { successAclMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                { errorAclMessage !== null ?
+                                    <Alert variant="danger" onClose={ () => setErrorAclMessage(null) } dismissible>
+                                        <p>
+                                            { errorAclMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                            </div>
+                            <div className="col-sm-1">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('update_serie_acls_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                    </span>
+                                </OverlayTrigger>
                             </div>
                         </div>
                     </div>
