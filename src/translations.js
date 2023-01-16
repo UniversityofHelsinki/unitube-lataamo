@@ -427,7 +427,7 @@ const translationsObject = {
         finnish: 'finska',
         swedish: 'svenska',
         english: 'engelska',
-        maintenance_info: 'Underhållsfönstret för Unitube är varje tisdag kl. 8.00–10.00. Små störningar kan förekomma under tiden.',
+        maintenance_info: 'Underhållsfönstret för Unitube är varje tisdag kl. 8.00–10.00. Små störningar kan förekomma under tiden!',
         general_error: 'Beklagar, något gick fel. Försök ladda om sidan (tryck på F5 på tangentbordet)!',
         not_found_error: 'Informationen hittades inte',
         searching: 'Sökning pågår...',
