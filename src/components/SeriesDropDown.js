@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { apiGetEventsBySeriesSuccessCall, fetchEventsBySeries } from '../actions/eventsAction';
 import { updateSelectedSeries } from '../actions/seriesAction';
 
 const SeriesDropDownList = (props) => {
+    const [disabledDropDown, setDisabledDropDown] = useState(false);
     const translations =  props.i18n.translations[props.i18n.locale];
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -19,6 +20,7 @@ const SeriesDropDownList = (props) => {
     };
 
     const handleSelectionChange = async (event) => {
+        setDisabledDropDown(true);
         const seriesId = event.target.value;
         props.updateSelectedSeries(seriesId);
         if (seriesId) {
@@ -26,6 +28,7 @@ const SeriesDropDownList = (props) => {
         } else {
             props.emptyVideosInSeriesList();
         }
+        setDisabledDropDown(false);
     };
 
     useEffect(() => {
@@ -38,7 +41,7 @@ const SeriesDropDownList = (props) => {
         <div className="form-group row">
             <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
             <div className="col-sm-8">
-                <select required className="form-control" name="isPartOf"
+                <select disabled={disabledDropDown} required className="form-control" name="isPartOf"
                     data-cy="test-event-is-part-of" value={props.selectedSeries} onChange={handleSelectionChange}>
                     <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                     {drawSelectionValues()}
