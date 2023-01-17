@@ -31,12 +31,6 @@ const SeriesDropDownList = (props) => {
     };
 
     useEffect(() => {
-        if (props.selectedSeries) {
-            props.updateSelectedSeries(props.selectedSeries);
-        }
-    }, []);
-
-    useEffect(() => {
         if (props.allVideosChecked) {
             setDisabledDropDown(true);
             props.updateSelectedSeries('');
