@@ -5,7 +5,7 @@ import { apiGetEventsBySeriesSuccessCall, fetchEventsBySeries } from '../actions
 import { updateSelectedSeries } from '../actions/seriesAction';
 
 const SeriesDropDownList = (props) => {
-    const [disabledDropDown, setDisabledDropDown] = useState(false);
+    const [disabledDropDown, setDisabledDropDown] = useState(props.allVideosChecked ? props.allVideosChecked : false);
     const translations =  props.i18n.translations[props.i18n.locale];
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -21,12 +21,11 @@ const SeriesDropDownList = (props) => {
 
     const handleSelectionChange = async (event) => {
         setDisabledDropDown(true);
+        props.emptyVideosInSeriesList();
         const seriesId = event.target.value;
         props.updateSelectedSeries(seriesId);
         if (seriesId) {
             await props.fetchSeriesVideos(seriesId);
-        } else {
-            props.emptyVideosInSeriesList();
         }
         setDisabledDropDown(false);
     };
@@ -36,6 +35,15 @@ const SeriesDropDownList = (props) => {
             props.updateSelectedSeries(props.selectedSeries);
         }
     }, []);
+
+    useEffect(() => {
+        if (props.allVideosChecked) {
+            setDisabledDropDown(true);
+            props.updateSelectedSeries('');
+        } else {
+            setDisabledDropDown(false);
+        }
+    }, [props.allVideosChecked]);
 
     return (
         <div className="form-group row">
@@ -61,7 +69,8 @@ const SeriesDropDownList = (props) => {
 const mapStateToProps = state => ({
     series : state.ser.seriesDropDown,
     i18n: state.i18n,
-    selectedSeries : state.ser.selectedSeries
+    selectedSeries : state.ser.selectedSeries,
+    allVideosChecked : state.er.allVideosChecked
 });
 
 const mapDispatchToProps = dispatch => ({

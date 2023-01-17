@@ -34,7 +34,6 @@ const App = (props) => {
                     <div id="main-content" className="content-wrapper">
                         <Routes>
                             <Route path='/' element={<InboxVideoList {...props} route={'inbox'}/>}/>
-                            <Route path='/events' element={<VideoList {...props} route={'events'}/>}/>
                             <Route path='/eventsBySeries' element={<VideosInSeriesList {...props} route={'eventsBySeries'}/>}/>
                             <Route path='/series' element={<SeriesList {...props} route={'series'}/>}/>
                             <Route path='/uploadVideo' element={<VideoUploadForm {...props} route={'uploadVideo'}/>}/>

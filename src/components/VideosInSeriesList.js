@@ -25,6 +25,7 @@ import { FaSpinner, FaSearch, FaExclamationTriangle } from 'react-icons/fa';
 import constants from '../utils/constants';
 import UploadButton from './UploadButton';
 import SeriesDropDown from './SeriesDropDown';
+import AllSeriesCheckBox from './AllSeriesCheckBox';
 
 const { SearchBar } = Search;
 
@@ -351,6 +352,7 @@ const VideoList = (props) => {
         <div>
             <UploadButton alreadyFetched={false} />
             <SeriesDropDown />
+            <AllSeriesCheckBox />
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?
@@ -399,7 +401,7 @@ const VideoList = (props) => {
 };
 
 const mapStateToProps = state => ({
-    videos: state.er.videosInSeries ? state.er.videosInSeries : [],
+    videos: state.er.videos ? state.er.videos : [],
     selectedRowId: state.vr.selectedRowId,
     i18n: state.i18n,
     loading: state.er.loading,

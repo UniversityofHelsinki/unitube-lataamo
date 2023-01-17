@@ -80,8 +80,8 @@ export const fetchTrashEvents = (refresh) => {
 export const fetchEventsBySeries = (refresh, selectedSeriesId) => {
     return async (dispatch) => {
         try {
+            dispatch(updateLoadingStatus(true));
             if (selectedSeriesId) {
-                eventsRequestCall(dispatch, refresh);
                 let response = await fetch(`${VIDEO_SERVER_API}${USER_EVENTS_BY_SELECTED_SERIES}${selectedSeriesId}`);
                 if (response.status === 200) {
                     let responseJSON = await response.json();
@@ -342,4 +342,14 @@ export const apiGetDeletionDateFailureCall = (msg) => ({
     type: 'FAILURE_API_GET_DELETION_DATE',
     payload: msg,
     loading: false
+});
+
+export const changeAllVideosChecked = (value) => ({
+    type: 'CHANGE_ALL_VIDEOS_CHECKED',
+    payload: value
+});
+
+export const updateLoadingStatus = (value) => ({
+    type: 'CHANGE_LOADING_STATUS',
+    loading: value
 });
