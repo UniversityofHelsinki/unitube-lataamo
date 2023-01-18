@@ -211,7 +211,8 @@ const translationsObject = {
         warning_max_amount_of_messages: 'The number of recordings in your Inbox exceeds the maximum allowed (100 recordings). To upload new videos to Unitube, transfer recordings from Inbox to other series!',
         selected_serie_video_limit_exceeded: 'The number of recordings in the selected series exceeds the maximum number allowed (100 recordings). To move any new videos to this series, first make some space by moving recordings from this to other series!',
         link_to_series_videos: 'Gallery link of all videos in this series',
-        fetch_all_videos : '??? Get all series videos ???'
+        fetch_all_videos : '??? Get all series videos ???',
+        fetch_all_videos_checkbox_label : '??? Get all series videos label text ???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -425,7 +426,8 @@ const translationsObject = {
         warning_max_amount_of_messages: 'Inbox-tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit ladata uusia videoita Unitubeen, siirrä tallenteita Inboxista muihin sarjoihin!',
         selected_serie_video_limit_exceeded: 'Valitun sarjan tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit siirtää sarjaan uusia videoita, siirrä siitä ensin ylimääräisiä tallenteita muihin sarjoihin!',
         link_to_series_videos: 'Linkki sarjan videoihin',
-        fetch_all_videos : '??? Get all series videos ???'
+        fetch_all_videos : '??? Get all series videos ???',
+        fetch_all_videos_checkbox_label : '??? Get all series videos label text ???'
     },
 
     sv: {
@@ -640,7 +642,8 @@ const translationsObject = {
         warning_max_amount_of_messages: 'Antalet Inbox-inspelningar överstiger det maximalt tillåtna (100 inspelningar). För att ladda upp nya videor till Unitube, överför inspelningar från Inbox till andra serier!',
         selected_serie_video_limit_exceeded: 'Antalet inspelningar i den valda serien överstiger det maximalt tillåtna (100 inspelningar). För att överföra nya videor till en serie, överför först ytterligare inspelningar till andra serier!',
         link_to_series_videos: 'Länk till alla videor i serien',
-        fetch_all_videos : '??? Get all series videos ???'
+        fetch_all_videos : '??? Get all series videos ???',
+        fetch_all_videos_checkbox_label : '??? Get all series videos label text ???'
     }
 };
 

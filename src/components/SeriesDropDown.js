@@ -5,7 +5,7 @@ import { apiGetEventsBySeriesSuccessCall, fetchEventsBySeries } from '../actions
 import { updateSelectedSeries } from '../actions/seriesAction';
 
 const SeriesDropDownList = (props) => {
-    const [disabledDropDown, setDisabledDropDown] = useState(props.allVideosChecked ? props.allVideosChecked : false);
+    const [disabledDropDown, setDisabledDropDown] = useState(false);
     const translations =  props.i18n.translations[props.i18n.locale];
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -32,10 +32,7 @@ const SeriesDropDownList = (props) => {
 
     useEffect(() => {
         if (props.allVideosChecked) {
-            setDisabledDropDown(true);
             props.updateSelectedSeries('');
-        } else {
-            setDisabledDropDown(false);
         }
     }, [props.allVideosChecked]);
 
