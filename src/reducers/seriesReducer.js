@@ -123,6 +123,11 @@ const seriesReducer = (state = initialState, action) => {
             ...state,
             iamGroups : action.payload,
         };
+    case  'UPDATE_SELECTED_SERIES':
+        return {
+            ...state,
+            selectedSeries : action.payload
+        };
     default:
         return state;
     }

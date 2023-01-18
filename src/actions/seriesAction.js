@@ -199,6 +199,12 @@ export const actionUploadSeries = (newSeries) => {
     };
 };
 
+export const updateSelectedSeries = (seriesId) => {
+    return async (dispatch) => {
+        dispatch(updateSelectedSeriesCall(seriesId));
+    };
+};
+
 export const addMoodleNumber = (moodleNumber) => {
     return async (dispatch) => {
         dispatch(addMoodleNumberCall(moodleNumber));
@@ -360,4 +366,9 @@ export const addMoodleNumberCall = (moodleNumber) => ({
 export const emptyMoodleNumberCall = () => ({
     type: 'EMPTY_MOODLE_NUMBER',
     payload: []
+});
+
+export const updateSelectedSeriesCall = (seriesId) => ({
+    type: 'UPDATE_SELECTED_SERIES',
+    payload: seriesId
 });
