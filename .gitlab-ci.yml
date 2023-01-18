@@ -55,7 +55,7 @@ build_dev:
   tags:
     - ohtu-build-2
   only:
-    - lataamo-811-checkbox
+    - master
   script:
     - yes | cp -f -v .env.development .env.production || true
     - CI=false npm run build
@@ -167,7 +167,7 @@ deploy_dev:
     name: development
     url: https://$LATAAMO_DEV
   only:
-    - lataamo-811-checkbox
+    - master
   except:
     - schedules
   variables:
