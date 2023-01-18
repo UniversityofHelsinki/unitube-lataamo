@@ -36,6 +36,14 @@ const SeriesDropDownList = (props) => {
         }
     }, [props.allVideosChecked]);
 
+    useEffect(() => {
+        if (props.loading) {
+            setDisabledDropDown(true);
+        } else {
+            setDisabledDropDown(false);
+        }
+    }, [props.loading]);
+
     return (
         <div className="form-group row">
             <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
@@ -61,7 +69,8 @@ const mapStateToProps = state => ({
     series : state.ser.seriesDropDown,
     i18n: state.i18n,
     selectedSeries : state.ser.selectedSeries,
-    allVideosChecked : state.er.allVideosChecked
+    allVideosChecked : state.er.allVideosChecked,
+    loading: state.er.loading
 });
 
 const mapDispatchToProps = dispatch => ({
