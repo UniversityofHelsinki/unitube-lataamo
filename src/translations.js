@@ -163,8 +163,8 @@ const translationsObject = {
         trash: 'Deleted recordings',
         trash_info: 'The recordings you have deleted can be found here for a certain period of time. You can still download the recording to your computer or restore it by clicking “Restore recording”',
         empty_video_list: 'You have no recordings in any series',
-        empty_videos_in_series_list : '???empty_videos_in_series_list???',
-        series_filter_info: '??? infoteksti',
+        empty_videos_in_series_list : 'There are no recordings in this series or no series selected!',
+        series_filter_info: 'Select a series from the list to show or edit its recordings',
         empty_inbox_video_list: 'You have no recordings in your Inbox',
         empty_trash_video_list: 'You have no deleted recordings',
         empty_series_list: 'You have no series',
@@ -221,10 +221,10 @@ const translationsObject = {
         warning_max_amount_of_messages: 'The number of recordings in your Inbox exceeds the maximum allowed (100 recordings). To upload new videos to Unitube, transfer recordings from Inbox to other series!',
         selected_serie_video_limit_exceeded: 'The number of recordings in the selected series exceeds the maximum number allowed (100 recordings). To move any new videos to this series, first make some space by moving recordings from this to other series!',
         link_to_series_videos: 'Gallery link of all videos in this series',
-        fetch_all_videos : '??? Get all series videos ???',
-        fetch_all_videos_checkbox_label : '??? Get all series videos label text ???',
-        filter_events_info : '???filter events info ???',
-        all_series_filter_info : '??? all series filter info ???'
+        fetch_all_videos : 'Select to show all recordings in all of your series',
+        fetch_all_videos_checkbox_label : 'Show all my recordings',
+        filter_events_info : 'Select a series from this list to show its recordings. Alternatively, you can choose to show all your recordings at once.',
+        all_series_filter_info : 'If you like, you can list all recordings in every series you are an administrator of. If you have a lot of recordings, this search may sometimes take some time to complete!'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -390,8 +390,8 @@ const translationsObject = {
         trash: 'Poistamani tallenteet',
         trash_info: 'Poistamasi tallenteet näkyvät täällä määräajan. Voit vielä ladata tallenteen koneellesi tai palauttaa sen valitsemalla "Palauta tallenne".',
         empty_video_list: 'Sinulla ei ole tallenteita sarjoissa',
-        empty_videos_in_series_list : '??? sinulla ei ole tallenteita sarjoissa',
-        series_filter_info: '??? infoteksti',
+        empty_videos_in_series_list : 'Sarjassa ei ole tallenteita tai sarjaa ei ole valittu!',
+        series_filter_info: 'Valitse oheisesta listasta sarja, jonka tallenteita haluat tarkastella tai muokata',
         empty_inbox_video_list: 'Inboxissasi ei ole tallenteita',
         empty_trash_video_list: 'Sinulla ei ole poistettuja tallenteita',
         empty_series_list: 'Sinulla ei ole sarjoja',
@@ -448,10 +448,10 @@ const translationsObject = {
         warning_max_amount_of_messages: 'Inbox-tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit ladata uusia videoita Unitubeen, siirrä tallenteita Inboxista muihin sarjoihin!',
         selected_serie_video_limit_exceeded: 'Valitun sarjan tallenteiden määrä ylittää sallitun enimmäismäärän (100 tallennetta). Jotta voit siirtää sarjaan uusia videoita, siirrä siitä ensin ylimääräisiä tallenteita muihin sarjoihin!',
         link_to_series_videos: 'Linkki sarjan videoihin',
-        fetch_all_videos : '??? Get all series videos ???',
-        fetch_all_videos_checkbox_label : '??? Get all series videos label text ???',
-        filter_events_info : '???filter events info ???',
-        all_series_filter_info : '??? all series filter info ???'
+        fetch_all_videos : 'Valitse näyttääksesi kaikkien hallinnoimiesi sarjojen kaikki tallenteet',
+        fetch_all_videos_checkbox_label : 'Näytä kaikki tallenteeni',
+        filter_events_info : 'Valitse listasta alla sarja, jonka tallenteet haluat näyttää. Vaihtoehtoisesti voit valita näytettäväksi kerralla kaikki tallenteesi.',
+        all_series_filter_info : 'Halutessasi voit valita näytettäväksi kaikkien hallinnoimiesi sarjojen kaikki tallenteet. Jos sinulla on paljon tallenteita, tämä haku voi joskus toimia hyvin hitaasti!'
     },
 
     sv: {
