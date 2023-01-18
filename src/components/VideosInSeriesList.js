@@ -351,6 +351,7 @@ const VideoList = (props) => {
     return (
         <div>
             <UploadButton alreadyFetched={false} />
+            <div className='info-text marginbottom-small'>{ translate('filter_events_info') } </div>
             <SeriesDropDown />
             <AllSeriesCheckBox />
             { !errorMessage ?

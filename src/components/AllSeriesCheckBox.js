@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { apiGetEventsBySeriesSuccessCall, changeAllVideosChecked, fetchEvents } from '../actions/eventsAction';
-import { Form } from 'react-bootstrap';
+import { Button, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const AllSeriesCheckBox = (props) => {
     const [checkedValue, setChecked] = useState(false);
@@ -42,14 +42,23 @@ const AllSeriesCheckBox = (props) => {
     return (
         <div className="form-group row">
             <label htmlFor="allSeriesCheckbox" className="col-sm-2 col-form-label">{translate('fetch_all_videos_checkbox_label')}</label>
-            <Form.Check
-                type="switch"
-                id="allSeriesCheckbox"
-                disabled={disabledCheckBox}
-                label={translate('fetch_all_videos')}
-                checked={checkedValue}
-                onChange={handleChange}
-            />
+            <div className="col-sm-8">
+                <Form.Check
+                    type="switch"
+                    id="allSeriesCheckbox"
+                    disabled={disabledCheckBox}
+                    label={translate('fetch_all_videos')}
+                    checked={checkedValue}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="col-sm-2">
+                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('all_series_filter_info')}</Tooltip>}>
+                    <span className="d-inline-block">
+                        <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                    </span>
+                </OverlayTrigger>
+            </div>
         </div>
     );
 };
