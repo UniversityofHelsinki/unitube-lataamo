@@ -7,7 +7,8 @@ import {
     deselectEvent,
     deselectRow,
     fetchDeletionDate,
-    fetchEventsBySeries
+    fetchEventsBySeries,
+    actionMoveEventToTrashSeries
 } from '../actions/eventsAction';
 import { fetchSeries, fetchSeriesDropDownList } from '../actions/seriesAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -31,10 +32,14 @@ const { SearchBar } = Search;
 
 const VideosInSeriesList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [progressMessage, setProgressMessage] = useState(null);
     // eslint-disable-next-line no-unused-vars
     let [media, setMedia] = useState({ column: 'media', expanded: '' });
     const translations = props.i18n.translations[props.i18n.locale];
     const [videoDownloadErrorMessage, setVideoDownloadErrorMessage] = useState(null);
+    const [videoDeleteErrorMessage, setVideoDeleteErrorMessage] = useState(null);
+    const [disabledInputs, setDisabledInputs] = useState(false);
     const VIDEO_LIST_POLL_INTERVAL = 60 * 60 * 1000; // 1 hour
 
     const translate = (key) => {
@@ -184,7 +189,43 @@ const VideosInSeriesList = (props) => {
         return notifiedDate;
     };
 
-    const stateFormatter = (cell) => {
+    const moveEventToTrashSeries = async(deletedEvent) => {
+        const eventId = deletedEvent.identifier;
+        try {
+            await actionMoveEventToTrashSeries(eventId, deletedEvent);
+            await props.onFetchEvents(true);
+            setSuccessMessage(translate('succeeded_to_delete_event'));
+        } catch (err) {
+            setVideoDeleteErrorMessage(translate('failed_to_delete_event'));
+        }
+        setDisabledInputs(false);
+    };
+
+    const deleteEvent = async (e, deletedEvent) => {
+        e.preventDefault();
+        e.persist();
+        if(e.target.classList.contains('disabled')){
+            return false;
+        }
+        setProgressMessage(translate('progress_message_delete_event'));
+        setDisabledInputs(true);
+
+        let element = document.getElementById(deletedEvent.identifier);
+        element.setAttribute('disabled', 'disabled');
+
+        let elements = document.getElementsByClassName('delete-button-list');
+        let array = [...elements];
+        array.map(element => element.setAttribute('disabled', 'disabled'));
+
+        await moveEventToTrashSeries(deletedEvent);
+
+        elements = document.getElementsByClassName('delete-button-list');
+        array = [ ...elements ];
+        array.map(element => element.removeAttribute('disabled'));
+        setProgressMessage(null);
+    };
+
+    const stateFormatter = (cell, row) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return (<div>
                 <a href='#' className="inactiveLink"> {translate('event_succeeded_state')} </a>
@@ -196,6 +237,7 @@ const VideosInSeriesList = (props) => {
         }else {
             return (<div>
                 <a href='#' className="inactiveLink"> {translate('event_failed_state')} </a>
+                <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
             </div>);
         }
     };
@@ -227,7 +269,7 @@ const VideosInSeriesList = (props) => {
         type: 'date',
         sort: true,
         formatter: dateFormatter,
-        headerStyle: (colum, colIndex) => {
+        headerStyle: (column, colIndex) => {
             return { width: '180px' };
         }
     }, {
@@ -247,12 +289,19 @@ const VideosInSeriesList = (props) => {
             <div>
                 <a href='#' className="inactiveLink"> {row.duration} </a>
             </div>
-        )
+        ),
+        headerStyle: (column, colIndex) => {
+            return { width: '100px' };
+        }
+
     }, {
         dataField: 'processing_state',
         text: translate('processing_state'),
         sort: true,
-        formatter: stateFormatter
+        formatter: stateFormatter,
+        headerStyle: (column, colIndex) => {
+            return { width: '190px' };
+        }
     }, {
         dataField: 'series',
         text: translate('series_title'),
@@ -275,7 +324,7 @@ const VideosInSeriesList = (props) => {
         title:  (cell, row, rowIndex, colIndex) => {
             return 'varoitus-warning';
         },
-        headerStyle: (colum, colIndex) => {
+        headerStyle: (column, colIndex) => {
             return { width: '180px' };
         }
     }, {
@@ -354,6 +403,29 @@ const VideosInSeriesList = (props) => {
             <div className='info-text marginbottom-small'>{ translate('filter_events_info') } </div>
             <SeriesDropDown />
             <AllSeriesCheckBox />
+            {progressMessage !== null ?
+                <Alert variant="warning" onClose={() => setProgressMessage(null)} dismissible>
+                    <p>
+                        {progressMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            {successMessage !== null ?
+                <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+                    <p>
+                        {successMessage}
+                    </p>
+                </Alert>
+                : (<></>)
+            }
+            {videoDeleteErrorMessage ?
+                <Alert className="position-fixed" variant="danger" onClose={() => setVideoDeleteErrorMessage(null)} dismissible>
+                    <p>
+                        {videoDeleteErrorMessage}
+                    </p>
+                </Alert> : ''
+            }
             { !errorMessage ?
                 <div className="table-responsive">
                     {videoDownloadErrorMessage ?
