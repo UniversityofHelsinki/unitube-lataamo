@@ -29,7 +29,7 @@ import AllSeriesCheckBox from './AllSeriesCheckBox';
 
 const { SearchBar } = Search;
 
-const VideoList = (props) => {
+const VideosInSeriesList = (props) => {
     const [errorMessage, setErrorMessage] = useState(null);
     // eslint-disable-next-line no-unused-vars
     let [media, setMedia] = useState({ column: 'media', expanded: '' });
@@ -428,4 +428,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(VideoList);
+export default connect(mapStateToProps, mapDispatchToProps)(VideosInSeriesList);
