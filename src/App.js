@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
-import VideoList from './components/VideoList';
 import SeriesList from './components/SeriesList';
 import VideoUploadForm from './components/VideoUploadForm';
 import SeriesUploadForm from './components/SeriesUploadForm';
