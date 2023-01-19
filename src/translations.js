@@ -614,8 +614,8 @@ const translationsObject = {
         trash_info: 'Dina raderade inspelningar syns här under en bestämd tid. Du kan ännu lada inspelningen på din dator eller återställa den genom att välja ”Återställ inspelning”',
         empty_video_list: 'Du har inga inspelningar i serier',
         empty_inbox_video_list: 'Du har inga inspelningar i din Inbox',
-        empty_videos_in_series_list: '???empty_videos_in_series_list???',
-        series_filter_info: '??? infoteksti',
+        empty_videos_in_series_list: 'Det finns inga inspelningar i serien eller serien är inte vald!',
+        series_filter_info: 'Välj en serie i listan för att visa eller redigera dess inspelningar',
         empty_trash_video_list: 'Du har inga raderade inspelningar',
         empty_series_list: 'Du har inga serier',
         error_failed_to_save_series_inbox_not_allowed: '--- Inbox-serien kan inte skapas, eftersom den redan finns ---',
@@ -675,10 +675,10 @@ const translationsObject = {
         warning_max_amount_of_messages: 'Antalet Inbox-inspelningar överstiger det maximalt tillåtna (100 inspelningar). För att ladda upp nya videor till Unitube, överför inspelningar från Inbox till andra serier!',
         selected_serie_video_limit_exceeded: 'Antalet inspelningar i den valda serien överstiger det maximalt tillåtna (100 inspelningar). För att överföra nya videor till en serie, överför först ytterligare inspelningar till andra serier!',
         link_to_series_videos: 'Länk till alla videor i serien',
-        fetch_all_videos: '??? Get all series videos ???',
-        fetch_all_videos_checkbox_label: '??? Get all series videos label text ???',
-        filter_events_info: '???filter events info ???',
-        all_series_filter_info: '??? all series filter info ???'
+        fetch_all_videos: 'Välj för att visa alla inspelningar i alla dina serier',
+        fetch_all_videos_checkbox_label: 'Visa alla mina inspelningar',
+        filter_events_info: 'Välj en serie i listan nedan för att visa dess inspelningar. Alternativt kan du välja att visa alla dina inspelningar på en gång.',
+        all_series_filter_info: 'Om du vill kan du visa alla inspelningar i alla serier som du har administrationsbehörigheter till. Om du har en stor mängd inspelningar kan sökningen ta lång tid.'
     }
 };
 
