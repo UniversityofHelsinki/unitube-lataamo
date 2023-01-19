@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList, actionUpdateDeletionDate } from '../actions/eventsAction';
+import {
+    actionMoveEventToTrashSeries,
+    actionUpdateEventDetails,
+    updateEventList,
+    actionUpdateDeletionDate,
+    fetchEventsBySeries
+} from '../actions/eventsAction';
 import { fetchSerie } from '../actions/seriesAction';
 import Video from './Video';
 import constants from '../utils/constants';
@@ -106,6 +112,7 @@ const VideoDetailsForm = (props) => {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
             showSuccessMessage();
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
+            props.fetchSeriesVideos(props.selectedSeries);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setErrorMessage(translate('failed_to_delete_event'));
@@ -124,6 +131,7 @@ const VideoDetailsForm = (props) => {
             showUpdateSuccessMessage();
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
+            props.fetchSeriesVideos(props.selectedSeries);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setDisabledInputs(false);
@@ -519,11 +527,13 @@ const mapStateToProps = state => ({
     deletionDate : state.er.deletionDate,
     i18n: state.i18n,
     preferredLanguage: state.ur.user.preferredLanguage,
+    selectedSeries : state.ser.selectedSeries
 });
 
 const mapDispatchToProps = dispatch => ({
     onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
-    fetchSerie: (identifier) => dispatch(fetchSerie({ identifier }))
+    fetchSerie: (identifier) => dispatch(fetchSerie({ identifier })),
+    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);
