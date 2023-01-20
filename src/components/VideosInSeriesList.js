@@ -193,7 +193,11 @@ const VideosInSeriesList = (props) => {
         const eventId = deletedEvent.identifier;
         try {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
-            await props.onFetchEvents(true);
+            if (props.selectedSeries) {
+                props.fetchSeriesVideos(props.selectedSeries);
+            } else {
+                await props.fetchAllVideos();
+            }
             setSuccessMessage(translate('succeeded_to_delete_event'));
         } catch (err) {
             setVideoDeleteErrorMessage(translate('failed_to_delete_event'));
@@ -229,6 +233,7 @@ const VideosInSeriesList = (props) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return (<div>
                 <a href='#' className="inactiveLink"> {translate('event_succeeded_state')} </a>
+                <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
             </div>);
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return (<div>
@@ -483,6 +488,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    fetchAllVideos : () => dispatch(fetchEvents(true)),
     fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId)),
     fetchSeriesDropDownList : () => dispatch(fetchSeriesDropDownList()),
     onSelectEvent: (row) => {
