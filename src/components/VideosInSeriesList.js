@@ -325,7 +325,7 @@ const VideosInSeriesList = (props) => {
             return 'varoitus-warning';
         },
         headerStyle: (column, colIndex) => {
-            return { width: '180px' };
+            return { width: '140px' };
         }
     }, {
         dataField: 'media',
