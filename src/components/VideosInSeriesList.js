@@ -233,7 +233,6 @@ const VideosInSeriesList = (props) => {
         if(cell === constants.VIDEO_PROCESSING_SUCCEEDED){
             return (<div>
                 <a href='#' className="inactiveLink"> {translate('event_succeeded_state')} </a>
-                <button id={row.identifier} className="btn delete-button delete-button-list" onClick={(e) => deleteEvent(e,row)}>{translate('delete_event')}</button>
             </div>);
         } else if (cell === VIDEO_PROCESSING_INSTANTIATED || cell === VIDEO_PROCESSING_RUNNING) {
             return (<div>
