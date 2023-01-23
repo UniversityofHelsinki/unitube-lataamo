@@ -92,6 +92,14 @@ const Footer = (props) => {
                                         </a>
                                     </strong>
                                 </p>
+                                <p>
+                                    <strong>
+                                        <a href='/accessibility_statement.html' target="_blank" rel="noreferrer noopener">
+                                            <Translate value="hy_accessibility_statement" />
+                                            <span className="screen-reader-only">{translate('open_in_new_tab')}</span>
+                                        </a>
+                                    </strong>
+                                </p>
                             </div>
                         </div>
                     </div>
