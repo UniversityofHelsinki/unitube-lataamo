@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Saavutettavuusseloste    </title>
+    <!-- Kehoitamme muuttamaan tyylejä muuhun sivustoon sopivaksi. -->
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+
+        .row {
+            margin: 25px 0;
+        }
+
+        .row .deficiency-section {
+            margin: 15px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 10px 0 5px;
+        }
+
+        .statement__section {
+            margin-bottom: 4em;
+        }
+
+        .statement__inaccessible {
+            margin-bottom: 2em;
+        }
+
+        .flaws {
+            padding-left: 0;
+        }
+
+        .flaw {
+            margin-bottom: 1em;
+            list-style: none;
+            background-color: #f0f0f0;
+            padding: 0.5em;
+        }
+
+        .flaw__title {}
+
+        .flaw__subtitle {}
+
+        .flaw p {
+            margin-bottom: 1em;
+        }
+
+        .flaw ul {
+            margin-bottom: 1em;
+        }
+
+        .flaw__wcag li {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+                    <header>
+                <h1>
+                    Tervetuloa, tämä on organisaation Helsingin yliopisto saavutettavuusseloste                </h1>
+            </header>
+            <section class="statement__section">
+                <p>
+                    Tämä saavutettavuusseloste koskee palvelua https://lataamo.helsinki.fi / Unitube-lataamo ja on laadittu / päivitetty 28.12.2022. Palvelua koskee laki digitaalisten palvelujen tarjoamisesta, jossa edellytetään, että julkisten verkkopalvelujen on oltava saavutettavia.                </p>
+                <p>
+                    Olemme arvioineet palvelun saavutettavuuden itse                </p>
+            </section>
+
+                            <section class="statement__section">
+                    <h2>
+                        Digipalvelun saavutettavuuden tila                    </h2>
+                    <p>
+                        Täyttää saavutettavuusvaatimukset osittain.                    </p>
+                </section>
+            
+                            <h2>
+                    Ei-saavutettava sisältö                </h2>
+            
+            
+            
+                            <section class="statement__section">
+                    <section class="statement__inaccessible">
+                        <h3>
+                            3. Verkkosivusto ei ole vielä kaikilta osin vaatimusten mukainen                        </h3>
+
+                        <ul class="flaws">
+                                                                                                <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Havaittava: Aria landmarkien käytössä puutteita                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Aria landmarkeja tai HTML-alueita on käytetty osittain, eikä kaikki sisältö ole niiden sisällä.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    1.3.1 Informaatio ja suhteet                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Havaittava: Joissain kuvakkeissa ja linkkiteksteissä liian pieni kontrastiero                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            - Inbox-listakohdan punaisen numeropallon ja punaisten painikkeiden (esim. Delete subtitle file) kontrasti liian pieni<br />
+- Kysymysmerkkipainikkeissa liian pieni kontrastiero<br />
+- Sivutuksen numerolinkeissä ja lomakkeen ohjeisiin vievissä linkeissä llian pieni kontrastiero<br />
+                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    1.4.3 Kontrasti (minimi)                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Havaittava: Lisätietokenttien tooltip-tekstit katoavat, jos hiirtä siirtää pois                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Käyttöliittymässä olevien kysymysmerkkikenttien (ns. mouse over- painikkeiden) -lisätietotekstit näkyvät ainoastaan hiirtä käyttävälle silloin, jos hiiren saa liikutettua kysymysmerkkikuvakkeen ylle ja pidettyä siinä paikallaan.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    1.4.13 Sisältö osoitettaessa tai kohdistettaessa                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                                                                                <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Hallittava: Listanäkymän sisältöihin ei saa ruudunlukijalla välttämättä kohdistusta                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Oleellisiin käyttöliittymän listanäkymän kohtiin esimerikiksi tallenteiden hallinnoinnissa ei pääse ruudunlukijalla kohdistuksen puuttumisen vuoksi. Lisäksi joissain listalta avautuvien elementtien kohdistuksessa on puutteita.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    2.1.1 Näppäimistö                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Hallittava: Kaikilla sivuilla ei ole omia kuvaavia aliotsikoita                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Kaikilla sivuilla ei ole omia kuvaavia aliotsikoita.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    2.4.2 Sivuotsikot                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Hallittava: Kaikilla linkeillä ei ole selitetekstiä                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Palvelussa on linkkejä, joiden tarkoitusta ei ole avattu sisältöselosteilla mitenkään.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    2.4.4 Linkin tarkoitus (kontekstissa)                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Hallittava: Listanäkymien taulukoista puuttuu näkyvä kohdistus                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Käyttöliittymän oleellisten listanäkymien taulukoista puuttuu näkyvä kohdistus, ja niihin ei pääse näppäimistöllä.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    2.4.7 Näkyvä kohdistus                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                                                                                <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Ymmärrettävä: Sivustolla on joitain tekstikohtia, joiden kieltä ei ole merkitty                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Sivustolla on muutamia ilmoitustekstejä, jotka ovat vain englanniksi eikä niiden kieltä ole merkitty.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    3.1.2 Osien kieli                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Ymmärrettävä: Virheellisiä kenttiä ei osoiteta tekstimuotoisesti                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Palvelussa ei osoiteta virheitä syötekentissä automaattisesti.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    3.3.1 Virheen tunnistaminen                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                    <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Ymmärrettävä:                                         </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                                                                    </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                    </ul>
+                                    </li>
+                                                                                                                                <li class="flaw">
+                                        <h4 class="flaw__title">
+                                            Toimintavarma: Useilta kenttäkomponenteilta puuttuu kuvaus                                        </h4>
+                                        <h5 class="flaw__subtitle">
+                                            Saavuttamaton sisältö ja sen puutteet                                        </h5>
+                                        <p>
+                                            Monilta käyttöliittymän sisältö- ja valintakomponenteilta puuttuu kuvaus, tai niitä voi olla kuvattu väärin.                                        </p>
+                                        <h5>
+                                            Saavutettavuusvaatimukset jotka eivät täyty                                        </h5>
+                                        <ul class="flaw__wcag">
+                                                                                            <li>
+                                                    4.1.2 Nimi, rooli, arvo                                                </li>
+                                                                                    </ul>
+                                    </li>
+                                                                                    </ul>
+                    </section>
+                </section>
+            
+                            <section class="statement__section">
+                    <h2>
+                        Huomasitko saavutettavuuspuutteen digipalvelussamme? Kerro se meille ja teemme parhaamme puutteen korjaamiseksi                    </h2>
+
+                    
+                                            <h3>
+                            Sähköpostilla                        </h3>
+                        <p>
+                            unitube@helsinki.fi                        </p>
+                    
+                                    </section>
+                    
+        <section class="statement__section">
+            <h2>
+                Valvontaviranomainen            </h2>
+            <p>
+                Jos huomaat sivustolla saavutettavuusongelmia, anna ensin palautetta meille eli sivuston ylläpitäjälle. Vastauksessa voi mennä 14 päivää. Jos et ole tyytyväinen saamaasi vastaukseen tai et saa vastausta lainkaan kahden viikon aikana, <a href="https://www.saavutettavuusvaatimukset.fi/oikeutesi/" target="_blank">voit tehdä ilmoituksen Etelä-Suomen aluehallintovirastoon <span class="screen-reader-text">Avautuu uuteen ikkunaan</span></a>. Etelä-Suomen aluehallintoviraston sivulla kerrotaan tarkasti, miten ilmoituksen voi tehdä ja miten asia käsitellään.            </p>
+
+            <h2>
+                Valvontaviranomaisen yhteystiedot            </h2>
+            <p>
+                Etelä-Suomen aluehallintovirasto<br />
+Saavutettavuuden valvonnan yksikkö<br />
+www.saavutettavuusvaatimukset.fi  <br />
+saavutettavuus(at)avi.fi<br />
+puhelinnumero vaihde 0295 016 000            </p>
+        </section>
+
+                    <section class="statement__section">
+                <h2>
+                    Teemme jatkuvasti työtä saavutettavuuden parantamiseksi                </h2>
+
+                
+                                    <h3>
+                        Olemme sitoutuneet digipalveluiden saavutettavuuden parantamiseen                    </h3>
+                    <p>
+                        Helsingin yliopiston tietotekniikkakeskus on sitoutunut korjaamaan havaittuja ja palautteiden perusteella löydettyjä saavutettavuuspuutteita korjataan korkealla prioriteetilla palvelun tulevassa jatkokehityksessä.                    </p>
+                
+                
+                
+                            </section>
+            </article>
+</body>
+
+</html>
