@@ -7,12 +7,20 @@ const initialState = {
     event: {
         title : '',
         description: ''
-    }
+    },
+    allVideosChecked: false,
+    licenses: []
 };
 
 const eventsReducer = (state = initialState, action) => {
     switch (action.type) {
     case 'SUCCESS_API_GET_EVENTS':
+        return {
+            ...state,
+            videos: action.payload,
+            loading: action.loading
+        };
+    case 'SUCCESS_API_GET_EVENTS_BY_SERIES':
         return {
             ...state,
             videos: action.payload,
@@ -68,6 +76,22 @@ const eventsReducer = (state = initialState, action) => {
         return {
             ...state,
             event: action.payload
+        };
+    case 'CHANGE_ALL_VIDEOS_CHECKED':
+        return {
+            ...state,
+            allVideosChecked: action.payload
+        };
+    case 'CHANGE_LOADING_STATUS':
+        return {
+            ...state,
+            loading: action.loading
+        };
+
+    case 'SUCCESS_API_GET_LICENSES':
+        return {
+            ...state,
+            licenses: action.payload
         };
     default:
         return state;

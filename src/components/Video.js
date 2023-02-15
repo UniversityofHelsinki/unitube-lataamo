@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 const Video = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
-
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
@@ -30,7 +29,7 @@ const Video = (props) => {
                     <div key={index} className="row">
                         <div className="col events-bg">
                             <div className="form-group row">
-                                <label className="events-title col-sm-10 col-form-label">{translate('video_preview')}</label>
+                                <h3 className="events-title margin-top-position col-sm-10 ">{translate('video_preview')}</h3>
                             </div>
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
@@ -49,7 +48,7 @@ const Video = (props) => {
                         </div>
                         <div className="col events-bg">
                             <div className="form-group row">
-                                <label className="events-title col-sm-10 col-form-label">{translate('video_info')}</label>
+                                <h3 className="events-title margin-top-position col-sm-10 ">{translate('video_info')}</h3>
                             </div>
                             <div className="form-group row">
                                 {translate('video_resolution')}: {video.resolution}
@@ -59,6 +58,9 @@ const Video = (props) => {
                             </div>
                             <div className="form-group row" data-cy="test-video-text-track">
                                 {translate('added_vtt_file')} : {video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt' ? getFileName(video.vttFile.url)  : ''}
+                            </div>
+                            <div className="form-group row">
+                                {translate('video_views')}: {props.event.views}
                             </div>
                         </div>
                     </div>
@@ -82,7 +84,8 @@ const Video = (props) => {
 
 const mapStateToProps = state => ({
     videoFiles : state.vr.videoFiles,
-    i18n: state.i18n
+    i18n: state.i18n,
+    event: state.er.event
 });
 
 

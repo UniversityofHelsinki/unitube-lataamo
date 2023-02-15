@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { fetchSeries } from '../actions/seriesAction';
+import { fetchSeriesWithOutTrash } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
 import { FaSpinner } from 'react-icons/fa';
 import {
@@ -21,7 +21,7 @@ import { subDays, addMonths, addYears } from 'date-fns';
 import { fi, sv, enUS } from 'date-fns/locale';
 
 import constants from '../utils/constants';
-import { fetchInboxEvents } from '../actions/eventsAction';
+import { fetchInboxEvents, fetchLicenses } from '../actions/eventsAction';
 import WarningMessage from './WarningMessage';
 
 registerLocale('fi', fi);
@@ -34,8 +34,10 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
+    const [inputs, setInputs] = useState({ isPartOf: '', description: '', license : '' , title: '' });
 
     useEffect(() => {
+        props.onFetchLicenses();
         props.onFetchEvents(false);
         props.onRouteChange(props.route);
         props.onFetchSeries();
@@ -43,6 +45,7 @@ const VideoUploadForm = (props) => {
         props.onFailureMessageClick();
         // eslint-disable-next-line
     }, []);// Only re-run the effect if values of arguments changes
+
 
     const translations =  props.i18n.translations[props.i18n.locale];
 
@@ -56,6 +59,10 @@ const VideoUploadForm = (props) => {
         const data = new FormData();
         data.set('archivedDate', archivedDate);
         data.set('videofile', selectedVideoFile);
+        data.set('selectedSeries', inputs.isPartOf);
+        data.set('description', inputs.description);
+        data.set('license', inputs.license);
+        data.set('title', inputs.title);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
         return result;
@@ -65,7 +72,7 @@ const VideoUploadForm = (props) => {
         return props.videos.length >= constants.MAX_AMOUNT_OF_MESSAGES;
     };
 
-    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile;
+    const submitButtonStatus = () => submitButtonDisabled || !selectedVideoFile ||  !inputs.isPartOf || !inputs.description || !inputs.license || !inputs.title;
     const browseButtonStatus = () => submitButtonDisabled && selectedVideoFile;
 
     const validateVideoFileLength = (selectedVideoFile, video) => {
@@ -90,6 +97,10 @@ const VideoUploadForm = (props) => {
             clearVideoFileSelection();
             setSubmitButtonDisabled(false);
         }
+        inputs.description = '';
+        inputs.title = '';
+        inputs.license = '';
+        inputs.isPartOf = '';
         setOnProgressVisible(false);
         setArchivedDate(addMonths(new Date(), 12));
     };
@@ -134,6 +145,56 @@ const VideoUploadForm = (props) => {
         setVideoFile('');
     };
 
+    const getVisibilities = (visibilities) => {
+        let visibilityArray = [];
+        for (const visibility of visibilities) {
+            visibilityArray.push(translate(visibility));
+        }
+        return '( ' + visibilityArray.join(', ') + ' )';
+    };
+
+    const drawSelectionValues = () => {
+        let series = [...props.series];
+        series.sort((a,b) => a.title.localeCompare(b.title, 'fi'));
+        return series.map((series) => {
+            return <option key={series.identifier} id={series.identifier} value={series.identifier}>{series.title} {getVisibilities(series.visibility)}</option>;
+        });
+    };
+
+    const replaceIllegalCharacters = (target, value) => {
+        if (target === 'title' || target === 'description') {
+            let regExp = new RegExp(constants.ILLEGAL_CHARACTERS, 'g');
+            return value.replace(regExp, '');
+        } else {
+            return value;
+        }
+    };
+
+    const replaceCharacter = (replaceStr) => {
+        if (replaceStr) {
+            return replaceStr.replace(/-/g, '_');
+        }
+    };
+
+    const drawLicenseSelectionValues = () => {
+        return props.licenses.map((license) => {
+            return <option key={ license } id={ license } value={ license }>{ translate(replaceCharacter(license)) }</option>;
+        });
+    };
+
+    const handleInputChange = (event) => {
+        event.target.value = replaceIllegalCharacters(event.target.name, event.target.value);
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
+    };
+
+    useEffect(() => { // this hook will get called everytime when inputs has changed
+        console.log('Updated State', inputs);
+    }, [inputs]);
+
+    const handleSelectionChange = async (event) => {
+        handleInputChange(event);
+    };
+
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -163,7 +224,7 @@ const VideoUploadForm = (props) => {
             <form id="upload_video_form" encType="multipart/form-data" onSubmit={handleSubmit} className="was-validated">
                 <div className="events-bg">
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_file')}</label>
+                        <label htmlFor="video_input_file" className="col-sm-2 col-form-label">{translate('video_file')}</label>
                         <div className="col-sm-8">
                             <input disabled={browseButtonStatus() || maxAmountOfInboxEvents()} onChange={handleFileInputChange} id="video_input_file" type="file" accept="video/mp4,video/x-m4v,video/*" className="form-control" name="video_file" required/>
                         </div>
@@ -176,9 +237,71 @@ const VideoUploadForm = (props) => {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
+                        <label htmlFor="series" className="col-sm-2 col-form-label">{translate('series')}</label>
+                        <div className="col-sm-8">
+                            <select required className="form-control" name="isPartOf"
+                                data-cy="upload-test-event-is-part-of" value={inputs.isPartOf} onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
+                        <div className="col-sm-8">
+                            <input type="text" name="title" className="form-control" onChange={handleInputChange}
+                                data-cy="upload-test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
+                        <div className="col-sm-8">
+                            <textarea name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
+                                onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_description_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
+                        <div className="col-sm-8">
+                            <select required className="form-control" data-cy="upload-test-licences-select" name="license" value={inputs.license} onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawLicenseSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('licenses_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="last_expiry_date" className="col-sm-2 col-form-label">{translate('video_datepicker')}</label>
                         <div className="col-sm-8">
                             <DatePicker
+                                id="last_expiry_date"
                                 required
                                 disabled={maxAmountOfInboxEvents()}
                                 locale={props.preferredLanguage}
@@ -237,12 +360,14 @@ const mapStateToProps = state => ({
     timeRemaining: state.fur.timeRemaining,
     percentage : state.fur.percentage,
     preferredLanguage: state.ur.user.preferredLanguage,
-    videos: state.er.inboxVideos
+    videos: state.er.inboxVideos,
+    licenses : state.er.licenses
 });
 
 const mapDispatchToProps = dispatch => ({
+    onFetchLicenses: () => dispatch(fetchLicenses()),
     onFetchEvents: (refresh, inbox) => dispatch(fetchInboxEvents(refresh, inbox)),
-    onFetchSeries: () => dispatch(fetchSeries()),
+    onFetchSeries: () => dispatch(fetchSeriesWithOutTrash()),
     onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
     onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
     onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),

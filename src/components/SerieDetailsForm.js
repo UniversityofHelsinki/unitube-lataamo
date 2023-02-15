@@ -5,11 +5,11 @@ import { IconContext } from 'react-icons';
 import { FiCopy } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import {
+    actionUpdateSerieAclMetaData,
     actionUpdateSerieDetails,
     addMoodleNumber,
     emptyIamGroupsCall,
-    emptyMoodleNumberCall,
-    updateSeriesList
+    emptyMoodleNumberCall, updateSeriesList
 } from '../actions/seriesAction';
 import * as constants from '../utils/constants';
 import IAMGroupAutoSuggest from './IAMGroupAutoSuggest';
@@ -20,6 +20,9 @@ import SelectedMoodleNumbers from './SelectedMoodleNumbers';
 import VideosInSeries from './VideosInSeries';
 import RadioButtonGroup from './RadioButtonGroup';
 import DeleteSeries from './DeleteSeries';
+import { actionUpdateExpiryDates } from '../actions/eventsAction';
+import DatePicker from 'react-datepicker';
+import { addMonths, addYears } from 'date-fns';
 
 
 const SerieDetailsForm = (props) => {
@@ -36,6 +39,12 @@ const SerieDetailsForm = (props) => {
     const [copiedMessage, setCopiedMessage] = useState(null);
     const [copiedLinkMessage, setCopiedLinkMessage] = useState(null);
     const [hovered, setHovered] = useState(false);
+    const [deletionDate, setDeletionDate] = useState(null);
+    const [disabledInputs, setDisabledInputs] = useState(false);
+    const [errorExpiryDatesMessage, setErrorExpiryDatesMessage] = useState(null);
+    const [successExpiryDatesMessage, setSuccessExpiryDatesMessage] = useState(null);
+    const [successAclMessage, setSuccessAclMessage] = useState(null);
+    const [errorAclMessage, setErrorAclMessage] = useState(null);
 
     const toggleHover = () => {
         setHovered(!hovered);
@@ -102,10 +111,29 @@ const SerieDetailsForm = (props) => {
         }
     };
 
+    const updateSeriesAclDetails = async () => {
+        const seriesId = inputs.identifier;
+        const updatedSeries = { ...inputs }; // values from the form
+        generateAclList(updatedSeries, null);
+        setVisibilityForSeries(updatedSeries);
+        // call unitube-proxy api
+        try {
+            await actionUpdateSerieAclMetaData(seriesId, updatedSeries);
+            setSuccessAclMessage(translate('updated_series_acl_details'));
+            // update the series list to redux state
+            props.onSeriesDetailsEdit(props.series.map(
+                series => series.identifier !== seriesId ? series : updatedSeries));
+        } catch (err) {
+            setErrorAclMessage(translate('failed_to_update_series_acl_details'));
+        }
+    };
+
     useEffect(() => {
         setInputs(props.serie);
         setSuccessMessage(null);
         setErrorMessage(null);
+        setSuccessAclMessage(null);
+        setErrorAclMessage(null);
         setCopiedMessage(null);
     }, [props.serie, props.user.eppn]);
 
@@ -127,8 +155,8 @@ const SerieDetailsForm = (props) => {
         updateSeries.acl = aclList;
     };
 
-    const handleSubmitButtonClick = () => {
-        let submitButton = document.getElementById('submitBtnId');
+    const handleSubmitButtonClick = (buttonId) => {
+        let submitButton = document.getElementById(buttonId);
         submitButton.setAttribute('disabled', 'disabled');
         setTimeout(function() {
             submitButton.removeAttribute('disabled');
@@ -138,8 +166,16 @@ const SerieDetailsForm = (props) => {
     const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
-            handleSubmitButtonClick(event);
+            handleSubmitButtonClick('submitBtnId');
             await updateSeriesDetails();
+        }
+    };
+
+    const handleAclSubmit = async (event) => {
+        if (event) {
+            event.preventDefault();
+            handleSubmitButtonClick('submitAclBtnId');
+            await updateSeriesAclDetails();
         }
     };
 
@@ -176,6 +212,17 @@ const SerieDetailsForm = (props) => {
         props.onMoodleNumberAdd(inputs.moodleNumber);
         event.preventDefault();
         setInputs(inputs => ({ ...inputs, 'moodleNumber':'' }));
+    };
+
+    const updateExpiryDates = async () => {
+        const seriesId = inputs.identifier;
+        const updatedDeletionDate = { deletionDate : deletionDate };
+        try {
+            await actionUpdateExpiryDates(seriesId, updatedDeletionDate);
+            setSuccessExpiryDatesMessage(translate('update_videos_expiry_date_message'));
+        } catch (err) {
+            setErrorExpiryDatesMessage(translate('failed_update_videos_expiry_date'));
+        }
     };
 
     const copyTextToClipboard = (event) => {
@@ -249,7 +296,7 @@ const SerieDetailsForm = (props) => {
                 <form onSubmit={ handleSubmit } className="was-validated" >
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-10 col-form-label">{translate('series_basic_info')}</label>
+                            <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('series_basic_info')}</h3>
                             <input id="eventsCount" type="hidden" value={inputs.eventsCount || ''} />
                             <div className="col-sm-4">
                                 { copiedMessage !== null ?
@@ -270,7 +317,7 @@ const SerieDetailsForm = (props) => {
                                 }
                             </div>
                         </div>
-                        { inputs.published === 'ROLE_ANONYMOUS' && !props.moodleNumbers?.length ?
+                        {/* { inputs.published === 'ROLE_ANONYMOUS' && !props.moodleNumbers?.length ?
                             <div className="form-group row">
                                 <label className="col-sm-2 col-form-label"></label>
                                 <label htmlFor="seriesLink" className="col-sm-2 col-form-label">{translate('link_to_series_videos')}</label>
@@ -286,7 +333,7 @@ const SerieDetailsForm = (props) => {
                                 </div>
                             </div>
                             : (<></>)
-                        }
+                        } */}
 
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
@@ -303,10 +350,10 @@ const SerieDetailsForm = (props) => {
 
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label"></label>
-                            <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
+                            <label htmlFor="series_title" className="col-sm-2 col-form-label">{translate('series_title')}</label>
                             <div className="col-sm-7">
-                                <input type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
-                                    onChange={ handleInputChange } placeholder="Title" maxLength="150" required/>
+                                <input id="series_title" type="text" name="title" className="form-control" data-cy="test-series-title" value={ inputs.title }
+                                    onChange={ handleInputChange } placeholder={ translate('serie_title_info') } maxLength="150" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger
@@ -318,11 +365,11 @@ const SerieDetailsForm = (props) => {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
-                            <label htmlFor="title" className="col-sm-2 col-form-label">{translate('series_description')}</label>
+                            <div className="col-sm-2 col-form-label"></div>
+                            <label htmlFor="series_details_description_area" className="col-sm-2 col-form-label">{translate('series_description')}</label>
                             <div className="col-sm-7">
-                                <textarea name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
-                                    onChange={ handleInputChange } placeholder="Description" maxLength="1500" required/>
+                                <textarea id="series_details_description_area" name="description" className="form-control" data-cy="test-series-description" value={ inputs.description }
+                                    onChange={ handleInputChange } placeholder={ translate('serie_description') } maxLength="1500" required/>
                             </div>
                             <div className="col-sm-1">
                                 <OverlayTrigger overlay={ <Tooltip
@@ -337,9 +384,9 @@ const SerieDetailsForm = (props) => {
 
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
+                            <label htmlFor="seriesrights" className="series-title col-sm-11 col-form-label">{translate('series_editing_rights')}</label>
                             <div className="col-sm-1 info-box-margin">
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
+                                <OverlayTrigger id="seriesrights" overlay={<Tooltip id="tooltip-disabled">{translate('series_editing_rights_info')}</Tooltip>}>
                                     <span className="d-inline-block">
                                         <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                     </span>
@@ -351,7 +398,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-4 col-form-label">{translate('add_person')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="person_list_auto_suggest" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
                                 <PersonListAutoSuggest/>
                             </div>
@@ -361,9 +408,9 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('added_persons')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="personlist" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9 series-admin-list">
-                                <PersonList/>
+                                <PersonList id="personlist"></PersonList>
                             </div>
                         </div>
                         <div className="form-group row">
@@ -371,7 +418,7 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('add_iam_group')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="iam_group_auto_suggest" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
                                 <IAMGroupAutoSuggest/>
                             </div>
@@ -390,7 +437,7 @@ const SerieDetailsForm = (props) => {
 
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-2 col-form-label">{translate('series_visibility_title')}</label>
+                            <h3 className="series-title col-sm-2 margin-top-position col-form-label">{translate('series_visibility_title')}</h3>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
@@ -410,9 +457,9 @@ const SerieDetailsForm = (props) => {
                             <label className="col-sm-2 col-form-label">{translate('add_moodle_course')}</label>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label"></label>
+                            <label htmlFor="moodenumber" className="col-sm-2 col-form-label"></label>
                             <div className="col-sm-9">
-                                <input size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" onChange={handleMoodleInputChange}/>
+                                <input id="moodenumber" size="50" type="text" data-cy="test-moodle-id" value={inputs.moodleNumber} name="moodleNumber" placeholder={translate('add_moodle_placeholder')} onChange={handleMoodleInputChange}/>
                                 <button type="submit" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleButtonClick} disabled={!inputs.moodleNumber}>{translate('add')}</button>
                             </div>
                             <div className="col-sm-1">
@@ -433,17 +480,98 @@ const SerieDetailsForm = (props) => {
                                 <SelectedMoodleNumbers/>
                             </div>
                         </div>
+                        <div className="form-group row">
+                            <div className="col-sm-2">
+                                <span id="submitAclBtnId" tabIndex="0" data-cy="test-submit-moodle-id" className="btn btn-primary  ml-1" onClick={handleAclSubmit}>{translate('update_serie_acls')}
+                                </span>
+                            </div>
+                            <div className="col-sm-9">
+                                {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
+                                { successAclMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setSuccessAclMessage(null) } dismissible>
+                                        <p>
+                                            { successAclMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                { errorAclMessage !== null ?
+                                    <Alert variant="danger" onClose={ () => setErrorAclMessage(null) } dismissible>
+                                        <p>
+                                            { errorAclMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                            </div>
+                            <div className="col-sm-1">
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('update_serie_acls_info')}</Tooltip>}>
+                                    <span className="d-inline-block">
+                                        <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                    </span>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
                     </div>
                     <div className="series-bg">
                         <div className="form-group row">
-                            <label className="series-title col-sm-11 col-form-label">{translate('series_included_videos')}</label>
+                            <h3 className="series-title col-sm-11 margin-top-position col-form-label">{translate('series_included_videos')}</h3>
                         </div>
-                        <div className="series-bg">
-
-                            <div className="form-group row">
-                                <div className="col-sm-12 video-list" data-cy="test-series-video-list">
-                                    <VideosInSeries />
-                                </div>
+                        <div className="form-group row">
+                            <div className="col-sm-12 video-list" data-cy="test-series-video-list">
+                                <VideosInSeries />
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <label className="col-sm-2 col-form-label">{translate('update_videos_expiry_date')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="exprirydate" className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <div className="col-sm-2 col-form-label">
+                                <DatePicker id="exprirydate"
+                                    disabled={disabledInputs}
+                                    dateFormat="dd.MM.yyyy"
+                                    locale={props.preferredLanguage}
+                                    showPopperArrow={false}
+                                    minDate={addMonths(new Date(), 6)}
+                                    maxDate={addYears(new Date(), 3)}
+                                    showMonthYearDropdown
+                                    dropdownMode="select"
+                                    selected={deletionDate}
+                                    onChange={(date) => setDeletionDate(date)}
+                                    placeholderText={translate('select_videos_expiry_date')} />
+                            </div>
+                            <div className="col-sm-2 ml-2">
+                                <span id="submitExpriryBtnId" tabIndex="0" className={deletionDate ? 'btn btn-primary' : 'btn unclickable-btn'} onClick={ deletionDate ? () => updateExpiryDates() : null} >
+                                    {translate('update_videos_expiry_date_button')}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <label className="col-sm-10 licence-long-info">{translate('update_videos_expiry_date_text')}</label>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">{translate('series_visibility')}</label>
+                            <div className="col-sm-8">
+                                {/* https://getbootstrap.com/docs/4.0/components/alerts/ */ }
+                                { successExpiryDatesMessage !== null ?
+                                    <Alert variant="success" onClose={ () => setSuccessExpiryDatesMessage(null) } dismissible>
+                                        <p>
+                                            { successExpiryDatesMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
+                                { errorExpiryDatesMessage !== null ?
+                                    <Alert variant="danger" onClose={ () => setErrorExpiryDatesMessage(null) } dismissible>
+                                        <p>
+                                            { errorExpiryDatesMessage }
+                                        </p>
+                                    </Alert>
+                                    : (<></>)
+                                }
                             </div>
                         </div>
                     </div>

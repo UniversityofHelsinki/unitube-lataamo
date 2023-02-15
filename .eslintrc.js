@@ -22,8 +22,7 @@ module.exports = {
     'rules': {
         'indent': [2, 4],
         'linebreak-style': [
-            'error',
-            'unix'
+            'error', process.platform === 'win32' ? 'windows' : 'unix'
         ],
         'quotes': [
             'error',

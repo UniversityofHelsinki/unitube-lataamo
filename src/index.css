@@ -63,3 +63,24 @@ code {
 .table-responsive {
   overflow-x: unset;
 }
+
+.fa_custom {
+  color: #ffc107;
+  background:linear-gradient(red, red) center/20% 70% no-repeat;
+}
+
+.screen-reader-only {
+  position: absolute;
+  width: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+a[target="_blank"]::after {
+  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/77020/external-link-alt-solid.svg);
+  display: inline-block;
+  margin-left: 0.4em;
+  width: 1em;
+  height: 1em;
+}

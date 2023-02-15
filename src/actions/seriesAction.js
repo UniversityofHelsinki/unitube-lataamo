@@ -2,6 +2,7 @@ import setGlobalFeedback from './globalFeedbackAction';
 // asynchronous action creator
 const VIDEO_SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
 const USER_SERIES_PATH = '/api/series/';
+const USER_SERIES_ACL_PATH = '/api/series/acl/';
 const PERSON_API_PATH = '/api/persons/';
 const SERIES_DROP_DOWN_PATH = '/api/getUserSeriesDropDownList';
 const SERVER_API = process.env.REACT_APP_LATAAMO_PROXY_SERVER;
@@ -49,6 +50,27 @@ export const fetchSeriesDropDownList = () => {
             if(response.status === 200) {
                 let responseJSON = await response.json();
                 dispatch(apiGetSeriesDropDownListSuccessCall(responseJSON));
+            }else if(response.status === 401){
+                dispatch(api401FailureCall(new Date()));
+            } else {
+                dispatch(apiFailureCall('general_error'));
+            }
+        } catch(err) {
+            dispatch(apiFailureCall('general_error'));
+        }
+    };
+};
+
+export const fetchSeriesWithOutTrash = () => {
+    // server from .env variable
+    const PATH = '/api/userSeriesWithOutTrash';
+    return async (dispatch) => {
+        try {
+            dispatch(apiGetSeriesRequestCall());
+            let response = await fetch(`${VIDEO_SERVER_API}${PATH}`);
+            if(response.status === 200) {
+                let responseJSON = await response.json();
+                dispatch(apiGetSeriesSuccessCall(responseJSON));
             }else if(response.status === 401){
                 dispatch(api401FailureCall(new Date()));
             } else {
@@ -116,6 +138,26 @@ export const actionUpdateSerieDetails = async (id, updatedSerie) => {
     }
 };
 
+export const actionUpdateSerieAclMetaData = async (id, updatedSerie) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_ACL_PATH}${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedSerie)
+        });
+        if(response.status === 200) {
+            let responseJSON = await response.json();
+            return responseJSON;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const actionDeleteSeries = (series) => {
     return async (dispatch) => {
         const response = await fetch(`${VIDEO_SERVER_API}${USER_SERIES_PATH}${series.identifier}`, {
@@ -154,6 +196,12 @@ export const actionUploadSeries = (newSeries) => {
         } catch (error) {
             dispatch(apiPostSeriesFailureCall());
         }
+    };
+};
+
+export const updateSelectedSeries = (seriesId) => {
+    return async (dispatch) => {
+        dispatch(updateSelectedSeriesCall(seriesId));
     };
 };
 
@@ -318,4 +366,9 @@ export const addMoodleNumberCall = (moodleNumber) => ({
 export const emptyMoodleNumberCall = () => ({
     type: 'EMPTY_MOODLE_NUMBER',
     payload: []
+});
+
+export const updateSelectedSeriesCall = (seriesId) => ({
+    type: 'UPDATE_SELECTED_SERIES',
+    payload: seriesId
 });

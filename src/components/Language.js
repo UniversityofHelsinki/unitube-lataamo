@@ -16,16 +16,29 @@ const Language = (props) => {
         // eslint-disable-next-line
     }, []);
 
+    const langUpdate = (lang) => {
+        document.documentElement.lang = lang;
+    };
+
     return (
         <React.Fragment>
             <button className={props.user.preferredLanguage === 'fi' ? 'hidden' : 'lang-opt'}>
-                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange( 'fi')}><Translate value="finnish" /></Link>
+                <Link to="#" className='lang-opt' onClick={() => {
+                    props.onLanguageChange( 'fi');
+                    langUpdate('fi');
+                }}><Translate value="finnish" /></Link>
             </button>
             <button className={props.user.preferredLanguage === 'sv' ? 'hidden' : 'lang-opt'}>
-                <Link to="#" className='lang-opt' onClick={() => props.onLanguageChange('sv')}><Translate value="swedish" /></Link>
+                <Link to="#" className='lang-opt' onClick={() => {
+                    props.onLanguageChange('sv');
+                    langUpdate('sv');
+                }}><Translate value="swedish" /></Link>
             </button>
             <button className={props.user.preferredLanguage === 'en' ? 'hidden' : 'lang-opt'} >
-                <Link to="#"  className='lang-opt' onClick={() => props.onLanguageChange( 'en')}><Translate value="english" /></Link>
+                <Link to="#"  className='lang-opt' onClick={() => {
+                    props.onLanguageChange( 'en');
+                    langUpdate('en');
+                }}><Translate value="english" /></Link>
             </button>
         </React.Fragment>
     );

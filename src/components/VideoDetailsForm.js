@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import VideoTextTrackForm from './VideoTextTrack';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { actionMoveEventToTrashSeries, actionUpdateEventDetails, updateEventList, actionUpdateDeletionDate } from '../actions/eventsAction';
+import {
+    actionMoveEventToTrashSeries,
+    actionUpdateEventDetails,
+    updateEventList,
+    actionUpdateDeletionDate,
+    fetchEventsBySeries
+} from '../actions/eventsAction';
 import { fetchSerie } from '../actions/seriesAction';
 import Video from './Video';
 import constants from '../utils/constants';
@@ -106,6 +112,7 @@ const VideoDetailsForm = (props) => {
             await actionMoveEventToTrashSeries(eventId, deletedEvent);
             showSuccessMessage();
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, deletedEvent) : getUpdatedVideos(eventId, deletedEvent);
+            props.fetchSeriesVideos(props.selectedSeries);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setErrorMessage(translate('failed_to_delete_event'));
@@ -124,6 +131,7 @@ const VideoDetailsForm = (props) => {
             showUpdateSuccessMessage();
             // update the eventlist to redux state
             const updatedVideos = props.inbox === 'true' ? getUpdatedInboxVideos(eventId, updatedEvent) : getUpdatedVideos(eventId, updatedEvent);
+            props.fetchSeriesVideos(props.selectedSeries);
             props.onEventDetailsEdit(props.inbox, updatedVideos);
         } catch (err) {
             setDisabledInputs(false);
@@ -223,7 +231,7 @@ const VideoDetailsForm = (props) => {
     const inboxSeries = (seriesName) => {
         if (seriesName && seriesName.toLowerCase().includes('inbox')) {
             return (
-                <div className='col'>
+                <div className='form-group'>
                     <p>
                         {translate('events_link_series')}
                     </p>
@@ -317,7 +325,7 @@ const VideoDetailsForm = (props) => {
                     <form onSubmit={handleSubmit} className="was-validated">
                         <div className="events-bg">
                             <div className="form-group row">
-                                <label className="series-title col-sm-10 col-form-label">{translate('events_basic_info')}</label>
+                                <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('events_basic_info')}</h3>
                             </div>
                             {inboxSeries(props.video.series.title)}
                             <div className="form-group row">
@@ -378,8 +386,8 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_title')}</label>
                                 <div className="col-sm-8">
-                                    <input disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
-                                        data-cy="test-event-title" placeholder="Title" value={inputs.title} maxLength="150" required/>
+                                    <input id="title" disabled={disabledInputs} type="text" name="title" className="form-control" onChange={handleInputChange}
+                                        data-cy="test-event-title" placeholder={translate('video_title')} value={inputs.title} maxLength="150" required/>
                                 </div>
                                 <div className="col-sm-2">
                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_title_info')}</Tooltip>}>
@@ -390,9 +398,9 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="title" className="col-sm-2 col-form-label">{translate('video_description')}</label>
+                                <label htmlFor="description" className="col-sm-2 col-form-label">{translate('video_description')}</label>
                                 <div className="col-sm-8">
-                                    <textarea disabled={disabledInputs} name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
+                                    <textarea id="description" disabled={disabledInputs} name="description" className="form-control" data-cy="test-video-description" value={inputs.description}
                                         onChange={handleInputChange} placeholder={translate('video_description_placeholder')} maxLength="1500" required/>
                                 </div>
                                 <div className="col-sm-2">
@@ -404,9 +412,9 @@ const VideoDetailsForm = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-2">{translate('deletion_date_title')}</label>
+                                <label htmlFor="exprdate"  className="col-sm-2">{translate('deletion_date_title')}</label>
                                 <div className="col-sm-8">
-                                    <DatePicker
+                                    <DatePicker id="exprdate"
                                         disabled={disabledInputs}
                                         required
                                         dateFormat="dd.MM.yyyy"
@@ -430,7 +438,7 @@ const VideoDetailsForm = (props) => {
                             <div className="form-group row">
                                 <label htmlFor="licenses" className="col-sm-2 col-form-label">{translate('license')}</label>
                                 <div className="col-sm-8">
-                                    <select disabled={disabledInputs} required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleInputChange}>
+                                    <select id="licenses" disabled={disabledInputs} required className="form-control" data-cy="test-licences-select" name="license" value={inputs.license} onChange={handleInputChange}>
                                         <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                         {drawLicenseSelectionValues()}
                                     </select>
@@ -518,12 +526,14 @@ const mapStateToProps = state => ({
     inboxVideos : state.er.inboxVideos,
     deletionDate : state.er.deletionDate,
     i18n: state.i18n,
-    preferredLanguage: state.ur.user.preferredLanguage
+    preferredLanguage: state.ur.user.preferredLanguage,
+    selectedSeries : state.ser.selectedSeries
 });
 
 const mapDispatchToProps = dispatch => ({
     onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
-    fetchSerie: (identifier) => dispatch(fetchSerie({ identifier }))
+    fetchSerie: (identifier) => dispatch(fetchSerie({ identifier })),
+    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);

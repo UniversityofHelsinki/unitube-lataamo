@@ -48,7 +48,7 @@ const IAMGroupAutoSuggest = (props) => {
     return (
         <div>
             <AsyncTypeahead
-                id="iam-group-typeahead"
+                inputProps={ { id: 'iam_group_auto_suggest' } }
                 ref={(ref) => iamGroupTypeAhead = ref}
                 isLoading={isLoading}
                 minLength={4}
