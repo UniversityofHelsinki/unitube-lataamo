@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { playVideo } from '../actions/videosAction';
 
 const Video = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -21,6 +22,7 @@ const Video = (props) => {
         return trackObjectUrl;
     };
 
+
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
             return (
@@ -34,7 +36,7 @@ const Video = (props) => {
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
                                     ?
-                                    <video controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={video.url}>
+                                    <video crossOrigin="anonymous" controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={playVideo(video.url)}>
                                         {
                                             video.vttFile && video.vttFile.track ?
                                                 <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles"
