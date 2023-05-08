@@ -19,7 +19,7 @@ const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
 export const playVideo = (url) => {
-    return `${VIDEO_SERVER_API}/api/video/play/` + encodeURIComponent(new URL(url).pathname);
+    return `${VIDEO_SERVER_API}/api/video/play/` + url;
 };
 
 export const downloadFile = async (eventId, fileName) => {
