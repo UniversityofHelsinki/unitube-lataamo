@@ -122,6 +122,14 @@ build_prod:
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete ./build/ $LATAAMO_USER@$SERVER:/home/lataamo/react-app
     - rsync -azPq -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" maintenance.html $LATAAMO_USER@$SERVER:/home/lataamo/react-app
 
+.audit_scan_script:
+  script:
+    - echo $(npm audit --json | npm-audit-html --output ${CI_PROJECT_DIR}/report.html)
+    - echo $(npm outdated --long --json | npm-outdated-html --output ${CI_PROJECT_DIR}/outdated-report.html)
+    - echo "Send Slack Messages"
+    - "curl -F file=@${CI_PROJECT_DIR}/report.html -F 'initial_comment=Unitube Lataamo Audit File ' -F channels=C01KV33GE90 -F filename=audit-report.html -F filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+    - "curl -F file=@${CI_PROJECT_DIR}/outdated-report.html -F 'initial_comment=Unitube Lataamo Outdated File ' -F channels=C01KV33GE90 -F filename=outdated-report.html  filetype=html -H 'Authorization: Bearer '${TOKEN} https://slack.com/api/files.upload"
+
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
@@ -194,3 +202,6 @@ dependency scanning:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
     - npm install -g npm-outdated-html
+  extends: .audit_scan_script
+
+
