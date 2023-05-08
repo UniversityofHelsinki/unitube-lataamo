@@ -133,6 +133,8 @@ build_prod:
 # deploy to oc test environment
 deploy_oc_test:
   stage: deploy
+  tags:
+    - ohtu-build-3
   environment:
     name: development
     url: https://$LATAAMO_OC_TEST
@@ -147,6 +149,8 @@ deploy_oc_test:
 # deploy to development environment
 deploy_dev:
   stage: deploy
+  tags:
+    - ohtu-build-3
   environment:
     name: development
     url: https://$LATAAMO_DEV
@@ -164,6 +168,8 @@ deploy_dev:
 # deploy to test environment
 deploy_test:
   stage: deploy
+  tags:
+    - ohtu-build-3
   environment:
     name: test
     url: https://$LATAAMO_TEST
@@ -178,6 +184,8 @@ deploy_test:
 # deploy to prod environment
 deploy_prod:
   stage: deploy
+  tags:
+    - ohtu-build-3
   environment:
     name: production
     url: https://$LATAAMO_PROD
