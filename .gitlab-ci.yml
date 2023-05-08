@@ -18,7 +18,7 @@ stages:
 compile:
   stage: compile
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   script:
     - npm ci --legacy-peer-deps
 # ------------------------------ test stage ------------------------------
@@ -26,7 +26,7 @@ compile:
 test:
   stage: test
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   script:
     - npm test
   coverage: /All files\s*\|\s*([\d\.]+)/
@@ -38,7 +38,7 @@ test:
 build_oc_test:
   stage: build
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   only:
     - oc-test
   script:
@@ -53,7 +53,7 @@ build_oc_test:
 build_dev:
   stage: build
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   only:
     - master
   script:
@@ -68,7 +68,7 @@ build_dev:
 build_test:
   stage: build
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   only:
     - test
   script:
@@ -83,7 +83,7 @@ build_test:
 build_prod:
   stage: build
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   only:
     - prod
   script:
@@ -210,7 +210,7 @@ deploy_prod:
 dependency scanning:
   stage: audit_scan
   tags:
-    - ohtu-build-2
+    - ohtu-build-3
   allow_failure: true
   only:
     - schedules

@@ -56,5 +56,10 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "json-server": "^0.17.0",
     "redux-mock-store": "^1.5.4"
+  },
+  "overrides": {
+    "react-bootstrap-table-next": {
+      "underscore": "1.13.0-2"
+    }
   }
 }
