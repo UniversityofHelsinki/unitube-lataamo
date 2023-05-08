@@ -194,5 +194,3 @@ dependency scanning:
     - apk add --no-cache curl
     - npm install -g npm-audit-html
     - npm install -g npm-outdated-html
-
-
