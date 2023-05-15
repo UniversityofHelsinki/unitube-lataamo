@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { playVideo } from '../actions/videosAction';
+import { playVideo, getVTTFile } from '../actions/videosAction';
 
 const Video = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
@@ -12,16 +12,6 @@ const Video = (props) => {
         // console.log(url);
         return url.substring(url.lastIndexOf('/') + 1);
     };
-
-    const getTrackObjectUrl = (track) => {
-        // console.log('track content:' , track);
-        const trackBlob = new Blob([track], {
-            type:'text/plain;charset=utf-8'
-        });
-        const trackObjectUrl = URL.createObjectURL(trackBlob);
-        return trackObjectUrl;
-    };
-
 
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
@@ -38,8 +28,8 @@ const Video = (props) => {
                                     ?
                                     <video crossOrigin="anonymous" preload="metadata" controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={playVideo(video.url)}>
                                         {
-                                            video.vttFile && video.vttFile.track ?
-                                                <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles"
+                                            video.vttFile && video.vttFile.track && props.event && props.event.identifier ?
+                                                <track id="caption-track" src={getVTTFile(props.event.identifier)} kind="subtitles"
                                                     srcLang="fi" label={translate('subtitles_on')} default/>
                                                 : ''
                                         }
