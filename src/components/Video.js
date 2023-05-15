@@ -36,7 +36,7 @@ const Video = (props) => {
                             <div className="embed-responsive embed-responsive-16by9">
                                 {video && video.url
                                     ?
-                                    <video crossOrigin="anonymous" preload="auto" controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={playVideo(video.url)}>
+                                    <video crossOrigin="anonymous" preload="metadata" controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={playVideo(video.url)}>
                                         {
                                             video.vttFile && video.vttFile.track ?
                                                 <track id="caption-track" src={getTrackObjectUrl(video.vttFile.track)} kind="subtitles"
