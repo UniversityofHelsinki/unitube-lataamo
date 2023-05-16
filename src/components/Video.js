@@ -7,12 +7,6 @@ const Video = (props) => {
     const translate = (key) => {
         return translations ? translations[key] : '';
     };
-
-    const getFileName = (url) => {
-        // console.log(url);
-        return url.substring(url.lastIndexOf('/') + 1);
-    };
-
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
             return (
@@ -28,8 +22,8 @@ const Video = (props) => {
                                     ?
                                     <video crossOrigin="anonymous" preload="metadata" controlsList='nodownload' controls onContextMenu={e => e.preventDefault()} src={playVideo(video.url)}>
                                         {
-                                            video.vttFile && video.vttFile.track && props.event && props.event.identifier ?
-                                                <track id="caption-track" src={getVTTFile(props.event.identifier)} kind="subtitles"
+                                            video.vttFile && video.vttFile.url ?
+                                                <track id="caption-track" src={getVTTFile(video.vttFile.url)} kind="subtitles"
                                                     srcLang="fi" label={translate('subtitles_on')} default/>
                                                 : ''
                                         }
@@ -49,7 +43,7 @@ const Video = (props) => {
                                 {translate('video_duration')}: {video.duration}
                             </div>
                             <div className="form-group row" data-cy="test-video-text-track">
-                                {translate('added_vtt_file')} : {video.vttFile && video.vttFile.url && getFileName(video.vttFile.url) !== 'empty.vtt' ? getFileName(video.vttFile.url)  : ''}
+                                {translate('added_vtt_file')} : {video.vttFile && video.vttFile.filename && video.vttFile.filename !== 'empty.vtt' ? video.vttFile.filename  : ''}
                             </div>
                             <div className="form-group row">
                                 {translate('video_views')}: {props.event.views}

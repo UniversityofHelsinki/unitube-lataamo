@@ -15,11 +15,12 @@ const VIDEO_PATH = '/api/videoUrl/';
 const MONITOR_JOB_PATH = '/api/monitor/';
 const DOWNLOAD_PATH = '/api/download';
 const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
+const VTT_FILE_PATH = '/api/vttFile/';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
-export const getVTTFile = (eventId) => {
-    return `${VIDEO_SERVER_API}/api/vttFileForEvent/` + eventId;
+export const getVTTFile = (url) => {
+    return `${VIDEO_SERVER_API}${VTT_FILE_PATH}` + url;
 };
 
 export const playVideo = (url) => {
