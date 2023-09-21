@@ -10,10 +10,14 @@ const SelectedMoodleNumbers = (props) => {
         props.onMoodleNumberDelete(moodleNumber);
     };
 
+    const moodleNumberStyle = {
+        paddingTop: '5px',
+        paddingBottom: '5px'
+    };
     const drawMoodleNumbers = () => {
         return props.moodleNumbers.map((moodleNumber, index) => {
             return (
-                <div key={index} className="form-check-inline">
+                <div key={index} className="form-check-inline" style={moodleNumberStyle}>
                     <span className="border">
                         <Badge variant='light'>
                             <FaBookReader/>
@@ -27,10 +31,12 @@ const SelectedMoodleNumbers = (props) => {
             );
         });
     };
-
+    const style = {
+        marginLeft: '0px'
+    };
 
     return (
-        <div>
+        <div className="row" style={style}>
             {props.moodleNumbers && props.moodleNumbers.length > 0
                 ?
                 drawMoodleNumbers()
