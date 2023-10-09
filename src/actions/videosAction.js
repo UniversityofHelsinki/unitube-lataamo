@@ -16,20 +16,16 @@ const MONITOR_JOB_PATH = '/api/monitor/';
 const DOWNLOAD_PATH = '/api/download';
 const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
 const VTT_FILE_PATH = '/api/vttFile/';
-const VTT_URL_PATH = '/api/urlForVttFile/';
+const VTT_URL_PATH = '/api/vttFileName/';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
-const parseVTTFileFromResponse = (response) => {
-    return response.substring(response.lastIndexOf('/') + 1);
-};
-
-export const getVTTVideoUrl = async(url) => {
+export const getVTTFileName = async(url) => {
     const vttUrl = `${VIDEO_SERVER_API}${VTT_URL_PATH}` + url;
     let response = await fetch(vttUrl);
     let responseJSON = await response.json();
-    let vttFile = parseVTTFileFromResponse(responseJSON);
-    return vttFile;
+    console.log(responseJSON);
+    return responseJSON;
 };
 
 export const getVTTFile = (url) => {
