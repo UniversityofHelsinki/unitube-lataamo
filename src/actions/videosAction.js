@@ -24,7 +24,6 @@ export const getVTTFileName = async(url) => {
     const vttUrl = `${VIDEO_SERVER_API}${VTT_URL_PATH}` + url;
     let response = await fetch(vttUrl);
     let responseJSON = await response.json();
-    console.log(responseJSON);
     return responseJSON;
 };
 
