@@ -16,8 +16,21 @@ const MONITOR_JOB_PATH = '/api/monitor/';
 const DOWNLOAD_PATH = '/api/download';
 const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
 const VTT_FILE_PATH = '/api/vttFile/';
+const VTT_URL_PATH = '/api/urlForVttFile/';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
+
+const parseVTTFileFromResponse = (response) => {
+    return response.substring(response.lastIndexOf('/') + 1);
+};
+
+export const getVTTVideoUrl = async(url) => {
+    const vttUrl = `${VIDEO_SERVER_API}${VTT_URL_PATH}` + url;
+    let response = await fetch(vttUrl);
+    let responseJSON = await response.json();
+    let vttFile = parseVTTFileFromResponse(responseJSON);
+    return vttFile;
+};
 
 export const getVTTFile = (url) => {
     return `${VIDEO_SERVER_API}${VTT_FILE_PATH}` + url;
@@ -44,9 +57,7 @@ export const downloadFile = async (eventId, fileName) => {
                 }
                 chunks.push(value);
             }
-
             let blob = new Blob(chunks);
-
             fileDownload(blob, fileName);
             return response;
         } else {

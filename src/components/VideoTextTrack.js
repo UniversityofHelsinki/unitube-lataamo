@@ -7,7 +7,7 @@ import {
     setEventProcessingState,
     updateEventList
 } from '../actions/eventsAction';
-import { downloadFile } from '../actions/videosAction';
+import { downloadFile, getVTTVideoUrl } from '../actions/videosAction';
 import constants from '../utils/constants';
 
 import Swal from 'sweetalert2';
@@ -168,7 +168,7 @@ const VideoTextTrackForm = (props) => {
         event.preventDefault();
         try {
             const fileName = getFileName(props.videoFiles[0].vttFile.url);
-            await downloadFile(props.event.identifier, fileName);
+            await downloadFile(props.event.identifier, await getVTTVideoUrl(fileName));
         }
         catch (err) {
             setErrorMessage(translate('download_webvtt_failed'));
