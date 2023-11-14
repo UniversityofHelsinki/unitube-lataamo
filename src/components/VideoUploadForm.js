@@ -63,6 +63,7 @@ const VideoUploadForm = (props) => {
         data.set('description', inputs.description);
         data.set('license', inputs.license);
         data.set('title', inputs.title);
+        data.set('translationLanguage', inputs.translationLanguage);
         // call unitube-proxy api
         const result = await props.onUploadVideo(data);
         return result;
