@@ -34,7 +34,7 @@ const VideoUploadForm = (props) => {
     const [validationMessage, setValidationMessage] = useState(null);
     const [onProgressVisible, setOnProgressVisible]= useState(null);
     const [archivedDate, setArchivedDate] = useState(addMonths(new Date(), 12));
-    const [inputs, setInputs] = useState({ isPartOf: '', description: '', license : '' , title: '' });
+    const [inputs, setInputs] = useState({ isPartOf: '', description: '', license : '' , title: '', translationLanguage: '' });
 
     useEffect(() => {
         props.onFetchLicenses();
@@ -174,6 +174,22 @@ const VideoUploadForm = (props) => {
         if (replaceStr) {
             return replaceStr.replace(/-/g, '_');
         }
+    };
+
+    const getLanguage = (language) => {
+        if (language === constants.TRANSLATION_LANGUAGE_FI) {
+            return translate('finnish');
+        } else if (language === constants.TRANSLATION_LANGUAGE_SV) {
+            return translate('swedish');
+        } else {
+            return translate('english');
+        }
+    };
+
+    const drawLanguageSelectionValues = () => {
+        return constants.TRANSLATION_LANGUAGES.map(language => {
+            return <option key={ language } id={ language } value={ language }>{getLanguage(language)}</option>;
+        });
     };
 
     const drawLicenseSelectionValues = () => {
@@ -319,6 +335,22 @@ const VideoUploadForm = (props) => {
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('video_datepicker_info')}</Tooltip>}>
                                 <span className="d-inline-block">
                                     <Button disabled style={{ pointerEvents: 'none' }}>?</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="translationLanguages" className="col-sm-2 col-form-label">{translate('translation_language')}</label>
+                        <div className="col-sm-8">
+                            <select className="form-control" data-cy="upload-test-translation-language-select" name="translationLanguage" value={inputs.translationLanguage} onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawLanguageSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
                                 </span>
                             </OverlayTrigger>
                         </div>

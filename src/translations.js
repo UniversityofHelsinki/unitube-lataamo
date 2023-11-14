@@ -225,7 +225,9 @@ const translationsObject = {
         fetch_all_videos: 'Select to show all recordings in all of your series',
         fetch_all_videos_checkbox_label: 'Show all my recordings',
         filter_events_info: 'Select a series from this list to show its recordings. Alternatively, you can choose to show all your recordings at once.',
-        all_series_filter_info: 'If you like, you can list all recordings in every series you are an administrator of. If you have a lot of recordings, this search may sometimes take some time to complete!'
+        all_series_filter_info: 'If you like, you can list all recordings in every series you are an administrator of. If you have a lot of recordings, this search may sometimes take some time to complete!',
+        translation_language_info : '???translation_language_info???',
+        translation_language : '???translation_language???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -453,7 +455,9 @@ const translationsObject = {
         fetch_all_videos: 'Valitse näyttääksesi kaikkien hallinnoimiesi sarjojen kaikki tallenteet',
         fetch_all_videos_checkbox_label: 'Näytä kaikki tallenteeni',
         filter_events_info: 'Valitse listasta alla sarja, jonka tallenteet haluat näyttää. Vaihtoehtoisesti voit valita näytettäväksi kerralla kaikki tallenteesi.',
-        all_series_filter_info: 'Halutessasi voit valita näytettäväksi kaikkien hallinnoimiesi sarjojen kaikki tallenteet. Jos sinulla on paljon tallenteita, tämä haku voi joskus toimia hyvin hitaasti!'
+        all_series_filter_info: 'Halutessasi voit valita näytettäväksi kaikkien hallinnoimiesi sarjojen kaikki tallenteet. Jos sinulla on paljon tallenteita, tämä haku voi joskus toimia hyvin hitaasti!',
+        translation_language_info : '???translation_language_info???',
+        translation_language : '???translation_language???'
     },
 
     sv: {
@@ -681,7 +685,9 @@ const translationsObject = {
         fetch_all_videos: 'Välj för att visa alla inspelningar i alla dina serier',
         fetch_all_videos_checkbox_label: 'Visa alla mina inspelningar',
         filter_events_info: 'Välj en serie i listan nedan för att visa dess inspelningar. Alternativt kan du välja att visa alla dina inspelningar på en gång.',
-        all_series_filter_info: 'Om du vill kan du visa alla inspelningar i alla serier som du har administrationsbehörigheter till. Om du har en stor mängd inspelningar kan sökningen ta lång tid.'
+        all_series_filter_info: 'Om du vill kan du visa alla inspelningar i alla serier som du har administrationsbehörigheter till. Om du har en stor mängd inspelningar kan sökningen ta lång tid.',
+        translation_language_info : '???translation_language_info???',
+        translation_language : '???translation_language???'
     }
 };
 
