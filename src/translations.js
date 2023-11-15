@@ -227,7 +227,8 @@ const translationsObject = {
         filter_events_info: 'Select a series from this list to show its recordings. Alternatively, you can choose to show all your recordings at once.',
         all_series_filter_info: 'If you like, you can list all recordings in every series you are an administrator of. If you have a lot of recordings, this search may sometimes take some time to complete!',
         translation_language_info : '???translation_language_info???',
-        translation_language : '???translation_language???'
+        translation_language : '???translation_language???',
+        no_translation : '???no_translation???'
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -457,7 +458,8 @@ const translationsObject = {
         filter_events_info: 'Valitse listasta alla sarja, jonka tallenteet haluat näyttää. Vaihtoehtoisesti voit valita näytettäväksi kerralla kaikki tallenteesi.',
         all_series_filter_info: 'Halutessasi voit valita näytettäväksi kaikkien hallinnoimiesi sarjojen kaikki tallenteet. Jos sinulla on paljon tallenteita, tämä haku voi joskus toimia hyvin hitaasti!',
         translation_language_info : '???translation_language_info???',
-        translation_language : '???translation_language???'
+        translation_language : '???translation_language???',
+        no_translation : '???no_translation???'
     },
 
     sv: {
@@ -687,7 +689,8 @@ const translationsObject = {
         filter_events_info: 'Välj en serie i listan nedan för att visa dess inspelningar. Alternativt kan du välja att visa alla dina inspelningar på en gång.',
         all_series_filter_info: 'Om du vill kan du visa alla inspelningar i alla serier som du har administrationsbehörigheter till. Om du har en stor mängd inspelningar kan sökningen ta lång tid.',
         translation_language_info : '???translation_language_info???',
-        translation_language : '???translation_language???'
+        translation_language : '???translation_language???',
+        no_translation : '???no_translation???'
     }
 };
 

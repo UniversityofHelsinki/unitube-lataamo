@@ -102,6 +102,7 @@ const VideoUploadForm = (props) => {
         inputs.title = '';
         inputs.license = '';
         inputs.isPartOf = '';
+        inputs.translationLanguage = '';
         setOnProgressVisible(false);
         setArchivedDate(addMonths(new Date(), 12));
     };
@@ -344,7 +345,7 @@ const VideoUploadForm = (props) => {
                         <label htmlFor="translationLanguages" className="col-sm-2 col-form-label">{translate('translation_language')}</label>
                         <div className="col-sm-8">
                             <select className="form-control" data-cy="upload-test-translation-language-select" name="translationLanguage" value={inputs.translationLanguage} onChange={handleSelectionChange}>
-                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('no_translation')}</option>
                                 {drawLanguageSelectionValues()}
                             </select>
                         </div>
