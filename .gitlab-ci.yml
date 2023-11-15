@@ -40,7 +40,7 @@ build_oc_test:
   tags:
     - ohtu-build-3
   only:
-    - oc-test
+    - azure_translations # CHANGE THIS BACK TO oc-test
   script:
     - yes | cp -f -v .env.oc-test .env.production || true
     - CI=false npm run build
@@ -139,7 +139,7 @@ deploy_oc_test:
     name: development
     url: https://$LATAAMO_OC_TEST
   only:
-    - oc-test
+    - azure_translations # CHANGE THIS BACK TO oc-test
   variables:
     SERVER: $LATAAMO_OC_TEST
   before_script:
