@@ -1,5 +1,53 @@
-/* Target the default size of the captions */
-::cue
-  font-size: 16px // Adjust this value to your desired font size
-  line-height: 10px // Adjust this value to your desired line height
+/* Target the default size and line height of the captions
 
+\::cue
+  font-size: 16px
+
+  /* Adjust this value to your desired font size
+  line-height: 1
+
+  /* Adjust this value to your desired line height
+  margin: 0
+
+  /* Reset margin to eliminate extra space
+  padding: 0
+
+  /* Reset padding to eliminate extra space
+  display: block
+
+/* Ensure the cue is treated as a block element
+
+/* Target the container of cues
+
+\::cue-region
+  margin: 0
+
+  /* Reset margin to eliminate extra space
+  padding: 0
+
+  /* Reset padding to eliminate extra space
+  display: block
+
+/* Ensure the cue region is treated as a block element
+
+/* Additional styling for better visibility
+
+video
+  width: 100%
+  line-height: 1
+
+/* Adjust this value to your desired line height for the video element
+
+/* Styles for full-screen mode
+
+\:-webkit-full-screen
+  \::cue, ::cue-region, video
+    line-height: 1
+
+    /* Adjust line height for full-screen mode
+    margin: 0
+
+    /* Reset margin to eliminate extra space in full-screen mode
+    padding: 0
+
+/* Reset padding to eliminate extra space in full-screen mode
