@@ -228,7 +228,11 @@ const translationsObject = {
         all_series_filter_info: 'If you like, you can list all recordings in every series you are an administrator of. If you have a lot of recordings, this search may sometimes take some time to complete!',
         translation_language_info : '???translation_language_info???',
         translation_language : '???translation_language???',
-        no_translation : '???no_translation???'
+        no_translation : '???no_translation???',
+        ms_whisper : '???ms_whisper???',
+        ms_asr : '???ms_asr???',
+        translation_model : '???translation_model???',
+        translation_model_info : '???translation_model_info???',
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -459,7 +463,11 @@ const translationsObject = {
         all_series_filter_info: 'Halutessasi voit valita näytettäväksi kaikkien hallinnoimiesi sarjojen kaikki tallenteet. Jos sinulla on paljon tallenteita, tämä haku voi joskus toimia hyvin hitaasti!',
         translation_language_info : '???translation_language_info???',
         translation_language : '???translation_language???',
-        no_translation : '???no_translation???'
+        no_translation : '???no_translation???',
+        ms_whisper : '???ms_whisper???',
+        ms_asr : '???ms_asr???',
+        translation_model : '???translation_model???',
+        translation_model_info : '???translation_model_info???',
     },
 
     sv: {
@@ -690,7 +698,11 @@ const translationsObject = {
         all_series_filter_info: 'Om du vill kan du visa alla inspelningar i alla serier som du har administrationsbehörigheter till. Om du har en stor mängd inspelningar kan sökningen ta lång tid.',
         translation_language_info : '???translation_language_info???',
         translation_language : '???translation_language???',
-        no_translation : '???no_translation???'
+        no_translation : '???no_translation???',
+        ms_whisper : '???ms_whisper???',
+        ms_asr : '???ms_asr???',
+        translation_model : '???translation_model???',
+        translation_model_info : '???translation_model_info???',
     }
 };
 

@@ -139,7 +139,7 @@ deploy_oc_test:
     name: development
     url: https://$LATAAMO_OC_TEST
   only:
-    - azure_translations # CHANGE THIS BACK TO oc-test
+    - oc-test
   variables:
     SERVER: $LATAAMO_OC_TEST
   before_script:
