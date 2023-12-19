@@ -12,15 +12,14 @@ import {
 import FileUploadProgressbar from '../components/FileUploadProgressbar';
 import routeAction from '../actions/routeAction';
 import Constants from '../utils/constants';
+import constants from '../utils/constants';
 import DatePicker, { registerLocale } from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { subDays, addMonths, addYears } from 'date-fns';
+import { addMonths, addYears, subDays } from 'date-fns';
 
-import { fi, sv, enUS } from 'date-fns/locale';
-
-import constants from '../utils/constants';
+import { enUS, fi, sv } from 'date-fns/locale';
 import { fetchInboxEvents, fetchLicenses } from '../actions/eventsAction';
 import WarningMessage from './WarningMessage';
 
@@ -227,7 +226,17 @@ const VideoUploadForm = (props) => {
 
     const handleSelectionChange = async (event) => {
         handleInputChange(event);
+
+        // Check if translationModel is not defined, then empty translationLanguage
+        if (event.target.name === 'translationModel' && event.target.value === '') {
+            setInputs((prevInputs) => ({
+                ...prevInputs,
+                translationLanguage: '',
+            }));
+        }
     };
+
+
 
     return (
         <div>
@@ -400,29 +409,27 @@ const VideoUploadForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
-                    {inputs.translationModel && (
-                        <div className="form-group row">
-                            <label htmlFor="translationLanguages"
-                                className="col-sm-2 col-form-label">{translate('translation_language')}</label>
-                            <div className="col-sm-8">
-                                <select className="form-control" data-cy="upload-test-translation-language-select"
-                                    name="translationLanguage" value={inputs.translationLanguage}
-                                    onChange={handleSelectionChange}>
-                                    <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
-                                    {drawLanguageSelectionValues()}
-                                </select>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip
-                                    id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button disabled
-                                            style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                    </span>
-                                </OverlayTrigger>
-                            </div>
+                    <div className="form-group row">
+                        <label htmlFor="translationLanguages"
+                            className="col-sm-2 col-form-label">{translate('translation_language')}</label>
+                        <div className="col-sm-8">
+                            <select disabled={!inputs.translationModel} className="form-control" data-cy="upload-test-translation-language-select"
+                                name="translationLanguage" value={inputs.translationModel ? inputs.translationLanguage : ''}
+                                onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawLanguageSelectionValues()}
+                            </select>
                         </div>
-                    )}
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip
+                                id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled
+                                        style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <div className="col-sm-10">
                             <p className="font-weight-bold">{translate('video_upload_info_text')}</p>
