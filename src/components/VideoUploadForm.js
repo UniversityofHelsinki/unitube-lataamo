@@ -408,6 +408,7 @@ const VideoUploadForm = (props) => {
                                 <select className="form-control" data-cy="upload-test-translation-language-select"
                                     name="translationLanguage" value={inputs.translationLanguage}
                                     onChange={handleSelectionChange}>
+                                    <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
                                     {drawLanguageSelectionValues()}
                                 </select>
                             </div>
