@@ -425,6 +425,7 @@ const VideoDetailsForm = (props) => {
                                         showMonthYearDropdown
                                         dropdownMode="select"
                                         selected={deletionDate}
+                                        openToDate={addMonths(new Date(), 6)}
                                         onChange={(date) => setDeletionDate(date)}/>
                                 </div>
                                 <div className="col-sm-2">
