@@ -29,7 +29,6 @@ registerLocale('en', enUS);
 registerLocale('sv', sv);
 
 const VideoUploadForm = (props) => {
-    console.log(props.isAllowedToTranslate);
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
