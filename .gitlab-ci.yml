@@ -40,7 +40,7 @@ build_oc_test:
   tags:
     - ohtu-build-3
   only:
-    - azure_translations # CHANGE THIS BACK TO oc-test
+    - oc-test
   script:
     - yes | cp -f -v .env.oc-test .env.production || true
     - CI=false npm run build
@@ -55,7 +55,7 @@ build_dev:
   tags:
     - ohtu-build-3
   only:
-    - master
+    - azure_translations # CHANGE THIS BACK TO
   script:
     - yes | cp -f -v .env.development .env.production || true
     - CI=false npm run build
