@@ -70,7 +70,7 @@ build_test:
   tags:
     - ohtu-build-3
   only:
-    - azure_translations # CHANGE THIS BACK TO TEST
+    - test
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - CI=false npm run build
@@ -174,7 +174,7 @@ deploy_test:
     name: test
     url: https://$LATAAMO_TEST
   only:
-    - azure_translations # CHANGE THIS BACK TO TEST
+    - test
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
