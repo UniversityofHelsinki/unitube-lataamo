@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Alert, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { fetchSeriesWithOutTrash } from '../actions/seriesAction';
 import { actionUploadVideo } from '../actions/videosAction';
+import { isAuthorizedToTranslation } from '../actions/userAction';
 import { FaSpinner } from 'react-icons/fa';
 import {
     actionEmptyFileUploadProgressErrorMessage,
@@ -28,6 +29,7 @@ registerLocale('en', enUS);
 registerLocale('sv', sv);
 
 const VideoUploadForm = (props) => {
+    console.log(props.isAllowedToTranslate);
     const [selectedVideoFile, setVideoFile] = useState(null);
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState(null);
@@ -42,6 +44,7 @@ const VideoUploadForm = (props) => {
         props.onFetchSeries();
         props.onSuccessMessageClick();
         props.onFailureMessageClick();
+        props.onAuthorizedToTranslation();
         // eslint-disable-next-line
     }, []);// Only re-run the effect if values of arguments changes
 
@@ -237,7 +240,6 @@ const VideoUploadForm = (props) => {
     };
 
 
-
     return (
         <div>
             {/* https://getbootstrap.com/docs/4.0/components/alerts/ */}
@@ -388,48 +390,54 @@ const VideoUploadForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="translationModel"
-                            className="col-sm-2 col-form-label">{translate('translation_model')}</label>
-                        <div className="col-sm-8">
-                            <select className="form-control" data-cy="upload-test-translation-model-select"
-                                name="translationModel" value={inputs.translationModel}
-                                onChange={handleSelectionChange}>
-                                <option key="-1" id="NOT_SELECTED" value="">no_translation_model</option>
-                                {drawModelSelectionValues()}
-                            </select>
+                    { props.isAllowedToTranslate && (
+                        <div>
+                            <div className="form-group row">
+                                <label htmlFor="translationModel"
+                                    className="col-sm-2 col-form-label">{translate('translation_model')}</label>
+                                <div className="col-sm-8">
+                                    <select className="form-control" data-cy="upload-test-translation-model-select"
+                                        name="translationModel" value={inputs.translationModel}
+                                        onChange={handleSelectionChange}>
+                                        <option key="-1" id="NOT_SELECTED" value="">no_translation_model</option>
+                                        {drawModelSelectionValues()}
+                                    </select>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip
+                                        id="tooltip-disabled">{translate('translation_model_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled
+                                                style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label htmlFor="translationLanguages"
+                                    className="col-sm-2 col-form-label">{translate('translation_language')}</label>
+                                <div className="col-sm-8">
+                                    <select disabled={!inputs.translationModel} className="form-control"
+                                        data-cy="upload-test-translation-language-select"
+                                        name="translationLanguage"
+                                        value={inputs.translationModel ? inputs.translationLanguage : ''}
+                                        onChange={handleSelectionChange}>
+                                        <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                        {drawLanguageSelectionValues()}
+                                    </select>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip
+                                        id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled
+                                                style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip
-                                id="tooltip-disabled">{translate('translation_model_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled
-                                        style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="translationLanguages"
-                            className="col-sm-2 col-form-label">{translate('translation_language')}</label>
-                        <div className="col-sm-8">
-                            <select disabled={!inputs.translationModel} className="form-control" data-cy="upload-test-translation-language-select"
-                                name="translationLanguage" value={inputs.translationModel ? inputs.translationLanguage : ''}
-                                onChange={handleSelectionChange}>
-                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
-                                {drawLanguageSelectionValues()}
-                            </select>
-                        </div>
-                        <div className="col-sm-2">
-                            <OverlayTrigger overlay={<Tooltip
-                                id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
-                                <span className="d-inline-block">
-                                    <Button disabled
-                                        style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                </span>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
+                    )}
                     <div className="form-group row">
                         <div className="col-sm-10">
                             <p className="font-weight-bold">{translate('video_upload_info_text')}</p>
@@ -467,21 +475,23 @@ const mapStateToProps = state => ({
     i18n: state.i18n,
     fur: state.fur,
     timeRemaining: state.fur.timeRemaining,
-    percentage : state.fur.percentage,
+    percentage: state.fur.percentage,
     preferredLanguage: state.ur.user.preferredLanguage,
     videos: state.er.inboxVideos,
-    licenses : state.er.licenses
+    licenses: state.er.licenses,
+    isAllowedToTranslate: state.ur.isAuthorizedToTranslation
 });
 
 const mapDispatchToProps = dispatch => ({
     onFetchLicenses: () => dispatch(fetchLicenses()),
     onFetchEvents: (refresh, inbox) => dispatch(fetchInboxEvents(refresh, inbox)),
     onFetchSeries: () => dispatch(fetchSeriesWithOutTrash()),
-    onUploadVideo : (data) => dispatch(actionUploadVideo(data)),
-    onSuccessMessageClick : () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
-    onFailureMessageClick : () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
+    onUploadVideo: (data) => dispatch(actionUploadVideo(data)),
+    onSuccessMessageClick: () => dispatch(actionEmptyFileUploadProgressSuccessMessage()),
+    onFailureMessageClick: () => dispatch(actionEmptyFileUploadProgressErrorMessage()),
     onResetProgressbar: () => dispatch(fileUploadProgressAction(0)),
-    onRouteChange: (route) =>  dispatch(routeAction(route))
+    onRouteChange: (route) => dispatch(routeAction(route)),
+    onAuthorizedToTranslation: () => dispatch(isAuthorizedToTranslation())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoUploadForm);

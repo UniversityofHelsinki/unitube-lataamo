@@ -19,6 +19,11 @@ const userReducer = (state = initialState, action) => {
                 displayName: state.user.displayName
             }
         };
+    case 'SUCCESS_API_GET_USER_TRANSLATION_AUTHORIZED':
+        return {
+            ...state,
+            isAuthorizedToTranslation: action.payload
+        };
     default:
         return state;
     }
