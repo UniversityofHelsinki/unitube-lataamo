@@ -55,7 +55,7 @@ build_dev:
   tags:
     - ohtu-build-3
   only:
-    - azure_translations # CHANGE THIS BACK TO
+    - master
   script:
     - yes | cp -f -v .env.development .env.production || true
     - CI=false npm run build
@@ -70,7 +70,7 @@ build_test:
   tags:
     - ohtu-build-3
   only:
-    - test
+    - azure_translations # CHANGE THIS BACK TO TEST
   script:
     - yes | cp -f -v .env.testing .env.production || true
     - CI=false npm run build
@@ -155,7 +155,7 @@ deploy_dev:
     name: development
     url: https://$LATAAMO_DEV
   only:
-    - azure_translations # put back master
+    - master
   except:
     - schedules
   variables:
@@ -174,7 +174,7 @@ deploy_test:
     name: test
     url: https://$LATAAMO_TEST
   only:
-    - test
+    - azure_translations # CHANGE THIS BACK TO TEST
   variables:
     SERVER: $LATAAMO_TEST
   before_script:
