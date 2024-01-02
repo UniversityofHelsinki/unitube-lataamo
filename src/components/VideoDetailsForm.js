@@ -315,6 +315,14 @@ const VideoDetailsForm = (props) => {
         return <a href={link} id="videoLink" target="_blank" rel="noreferrer" className={`${colSmX} col-form-label`}>{link}</a>;
     };
 
+    const openDeletiondate = (deletionDate) => {
+        if (deletionDate > addMonths(new Date(), 6)) {
+            return deletionDate;
+        } else {
+            return addMonths(new Date(), 6);
+        }
+    };
+
     return (
         <div>
             <Video/>
@@ -425,7 +433,7 @@ const VideoDetailsForm = (props) => {
                                         showMonthYearDropdown
                                         dropdownMode="select"
                                         selected={deletionDate}
-                                        openToDate={addMonths(new Date(), 6)}
+                                        openToDate={openDeletiondate(deletionDate)}
                                         onChange={(date) => setDeletionDate(date)}/>
                                 </div>
                                 <div className="col-sm-2">
