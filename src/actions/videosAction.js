@@ -17,6 +17,7 @@ const DOWNLOAD_PATH = '/api/download';
 const VTT_DOWNLOAD_PATH = '/api/vttFileForEvent/';
 const VTT_FILE_PATH = '/api/vttFile/';
 const VTT_URL_PATH = '/api/vttFileName/';
+const AUTOMATIC_TRANSCRIPTION_PATH = '/api/generateAutomaticTranscriptionForVideo';
 
 const MAXIMUM_UPLOAD_PERCENTAGE = 80;
 
@@ -33,6 +34,19 @@ export const getVTTFile = (url) => {
 
 export const playVideo = (url) => {
     return `${VIDEO_SERVER_API}/api/video/play/` + url;
+};
+
+export const generateAutomaticTranscriptionForVideo = async(data) => {
+    try {
+        let response = await fetch(`${VIDEO_SERVER_API}${AUTOMATIC_TRANSCRIPTION_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
+        if (response.status === 200) {
+            return response;
+        } else {
+            throw new Error(response.status);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
 export const downloadFile = async (eventId, fileName) => {

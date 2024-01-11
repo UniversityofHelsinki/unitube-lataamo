@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { FiDownload } from 'react-icons/fi';
 import '../stylesheets/components/all.sass';
+import AutomaticTranscription from './AutomaticTranscription';
 
 const SweetAlert = withReactContent(Swal);
 
@@ -192,6 +193,8 @@ const VideoTextTrackForm = (props) => {
 
     return (
         <div>
+            <AutomaticTranscription/>
+
             {errorMessage  !== null ?
                 <Alert variant="danger" onClose={() => {setErrorMessage(null);}} dismissible>
                     <p>{errorMessage}</p>
