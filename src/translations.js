@@ -235,6 +235,9 @@ const translationsObject = {
         translation_model_info : '???translation_model_info???',
         automatic_video_text_track_label: '???automatic_video_text_track_label???',
         generate_automatic_transcription: '???generate_automatic_transcription???',
+        confirm_generate_vtt_file: '???confirm_generate_vtt_file???',
+        vtt_file_generation_info_text: '???vtt_file_generation_info_text???',
+        generate_text_track_button: '???generate_text_track_button???',
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -472,6 +475,9 @@ const translationsObject = {
         translation_model_info : '???translation_model_info???',
         automatic_video_text_track_label: '???automatic_video_text_track_label???',
         generate_automatic_transcription: '???generate_automatic_transcription???',
+        confirm_generate_vtt_file: '???confirm_generate_vtt_file???',
+        vtt_file_generation_info_text: '???vtt_file_generation_info_text???',
+        generate_text_track_button: '???generate_text_track_button???',
     },
 
     sv: {
@@ -709,6 +715,9 @@ const translationsObject = {
         translation_model_info : '???translation_model_info???',
         automatic_video_text_track_label: '???automatic_video_text_track_label???',
         generate_automatic_transcription: '???generate_automatic_transcription???',
+        confirm_generate_vtt_file: '???confirm_generate_vtt_file???',
+        vtt_file_generation_info_text: '???vtt_file_generation_info_text???',
+        generate_text_track_button: '???generate_text_track_button???',
     }
 };
 

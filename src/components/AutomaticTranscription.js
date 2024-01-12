@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { isAuthorizedToTranslation } from '../actions/userAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { generateAutomaticTranscriptionForVideo } from '../actions/videosAction';
+import SweetAlert from 'sweetalert2';
 
 const AutomaticTranscription = (props) => {
     const [inputs, setInputs] = useState({ translationLanguage: '', translationModel : '' });
@@ -70,16 +71,33 @@ const AutomaticTranscription = (props) => {
         }
     };
 
+    const createAlert = async () => {
+        const result = await SweetAlert.fire({
+            title: translate('confirm_generate_vtt_file'),
+            text: translate('vtt_file_generation_info_text'),
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#58dd33',
+            confirmButtonText: translate('generate_text_track_button'),
+            cancelButtonText: translate('close_alert')
+        });
+        return result;
+    };
+
     const handleSubmit = async (event) => {
         if (event) {
             event.persist();
             event.preventDefault();
-            console.log(inputs.translationModel);
-            console.log(inputs.translationLanguage);
-            console.log(props.event.identifier);
             setDisabledInputs(true);
             const data = { identifier : props.event.identifier, translationModel : inputs.translationModel, translationLanguage : inputs.translationLanguage };
-            await generateAutomaticTranscriptionForVideo(data);
+            const result = await createAlert();
+            if (result.value && result.value === true) {
+                await generateAutomaticTranscriptionForVideo(data);
+            } else {
+                setDisabledInputs(false);
+            }
         }
     };
 
