@@ -473,7 +473,7 @@ const translationsObject = {
         ms_asr : 'Microsoftin ASR-puheentunnistusmalli (Microsoftin Azure-palvelu)',
         translation_model : 'Valitse kielimalli',
         translation_model_info : 'Valitse haluatko käyttää Microsoftin omaa vai OpenAI:n Whisper-kielimallia. Microsoftin etu on esim. vaihtuvan kielen hahmottaminen lennosta, kun taas OpenAI tekee helpommin luettavia tekstipalkkeja!',
-        automatic_video_text_track_label: ''Automaattitekstityksen tilaaminen tallenteelle ',
+        automatic_video_text_track_label: 'Automaattitekstityksen tilaaminen tallenteelle ',
         generate_automatic_transcription: 'Tilaa automaattitekstitys tallenteelle',
         confirm_generate_vtt_file: 'Haluatko tilata automaattitekstityksen tälle tallenteelle?',
         vtt_file_generation_info_text: 'Tekstityksen luonnissa voi kestää joitain kymmeniä minuutteja, minkä jälkeen tekstitys on katsottavissa. Uusi tilaus käynnistää työn alusta. Huomaathan, että automaattitekstityksen tilaaminen hävittää mahdollisen aiemman tekstitystiedoston tallenteelta!',
