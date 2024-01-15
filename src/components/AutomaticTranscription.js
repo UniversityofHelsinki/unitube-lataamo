@@ -55,7 +55,6 @@ const AutomaticTranscription = (props) => {
     };
 
     useEffect(() => { // this hook will get called everytime when inputs has changed
-        console.log('Updated State', inputs);
         setDisabledInputs(false);
     }, [inputs]);
 
@@ -114,12 +113,12 @@ const AutomaticTranscription = (props) => {
                     <div>
                         <div className="form-group row">
                             <label htmlFor="translationModel"
-                                className="col-sm-2 col-form-label">{translate('translation_model')}</label>
-                            <div className="col-sm-8">
+                                className="col-sm-4 col-form-label">{translate('translation_model')}</label>
+                            <div className="col-sm-6">
                                 <select className="form-control" data-cy="upload-test-translation-model-select"
                                     name="translationModel" value={inputs.translationModel}
                                     onChange={handleSelectionChange}>
-                                    <option key="-1" id="NOT_SELECTED" value="">no_translation_model</option>
+                                    <option key="-1" id="NOT_SELECTED" value="">{translate('no_translation_model')}</option>
                                     {drawModelSelectionValues()}
                                 </select>
                             </div>
@@ -135,8 +134,8 @@ const AutomaticTranscription = (props) => {
                         </div>
                         <div className="form-group row">
                             <label htmlFor="translationLanguages"
-                                className="col-sm-2 col-form-label">{translate('translation_language')}</label>
-                            <div className="col-sm-8">
+                                className="col-sm-4 col-form-label">{translate('translation_language')}</label>
+                            <div className="col-sm-6">
                                 <select disabled={!inputs.translationModel} className="form-control"
                                     data-cy="upload-test-translation-language-select"
                                     name="translationLanguage"
