@@ -5,6 +5,7 @@ import { isAuthorizedToTranslation } from '../actions/userAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { generateAutomaticTranscriptionForVideo, getTranscriptionProcessStatus } from '../actions/videosAction';
 import SweetAlert from 'sweetalert2';
+import { FaSpinner } from 'react-icons/fa';
 
 const AutomaticTranscription = (props) => {
     const [inputs, setInputs] = useState({ translationLanguage: '', translationModel: '' });
@@ -180,9 +181,19 @@ const AutomaticTranscription = (props) => {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-12">
-                            <button type="submit"
+                            <button
+                                type="submit"
                                 disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs || isTranscriptionProcessRunning()}
-                                className="btn btn-primary float-right button-position mr-1">{isTranscriptionProcessRunning() || translationProcessStarted ? translate('translation_process_running') : translate('generate_automatic_transcription')}</button>
+                                className="btn btn-primary float-right button-position mr-1"
+                            >
+                                {isTranscriptionProcessRunning() || translationProcessStarted ? (
+                                    <>
+                                        <FaSpinner className="icon-spin"/> {translate('translation_process_running')}
+                                    </>
+                                ) : (
+                                    translate('generate_automatic_transcription')
+                                )}
+                            </button>
                         </div>
                     </div>
                 </form>
