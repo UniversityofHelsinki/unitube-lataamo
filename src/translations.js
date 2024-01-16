@@ -238,6 +238,7 @@ const translationsObject = {
         confirm_generate_vtt_file: ' Do you want to generate a subtitle file for this recording? ',
         vtt_file_generation_info_text: 'It may take more than half an hour to generate the subtitles, after which they will be available for viewing. If the button is pressed again, the job will restart from the beginning. Please note that generating an automatic subtitle file will overwrite any previous subtitles that may have been uploaded to the recording.',
         generate_text_track_button: 'Generate subtitle file',
+        translation_process_running: 'Generating subtitles, please wait...',
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -478,6 +479,7 @@ const translationsObject = {
         confirm_generate_vtt_file: 'Haluatko tilata automaattitekstityksen tälle tallenteelle?',
         vtt_file_generation_info_text: 'Tekstityksen luonnissa voi kestää joitain kymmeniä minuutteja, minkä jälkeen tekstitys on katsottavissa. Uusi tilaus käynnistää työn alusta. Huomaathan, että automaattitekstityksen tilaaminen hävittää mahdollisen aiemman tekstitystiedoston tallenteelta!',
         generate_text_track_button: 'Tilaa automaattitekstitys',
+        translation_process_running: 'Videon tekstityksiä luodaan...',
     },
 
     sv: {
@@ -718,6 +720,7 @@ const translationsObject = {
         confirm_generate_vtt_file: 'Vill du beställa automatisk transkribering för denna inspelning?',
         vtt_file_generation_info_text: 'Det kan ta några tiotals minuter att generera undertexten, därefter kommer den att vara tillgänglig för visning. En ny beställning kommer att starta jobbet från början. Observera att om du prenumererar på en automatisk textfil kommer textfilen som kan ha skapats att förstöras.',
         generate_text_track_button: 'Beställ automatisk transkribering',
+        translation_process_running: 'Video undertexter skapas...',
     }
 };
 

@@ -37,3 +37,8 @@ export const textFileUploadFailedActionMessage = (data) => ({
     type: 'TEXT_FILE_UPLOAD_FAILED',
     payload: data
 });
+
+export const transcriptionProcessStatusAction = (data) => ({
+    type: 'TRANSCRIPTION_PROCESS_STATUS',
+    payload: data
+});

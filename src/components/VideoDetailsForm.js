@@ -20,6 +20,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { addYears, addMonths } from 'date-fns';
 import { fi, sv, enUS } from 'date-fns/locale';
+import { getTranscriptionProcessStatus } from '../actions/videosAction';
 registerLocale('fi', fi);
 registerLocale('en', enUS);
 registerLocale('sv', sv);
@@ -104,6 +105,10 @@ const VideoDetailsForm = (props) => {
             });
         }
     };
+
+    useEffect(async () => {
+        props.onTranscriptionProcessStatus(props.video.identifier);
+    }, [props.video]);
 
     const moveEventToTrashSeries = async() => {
         const eventId = inputs.identifier;
@@ -542,7 +547,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onEventDetailsEdit: (inbox, updatedVideos) => dispatch(updateEventList(inbox, updatedVideos)),
     fetchSerie: (identifier) => dispatch(fetchSerie({ identifier })),
-    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId))
+    fetchSeriesVideos : (seriesId) => dispatch(fetchEventsBySeries(false, seriesId)),
+    onTranscriptionProcessStatus: (eventId) => dispatch(getTranscriptionProcessStatus(eventId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetailsForm);

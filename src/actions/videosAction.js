@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
     fileUploadFailedActionMessage,
     fileUploadProgressAction,
-    fileUploadSuccessActionMessage, timeRemainingProgressAction
+    fileUploadSuccessActionMessage, timeRemainingProgressAction, transcriptionProcessStatusAction
 } from './fileUploadAction';
 
 import fileDownload from 'js-file-download';
@@ -39,7 +39,7 @@ export const playVideo = (url) => {
 export const generateAutomaticTranscriptionForVideo = async(data) => {
     try {
         let response = await fetch(`${VIDEO_SERVER_API}${AUTOMATIC_TRANSCRIPTION_PATH}`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
-        if (response.status === 200) {
+        if (response.status === 202) {
             return response;
         } else {
             throw new Error(response.status);
@@ -113,6 +113,13 @@ export const fetchVideoUrl = (row) => {
         } catch(err) {
             dispatch(apiFailureCall('general_error'));
         }
+    };
+};
+
+export const getTranscriptionProcessStatus = (jobId) => {
+    return async (dispatch) => {
+        const response = await fetch(`${VIDEO_SERVER_API}${MONITOR_JOB_PATH}${jobId}`);
+        dispatch(transcriptionProcessStatusAction(response.status));
     };
 };
 

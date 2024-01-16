@@ -3,18 +3,20 @@ import constants from '../utils/constants';
 import { connect } from 'react-redux';
 import { isAuthorizedToTranslation } from '../actions/userAction';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { generateAutomaticTranscriptionForVideo } from '../actions/videosAction';
+import { generateAutomaticTranscriptionForVideo, getTranscriptionProcessStatus } from '../actions/videosAction';
 import SweetAlert from 'sweetalert2';
 
 const AutomaticTranscription = (props) => {
-    const [inputs, setInputs] = useState({ translationLanguage: '', translationModel : '' });
+    const [inputs, setInputs] = useState({ translationLanguage: '', translationModel: '' });
     const [disabledInputs, setDisabledInputs] = useState(false);
+    const [translationProcessStarted, setTranslationProcessStarted] = useState(false);
 
-    useEffect(() => {
+    useEffect(async () => {
         props.onAuthorizedToTranslation();
     }, []);
 
-    const translations =  props.i18n.translations[props.i18n.locale];
+
+    const translations = props.i18n.translations[props.i18n.locale];
 
     const translate = (key) => {
         return translations ? translations[key] : '';
@@ -40,23 +42,19 @@ const AutomaticTranscription = (props) => {
 
     const drawLanguageSelectionValues = () => {
         return constants.TRANSLATION_LANGUAGES.map(language => {
-            return <option key={ language } id={ language } value={ language }>{getLanguage(language)}</option>;
+            return <option key={language} id={language} value={language}>{getLanguage(language)}</option>;
         });
     };
 
     const drawModelSelectionValues = () => {
         return constants.TRANSLATION_MODELS.map(model => {
-            return <option key={ model } id={ model } value={ model }>{getModelName(model)}</option>;
+            return <option key={model} id={model} value={model}>{getModelName(model)}</option>;
         });
     };
 
     const handleInputChange = (event) => {
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
-
-    useEffect(() => { // this hook will get called everytime when inputs has changed
-        setDisabledInputs(false);
-    }, [inputs]);
 
     const handleSelectionChange = async (event) => {
         handleInputChange(event);
@@ -85,17 +83,39 @@ const AutomaticTranscription = (props) => {
         return result;
     };
 
+    const isTranscriptionProcessRunning = () => {
+        if (props.transcriptionProcessStatus) {
+            if (props.transcriptionProcessStatus === 202) {
+                return true;
+            } else if (props.transcriptionProcessStatus === 201) {
+                return false;
+            } else if (props.transcriptionProcessStatus === 200) {
+                return false;
+            } else if (props.transcriptionProcessStatus === 500) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    };
+
     const handleSubmit = async (event) => {
         if (event) {
             event.persist();
             event.preventDefault();
             setDisabledInputs(true);
-            const data = { identifier : props.event.identifier, translationModel : inputs.translationModel, translationLanguage : inputs.translationLanguage };
+            const data = {
+                identifier: props.event.identifier,
+                translationModel: inputs.translationModel,
+                translationLanguage: inputs.translationLanguage
+            };
             const result = await createAlert();
             if (result.value && result.value === true) {
+                setTranslationProcessStarted(true);
                 await generateAutomaticTranscriptionForVideo(data);
             } else {
                 setDisabledInputs(false);
+                setTranslationProcessStarted(false);
             }
         }
     };
@@ -115,10 +135,12 @@ const AutomaticTranscription = (props) => {
                             <label htmlFor="translationModel"
                                 className="col-sm-4 col-form-label">{translate('translation_model')}</label>
                             <div className="col-sm-6">
-                                <select className="form-control" data-cy="upload-test-translation-model-select"
+                                <select disabled={isTranscriptionProcessRunning() || translationProcessStarted} className="form-control"
+                                    data-cy="upload-test-translation-model-select"
                                     name="translationModel" value={inputs.translationModel}
                                     onChange={handleSelectionChange}>
-                                    <option key="-1" id="NOT_SELECTED" value="">{translate('no_translation_model')}</option>
+                                    <option key="-1" id="NOT_SELECTED"
+                                        value="">{translate('no_translation_model')}</option>
                                     {drawModelSelectionValues()}
                                 </select>
                             </div>
@@ -136,9 +158,9 @@ const AutomaticTranscription = (props) => {
                             <label htmlFor="translationLanguages"
                                 className="col-sm-4 col-form-label">{translate('translation_language')}</label>
                             <div className="col-sm-6">
-                                <select disabled={!inputs.translationModel} className="form-control"
-                                    data-cy="upload-test-translation-language-select"
-                                    name="translationLanguage"
+                                <select disabled={!inputs.translationModel || isTranscriptionProcessRunning() || translationProcessStarted}
+                                    className="form-control"
+                                    data-cy="upload-test-translation-language-select" name="translationLanguage"
                                     value={inputs.translationModel ? inputs.translationLanguage : ''}
                                     onChange={handleSelectionChange}>
                                     <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
@@ -158,8 +180,9 @@ const AutomaticTranscription = (props) => {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-12">
-                            <button type="submit" disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs}
-                                className="btn btn-primary float-right button-position mr-1">{translate('generate_automatic_transcription')}</button>
+                            <button type="submit"
+                                disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs || isTranscriptionProcessRunning()}
+                                className="btn btn-primary float-right button-position mr-1">{isTranscriptionProcessRunning() || translationProcessStarted ? translate('translation_process_running') : translate('generate_automatic_transcription')}</button>
                         </div>
                     </div>
                 </form>
@@ -171,7 +194,8 @@ const AutomaticTranscription = (props) => {
 const mapStateToProps = state => ({
     event: state.er.event,
     i18n: state.i18n,
-    isAllowedToTranslate: state.ur.isAuthorizedToTranslation
+    isAllowedToTranslate: state.ur.isAuthorizedToTranslation,
+    transcriptionProcessStatus: state.vr.transcriptionProcessStatus
 });
 
 const mapDispatchToProps = dispatch => ({
