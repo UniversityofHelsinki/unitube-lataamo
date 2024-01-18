@@ -239,6 +239,7 @@ const translationsObject = {
         vtt_file_generation_info_text: 'It may take more than half an hour to generate the subtitles, after which they will be available for viewing. If the button is pressed again, the job will restart from the beginning. Please note that generating an automatic subtitle file will overwrite any previous subtitles that may have been uploaded to the recording.',
         generate_text_track_button: 'Generate subtitle file',
         translation_process_running: 'Generating subtitles, please wait...',
+        transcription_help_link_text: 'Instructions for creating subtitle files on the Helpdesk website',
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -480,6 +481,7 @@ const translationsObject = {
         vtt_file_generation_info_text: 'Tekstityksen luonnissa voi kestää joitain kymmeniä minuutteja, minkä jälkeen tekstitys on katsottavissa. Uusi tilaus käynnistää työn alusta. Huomaathan, että automaattitekstityksen tilaaminen hävittää mahdollisen aiemman tekstitystiedoston tallenteelta!',
         generate_text_track_button: 'Tilaa automaattitekstitys',
         translation_process_running: 'Videon tekstityksiä luodaan...',
+        transcription_help_link_text: 'Lue lisää automaattitekstityksen tilaamisesta ja käytöstä Helpdesk-sivustolla',
     },
 
     sv: {
@@ -721,6 +723,7 @@ const translationsObject = {
         vtt_file_generation_info_text: 'Det kan ta några tiotals minuter att generera undertexten, därefter kommer den att vara tillgänglig för visning. En ny beställning kommer att starta jobbet från början. Observera att om du prenumererar på en automatisk textfil kommer textfilen som kan ha skapats att förstöras.',
         generate_text_track_button: 'Beställ automatisk transkribering',
         translation_process_running: 'Video undertexter skapas...',
+        transcription_help_link_text: 'Läs mer om att beställa och använda automatisk transkribering på Helpdesk-sidorna',
     }
 };
 

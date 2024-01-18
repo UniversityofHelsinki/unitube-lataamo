@@ -223,7 +223,6 @@ const VideoUploadForm = (props) => {
     };
 
     useEffect(() => { // this hook will get called everytime when inputs has changed
-        console.log('Updated State', inputs);
     }, [inputs]);
 
     const handleSelectionChange = async (event) => {

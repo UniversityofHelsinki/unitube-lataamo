@@ -121,6 +121,10 @@ const AutomaticTranscription = (props) => {
         }
     };
 
+    const transcriptionHelpLinkElement = (link, colSmX, linkText) => {
+        return <a href={link} id="transcriptionHelpLink" target="_blank" rel="noreferrer" className={`${colSmX} col-form-label`}>{linkText}</a>;
+    };
+
     return (
         <div>
             { props.isAllowedToTranslate && (
@@ -136,7 +140,8 @@ const AutomaticTranscription = (props) => {
                             <label htmlFor="translationModel"
                                 className="col-sm-4 col-form-label">{translate('translation_model')}</label>
                             <div className="col-sm-6">
-                                <select disabled={isTranscriptionProcessRunning() || translationProcessStarted} className="form-control"
+                                <select disabled={isTranscriptionProcessRunning() || translationProcessStarted}
+                                    className="form-control"
                                     data-cy="upload-test-translation-model-select"
                                     name="translationModel" value={inputs.translationModel}
                                     onChange={handleSelectionChange}>
@@ -159,7 +164,8 @@ const AutomaticTranscription = (props) => {
                             <label htmlFor="translationLanguages"
                                 className="col-sm-4 col-form-label">{translate('translation_language')}</label>
                             <div className="col-sm-6">
-                                <select disabled={!inputs.translationModel || isTranscriptionProcessRunning() || translationProcessStarted}
+                                <select
+                                    disabled={!inputs.translationModel || isTranscriptionProcessRunning() || translationProcessStarted}
                                     className="form-control"
                                     data-cy="upload-test-translation-language-select" name="translationLanguage"
                                     value={inputs.translationModel ? inputs.translationLanguage : ''}
@@ -178,29 +184,37 @@ const AutomaticTranscription = (props) => {
                                 </OverlayTrigger>
                             </div>
                         </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col-sm-12">
-                            <button
-                                type="submit"
-                                disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs || isTranscriptionProcessRunning()}
-                                className="btn btn-primary float-right button-position mr-1"
-                            >
-                                {isTranscriptionProcessRunning() || translationProcessStarted ? (
-                                    <>
-                                        <FaSpinner className="icon-spin"/> {translate('translation_process_running')}
-                                    </>
-                                ) : (
-                                    translate('generate_automatic_transcription')
-                                )}
-                            </button>
+                        <div className="form-group row">
+                            <div className="col-sm-4"></div>
+                            <label htmlFor="transcriptionHelpLink"></label>
+                            {transcriptionHelpLinkElement(constants.VIDEO_TRANSCRIPTION_HELP_LINK, 'col-sm-4', translate('transcription_help_link_text'))}
+                        </div>
+                        <div className="form-group row">
+                            <div className="col-sm-12">
+                                <button
+                                    type="submit"
+                                    disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs || isTranscriptionProcessRunning()}
+                                    className="btn btn-primary float-right button-position mr-1"
+                                >
+                                    {isTranscriptionProcessRunning() || translationProcessStarted ? (
+                                        <>
+                                            <FaSpinner
+                                                className="icon-spin"/> {translate('translation_process_running')}
+                                        </>
+                                    ) : (
+                                        translate('generate_automatic_transcription')
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
             )}
         </div>
-    );
-};
+    )
+    ;
+}
+;
 
 const mapStateToProps = state => ({
     event: state.er.event,
