@@ -43,8 +43,6 @@ const TRANSLATION_MODEL_MS_WHISPER = 'MS_WHISPER';
 
 const TRANSLATION_MODEL_MS_ASR = 'MS_ASR';
 
-const VIDEO_TRANSCRIPTION_HELP_LINK = ''; // TODO : Change this to the correct link
-
 module.exports = {
     ROLE_ANONYMOUS,
     ROLE_KATSOMO,
@@ -75,6 +73,5 @@ module.exports = {
     JOB_STATUS_STARTED,
     JOB_STATUS_FINISHED,
     JOB_STATUS_NOT_FOUND,
-    JOB_STATUS_ERROR,
-    VIDEO_TRANSCRIPTION_HELP_LINK
+    JOB_STATUS_ERROR
 };

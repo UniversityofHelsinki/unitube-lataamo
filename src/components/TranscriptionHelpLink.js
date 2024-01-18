@@ -15,7 +15,7 @@ const TranscriptionHelpLink = (props) => {
     return (
         <div>
             <label htmlFor="transcriptionHelpLink"></label>
-            {transcriptionHelpLinkElement(constants.VIDEO_TRANSCRIPTION_HELP_LINK, 'col-sm-4', translate('transcription_help_link_text'))}
+            {transcriptionHelpLinkElement(translate('transcription_help_link'), 'col-sm-4', translate('transcription_help_link_text'))}
         </div>
     );
 };

@@ -240,6 +240,7 @@ const translationsObject = {
         generate_text_track_button: 'Generate subtitle file',
         translation_process_running: 'Generating subtitles, please wait...',
         transcription_help_link_text: 'Instructions for creating subtitle files on the Helpdesk website',
+        transcription_help_link: 'https://helpdesk.it.helsinki.fi/en/help/10939#automatic-transcription',
     },
     fi: {
         lataamo_title: 'Unitube-lataamo',
@@ -482,6 +483,7 @@ const translationsObject = {
         generate_text_track_button: 'Tilaa automaattitekstitys',
         translation_process_running: 'Videon tekstityksiä luodaan...',
         transcription_help_link_text: 'Lue lisää automaattitekstityksen tilaamisesta ja käytöstä Helpdesk-sivustolla',
+        transcription_help_link: 'https://helpdesk.it.helsinki.fi/help/10939#automaattinen-tekstitys',
     },
 
     sv: {
@@ -724,6 +726,7 @@ const translationsObject = {
         generate_text_track_button: 'Beställ automatisk transkribering',
         translation_process_running: 'Video undertexter skapas...',
         transcription_help_link_text: 'Läs mer om att beställa och använda automatisk transkribering på Helpdesk-sidorna',
+        transcription_help_link: 'https://helpdesk.it.helsinki.fi/sv/help/10939#automatisk-textning',
     }
 };
 
