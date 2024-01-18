@@ -6,6 +6,7 @@ import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { generateAutomaticTranscriptionForVideo, getTranscriptionProcessStatus } from '../actions/videosAction';
 import SweetAlert from 'sweetalert2';
 import { FaSpinner } from 'react-icons/fa';
+import TranscriptionHelpLink from './TranscriptionHelpLink';
 
 const AutomaticTranscription = (props) => {
     const [inputs, setInputs] = useState({ translationLanguage: '', translationModel: '' });
@@ -121,10 +122,6 @@ const AutomaticTranscription = (props) => {
         }
     };
 
-    const transcriptionHelpLinkElement = (link, colSmX, linkText) => {
-        return <a href={link} id="transcriptionHelpLink" target="_blank" rel="noreferrer" className={`${colSmX} col-form-label`}>{linkText}</a>;
-    };
-
     return (
         <div>
             { props.isAllowedToTranslate && (
@@ -186,8 +183,7 @@ const AutomaticTranscription = (props) => {
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-4"></div>
-                            <label htmlFor="transcriptionHelpLink"></label>
-                            {transcriptionHelpLinkElement(constants.VIDEO_TRANSCRIPTION_HELP_LINK, 'col-sm-4', translate('transcription_help_link_text'))}
+                            <TranscriptionHelpLink />
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-12">

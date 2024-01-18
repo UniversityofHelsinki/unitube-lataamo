@@ -23,6 +23,7 @@ import { addMonths, addYears, subDays } from 'date-fns';
 import { enUS, fi, sv } from 'date-fns/locale';
 import { fetchInboxEvents, fetchLicenses } from '../actions/eventsAction';
 import WarningMessage from './WarningMessage';
+import TranscriptionHelpLink from './TranscriptionHelpLink';
 
 registerLocale('fi', fi);
 registerLocale('en', enUS);
@@ -441,6 +442,10 @@ const VideoUploadForm = (props) => {
                                             </span>
                                         </OverlayTrigger>
                                     </div>
+                                </div>
+                                <div className="form-group row">
+                                    <div className="col-sm-2"></div>
+                                    <TranscriptionHelpLink/>
                                 </div>
                             </div>
                         </div>
