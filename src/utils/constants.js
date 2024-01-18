@@ -43,7 +43,7 @@ const TRANSLATION_MODEL_MS_WHISPER = 'MS_WHISPER';
 
 const TRANSLATION_MODEL_MS_ASR = 'MS_ASR';
 
-const VIDEO_TRANSCRIPTION_HELP_LINK = 'https://www.helsinki.fi/fi/'; // TODO : Change this to the correct link
+const VIDEO_TRANSCRIPTION_HELP_LINK = ''; // TODO : Change this to the correct link
 
 module.exports = {
     ROLE_ANONYMOUS,
