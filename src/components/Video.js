@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { playVideo, getVTTFile } from '../actions/videosAction';
+import DownloadVTTFile from './DownloadVTTFile';
+import DeleteVTTFile from './DeleteVTTFile';
 
 const Video = (props) => {
     const translations =  props.i18n.translations[props.i18n.locale];
     const translate = (key) => {
         return translations ? translations[key] : '';
+    };
+    const hasVTTFile = (video) => {
+        return video.vttFile && video.vttFile.filename && video.vttFile.filename !== 'empty.vtt';
     };
     const getVideoFiles = () => {
         return props.videoFiles.map((video, index) => {
@@ -42,12 +47,21 @@ const Video = (props) => {
                             <div className="form-group row">
                                 {translate('video_duration')}: {video.duration}
                             </div>
-                            <div className="form-group row" data-cy="test-video-text-track">
-                                {translate('added_vtt_file')} : {video.vttFile && video.vttFile.filename && video.vttFile.filename !== 'empty.vtt' ? video.vttFile.filename  : ''}
-                            </div>
                             <div className="form-group row">
                                 {translate('video_views')}: {props.event.views}
                             </div>
+                            {hasVTTFile(video) ? (
+                                <>
+                                    <div className="form-group row">
+                                        <h3 className="events-title col-sm-12 ">{translate('added_vtt_file')}</h3>
+                                        {video.vttFile.filename}
+                                    </div>
+                                    <div className="form-group row">
+                                        <DownloadVTTFile />
+                                        <DeleteVTTFile />
+                                    </div>
+                                </>
+                            ) : null}
                         </div>
                     </div>
                 </div>

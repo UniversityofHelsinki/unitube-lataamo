@@ -198,7 +198,7 @@ const translationsObject = {
         save_webvtt_successful_title: 'The subtitle file has been added successfully',
         save_webvtt_failed: 'Failed to add the subtitle file',
         added_vtt_file: 'Subtitle file added to the recording',
-        remove_text_track: 'Delete subtitle file',
+        remove_text_track: 'Delete subtitle file ',
         confirm_delete_vtt_file: 'Are you sure you want to delete the subtitle file on this recording?',
         vtt_file_deletion_info_text: 'Subtitle file deletion cannot be undone!',
         delete_vtt_file: 'Confirm deletion',
@@ -441,7 +441,7 @@ const translationsObject = {
         save_webvtt_successful_title: 'Tekstitystiedoston lisääminen onnistui!',
         save_webvtt_failed: 'Tekstitystiedoston lisääminen epäonnistui!',
         added_vtt_file: 'Tallenteeseen liitetty tekstitystiedosto',
-        remove_text_track: 'Poista tekstitystiedosto',
+        remove_text_track: 'Poista tekstitystiedosto ',
         confirm_delete_vtt_file: 'Haluatko varmasti poistaa tallenteelle liitetyn tekstitystiedoston?',
         vtt_file_deletion_info_text: 'Tätä toimintoa ei voi perua',
         delete_vtt_file: 'Poista tekstitystiedosto',
@@ -684,7 +684,7 @@ const translationsObject = {
         save_webvtt_successful_title: 'Tillägg av textningsfil lyckades!',
         save_webvtt_failed: 'Tillägg av textningsfil misslyckades!',
         added_vtt_file: 'Textningsfil som lagts till inspelningen',
-        remove_text_track: 'Radera textningsfil',
+        remove_text_track: 'Radera textningsfil ',
         confirm_delete_vtt_file: 'Är du säker på att du vill radera textningsfilen?',
         vtt_file_deletion_info_text: 'Detta kan inte ångras!',
         delete_vtt_file: 'Radera textningsfil',
@@ -726,7 +726,7 @@ const translationsObject = {
         generate_text_track_button: 'Beställ automatisk transkribering',
         translation_process_running: 'Video undertexter skapas...',
         transcription_help_link_text: 'Läs mer om att beställa och använda automatisk transkribering på Helpdesk-sidorna',
-        transcription_help_link: 'https://helpdesk.it.helsinki.fi/sv/help/10939#automatisk-textning',
+        transcription_help_link: 'https://helpdesk.it.helsinki.fi/sv/help/10939#automatisk-textning'
     }
 };
 
