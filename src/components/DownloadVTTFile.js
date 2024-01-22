@@ -54,7 +54,7 @@ const DownloadVTTFile = (props) => {
                     <span className="d-inline-block">
                         <button type="submit" disabled={!videoTextFile || disabledInputs}
                             className="btn btn-primary float-right button-position mr-1"
-                            onClick={downloadVTTFile}>Lataa tekstitystiedosto  <FiDownload></FiDownload></button>
+                            onClick={downloadVTTFile}>{translate('save_text_track')} <FiDownload></FiDownload></button>
                     </span>
                 </OverlayTrigger>
             </div>
