@@ -124,93 +124,89 @@ const AutomaticTranscription = (props) => {
 
     return (
         <div>
-            { props.isAllowedToTranslate && (
-                <form id="automatic_transcription_form" encType="multipart/form-data" onSubmit={handleSubmit}
-                    className="was-validated">
-                    <div className="events-bg">
-                        <div className="form-group row">
-                            <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('automatic_video_text_track_label')}</h3>
+            <form id="automatic_transcription_form" encType="multipart/form-data" onSubmit={handleSubmit}
+                className="was-validated">
+                <div className="events-bg">
+                    <div className="form-group row">
+                        <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('automatic_video_text_track_label')}</h3>
+                    </div>
+                </div>
+                <div>
+                    <div className="form-group row">
+                        <label htmlFor="translationModel"
+                            className="col-sm-4 col-form-label">{translate('translation_model')}</label>
+                        <div className="col-sm-6">
+                            <select disabled={isTranscriptionProcessRunning() || translationProcessStarted}
+                                className="form-control"
+                                data-cy="upload-test-translation-model-select"
+                                name="translationModel" value={inputs.translationModel}
+                                onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED"
+                                    value="">{translate('no_translation_model')}</option>
+                                {drawModelSelectionValues()}
+                            </select>
+                        </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip
+                                id="tooltip-disabled">{translate('translation_model_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled
+                                        style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
-                    <div>
-                        <div className="form-group row">
-                            <label htmlFor="translationModel"
-                                className="col-sm-4 col-form-label">{translate('translation_model')}</label>
-                            <div className="col-sm-6">
-                                <select disabled={isTranscriptionProcessRunning() || translationProcessStarted}
-                                    className="form-control"
-                                    data-cy="upload-test-translation-model-select"
-                                    name="translationModel" value={inputs.translationModel}
-                                    onChange={handleSelectionChange}>
-                                    <option key="-1" id="NOT_SELECTED"
-                                        value="">{translate('no_translation_model')}</option>
-                                    {drawModelSelectionValues()}
-                                </select>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip
-                                    id="tooltip-disabled">{translate('translation_model_info')}</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button disabled
-                                            style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                    </span>
-                                </OverlayTrigger>
-                            </div>
+                    <div className="form-group row">
+                        <label htmlFor="translationLanguages"
+                            className="col-sm-4 col-form-label">{translate('translation_language')}</label>
+                        <div className="col-sm-6">
+                            <select
+                                disabled={!inputs.translationModel || isTranscriptionProcessRunning() || translationProcessStarted}
+                                className="form-control"
+                                data-cy="upload-test-translation-language-select" name="translationLanguage"
+                                value={inputs.translationModel ? inputs.translationLanguage : ''}
+                                onChange={handleSelectionChange}>
+                                <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                {drawLanguageSelectionValues()}
+                            </select>
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="translationLanguages"
-                                className="col-sm-4 col-form-label">{translate('translation_language')}</label>
-                            <div className="col-sm-6">
-                                <select
-                                    disabled={!inputs.translationModel || isTranscriptionProcessRunning() || translationProcessStarted}
-                                    className="form-control"
-                                    data-cy="upload-test-translation-language-select" name="translationLanguage"
-                                    value={inputs.translationModel ? inputs.translationLanguage : ''}
-                                    onChange={handleSelectionChange}>
-                                    <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
-                                    {drawLanguageSelectionValues()}
-                                </select>
-                            </div>
-                            <div className="col-sm-2">
-                                <OverlayTrigger overlay={<Tooltip
-                                    id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button disabled
-                                            style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                    </span>
-                                </OverlayTrigger>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <div className="col-sm-4"></div>
-                            <TranscriptionHelpLink />
-                        </div>
-                        <div className="form-group row">
-                            <div className="col-sm-12">
-                                <button
-                                    type="submit"
-                                    disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs || isTranscriptionProcessRunning()}
-                                    className="btn btn-primary float-right button-position mr-1"
-                                >
-                                    {isTranscriptionProcessRunning() || translationProcessStarted ? (
-                                        <>
-                                            <FaSpinner
-                                                className="icon-spin"/> {translate('translation_process_running')}
-                                        </>
-                                    ) : (
-                                        translate('generate_automatic_transcription')
-                                    )}
-                                </button>
-                            </div>
+                        <div className="col-sm-2">
+                            <OverlayTrigger overlay={<Tooltip
+                                id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
+                                <span className="d-inline-block">
+                                    <Button disabled
+                                        style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                </span>
+                            </OverlayTrigger>
                         </div>
                     </div>
-                </form>
-            )}
+                    <div className="form-group row">
+                        <div className="col-sm-4"></div>
+                        <TranscriptionHelpLink />
+                    </div>
+                    <div className="form-group row">
+                        <div className="col-sm-12">
+                            <button
+                                type="submit"
+                                disabled={!inputs.translationModel || !inputs.translationLanguage || disabledInputs || isTranscriptionProcessRunning()}
+                                className="btn btn-primary float-right button-position mr-1"
+                            >
+                                {isTranscriptionProcessRunning() || translationProcessStarted ? (
+                                    <>
+                                        <FaSpinner
+                                            className="icon-spin"/> {translate('translation_process_running')}
+                                    </>
+                                ) : (
+                                    translate('generate_automatic_transcription')
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-    )
-    ;
-}
-;
+    );
+};
 
 const mapStateToProps = state => ({
     event: state.er.event,

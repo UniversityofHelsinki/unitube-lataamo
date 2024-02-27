@@ -392,64 +392,62 @@ const VideoUploadForm = (props) => {
                             </OverlayTrigger>
                         </div>
                     </div>
-                    {props.isAllowedToTranslate && (
+                    <div>
+                        <div className="form-group row">
+                            <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('automatic_video_text_track_label')}</h3>
+                        </div>
                         <div>
                             <div className="form-group row">
-                                <h3 className="series-title col-sm-10 margin-top-position col-form-label">{translate('automatic_video_text_track_label')}</h3>
+                                <label htmlFor="translationModel"
+                                    className="col-sm-2 col-form-label">{translate('translation_model')}</label>
+                                <div className="col-sm-8">
+                                    <select className="form-control" data-cy="upload-test-translation-model-select"
+                                        name="translationModel" value={inputs.translationModel}
+                                        onChange={handleSelectionChange}>
+                                        <option key="-1" id="NOT_SELECTED"
+                                            value="">{translate('no_translation_model')}</option>
+                                        {drawModelSelectionValues()}
+                                    </select>
+                                </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip
+                                        id="tooltip-disabled">{translate('translation_model_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled
+                                                style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
                             </div>
-                            <div>
-                                <div className="form-group row">
-                                    <label htmlFor="translationModel"
-                                        className="col-sm-2 col-form-label">{translate('translation_model')}</label>
-                                    <div className="col-sm-8">
-                                        <select className="form-control" data-cy="upload-test-translation-model-select"
-                                            name="translationModel" value={inputs.translationModel}
-                                            onChange={handleSelectionChange}>
-                                            <option key="-1" id="NOT_SELECTED"
-                                                value="">{translate('no_translation_model')}</option>
-                                            {drawModelSelectionValues()}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <OverlayTrigger overlay={<Tooltip
-                                            id="tooltip-disabled">{translate('translation_model_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled
-                                                    style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
+                            <div className="form-group row">
+                                <label htmlFor="translationLanguages"
+                                    className="col-sm-2 col-form-label">{translate('translation_language')}</label>
+                                <div className="col-sm-8">
+                                    <select disabled={!inputs.translationModel} className="form-control"
+                                        data-cy="upload-test-translation-language-select"
+                                        name="translationLanguage"
+                                        value={inputs.translationModel ? inputs.translationLanguage : ''}
+                                        onChange={handleSelectionChange}>
+                                        <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
+                                        {drawLanguageSelectionValues()}
+                                    </select>
                                 </div>
-                                <div className="form-group row">
-                                    <label htmlFor="translationLanguages"
-                                        className="col-sm-2 col-form-label">{translate('translation_language')}</label>
-                                    <div className="col-sm-8">
-                                        <select disabled={!inputs.translationModel} className="form-control"
-                                            data-cy="upload-test-translation-language-select"
-                                            name="translationLanguage"
-                                            value={inputs.translationModel ? inputs.translationLanguage : ''}
-                                            onChange={handleSelectionChange}>
-                                            <option key="-1" id="NOT_SELECTED" value="">{translate('select')}</option>
-                                            {drawLanguageSelectionValues()}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <OverlayTrigger overlay={<Tooltip
-                                            id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled
-                                                    style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
+                                <div className="col-sm-2">
+                                    <OverlayTrigger overlay={<Tooltip
+                                        id="tooltip-disabled">{translate('translation_language_info')}</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <Button disabled
+                                                style={{ pointerEvents: 'none' }}>{translate('info_box_text')}</Button>
+                                        </span>
+                                    </OverlayTrigger>
                                 </div>
-                                <div className="form-group row">
-                                    <div className="col-sm-2"></div>
-                                    <TranscriptionHelpLink/>
-                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <div className="col-sm-2"></div>
+                                <TranscriptionHelpLink/>
                             </div>
                         </div>
-                    )}
+                    </div>
                     <div className="form-group row">
                         <div className="col-sm-10">
                             <p className="font-weight-bold">{translate('video_upload_info_text')}</p>
